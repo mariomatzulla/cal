@@ -1,0 +1,13 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+	elements {
+		cal {
+			iconIdentifier = ext-cal-wizard-icon
+			title = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:pi1_title
+			description = LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:pi1_plus_wiz_description
+			tt_content_defValues {
+				CType = list
+				list_type = cal_controller
+			}
+		}
+	}
+}

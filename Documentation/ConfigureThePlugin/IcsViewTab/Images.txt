@@ -1,0 +1,6 @@
+﻿.. |img-22|     image:: ../../Images/ics_tab.png
+.. :align: left
+.. :border: 0
+.. :name: ICS View Tab
+.. :width: 100%
+

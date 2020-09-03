@@ -1,0 +1,6 @@
+﻿.. |img-34|     image:: ../../Images/exception_event.png
+   :width: 100%
+.. :align: left
+.. :border: 0
+.. :name: graphics22
+

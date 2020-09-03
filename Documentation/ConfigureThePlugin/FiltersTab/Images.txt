@@ -1,0 +1,13 @@
+﻿.. |img-17|     image:: ../../Images/filter_tab.png
+.. :align: left
+.. :border: 0
+.. :name: Plugin Filter Tab
+.. :width: 100%
+
+.. |img-4|      image:: ../../Images/note.png
+   :height: 15
+   :width: 15
+.. :align: left
+.. :border: 0
+.. :hspace: 12
+.. :name: Note

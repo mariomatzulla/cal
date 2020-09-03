@@ -1,0 +1,6 @@
+﻿.. |img-20|     image:: ../../Images/list_tab.png
+   :width: 100%
+.. :align: left
+.. :border: 0
+.. :name: graphics18
+

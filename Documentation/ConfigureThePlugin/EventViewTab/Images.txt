@@ -1,0 +1,6 @@
+﻿.. |img-21|     image:: ../../Images/event_tab.png
+.. :align: left
+.. :border: 0
+.. :name: Event Tab
+.. :width: 100%
+

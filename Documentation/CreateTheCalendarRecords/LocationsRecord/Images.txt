@@ -1,0 +1,6 @@
+﻿.. |img-38|     image:: ../../Images/location.png
+   :width: 100%
+.. :align: left
+.. :border: 0
+.. :name: graphics46
+

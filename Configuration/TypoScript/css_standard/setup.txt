@@ -1,0 +1,1 @@
+page.includeCSS.origExtCal = EXT:cal/Resources/Public/v2/css/cal.css
