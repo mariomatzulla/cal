@@ -747,7 +747,7 @@ class Functions {
     return $conf ['view.'] ['ics.'] ['eventUidPrefix'] . '_' . $eventArray ['calendar_id'] . '_' . $eventArray ['uid'];
   }
 
-  public function deleteClause($table) {
+  public static function deleteClause($table) {
     // Returns the proper delete-clause if any for a table from TCA
     if ($GLOBALS ['TCA'] [$table] ['ctrl'] ['delete']) {
       return ' AND ' . $table . '.' . $GLOBALS ['TCA'] [$table] ['ctrl'] ['delete'] . '=0';
