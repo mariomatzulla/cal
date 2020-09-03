@@ -94,7 +94,9 @@ class TceMainProcessdatamap {
                * $fileInfo = GeneralUtility::split_fileref ($oldPath);
                * $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
                */
-              
+              if(!$notificationService->controller){
+                $notificationService->controller = $tx_cal_api->controller;
+              }
               $notificationService->controller->getDateTimeObject = new \TYPO3\CMS\Cal\Model\CalDate( $event ['start_date'] . '000000' );
               $notificationService->notifyOfChanges( $event, $fieldArray );
               if ($fieldArray ['send_invitation']) {
