@@ -219,7 +219,6 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
         }
       }
     }
-    \TYPO3\CMS\Core\Utility\DebugUtility::debug($categorySearchString);
     return $categorySearchString;
   }
 
