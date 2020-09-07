@@ -27,11 +27,14 @@ class NotificationView extends \TYPO3\CMS\Cal\Service\BaseService {
   var $mailer;
 
   var $baseUrl;
+  
+  var $logger;
 
   public function __construct() {
 
     parent::__construct();
     $this->baseUrl = ''; // GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+    $this->logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
   }
 
   function notifyOfChanges($oldEventDataArray, $newEventDataArray) {
@@ -43,7 +46,7 @@ class NotificationView extends \TYPO3\CMS\Cal\Service\BaseService {
     
     $pidArray = GeneralUtility::trimExplode( ',', $this->conf ['pidList'], 1 );
     if (! in_array( $oldEventDataArray ['pid'], $pidArray )) {
-      GeneralUtility::sysLog( 'Event PID (' . $oldEventDataArray ['pid'] . ') is outside the configured pidList (' . $this->conf ['pidList'] . ') so notifications cannot be sent.', 'cal', 2 );
+      $this->logger->warning( 'Event PID (' . $oldEventDataArray ['pid'] . ') is outside the configured pidList (' . $this->conf ['pidList'] . ') so notifications cannot be sent.', 'cal', 2 );
       return;
     }
     $eventDataArray = array_merge( $oldEventDataArray, $newEventDataArray );
