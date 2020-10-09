@@ -154,7 +154,7 @@ $tx_cal_calendar = array (
             'config' => array (
                 
                 'type' => 'user',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->extUrl',
+                'renderType' => 'customExtUrl',
                 'default' => ''
             )
         ),
@@ -234,7 +234,7 @@ $tx_cal_calendar = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input'
+                'renderType' => 'customStyles'
             )
         ),
         'bodystyle' => array (
@@ -244,7 +244,7 @@ $tx_cal_calendar = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input'
+                'renderType' => 'customStyles'
             )
         ),
         'sys_language_uid' => [ 

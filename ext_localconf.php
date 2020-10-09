@@ -924,6 +924,30 @@ $boot = function () {
       'className' => 'TYPO3\\CMS\\Cal\\View\\MeetingManagerView'
   ) );
   
+  $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['formEngine'] ['nodeRegistry']['calByDay'] = [
+      'nodeName' => 'customByRecurrence',
+      'priority' => 40,
+      'class' => \TYPO3\CMS\Cal\Backend\TCA\CustomByRecurrence::class,
+  ];
+  
+  $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['formEngine'] ['nodeRegistry']['customRdate'] = [
+      'nodeName' => 'customRdate',
+      'priority' => 40,
+      'class' => \TYPO3\CMS\Cal\Backend\TCA\CustomRdate::class,
+  ];
+  
+  $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['formEngine'] ['nodeRegistry']['customStyles'] = [
+      'nodeName' => 'customStyles',
+      'priority' => 40,
+      'class' => \TYPO3\CMS\Cal\Backend\TCA\CustomStyles::class,
+  ];
+  
+  $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['formEngine'] ['nodeRegistry']['customExtUrl'] = [
+      'nodeName' => 'customExtUrl',
+      'priority' => 40,
+      'class' => \TYPO3\CMS\Cal\Backend\TCA\CustomExtUrl::class,
+  ];
+  
   $GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processDatamapClass'] ['tx_cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\TceMainProcessdatamap';
   $GLOBALS ['TYPO3_CONF_VARS'] ['SC_OPTIONS'] ['t3lib/class.t3lib_tcemain.php'] ['processCmdmapClass'] ['tx_cal'] = 'TYPO3\\CMS\\Cal\\Hooks\\TceMainProcesscmdmap';
   

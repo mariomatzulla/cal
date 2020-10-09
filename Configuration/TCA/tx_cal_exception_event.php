@@ -152,7 +152,7 @@ $tx_cal_exception_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byDay'
+                'renderType' => 'customByRecurrence'
             )
         ),
         
@@ -164,7 +164,7 @@ $tx_cal_exception_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonthDay'
+                'renderType' => 'customByRecurrence'
             )
         ),
         
@@ -176,7 +176,7 @@ $tx_cal_exception_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonth'
+                'renderType' => 'customByRecurrence'
             )
         ),
         
@@ -225,7 +225,7 @@ $tx_cal_exception_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->rdate'
+                'renderType' => 'customRdate'
             )
         ),
         

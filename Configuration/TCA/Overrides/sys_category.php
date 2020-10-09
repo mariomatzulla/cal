@@ -70,7 +70,7 @@ $newCalSysCategoryColumns = array (
         'config' => Array (
             
             'type' => 'user',
-            'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getHeaderStyles'
+            'renderType' => 'customStyles'
         )
     ),
     'bodystyle' => Array (
@@ -80,7 +80,7 @@ $newCalSysCategoryColumns = array (
         'config' => Array (
             
             'type' => 'user',
-            'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getBodyStyles'
+            'renderType' => 'customStyles'
         )
     ),
     'calendar_id' => Array (

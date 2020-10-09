@@ -581,8 +581,7 @@ $tx_cal_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byDay'
+                'renderType' => 'customByRecurrence'
             )
         ),
         'bymonthday' => array (
@@ -593,8 +592,7 @@ $tx_cal_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonthDay'
+                'renderType' => 'customByRecurrence'
             )
         ),
         'bymonth' => array (
@@ -605,8 +603,7 @@ $tx_cal_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->byMonth'
+                'renderType' => 'customByRecurrence'
             )
         ),
         'until' => array (
@@ -692,7 +689,7 @@ $tx_cal_event = array (
             'config' => array (
                 
                 'type' => 'user',
-                'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->rdate'
+                'renderType' => 'customRdate'
             )
         ),
         'deviation' => array (

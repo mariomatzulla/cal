@@ -67,7 +67,7 @@ $tx_cal_category = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input'
+                'renderType' => 'customStyles'
             )
         ),
         'bodystyle' => array (
@@ -77,7 +77,7 @@ $tx_cal_category = array (
             'config' => array (
                 
                 'type' => 'user',
-                'renderType' => 'input'
+                'renderType' => 'customStyles'
             )
         ),
         'calendar_id' => array (
