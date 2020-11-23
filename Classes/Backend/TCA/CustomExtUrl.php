@@ -82,15 +82,15 @@ ExtUrlUI.prototype = {
 		container.insertAdjacentHTML('beforeend', this.rowHTML);
 
 		if(defaultUrl) {
-            var queryResult = document.getElementById(escapeRegExp(this.containerID)).querySelector('input[type=\"text\"]');
+            var queryResult = document.getElementById(escapeRegExp(this.containerID)).querySelector('input[type=\"text\"][class=\"exturl\"]');
             if(queryResult) {
-			 queryResult[queryResult.length-1].value = defaultUrl;
+			 queryResult.value = defaultUrl;
             }
 		}
 		if(defaultNote) {
-            var queryResult = document.getElementById(escapeRegExp(this.containerID)).querySelector('input[type=\"text\"]');
+            var queryResult = document.getElementById(escapeRegExp(this.containerID)).querySelector('input[type=\"text\"][class=\"exturlnote\"]');
             if(queryResult) {
-			 queryResult[queryResult.length-2].value = defaultNote;
+			 queryResult.value = defaultNote;
             }
 		}
 
@@ -131,10 +131,8 @@ ExtUrlUI.prototype = {
 	},
 
 	load: function() {
-console.log(escapeRegExp(this.storageID));
 		initialUrlValue = document.getElementById(escapeRegExp(this.storageID)).value;
 		urlArray = initialUrlValue.split('\\n');
-console.log(escapeRegExp(this.storageID.substr(0,this.storageID.length-1)+'_notes]'));
 		initialNoteValue = document.getElementById(escapeRegExp(this.storageID.substr(0,this.storageID.length-1)+'_notes]')).value;
 		noteArray = initialNoteValue.split('\\n');
 		var obj = this;
