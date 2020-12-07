@@ -482,6 +482,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
   protected function getTranslationOptionsMarker(& $template, & $sims, & $rems) {
 
     /* FIXME */
+    /*The TCA table 'pages_language_overlay' is not used anymore*/
     if (false && $this->isEditMode && $this->rightsObj->isViewEnabled( 'translation' ) && $this->rightsObj->isAllowedTo( 'create', 'translation' )) {
       $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( 'sys_language_uid', 'pages_language_overlay', 'pid = ' . $this->object->row ['pid'] . $this->pageRepository->enableFields( 'pages_language_overlay' ), '', 'sys_language_uid ASC' );
       $langIds = array ();
