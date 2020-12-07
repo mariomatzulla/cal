@@ -267,7 +267,6 @@ $tx_cal_organizer = array (
         'l18n_parent' => array (
             
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
             'config' => array (
                 
