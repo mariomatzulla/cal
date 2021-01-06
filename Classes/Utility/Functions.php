@@ -741,8 +741,10 @@ class Functions {
    * @param array $eventArray          
    */
   public static function getIcsUid($conf, $eventArray) {
-
-    return $conf ['view.'] ['ics.'] ['eventUidPrefix'] . '_' . $eventArray ['calendar_id'] . '_' . $eventArray ['uid'];
+    if($conf && $conf ['view.'] ['ics.'] ['eventUidPrefix'] . '_' . $eventArray ['calendar_id'] . '_' . $eventArray ['uid']) {
+      return $conf ['view.'] ['ics.'] ['eventUidPrefix'] . '_' . $eventArray ['calendar_id'] . '_' . $eventArray ['uid'];
+    }
+    return "";
   }
 
   public static function deleteClause($table) {
