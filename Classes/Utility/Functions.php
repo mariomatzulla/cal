@@ -218,7 +218,7 @@ class Functions {
    *          Input string to be cleaned.
    * @return string Return string
    */
-  public function removeBadHTML($text) {
+  public static function removeBadHTML($text) {
     // Copyright 2002-2003 Thomas Bley
     $text = preg_replace( [ 
         
@@ -244,9 +244,7 @@ class Functions {
         '\'background-image:url\'si',
         '\'<\\w+.*?(onabort|onbeforeunload|onblur|onchange|onclick|ondblclick|ondragdrop|onerror|onfilterchange|onfocus|onhelp|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onmove|onreadystatechange|onreset|onresize|onscroll|onselect|onselectstart|onsubmit|onunload).*?>\'si'
     ], '', $text );
-    $text = preg_replace( '/<a[^>]*href[[:space:]]*=[[:space:]]*["\']?[[:space:]]*javascript[^>]*/i', '', $text );
-    // Return clean content
-    return $text;
+    return preg_replace( '/<a[^>]*href[[:space:]]*=[[:space:]]*["\']?[[:space:]]*javascript[^>]*/i', '', $text );
   }
 
   /**
