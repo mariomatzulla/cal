@@ -1182,7 +1182,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
         
         /* If a CAPTCHA is required to subscribe, add a couple extra markers */
         if ($this->conf ['subscribeWithCaptcha'] == 1 && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded( 'captcha' )) {
-          $sims_temp ['CAPTCHA_SRC'] = '<img src="' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath( 'captcha' ) . 'captcha/captcha.php' . '" alt="" />';
+          $sims_temp ['CAPTCHA_SRC'] = '<img src="' . PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath('captcha')) . 'captcha/captcha.php' . '" alt="" />';
           $sims_temp ['L_CAPTCHA_TEXT'] = $this->controller->pi_getLL( 'l_captcha_text' );
           $sims_temp ['CAPTCHA_TEXT'] = '<input type="text" size=10 name="tx_cal_controller[captcha]" value="">';
         } else {
