@@ -266,7 +266,7 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
       list ( $extKey, $local ) = explode( '/', substr( $icon, 4 ), 2 );
       $filename = '';
       if (strcmp( $extKey, '' ) && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded( $extKey ) && strcmp( $local, '' )) {
-        $icon = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath( $extKey ) . $local;
+        $icon = \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)) . $local;
       }
     }
     
