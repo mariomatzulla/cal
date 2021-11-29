@@ -23,18 +23,18 @@ use TYPO3\CMS\Cal\Utility\Functions;
  * @author Mario Matzulla <mario(at)matzullas.de>
  */
 class RssView extends \TYPO3\CMS\Cal\View\BaseView {
-
+  
   var $templateCode;
-
+  
   var $config;
-
+  
   var $allowCaching;
-
+  
   public function __construct() {
-
+    
     parent::__construct();
   }
-
+  
   public function drawRss(&$master_array, $getdate) {
     // $this->arcExclusive = -1; // Only latest, non archive news
     $this->allowCaching = $this->conf ['view.'] ['rss.'] ['xmlCaching'];
@@ -43,102 +43,102 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
     // possible format with piVars
     if ($this->controller->piVars ['xmlFormat'])
       $this->conf ['view.'] ['rss.'] ['xmlFormat'] = $this->controller->piVars ['xmlFormat'];
-    
-    switch ($this->conf ['view.'] ['rss.'] ['xmlFormat']) {
-      case 'rss091' :
-        $templateName = 'TEMPLATE_RSS091';
-        $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['rss091_tmplFile'] );
-        break;
       
-      case 'rss2' :
-        $templateName = 'TEMPLATE_RSS2';
-        $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['rss2_tmplFile'] );
-        break;
-      
-      case 'rdf' :
-        $templateName = 'TEMPLATE_RDF';
-        $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['rdf_tmplFile'] );
-        break;
-      
-      case 'atom03' :
-        $templateName = 'TEMPLATE_ATOM03';
-        $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['atom03_tmplFile'] );
-        break;
-      
-      case 'atom1' :
-        $templateName = 'TEMPLATE_ATOM1';
-        $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['atom1_tmplFile'] );
-        break;
-    }
-    
-    // get siteUrl for links in rss feeds. the 'dontInsert' option seems to be needed in some configurations depending on the baseUrl setting
-    if (! $this->conf ['view.'] ['rss.'] ['dontInsertSiteUrl']) {
-      $this->config ['siteUrl'] = \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv( 'TYPO3_SITE_URL' );
-    }
-    
-    // fill at least the template header
-    // Init Templateparts: $t['total'] is complete template subpart (TEMPLATE_LATEST f.e.)
-    $t = Array ();
-    $t ['total'] = $this->getNewsSubpart( $this->templateCode, $this->spMarker( '###' . $templateName . '###' ) );
-    // Reset:
-    $subpartArray = Array ();
-    $wrappedSubpartArray = Array ();
-    $markerArray = Array ();
-    $count = 0;
-    
-    foreach ( $master_array as $eventDate => $eventTimeArray ) {
-      if (is_object( $eventTimeArray )) {
-        if ($eventTimeArray->getEnd()->format( '%Y%m%d' ) < $getdate) {
+      switch ($this->conf ['view.'] ['rss.'] ['xmlFormat']) {
+        case 'rss091' :
+          $templateName = 'TEMPLATE_RSS091';
+          $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['rss091_tmplFile'] );
           break;
-        }
-        if ($count < $this->config ['limit']) {
-          $subpartArray ['###CONTENT###'] .= $eventTimeArray->renderEventFor( 'rss' );
-          $count ++;
+          
+        case 'rss2' :
+          $templateName = 'TEMPLATE_RSS2';
+          $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['rss2_tmplFile'] );
+          break;
+          
+        case 'rdf' :
+          $templateName = 'TEMPLATE_RDF';
+          $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['rdf_tmplFile'] );
+          break;
+          
+        case 'atom03' :
+          $templateName = 'TEMPLATE_ATOM03';
+          $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['atom03_tmplFile'] );
+          break;
+          
+        case 'atom1' :
+          $templateName = 'TEMPLATE_ATOM1';
+          $this->templateCode = Functions::getContent( $this->conf ['view.'] ['rss.'] ['atom1_tmplFile'] );
+          break;
+      }
+      
+      // get siteUrl for links in rss feeds. the 'dontInsert' option seems to be needed in some configurations depending on the baseUrl setting
+      if (! $this->conf ['view.'] ['rss.'] ['dontInsertSiteUrl']) {
+        $this->config ['siteUrl'] = \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv( 'TYPO3_SITE_URL' );
+      }
+      
+      // fill at least the template header
+      // Init Templateparts: $t['total'] is complete template subpart (TEMPLATE_LATEST f.e.)
+      $t = Array ();
+      $t ['total'] = $this->getNewsSubpart( $this->templateCode, $this->spMarker( '###' . $templateName . '###' ) );
+      // Reset:
+      $subpartArray = Array ();
+      $wrappedSubpartArray = Array ();
+      $markerArray = Array ();
+      $count = 0;
+      
+      foreach ( $master_array as $eventDate => $eventTimeArray ) {
+        if (is_object( $eventTimeArray )) {
+          if ($eventTimeArray->getEnd()->format( '%Y%m%d' ) < $getdate) {
+            break;
+          }
+          if ($count < $this->config ['limit']) {
+            $subpartArray ['###CONTENT###'] .= $eventTimeArray->renderEventFor( 'rss' );
+            $count ++;
+          } else {
+            break;
+          }
         } else {
-          break;
-        }
-      } else {
-        foreach ( $eventTimeArray as $key => $eventArray ) {
-          foreach ( $eventArray as $eventUid => $event ) {
-            if (is_object( $event )) {
-              if ($event->getEnd()->format( '%Y%m%d' ) < $getdate) {
-                break;
-              }
-              if ($count < $this->config ['limit']) {
-                $subpartArray ['###CONTENT###'] .= $event->renderEventFor( 'rss' );
-                $count ++;
-              } else {
-                break;
+          foreach ( $eventTimeArray as $key => $eventArray ) {
+            foreach ( $eventArray as $eventUid => $event ) {
+              if (is_object( $event )) {
+                if ($event->getEnd()->format( '%Y%m%d' ) < $getdate) {
+                  break;
+                }
+                if ($count < $this->config ['limit']) {
+                  $subpartArray ['###CONTENT###'] .= $event->renderEventFor( 'rss' );
+                  $count ++;
+                } else {
+                  break;
+                }
               }
             }
           }
         }
       }
-    }
-    
-    $lastBuildTimestamp = time();
-    
-    // header data
-    $markerArray = $this->getXmlHeader( $lastBuildTimestamp );
-    $subpartArray ['###HEADER###'] = $this->cObj->substituteMarkerArray( $this->getNewsSubpart( $t ['total'], '###HEADER###' ), $markerArray );
-    // substitute the xml declaration (it's not included in the subpart ###HEADER###)
-    $t ['total'] = $this->cObj->substituteMarkerArray( $t ['total'], Array (
-        
-        '###XML_DECLARATION###' => $markerArray ['###XML_DECLARATION###']
-    ) );
-    $t ['total'] = $this->cObj->substituteMarkerArray( $t ['total'], Array (
-        
-        '###SITE_LANG###' => $markerArray ['###SITE_LANG###']
-    ) );
-    $t ['total'] = $this->cObj->substituteSubpart( $t ['total'], '###HEADER###', $subpartArray ['###HEADER###'], 0 );
-    $t ['total'] = $this->cObj->substituteSubpart( $t ['total'], '###CONTENT###', $subpartArray ['###CONTENT###'], 0 );
-    
-    $content .= $t ['total'];
-    return $content;
+      
+      $lastBuildTimestamp = time();
+      
+      // header data
+      $markerArray = $this->getXmlHeader( $lastBuildTimestamp );
+      $subpartArray ['###HEADER###'] = $this->cObj->substituteMarkerArray( $this->getNewsSubpart( $t ['total'], '###HEADER###' ), $markerArray );
+      // substitute the xml declaration (it's not included in the subpart ###HEADER###)
+      $t ['total'] = $this->cObj->substituteMarkerArray( $t ['total'], Array (
+          
+          '###XML_DECLARATION###' => $markerArray ['###XML_DECLARATION###']
+      ) );
+      $t ['total'] = $this->cObj->substituteMarkerArray( $t ['total'], Array (
+          
+          '###SITE_LANG###' => $markerArray ['###SITE_LANG###']
+      ) );
+      $t ['total'] = $this->cObj->substituteSubpart( $t ['total'], '###HEADER###', $subpartArray ['###HEADER###'], 0 );
+      $t ['total'] = $this->cObj->substituteSubpart( $t ['total'], '###CONTENT###', $subpartArray ['###CONTENT###'], 0 );
+      
+      $content .= $t ['total'];
+      return $content;
   }
-
+  
   public function getRssFromEvent($eventDate, &$event, $template) {
-
+    
     $eventTemplate = $this->templateService->getSubpart( $template, '###EVENT###' );
     $rems = Array ();
     $sims = Array ();
@@ -168,7 +168,7 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
     
     return \TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached( $eventTemplate, $sims, $rems, Array () );
   }
-
+  
   /**
    * Returns a subpart from the input content stream.
    * Enables pre-/post-processing of templates/templatefiles
@@ -182,10 +182,10 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
    * @return string subpart found, if found.
    */
   public function getNewsSubpart($myTemplate, $myKey, $row = Array()) {
-
+    
     return ($this->templateService->getSubpart( $myTemplate, $myKey ));
   }
-
+  
   /**
    * Returns alternating layouts
    *
@@ -198,7 +198,7 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
    * @return array code for alternating content markers
    */
   public function getLayouts($templateCode, $alternatingLayouts, $marker) {
-
+    
     $out = Array ();
     for($a = 0; $a < $alternatingLayouts; $a ++) {
       $m = '###' . $marker . ($a ? '_' . $a : '') . '###';
@@ -210,7 +210,7 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
     }
     return $out;
   }
-
+  
   /**
    * returns the subpart name.
    * if 'altMainMarkers.' are given this name is used instead of the default marker-name.
@@ -220,7 +220,7 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
    * @return string name of the template subpart
    */
   public function spMarker($subpartMarker) {
-
+    
     $sPBody = substr( $subpartMarker, 3, - 3 );
     $altSPM = '';
     if (isset( $this->conf ['altMainMarkers.'] )) {
@@ -230,14 +230,14 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
     
     return $altSPM ? $altSPM : $subpartMarker;
   }
-
+  
   /**
    * builds the XML header (array of markers to substitute)
    *
    * @return array filled XML header markers
    */
   public function getXmlHeader($lastBuildTimestamp) {
-
+    
     $markerArray = Array ();
     
     $markerArray ['###SITE_TITLE###'] = $this->conf ['view.'] ['rss.'] ['xmlTitle'];
@@ -329,7 +329,7 @@ class RssView extends \TYPO3\CMS\Cal\View\BaseView {
     
     return $markerArray;
   }
-
+  
   /**
    * Generates the date format needed for Atom feeds
    * see: http://www.w3.org/TR/NOTE-datetime (same as ISO 8601)
