@@ -986,27 +986,26 @@ class ICalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
         
         $this->setRecurrence( $component, $insertFields );
         
+        $eventDeviationUids = [];
         if ($component->getAttribute( 'RECURRENCE-ID' )) {
           $eventDeviationUids[] = $this->setRecurrenceId( $component, $insertFields );
         } else {
           $eventUid = $this->saveOrUpdate( $eventRow, $insertFields );
           
           $this->setExceptions( $component, $eventUid, $pid, $cruserId );
-
-          $this->generateIndexEntries( $eventUid, $this->getPageIdForPlugin() );
-          
-          if(count($eventDeviationUids) > 0) {
-            $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'tx_cal_event_deviation', 'parentid = ' . $eventUid.' and uid not in ('.implode( ',', $eventDeviationUids).')');
-          } else {
-            $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'tx_cal_event_deviation', 'parentid = ' . $eventUid);
-          }
-          
-          $this->connectCategories( $categoryUids, $eventUid );
-          
-          $this->setAttachments( $component, $insertFields, $pid, $eventUid );
-          
-          
         }
+
+        $this->generateIndexEntries( $eventUid, $this->getPageIdForPlugin() );
+        
+        if(count($eventDeviationUids) > 0) {
+          $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'tx_cal_event_deviation', 'parentid = ' . $eventUid.' and uid not in ('.implode( ',', $eventDeviationUids).')');
+        } else {
+          $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'tx_cal_event_deviation', 'parentid = ' . $eventUid);
+        }
+        
+        $this->connectCategories( $categoryUids, $eventUid );
+        
+        $this->setAttachments( $component, $insertFields, $pid, $eventUid );
         
         $insertedOrUpdatedEventUids [] = $eventUid;
         $insertedOrUpdatedCategoryUids = array_merge( $insertedOrUpdatedCategoryUids, $categoryUids );
