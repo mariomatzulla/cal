@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_indexer.xlf" date="2022-04-05T11:47:43Z" product-name="cal">
+		<header />
+		<body>
+			<trans-unit id="title">
+				<source>Index generator for calendar base recurring events</source>
+			</trans-unit>
+			<trans-unit id="function1">
+				<source>Information</source>
+			</trans-unit>
+			<trans-unit id="function2">
+				<source>Generate</source>
+			</trans-unit>
+			<trans-unit id="notice_header">
+				<source>Welcome</source>
+			</trans-unit>
+			<trans-unit id="notice">
+				<source>&lt;div align=center&gt;&lt;strong&gt;Notice header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed, please read carefully:</source>
+			</trans-unit>
+			<trans-unit id="capabilities_header">
+				<source>Capabilities of this tool</source>
+			</trans-unit>
+			<trans-unit id="capabilities">
+				<source>This tool will create an index for all recurring tx_cal_event and tx_cal_exception_event instances.</source>
+			</trans-unit>
+			<trans-unit id="tableHeader1">
+				<source>Page/Folder</source>
+			</trans-unit>
+			<trans-unit id="tableHeader2">
+				<source>Frontend Page with calendar plugin</source>
+			</trans-unit>
+			<trans-unit id="nothingToDo">
+				<source>No event / exception event records found</source>
+			</trans-unit>
+			<trans-unit id="browse">
+				<source>Browse for records</source>
+			</trans-unit>
+			<trans-unit id="submit">
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="selectPage">
+				<source>Select the page where the typoscript of calendar base can be found. This should be a normal frontend page.</source>
+			</trans-unit>
+			<trans-unit id="indexStart">
+				<source>Index start (YYYYMMDD or a dynamic value like: -3 month, -2 years)</source>
+			</trans-unit>
+			<trans-unit id="indexEnd">
+				<source>Index end (YYYYMMDD or a dynamic value like: +5 month, +4 years)</source>
+			</trans-unit>
+			<trans-unit id="startIndexing">
+				<source>Start indexing</source>
+			</trans-unit>
+			<trans-unit id="atLeastOne">
+				<source>You need to assign at least one frontend page to a found storage places in order to start indexing!</source>
+			</trans-unit>
+			<trans-unit id="notAllPagesAssigned">
+				<source>You need to assign a frontend page to all found storage places in order to start indexing!</source>
+			</trans-unit>
+			<trans-unit id="result">
+				<source>Result: </source>
+			</trans-unit>
+			<trans-unit id="toBeIndexed">
+				<source> -&gt; Events to be indexed: </source>
+			</trans-unit>
+			<trans-unit id="droppingTable">
+				<source>Removing events with pid %s from index</source>
+			</trans-unit>
+			<trans-unit id="indexing">
+				<source>Indexing</source>
+			</trans-unit>
+			<trans-unit id="back">
+				<source>Back</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
