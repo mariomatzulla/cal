@@ -821,39 +821,39 @@
       </trans-unit>
       <trans-unit id="l_calendar_icsfile">
         <source>Local ICS file</source>
-        <target state="needs-translation">Local ICS file</target>
+        <target state="translated">Lokale ICS Datei</target>
       </trans-unit>
       <trans-unit id="l_ics_file_upload">
         <source>Upload ICS file</source>
-        <target state="needs-translation">Upload ICS file</target>
+        <target state="translated">ICS Datei hochladen</target>
       </trans-unit>
       <trans-unit id="l_delete_icsfile">
         <source>Delete current ICS file</source>
-        <target state="needs-translation">Delete current ICS file</target>
+        <target state="translated">Aktuelle ICS Datei löschen</target>
       </trans-unit>
       <trans-unit id="l_calendar_refresh">
         <source>Refresh interval in minutes</source>
-        <target state="needs-translation">Refresh interval in minutes</target>
+        <target state="translated">Aktualisierungsintervall in Minuten</target>
       </trans-unit>
       <trans-unit id="l_category">
         <source>Category</source>
-        <target state="needs-translation">Category</target>
+        <target state="translated">Kategorie</target>
       </trans-unit>
       <trans-unit id="l_global_category">
         <source>General Category</source>
-        <target state="needs-translation">General Category</target>
+        <target state="translated">Allgemeine Kategorie</target>
       </trans-unit>
       <trans-unit id="l_delete_category">
         <source>Delete Category</source>
-        <target state="needs-translation">Delete Category</target>
+        <target state="translated">Kategorie löschen</target>
       </trans-unit>
       <trans-unit id="l_confirm_category">
         <source>Confirm Category</source>
-        <target state="needs-translation">Confirm Category</target>
+        <target state="translated">Kategorie bestätigen</target>
       </trans-unit>
       <trans-unit id="l_category_selector">
         <source>Select category</source>
-        <target state="needs-translation">Select category</target>
+        <target state="translated">Kategorie auswählen</target>
       </trans-unit>
       <trans-unit id="l_category_title">
         <source>Title</source>
