@@ -857,167 +857,167 @@
       </trans-unit>
       <trans-unit id="l_category_title">
         <source>Title</source>
-        <target state="needs-translation">Title</target>
+        <target state="translated">Titel</target>
       </trans-unit>
       <trans-unit id="l_category_headerstyle">
         <source>Header Style</source>
-        <target state="needs-translation">Header Style</target>
+        <target state="translated">Überschriften Style</target>
       </trans-unit>
       <trans-unit id="l_category_bodystyle">
         <source>Body Style</source>
-        <target state="needs-translation">Body Style</target>
+        <target state="translated">Textkörper Style</target>
       </trans-unit>
       <trans-unit id="l_category_calendar">
         <source>Calendar</source>
-        <target state="needs-translation">Calendar</target>
+        <target state="translated">Kalender</target>
       </trans-unit>
       <trans-unit id="l_category_parent_category">
         <source>Parent Category</source>
-        <target state="needs-translation">Parent Category</target>
+        <target state="translated">Übergeordnete Kategorie</target>
       </trans-unit>
       <trans-unit id="l_category_shared_user_allowed">
         <source>Shared User Allowed</source>
-        <target state="needs-translation">Shared User Allowed</target>
+        <target state="translated">Kategorie mit anderen Benutzern teilen</target>
       </trans-unit>
       <trans-unit id="l_event_general">
         <source>General</source>
-        <target state="needs-translation">General</target>
+        <target state="translated">Allgemein</target>
       </trans-unit>
       <trans-unit id="l_event_category">
         <source>Category</source>
-        <target state="needs-translation">Category</target>
+        <target state="translated">Kategorie</target>
       </trans-unit>
       <trans-unit id="l_event_category_selected">
         <source>Selected Category</source>
-        <target state="needs-translation">Selected Category</target>
+        <target state="translated">Ausgewählte Kategorie</target>
       </trans-unit>
       <trans-unit id="l_event_user">
         <source>Creator, creator group</source>
-        <target state="needs-translation">Creator, creator group</target>
+        <target state="translated">Ersteller, Erstellergruppe</target>
       </trans-unit>
       <trans-unit id="l_event_user_selected">
         <source>Selected creator, creator group</source>
-        <target state="needs-translation">Selected creator, creator group</target>
+        <target state="translated">Ausgewählter Ersteller, Erstellergruppe</target>
       </trans-unit>
       <trans-unit id="l_event_title">
         <source>Title</source>
-        <target state="needs-translation">Title</target>
+        <target state="translated">Titel</target>
       </trans-unit>
       <trans-unit id="l_event_edit_startdate">
         <source>Start date</source>
-        <target state="needs-translation">Start date</target>
+        <target state="translated">Startdatum</target>
       </trans-unit>
       <trans-unit id="l_event_edit_enddate">
         <source>End date</source>
-        <target state="needs-translation">End date</target>
+        <target state="translated">Enddatum</target>
       </trans-unit>
       <trans-unit id="l_event_edit_starttime">
         <source>Start time</source>
-        <target state="needs-translation">Start time</target>
+        <target state="translated">Startzeit</target>
       </trans-unit>
       <trans-unit id="l_event_edit_endtime">
         <source>End time</source>
-        <target state="needs-translation">End time</target>
+        <target state="translated">Endzeit</target>
       </trans-unit>
       <trans-unit id="l_event_startdate">
         <source>Start date</source>
-        <target state="needs-translation">Start date</target>
+        <target state="translated">Startdatum</target>
       </trans-unit>
       <trans-unit id="l_event_enddate">
         <source>End date</source>
-        <target state="needs-translation">End date</target>
+        <target state="translated">Enddatum</target>
       </trans-unit>
       <trans-unit id="l_event_starttime">
         <source>Start time</source>
-        <target state="needs-translation">Start time</target>
+        <target state="translated">Startzeit</target>
       </trans-unit>
       <trans-unit id="l_event_endtime">
         <source>End time</source>
-        <target state="needs-translation">End time</target>
+        <target state="translated">Endzeit</target>
       </trans-unit>
       <trans-unit id="l_event_allday">
         <source>Allday</source>
-        <target state="needs-translation">Allday</target>
+        <target state="translated">Ganztägig</target>
       </trans-unit>
       <trans-unit id="l_event_organizer">
         <source>Organizer</source>
-        <target state="needs-translation">Organizer</target>
+        <target state="translated">Organisator</target>
       </trans-unit>
       <trans-unit id="l_event_location">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="translated">Ort</target>
       </trans-unit>
       <trans-unit id="l_event_teaser">
         <source>Teaser</source>
-        <target state="needs-translation">Teaser</target>
+        <target state="translated">Vorschau</target>
       </trans-unit>
       <trans-unit id="l_event_description">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="translated">Beschreibung</target>
       </trans-unit>
       <trans-unit id="l_event_cal_organizer">
         <source>Cal Organizer</source>
-        <target state="needs-translation">Cal Organizer</target>
+        <target state="translated">Cal Organizer</target>
       </trans-unit>
       <trans-unit id="l_event_cal_location">
         <source>Cal Location</source>
-        <target state="needs-translation">Cal Location</target>
+        <target state="translated">Ortsauswahl</target>
       </trans-unit>
       <trans-unit id="l_event_frequency">
         <source>Frequency</source>
-        <target state="needs-translation">Frequency</target>
+        <target state="translated">Frequenz</target>
       </trans-unit>
       <trans-unit id="l_event_edit_byday">
         <source>By Day</source>
-        <target state="needs-translation">By Day</target>
+        <target state="translated">Nach Wochentag (Eine Kombination von: &quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot; und &quot;su&quot;, oder &quot;all&quot; für alle)</target>
       </trans-unit>
       <trans-unit id="l_event_edit_bymonthday">
         <source>By Monthday (e.g.: 1,2,30 or all)</source>
-        <target state="needs-translation">By Monthday (e.g.: 1,2,30 or all)</target>
+        <target state="translated">Nach Monatstag (z.B.: 1,2,30 or all)</target>
       </trans-unit>
       <trans-unit id="l_event_edit_bymonth">
         <source>By Month (e.g.: 1,2,3,4,12 or all)</source>
-        <target state="needs-translation">By Month (e.g.: 1,2,3,4,12 or all)</target>
+        <target state="translated">Nach Monat (z.B.: 1,2,3,4,12 or all)</target>
       </trans-unit>
       <trans-unit id="l_event_edit_until">
         <source>Until Date</source>
-        <target state="needs-translation">Until Date</target>
+        <target state="translated">Bis Datum (Format: yyyymmdd)</target>
       </trans-unit>
       <trans-unit id="l_event_byday">
         <source>By Day</source>
-        <target state="needs-translation">By Day</target>
+        <target state="translated">Nach Tag</target>
       </trans-unit>
       <trans-unit id="l_event_bymonthday">
         <source>By Monthday</source>
-        <target state="needs-translation">By Monthday</target>
+        <target state="translated">Nach Monatstag</target>
       </trans-unit>
       <trans-unit id="l_event_bymonth">
         <source>By Month</source>
-        <target state="needs-translation">By Month</target>
+        <target state="translated">Nach Monat</target>
       </trans-unit>
       <trans-unit id="l_event_until">
         <source>Until Date</source>
-        <target state="needs-translation">Until Date</target>
+        <target state="translated">Bis Datum</target>
       </trans-unit>
       <trans-unit id="l_event_count">
         <source>Count</source>
-        <target state="needs-translation">Count</target>
+        <target state="translated">Anzahl</target>
       </trans-unit>
       <trans-unit id="l_event_interval">
         <source>Interval</source>
-        <target state="needs-translation">Interval</target>
+        <target state="translated">Intervall</target>
       </trans-unit>
       <trans-unit id="l_event_exception">
         <source>Exception</source>
-        <target state="needs-translation">Exception</target>
+        <target state="translated">Ausnahme</target>
       </trans-unit>
       <trans-unit id="l_event_exception_selected">
         <source>Selected exception</source>
-        <target state="needs-translation">Selected exception</target>
+        <target state="translated">Ausgewählte Ausnahme</target>
       </trans-unit>
       <trans-unit id="l_event_fe_cruser">
         <source>Creator</source>
-        <target state="needs-translation">Creator</target>
+        <target state="translated">Ersteller</target>
       </trans-unit>
       <trans-unit id="l_event_fe_crgroup">
         <source>Creator Group</source>
