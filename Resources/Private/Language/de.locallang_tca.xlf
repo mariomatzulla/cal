@@ -547,10 +547,6 @@
         <source>Show jumps</source>
         <target state="needs-translation">Show jumps</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showGoto">
-        <source>Show goto</source>
-        <target state="needs-translation">Show goto</target>
-      </trans-unit>
       <trans-unit id="cal.pi_flexform.showCalendarSelection">
         <source>Show calendar selector</source>
         <target state="needs-translation">Show calendar selector</target>
