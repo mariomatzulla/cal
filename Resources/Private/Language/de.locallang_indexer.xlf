@@ -7,6 +7,18 @@
         <source>Index generator for calendar base recurring events</source>
         <target state="needs-translation">Index generator for calendar base recurring events</target>
       </trans-unit>
+      <trans-unit id="mlang_tabs_tab ">
+        <source>Cal Indexer</source>
+        <target state="needs-translation">Cal Indexer</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tabdescr ">
+        <source>Index recurring events for calendar base</source>
+        <target state="needs-translation">Index recurring events for calendar base</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel ">
+        <source>Index recurring events for calendar base</source>
+        <target state="needs-translation">Index recurring events for calendar base</target>
+      </trans-unit>
       <trans-unit id="function1">
         <source>Information</source>
         <target state="needs-translation">Information</target>
