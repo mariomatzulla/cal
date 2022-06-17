@@ -117,7 +117,7 @@ class Organizer extends \TYPO3\CMS\Cal\Model\LocationModel {
           'view' => 'edit_organizer',
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['calendar.'] ['editOrganizerViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['calendar.'] ['editOrganizerViewPid'] );
       $editlink = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['organizer.'] ['editLink'], $this->conf ['view.'] [$view . '.'] ['organizer.'] ['editLink.'] );
     }
     if ($this->isUserAllowedToDelete()) {
@@ -129,7 +129,7 @@ class Organizer extends \TYPO3\CMS\Cal\Model\LocationModel {
           'view' => 'delete_organizer',
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['organizer.'] ['deleteOrganizerViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['organizer.'] ['deleteOrganizerViewPid'] );
       $editlink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['organizer.'] ['deleteLink'], $this->conf ['view.'] [$view . '.'] ['organizer.'] ['deleteLink.'] );
     }
     return $editlink;

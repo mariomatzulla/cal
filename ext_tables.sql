@@ -473,14 +473,14 @@ CREATE TABLE tt_address (
 
 CREATE TABLE be_users (
 	tx_cal_enable_accesscontroll tinyint(4) DEFAULT '0' NOT NULL,
-	tx_cal_calendar tinyblob NOT NULL,
-	tx_cal_category tinyblob NOT NULL,
+	tx_cal_calendar tinyblob,
+	tx_cal_category tinyblob,
 );
 
 CREATE TABLE be_groups (
 	tx_cal_enable_accesscontroll tinyint(4) DEFAULT '0' NOT NULL,
-	tx_cal_calendar tinyblob NOT NULL,
-	tx_cal_category tinyblob NOT NULL,
+	tx_cal_calendar tinyblob,
+	tx_cal_category tinyblob,
 );
 
 CREATE TABLE fe_users (
@@ -603,7 +603,7 @@ CREATE TABLE tx_cal_cache (
     identifier varchar(128) DEFAULT '' NOT NULL,
     content text NOT NULL,
 	crdate int(11) DEFAULT '0' NOT NULL,
-	lifetime int(11) DEFAULT '0' NOT NULL,    
+	lifetime bigint(13) DEFAULT '0' NOT NULL,    
   	PRIMARY KEY (id),
   	KEY cache_id (identifier)
 ) ENGINE=InnoDB;

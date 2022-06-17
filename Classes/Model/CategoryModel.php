@@ -63,7 +63,7 @@ class CategoryModel extends \TYPO3\CMS\Cal\Model\BaseModel {
 
     $this->row = $row;
     $this->setUid( $row ['uid'] );
-    $this->setParentUid( $row ['parent_category'] );
+    $this->setParentUid( $row ['parent_category'] ?? 0 );
     if ($row ['title']) {
       $this->setTitle( $row ['title'] );
     } else {
@@ -76,7 +76,7 @@ class CategoryModel extends \TYPO3\CMS\Cal\Model\BaseModel {
     $this->setCalendarUid( $row ['calendar_id'] );
     $this->setSinglePid( $row ['single_pid'] );
     $this->setNotificationEmails( \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode( ',', $row ['notification_emails'], 1 ) );
-    $this->setIcon( $row ['icon'] );
+    $this->setIcon( $row ['icon'] ?? '' );
   }
 
   function setParentUid($uid) {
@@ -278,7 +278,7 @@ class CategoryModel extends \TYPO3\CMS\Cal\Model\BaseModel {
           'view' => 'edit_category',
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['calendar.'] ['editCategoryViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['calendar.'] ['editCategoryViewPid'] );
       $editlink = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['category.'] ['editLink'], $this->conf ['view.'] [$view . '.'] ['category.'] ['editLink.'] );
     }
     if ($this->isUserAllowedToDelete()) {
@@ -290,7 +290,7 @@ class CategoryModel extends \TYPO3\CMS\Cal\Model\BaseModel {
           'view' => 'delete_category',
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['category.'] ['deleteCategoryViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['category.'] ['deleteCategoryViewPid'] );
       $editlink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['category.'] ['deleteLink'], $this->conf ['view.'] [$view . '.'] ['category.'] ['deleteLink.'] );
     }
     return $editlink;

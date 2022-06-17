@@ -421,22 +421,22 @@ class ModelController extends \TYPO3\CMS\Cal\Controller\BaseController {
     return $this->findAllCategories( 'cal_category_model', $type, $pidList );
   }
 
-  function findEventsForIcs($type = '', $pidList) {
+  function findEventsForIcs($type = '', $pidList = '') {
 
     return $this->findAll( 'cal_event_model', $type, 'event', $pidList, '0,1,2,3' );
   }
 
-  function findEventsForRss(&$startDateObject, &$endDateObject, $type = '', $pidList) {
+  function findEventsForRss(&$startDateObject, &$endDateObject, $type = '', $pidList = '') {
 
     return $this->findAllWithin( 'cal_event_model', $startDateObject, $endDateObject, $type, 'event', $pidList, '0,1,2,3' );
   }
 
-  function findTodosForIcs($type = '', $pidList) {
+  function findTodosForIcs($type = '', $pidList = '') {
 
     return $this->findAll( 'cal_event_model', $type, 'event', $pidList, '4' );
   }
 
-  function findTodosForRss(&$startDateObject, &$endDateObject, $type = '', $pidList) {
+  function findTodosForRss(&$startDateObject, &$endDateObject, $type = '', $pidList = '') {
 
     return $this->findAllWithin( 'cal_event_model', $startDateObject, $endDateObject, $type, $this->todoSubtype, $pidList, '4' );
   }
@@ -451,12 +451,12 @@ class ModelController extends \TYPO3\CMS\Cal\Controller\BaseController {
     return $this->_searchEvents( 'cal_event_model', $type, $pidList, $startDateObject, $endDateObject, $searchword, $locationIds, $organizerIds, '4' );
   }
 
-  function searchLocation($type = '', $pidList = '', $searchword) {
+  function searchLocation($type = '', $pidList = '', $searchword = '') {
 
     return $this->_searchAddress( 'cal_location_model', $type, 'location', $pidList, $searchword );
   }
 
-  function searchOrganizer($type = '', $pidList = '', $searchword) {
+  function searchOrganizer($type = '', $pidList = '', $searchword = '') {
 
     return $this->_searchAddress( 'cal_organizer_model', $type, 'organizer', $pidList, $searchword );
   }
@@ -713,7 +713,7 @@ else {
     }
   }
 
-  function _searchAddress($serviceName = '', $type = '', $subtype = '', $pidList = '', $searchword) {
+  function _searchAddress($serviceName = '', $type = '', $subtype = '', $pidList = '', $searchword = '') {
 
     /* No key provided so return all events */
     if ($type == '') {

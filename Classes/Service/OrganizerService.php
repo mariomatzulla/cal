@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Base model for the calendar organizer.
@@ -69,7 +70,7 @@ class OrganizerService extends \TYPO3\CMS\Cal\Service\BaseService {
    *          to search for
    * @return array containing the organizer objects
    */
-  function search($pidList = '', $searchword) {
+  function search($pidList = '', $searchword = '') {
 
     if (! $this->isAllowedService())
       return;
@@ -96,6 +97,8 @@ class OrganizerService extends \TYPO3\CMS\Cal\Service\BaseService {
     $table = 'tx_cal_organizer';
     $select = '*';
     $where = ' l18n_parent = 0 ' . $additionalWhere . $this->pageRepository->enableFields( 'tx_cal_organizer' );
+    $groupBy = '';
+    $limit = '';
     
     $rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'rightscontroller' );
     $feUserUid = $rightsObj->getUserId();
@@ -110,15 +113,18 @@ class OrganizerService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where, $groupBy, $orderBy, $limit );
     if ($result) {
+      $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
         
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_organizer', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_organizer', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
-        if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
+        /**
+         * FIXME no public property anymore
+         if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
           // get workspaces Overlay
           $GLOBALS ['TSFE']->sys_page->versionOL( 'tx_cal_organizer', $row );
-        }
+        }*/
         
         $lastOrganizer = new \TYPO3\CMS\Cal\Model\Organizer( $row, $pidList );
         

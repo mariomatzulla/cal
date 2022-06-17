@@ -30,8 +30,6 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
 
   var $createUserId;
 
-  var $isPreview = false;
-
   var $isTomorrow = false;
 
   var $teaser;
@@ -77,7 +75,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       }
     }
     
-    if ($piVars ['formCheck'] == '1') {
+    if (isset($piVars ['formCheck']) && $piVars ['formCheck'] == '1') {
       $this->setAllday( false );
     }
     
@@ -101,7 +99,9 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
           $piVarsCaregoryArray = explode( ',', \TYPO3\CMS\Cal\Controller\Controller::convertLinkVarArrayToList( $piVars [$key] ) );
           if (! empty( $piVarsCaregoryArray )) {
             foreach ( $piVarsCaregoryArray as $categoryId ) {
-              $this->addCategory( $categories [0] [0] [$categoryId] );
+              if(isset($categories [0] [0] [$categoryId])){
+                $this->addCategory( $categories [0] [0] [$categoryId] );
+              }
             }
           }
           unset( $piVars ['category'] );
@@ -136,8 +136,8 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
               $start->setHour( intval( $tempArray [1] ) );
               $start->setMinute( intval( $tempArray [2] ) );
             } else {
-              $start->setHour( intval( $piVars ['starttime'] ) );
-              $start->setMinute( intval( $piVars ['startminutes'] ) );
+              $start->setHour( intval( $piVars ['starttime'] ?? 0 ) );
+              $start->setMinute( intval( $piVars ['startminutes'] ?? 0 ) );
             }
             $start->setSecond( 0 );
             $start->setTZbyId( 'UTC' );
@@ -169,8 +169,8 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
               $end->setHour( intval( $tempArray [1] ) );
               $end->setMinute( intval( $tempArray [2] ) );
             } else {
-              $end->setHour( intval( $piVars ['endtime'] ) );
-              $end->setMinute( intval( $piVars ['endminutes'] ) );
+              $end->setHour( intval( $piVars ['endtime'] ?? 0 ) );
+              $end->setMinute( intval( $piVars ['endminutes'] ?? 0 ) );
             }
             $end->setSecond( 0 );
             $end->setTzById( 'UTC' );
@@ -334,14 +334,17 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
           if (! is_array( $piVars [$key] )) {
             $values = GeneralUtility::trimExplode( ',', $piVars [$key], 1 );
           }
-          $attendance = $piVars ['attendance'];
-          if (! is_array( $piVars ['attendance'] )) {
-            $attendanceTemp = GeneralUtility::trimExplode( ',', $piVars ['attendance'], 1 );
-            $attendance = Array ();
-            $i = 0;
-            foreach ( $values as $entry ) {
-              $attendance [$entry] = $attendanceTemp [$i];
-              $i ++;
+          $attendance = array();
+          if( isset($piVars ['attendance'])) {
+            $attendance = $piVars ['attendance'];
+            if (! is_array( $piVars ['attendance'] )) {
+              $attendanceTemp = GeneralUtility::trimExplode( ',', $piVars ['attendance'], 1 );
+              $attendance = Array ();
+              $i = 0;
+              foreach ( $values as $entry ) {
+                $attendance [$entry] = $attendanceTemp [$i];
+                $i ++;
+              }
             }
           }
           foreach ( $values as $entry ) {
@@ -396,7 +399,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       $this->setAttendees( $newAttendeeArray );
     }
     
-    if ($this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['dynamicStarttimeOffset']) {
+    if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['dynamicStarttimeOffset'])) {
       $now = new \TYPO3\CMS\Cal\Model\CalDate();
       
       $now->addSeconds( intval( $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['dynamicStarttimeOffset'] ) );
@@ -475,7 +478,9 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     }
     
     $this->setTitle( $row ['title'] );
-    $this->setCategories( $row ['categories'] );
+    if(isset($row ['categories'])){
+      $this->setCategories( $row ['categories'] );
+    }
     
     $this->setFreq( $row ['freq'] );
     $this->setByDay( $row ['byday'] );
@@ -511,7 +516,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     
     $this->setImage( GeneralUtility::trimExplode( ',', $row ['image'], 1 ) );
     
-    if ($row ['attachment']) {
+    if (isset($row ['attachment'])) {
       $fileArr = explode( ',', $row ['attachment'] );
       foreach ( $fileArr as $key => $val ) {
         // fills the marker ###FILE_LINK### with the links to the attached files
@@ -519,23 +524,23 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       }
     }
     
-    if ($row ['exception_single_ids']) {
+    if (isset($row ['exception_single_ids'])) {
       $ids = explode( ',', $row ['exception_single_ids'] );
       foreach ( $ids as $id ) {
         $this->addExceptionSingleId( $id );
       }
     }
-    if ($row ['exceptionGroupIds']) {
+    if (isset($row ['exceptionGroupIds'])) {
       $ids = explode( ',', $row ['exceptionGroupIds'] );
       foreach ( $ids as $id ) {
         $this->addExceptionGroupId( $id );
       }
     }
-    if ($row ['calendar_headerstyle'] != '') {
+    if (isset($row ['calendar_headerstyle']) && $row ['calendar_headerstyle'] != '') {
       $this->setHeaderStyle( $row ['calendar_headerstyle'] );
     }
     
-    if ($row ['calendar_bodystyle'] != '') {
+    if (isset($row ['calendar_bodystyle']) && $row ['calendar_bodystyle'] != '') {
       $this->setBodyStyle( $row ['calendar_bodystyle'] );
     }
     
@@ -729,11 +734,11 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
   function getHeaderStyle() {
 
     $rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'rightscontroller' );
-    if ($this->row ['isFreeAndBusyEvent'] == 1) {
-      return $this->conf ['view.'] ['freeAndBusy.'] ['headerStyle'];
+    if (isset($this->row ['isFreeAndBusyEvent']) && $this->row ['isFreeAndBusyEvent'] == 1) {
+      return $this->conf ['view.'] ['freeAndBusy.'] ['headerStyle'] ?? '';
     }
-    if ($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['differentStyleIfOwnEvent'] && $rightsObj->getUserId() == $this->getCreateUserId()) {
-      return $this->conf ['view.'] ['event.'] ['event.'] ['headerStyleOfOwnEvent'];
+    if (isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['differentStyleIfOwnEvent']) && $this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['differentStyleIfOwnEvent'] && $rightsObj->getUserId() == $this->getCreateUserId()) {
+      return $this->conf ['view.'] ['event.'] ['event.'] ['headerStyleOfOwnEvent'] ?? '';
     } else if (count( $this->categories ) && is_object( $this->categories [0] )) {
       if ($this->categories [0]->getHeaderStyle() != '') {
         return $this->categories [0]->getHeaderStyle();
@@ -748,11 +753,11 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
   function getBodyStyle() {
 
     $rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'rightscontroller' );
-    if ($this->row ['isFreeAndBusyEvent'] == 1) {
-      return $this->conf ['view.'] ['freeAndBusy.'] ['bodyStyle'];
+    if (isset($this->row ['isFreeAndBusyEvent']) && $this->row ['isFreeAndBusyEvent'] == 1) {
+      return $this->conf ['view.'] ['freeAndBusy.'] ['bodyStyle'] ?? '';
     }
-    if ($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['differentStyleIfOwnEvent'] && $rightsObj->getUserId() == $this->getCreateUserId()) {
-      return $this->conf ['view.'] ['event.'] ['event.'] ['bodyStyleOfOwnEvent'];
+    if (isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['differentStyleIfOwnEvent']) && $this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['differentStyleIfOwnEvent'] && $rightsObj->getUserId() == $this->getCreateUserId()) {
+      return $this->conf ['view.'] ['event.'] ['event.'] ['bodyStyleOfOwnEvent'] ?? '';
     } else if (count( $this->categories ) && is_object( $this->categories [0] )) {
       if ($this->categories [0]->getBodyStyle() != '') {
         return $this->categories [0]->getBodyStyle();
@@ -860,7 +865,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
 
   function renderEventFor($viewType, $subpartSuffix = '') {
 
-    if ($this->row ['isFreeAndBusyEvent'] == 1) {
+    if (isset($this->row ['isFreeAndBusyEvent']) && $this->row ['isFreeAndBusyEvent'] == 1) {
       $viewType .= '_FNB';
     }
     if (substr( $viewType, - 6 ) != 'ALLDAY' && ($this->isAllday() || $this->getStart()->format( '%Y%m%d' ) != $this->getEnd()->format( '%Y%m%d' ))) {
@@ -1269,13 +1274,13 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
         $sims ['###ENDTIME###'] = '';
       } else {
         $sims ['###ENDTIME_LABEL###'] = $this->controller->pi_getLL( 'l_event_endtime' );
-        $this->local_cObj->setCurrentVal( $eventEnd->format( $this->conf ['view.'] [$view . '.'] ['event.'] ['timeFormat'] ) );
-        $sims ['###ENDTIME###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['endtime'], $this->conf ['view.'] [$view . '.'] ['event.'] ['endtime.'] );
+        $this->local_cObj->setCurrentVal( $eventEnd->format( $this->conf ['view.'] [$view . '.'] ['event.'] ['timeFormat'] ?? '' ) );
+        $sims ['###ENDTIME###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['endtime'] ?? '', $this->conf ['view.'] [$view . '.'] ['event.'] ['endtime.'] ?? array());
       }
       
-      $this->local_cObj->setCurrentVal( $eventStart->format( $this->conf ['view.'] [$view . '.'] ['event.'] ['dateFormat'] ) );
-      $sims ['###STARTDATE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['startdate'], $this->conf ['view.'] [$view . '.'] ['event.'] ['startdate.'] );
-      if ($this->conf ['view.'] [$view . '.'] ['event.'] ['dontShowEndDateIfEqualsStartDate'] && $eventEnd->format( '%Y%m%d' ) == $eventStart->format( '%Y%m%d' )) {
+      $this->local_cObj->setCurrentVal( $eventStart->format( $this->conf ['view.'] [$view . '.'] ['event.'] ['dateFormat'] ?? '' ) );
+      $sims ['###STARTDATE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['startdate'] ?? '', $this->conf ['view.'] [$view . '.'] ['event.'] ['startdate.'] ?? array() );
+      if (isset($this->conf ['view.'] [$view . '.'] ['event.'] ['dontShowEndDateIfEqualsStartDate']) && $this->conf ['view.'] [$view . '.'] ['event.'] ['dontShowEndDateIfEqualsStartDate'] && $eventEnd->format( '%Y%m%d' ) == $eventStart->format( '%Y%m%d' )) {
         $sims ['###STARTDATE_LABEL###'] = $this->controller->pi_getLL( 'l_date' );
         $sims ['###ENDDATE_LABEL###'] = '';
         $sims ['###ENDDATE###'] = '';
@@ -1283,7 +1288,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
         $sims ['###STARTDATE_LABEL###'] = $this->controller->pi_getLL( 'l_event_startdate' );
         $sims ['###ENDDATE_LABEL###'] = $this->controller->pi_getLL( 'l_event_enddate' );
         $this->local_cObj->setCurrentVal( $eventEnd->format( $this->conf ['view.'] [$view . '.'] ['event.'] ['dateFormat'] ) );
-        $sims ['###ENDDATE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['enddate'], $this->conf ['view.'] [$view . '.'] ['event.'] ['enddate.'] );
+        $sims ['###ENDDATE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['enddate'] ?? '', $this->conf ['view.'] [$view . '.'] ['event.'] ['enddate.'] ?? array() );
       }
     }
   }
@@ -1296,12 +1301,12 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
         
         'create_event',
         'edit_event'
-    ) ) && $this->conf ['view.'] ['other.'] ['tomorrowsEvents']) {
-      $sims ['###TITLE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['other.'] ['tomorrowsEvents'], $this->conf ['view.'] ['other.'] ['tomorrowsEvents.'] );
-    } else if ($this->isAllday() && $this->conf ['view.'] [$view . '.'] ['event.'] ['alldayTitle']) {
-      $sims ['###TITLE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['alldayTitle'], $this->conf ['view.'] [$view . '.'] ['event.'] ['alldayTitle.'] );
-    } else if ($this->conf ['view.'] [$view . '.'] ['event.'] ['title']) {
-      $sims ['###TITLE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['title'], $this->conf ['view.'] [$view . '.'] ['event.'] ['title.'] );
+    ) ) && isset($this->conf ['view.'] ['other.'] ['tomorrowsEvents'])) {
+      $sims ['###TITLE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['other.'] ['tomorrowsEvents'], $this->conf ['view.'] ['other.'] ['tomorrowsEvents.'] ?? array() );
+    } else if ($this->isAllday() && isset($this->conf ['view.'] [$view . '.'] ['event.'] ['alldayTitle'])) {
+      $sims ['###TITLE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['alldayTitle'], $this->conf ['view.'] [$view . '.'] ['event.'] ['alldayTitle.'] ?? array());
+    } else if (isset($this->conf ['view.'] [$view . '.'] ['event.'] ['title'])) {
+      $sims ['###TITLE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['title'], $this->conf ['view.'] [$view . '.'] ['event.'] ['title.'] ?? array() );
     } else {
       $sims ['###TITLE###'] = $this->getTitle();
     }
@@ -1534,7 +1539,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
           'view' => event,
           'uid' => $this->getUid(),
           'type' => $this->getType()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['event.'] ['eventViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['event.'] ['eventViewPid'] );
       
       $sims ['###MORE_LINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['moreLink'], $this->conf ['view.'] [$view . '.'] ['event.'] ['moreLink.'] );
     }
@@ -1574,7 +1579,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($event_status != '') {
       $confirmed = sprintf( $this->conf ['view.'] [$view . '.'] ['event.'] ['todoIcon'], $event_status );
     } else if (is_array( $this->getCalRecu() ) && count( $this->getCalRecu() ) > 0) {
-      $confirmed = $this->conf ['view.'] [$view . '.'] ['event.'] ['recurringIcon'];
+      $confirmed = $this->conf ['view.'] [$view . '.'] ['event.'] ['recurringIcon'] ?? '';
     }
     $sims ['###ICON###'] = $confirmed;
   }
@@ -1584,7 +1589,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     $values = parent::getAdditionalValuesAsArray();
     $values ['event_owner'] = $this->getEventOwner();
     $values ['cruser_id'] = $this->getCreateUserId();
-    if ($this->conf ['view.'] ['enableAjax']) {
+    if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
       $template = '';
       $sims = Array ();
       $rems = Array ();
@@ -1605,7 +1610,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($rightsObj->isCalAdmin()) {
       return true;
     }
-    $editOffset = $this->conf ['rights.'] ['edit.'] ['event.'] ['timeOffset'] * 60;
+    $editOffset = intval ($this->conf ['rights.'] ['edit.'] ['event.'] ['timeOffset'] ?? 0) * 60;
     
     if ($feUserUid == '') {
       $feUserUid = $rightsObj->getUserId();
@@ -1644,7 +1649,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($rightsObj->isCalAdmin()) {
       return true;
     }
-    $deleteOffset = $this->conf ['rights.'] ['delete.'] ['event.'] ['timeOffset'] * 60;
+    $deleteOffset = intval($this->conf ['rights.'] ['delete.'] ['event.'] ['timeOffset'] ?? 0)* 60;
     if ($feUserUid == '') {
       $feUserUid = $rightsObj->getUserId();
     }
@@ -1658,6 +1663,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     } else {
       $temp = new \TYPO3\CMS\Cal\Model\CalDate();
       $temp->setTZbyId( 'UTC' );
+      $editOffset = intval ( $this->conf ['rights.'] ['edit.'] ['event.'] ['timeOffset'] ?? 0 )* 60;
       $temp->addSeconds( $editOffset );
       $eventStart = $this->getStart();
       $eventHasntStartedYet = $eventStart->after( $temp );
@@ -1767,7 +1773,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
                     'uid' => $this->getUid(),
                     'status' => 'decline',
                     'sid' => md5( $this->getUid() . $attendee->getEmail() . $attendee->row ['crdate'] )
-                ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['event.'] ['meeting.'] ['statusViewPid'] ) . ' ';
+                ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['event.'] ['meeting.'] ['statusViewPid'] ) . ' ';
                 $finalString .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['declineMeetingLink'], $this->conf ['view.'] [$view . '.'] ['event.'] ['declineMeetingLink.'] );
               }
               if ($attendee->getAttendance() != 'CHAIR' && ($attendee->getStatus() == 'DECLINE' || $attendee->getStatus() == '0' || $attendee->getStatus() == 'NEEDS-ACTION')) {
@@ -1779,7 +1785,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
                     'uid' => $this->getUid(),
                     'status' => 'accept',
                     'sid' => md5( $this->getUid() . $attendee->getEmail() . $attendee->row ['crdate'] )
-                ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['event.'] ['meeting.'] ['statusViewPid'] );
+                ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['event.'] ['meeting.'] ['statusViewPid'] );
                 $finalString .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['acceptMeetingLink'], $this->conf ['view.'] [$view . '.'] ['event.'] ['acceptMeetingLink.'] );
               }
             }
@@ -1808,7 +1814,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       $this->initLocalCObject( $this->getValuesAsArray() );
       $this->local_cObj->setCurrentVal( $linktext );
       
-      if (! $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Link']) {
+      if (! isset($this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Link'])) {
         $view = $this->getObjectType();
       }
       
@@ -1817,6 +1823,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
         return $this->getExternalPluginEventLink();
       }
       
+      $param = '';
       // create the link if the event points to a page or external URL
       // determine the link type
       switch ($this->getEventType()) {
@@ -1862,17 +1869,17 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
                 'getdate' => $this->conf ['getdate']
             ) );
           }
-          $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, $linkParams, $this->conf ['cache'], $this->conf ['clear_anyway'], $pid );
+          $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, $linkParams, $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $pid );
           break;
       }
       
       if ($urlOnly) {
-        return $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Url'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Url.'] );
+        return $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Url'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Url.']??array() );
       }
       
       // create & return the link
       $this->local_cObj->data ['link'] = $param;
-      return $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Link'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Link.'] );
+      return $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Link'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'Link.']??array() );
     } else {
       return $linktext;
     }

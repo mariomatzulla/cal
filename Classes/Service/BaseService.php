@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Cal\Utility\Functions;
 use TYPO3\CMS\Cal\Controller\Registry;
 
@@ -401,13 +402,14 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService {
     if ('sys_category' == $table) {
       $localizationPrefix = 'l10n';
     }
-    if ($GLOBALS ['TSFE']->sys_language_mode == 'strict' && $GLOBALS ['TSFE']->sys_language_content) {
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    if ($languageAspect->getLegacyLanguageMode() == 'strict' && $languageAspect->getContentId()) {
       // sys_language_mode == 'strict': If a certain language is requested, select only news-records from the default language which have a translation. The translated articles will be overlayed later in the list or single function.
       
       $querryArray = $this->cObj->getQuery( $table, array (
           
           'selectFields' => $table . '.' . $localizationPrefix . '_parent',
-          'where' => $table . '.sys_language_uid = ' . $GLOBALS ['TSFE']->sys_language_content,
+          'where' => $table . '.sys_language_uid = ' . $languageAspect->getContentId(),
           'pidInList' => $this->conf ['pidList']
       ), true );
       
@@ -421,18 +423,21 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService {
       $GLOBALS ['TYPO3_DB']->sql_free_result( $tmpres );
       
       $strStrictUids = implode( ',', $strictUids );
-      $selectConf ['where'] .= '(' . $table . '.uid IN (' . ($strStrictUids ? $strStrictUids : 0) . ') OR ' . $table . '.sys_language_uid=-1)'; // sys_language_uid=-1 = [all languages]
+      $selectConf ['where'] = '(' . $table . '.uid IN (' . ($strStrictUids ? $strStrictUids : 0) . ') OR ' . $table . '.sys_language_uid=-1)'; // sys_language_uid=-1 = [all languages]
     } else {
       // sys_language_mode != 'strict': If a certain language is requested, select only news-records in the default language. The translated articles (if they exist) will be overlayed later in the list or single function.
-      $selectConf ['where'] .= $table . '.sys_language_uid IN (0,-1)';
+      $selectConf ['where'] = $table . '.sys_language_uid IN (0,-1)';
     }
     
     if ($this->conf ['showRecordsWithoutDefaultTranslation']) {
-      $selectConf ['where'] = ' (' . $selectConf ['where'] . ' OR (' . $table . '.sys_language_uid=' . $GLOBALS ['TSFE']->sys_language_content . ' AND NOT ' . $table . '.' . $localizationPrefix . '_parent))';
+      $selectConf ['where'] = ' (' . $selectConf ['where'] . ' OR (' . $table . '.sys_language_uid=' . $languageAspect->getContentId() . ' AND NOT ' . $table . '.' . $localizationPrefix . '_parent))';
     }
     
     // filter Workspaces preview.
     // Since "enablefields" is ignored in workspace previews it's required to filter out news manually which are not visible in the live version AND the selected workspace.
+    /**
+     * FIXME the property versioningPreview got moved to versioningWorkspaceId, which is protected now
+     
     if ($GLOBALS ['TSFE']->sys_page->versioningPreview) {
       // execute the complete query
       $wsSelectconf = $selectConf;
@@ -456,19 +461,21 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService {
         $selectConf ['where'] .= ' AND ' . $table . '.uid NOT IN (' . $removeUidList . ')';
       }
     }
+    */
     return ' AND ' . $selectConf ['where'];
   }
 
   protected static function checkUidForLanguageOverlay($uid, $table) {
 
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     $select = $table . '.*';
     $where = $table . '.uid = ' . $uid;
     $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where );
     if ($result) {
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
         
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( $table, $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( $table, $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
         if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
           // get workspaces Overlay

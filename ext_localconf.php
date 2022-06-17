@@ -1000,7 +1000,7 @@ $boot = function () {
   );
   
   /* defining stuff for scheduler */
-  if (\TYPO3\CMS\Core\Utility\GeneralUtility::inList( $GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extList'], 'scheduler' )) {
+  if (isset($GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extList']) && \TYPO3\CMS\Core\Utility\GeneralUtility::inList( $GLOBALS ['TYPO3_CONF_VARS'] ['EXT'] ['extList'], 'scheduler' )) {
     // find type of ext and determine paths
     // add these to the global TYPO3_LOADED_EXT
     $temp_extKey = 'scheduler';
@@ -1058,7 +1058,7 @@ $boot = function () {
   
   // caching framework configuration
   // Register cache 'tx_cal_cache'
-  if (! is_array( $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] )) {
+  if (! isset( $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] )) {
     $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] = Array ();
   }
   // Define string frontend as default frontend, this must be set with TYPO3 4.5 and below

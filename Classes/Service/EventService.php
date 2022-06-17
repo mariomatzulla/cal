@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Cal\Model\Pear\Date\Calc;
 use TYPO3\CMS\Cal\Controller\DateParser;
 
@@ -65,7 +66,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     }
     
     $this->setStartAndEndPoint( $start_date, $end_date );
-    $dontShowOldEvents = ( integer ) $this->conf ['view.'] [$this->conf ['view'] . '.'] ['dontShowOldEvents'];
+    $dontShowOldEvents = intval ( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['dontShowOldEvents'] ?? 0);
     if ($dontShowOldEvents > 0) {
       $now = new \TYPO3\CMS\Cal\Model\CalDate();
       if ($dontShowOldEvents == 2) {
@@ -148,12 +149,13 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
 
     $calendarService = &$this->modelObj->getServiceObjByKey( 'cal_calendar_model', 'calendar', 'tx_cal_calendar' );
     $categoryService = &$this->modelObj->getServiceObjByKey( 'cal_category_model', 'category', $this->extConf ['categoryService'] );
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     
     $events = array ();
     
     $select = 'tx_cal_calendar.uid AS calendar_uid, ' . 'tx_cal_calendar.owner AS calendar_owner, ' . 'tx_cal_calendar.headerstyle AS calendar_headerstyle, ' . 'tx_cal_calendar.bodystyle AS calendar_bodystyle, ' . 'tx_cal_event.*';
     $table = 'tx_cal_event LEFT JOIN tx_cal_calendar ON tx_cal_calendar.uid = tx_cal_event.calendar_id ';
-    if (0 === strpos( $this->conf ['view'], 'search' ) && $GLOBALS ['TSFE']->sys_language_content > 0) {
+    if (0 === strpos( $this->conf ['view'], 'search' ) && $languageAspect->getContentId() > 0) {
       $select .= implode( ',tx_cal_event_l18n.', GeneralUtility::trimExplode( ',', $this->conf ['view.'] ['search.'] ['searchEventFieldList'], 1 ) );
       $table .= 'LEFT JOIN tx_cal_event as tx_cal_event_l18n ON tx_cal_event.uid = tx_cal_event_l18n.l18n_parent ';
     }
@@ -166,7 +168,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
       $where .= ' AND tx_cal_event.type IN (' . implode( ',', $allowedEventTypes ) . ')';
     }
     
-    if ($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalWhere']) {
+    if (isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalWhere'])) {
       $where .= ' ' . $this->cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalWhere'], $this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalWhere.'] );
     }
     
@@ -220,15 +222,19 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     if ($result) {
       $selectFields = $GLOBALS ['TYPO3_DB']->admin_get_fields( 'tx_cal_event' );
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
+        /**
+         * FIXME property versioningPreview is not public available anymore
+        
         if ($GLOBALS ['TSFE']->sys_page->versioningPreview) {
           $interRow = array_intersect_key( $row, $selectFields );
           $GLOBALS ['TSFE']->sys_page->versionOL( 'tx_cal_event', $interRow );
           $GLOBALS ['TSFE']->sys_page->fixVersioningPid( 'tx_cal_event', $interRow );
           $row = array_merge( $row, $interRow );
         }
+         */
         
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_event', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_event', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
         if (! $row ['uid']) {
           continue;
@@ -258,7 +264,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
         continue;
       }
       
-      if ($row ['category_uid'] > 0) {
+      if (isset($row ['category_uid']) && $row ['category_uid'] > 0) {
         $categoryArray = $categoryService->getCategoriesForEvent( $row ['uid'] );
         if (is_array( $categoryArray )) {
           foreach ( $categoryArray as $category ) {
@@ -402,10 +408,12 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
         $events = $events_tmp;
       }
     }
+    $categoryIdArray = array();
+    if(isset($this->controller->piVars ['category'])){
+      $categoryIdArray = GeneralUtility::trimExplode( ',', implode( ',', ( array ) $this->controller->piVars ['category'] ), 1 );
+    }
     
-    $categoryIdArray = GeneralUtility::trimExplode( ',', implode( ',', ( array ) $this->controller->piVars ['category'] ), 1 );
-    
-    if ($this->conf ['view.'] ['categoryMode'] != 1 && $this->conf ['view.'] ['categoryMode'] != 3 && $this->conf ['view.'] ['categoryMode'] != 4 && $addCategoryWhere && ! (($this->conf ['view'] == 'ics' || $this->conf ['view'] == 'search_event') && ! empty( $categoryIdArray ))) {
+    if (isset($this->conf ['view.'] ['categoryMode']) && $this->conf ['view.'] ['categoryMode'] != 1 && $this->conf ['view.'] ['categoryMode'] != 3 && $this->conf ['view.'] ['categoryMode'] != 4 && $addCategoryWhere && ! (($this->conf ['view'] == 'ics' || $this->conf ['view'] == 'search_event') && ! empty( $categoryIdArray ))) {
       $uidCollector = $categoryService->getUidsOfEventsWithCategories();
       
       if (! empty( $uidCollector )) {
@@ -599,6 +607,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
 
     $object = $this->modelObj->createEvent( 'tx_cal_phpicalendar' );
     $object->updateWithPIVars( $this->controller->piVars );
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     
     $crdate = time();
     $insertFields = Array ();
@@ -606,8 +615,8 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     $insertFields ['tstamp'] = $crdate;
     $insertFields ['crdate'] = $crdate;
     
-    if ($GLOBALS ['TSFE']->sys_language_content > 0 && $this->conf ['showRecordsWithoutDefaultTranslation'] == 1 && $this->rightsObj->isAllowedTo( 'create', 'translation' )) {
-      $insertFields ['sys_language_uid'] = $GLOBALS ['TSFE']->sys_language_content;
+    if ($languageAspect->getContentId() > 0 && $this->conf ['showRecordsWithoutDefaultTranslation'] == 1 && $this->rightsObj->isAllowedTo( 'create', 'translation' )) {
+      $insertFields ['sys_language_uid'] = $languageAspect->getContentId();
     }
     
     // TODO: Check if all values are correct
@@ -1365,7 +1374,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     }
   }
 
-  function search($pidList = '', $start_date, $end_date, $searchword, $locationIds = '', $organizerIds = '', $eventType = '0,1,2,3') {
+  function search($pidList = '', $start_date = '', $end_date = '', $searchword = '', $locationIds = '', $organizerIds = '', $eventType = '0,1,2,3') {
 
     $start_date->subtractSeconds( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['startPointCorrection'] );
     $end_date->addSeconds( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['endPointCorrection'] );
@@ -1427,7 +1436,8 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
    */
   function searchWhere($sw) {
 
-    if (0 === strpos( $this->conf ['view'], 'search' ) && $GLOBALS ['TSFE']->sys_language_content > 0) {
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    if (0 === strpos( $this->conf ['view'], 'search' ) && $languageAspect->getContentId() > 0) {
       return $this->cObj->searchWhere( $sw, $this->conf ['view.'] ['search.'] ['searchEventFieldList'], 'tx_cal_event_l18n' );
     }
     return $this->cObj->searchWhere( $sw, $this->conf ['view.'] ['search.'] ['searchEventFieldList'], 'tx_cal_event' );
@@ -2377,11 +2387,12 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
 
   function createTranslation($uid, $overlay) {
 
-    $languageFlag = $GLOBALS ['TSFE']->sys_language_content;
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    $languageFlag = $languageAspect->getContentId();
     // resetting the language to find the default translation!
-    $GLOBALS ['TSFE']->sys_language_content = 0;
+    $languageAspect->setContentId(0);
     $event = $this->find( $uid, $this->conf ['pidList'] );
-    $GLOBALS ['TSFE']->sys_language_content = $languageFlag;
+    $languageAspect->setContentId($languageFlag);
     $table = 'tx_cal_event';
     $select = $table . '.*';
     $where = $table . '.uid = ' . $uid;
@@ -2403,8 +2414,8 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
 
   function setStartAndEndPoint(&$start_date, &$end_date) {
 
-    $start_date->subtractSeconds( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['startPointCorrection'] );
-    $end_date->addSeconds( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['endPointCorrection'] );
+    $start_date->subtractSeconds( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['startPointCorrection'] ?? 0 );
+    $end_date->addSeconds( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['endPointCorrection'] ?? 0 );
     
     $this->starttime = new \TYPO3\CMS\Cal\Model\CalDate();
     $this->endtime = new \TYPO3\CMS\Cal\Model\CalDate();

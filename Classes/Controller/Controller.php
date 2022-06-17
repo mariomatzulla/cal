@@ -101,7 +101,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
   protected function cacheHandling() {
     // switch for more intelligent caching
-    if (! $this->conf ['isUserInt']) {
+    if (! isset($this->conf ['isUserInt']) || !$this->conf ['isUserInt']) {
       $requestedNoCache = GeneralUtility::_GP( 'no_cache' );
       if ($requestedNoCache) {
         $GLOBALS ['TSFE']->set_no_cache();
@@ -214,13 +214,13 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     if ($this->conf ['view'] == 'rss' || $this->conf ['view'] == 'ics' || $this->conf ['view'] == 'single_ics' || $this->conf ['view'] == 'load_events' || $this->conf ['view'] == 'load_todos' || $this->conf ['view'] == 'load_rights') {
       return $return;
     }
-    if ($this->conf ['view.'] [$this->conf ['view'] . '.'] ['sendOutWithXMLHeader']) {
+    if (isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['sendOutWithXMLHeader']) && $this->conf ['view.'] [$this->conf ['view'] . '.'] ['sendOutWithXMLHeader']) {
       header( 'Content-Type: text/xml' );
     }
     
     $additionalWrapperClasses = GeneralUtility::trimExplode( ',', $this->conf ['additionalWrapperClasses'], 1 );
     
-    if ($this->conf ['noWrapInBaseClass'] || $this->conf ['view.'] ['enableAjax']) {
+    if ((isset($this->conf ['noWrapInBaseClass']) && $this->conf ['noWrapInBaseClass']) || (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax'])) {
       return $return;
     }
     return $this->pi_wrapInBaseClass( $return, $additionalWrapperClasses );
@@ -230,7 +230,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
    */
   public function initConfigs() {
     // If an event record has been added through Insert Records, set some defaults.
-    if ($this->conf ['displayCurrentRecord']) {
+    if (isset($this->conf ['displayCurrentRecord']) && $this->conf ['displayCurrentRecord']) {
       $data = &$this->cObj->data;
       $this->conf ['pidList'] = $data ['pid'];
       $this->conf ['view.'] ['allowedViews'] = 'event';
@@ -240,20 +240,20 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $this->conf ['view'] = $this->conf ['_DEFAULT_PI_VARS.'] ['view'] = 'event';
     }
     
-    if (! $this->conf ['dontListenToPiVars']) {
+    if (!isset($this->conf ['dontListenToPiVars']) || ! $this->conf ['dontListenToPiVars']) {
       $this->pi_setPiVarDefaults(); // Set default piVars from TS
     }
     
     // Jan 18032006 start
-    if ($this->cObj->data ['pi_flexform']) {
+    if (isset($this->cObj->data ['pi_flexform']) && $this->cObj->data ['pi_flexform']) {
       $this->pi_initPIflexForm(); // Init and get the flexform data of the plugin
       $piFlexForm = $this->cObj->data ['pi_flexform'];
       $this->updateConfWithFlexform( $piFlexForm );
     }
     
     // apply stdWrap to pages and pidList
-    $this->conf ['pages'] = $this->cObj->stdWrap( $this->conf ['pages'], $this->conf ['pages.'] );
-    $this->conf ['pidList'] = $this->cObj->stdWrap( $this->conf ['pidList'], $this->conf ['pidList.'] );
+    $this->conf ['pages'] = $this->cObj->stdWrap( $this->conf ['pages'] ?? '', $this->conf ['pages.'] ?? array() );
+    $this->conf ['pidList'] = $this->cObj->stdWrap( $this->conf ['pidList'], $this->conf ['pidList.'] ?? array() );
     
     Controller::updateIfNotEmpty( $this->conf ['pages'], $this->cObj->data ['pages'] );
     // don't use "updateIfNotEmpty" here, as the default value of "recursive" is 0 and thus not empty and will always override TS settings.
@@ -261,14 +261,14 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $this->conf ['recursive'] = $this->cObj->data ['recursive'];
     }
     
-    $this->conf ['pidList'] = $this->pi_getPidList( $this->conf ['pages'] . ',' . $this->conf ['pidList'], $this->conf ['recursive'] );
+    $this->conf ['pidList'] = $this->pi_getPidList( $this->conf ['pages'] . ',' . $this->conf ['pidList'], $this->conf ['recursive']?? false );
     
     if (! $this->conf ['pidList'] || $this->conf ['pidList'] == '') {
       $this->error = true;
       return '<b>Calendar error: please configure the pidList (calendar plugin -> startingpoints or plugin.tx_cal_controller.pidList or for ics in constants)</b>';
     }
     
-    if ($this->conf ['language']) {
+    if (isset($this->conf ['language']) && $this->conf ['language']) {
       $this->LLkey = $this->conf ['language'];
     }
     $tempScriptRelPath = $this->scriptRelPath;
@@ -282,9 +282,12 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
         'cal'
     ) );
     
-    $location = Controller::convertLinkVarArrayToList( $this->piVars ['location_ids'] );
+    $location = '';
+    if(isset($this->piVars ['location_ids'])) {
+      $location = Controller::convertLinkVarArrayToList( $this->piVars ['location_ids'] );
+    }
     
-    if ($this->piVars ['view'] == $this->piVars ['lastview']) {
+    if (isset($this->piVars ['view']) && isset($this->piVars ['lastview']) && $this->piVars ['view'] == $this->piVars ['lastview']) {
       unset( $this->piVars ['lastview'] );
     }
     
@@ -294,7 +297,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $this->conf ['getdate'] = intval( $this->piVars ['getdate'] );
     }
     
-    if ($this->piVars ['jumpto']) {
+    if (isset($this->piVars ['jumpto'])) {
       $dp = GeneralUtility::makeInstance( 'TYPO3\\CMS\\Cal\\Controller\\DateParser' );
       $dp->parse( $this->piVars ['jumpto'], $this->conf ['dateParserConf.'] );
       $newGetdate = $dp->getDateObjectFromStack();
@@ -312,19 +315,19 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $GLOBALS ['TSFE']->page ['no_search'] = 0;
     }
     
-    if (! $this->conf ['dontListenToPiVars']) {
-      $this->conf ['view'] = htmlspecialchars( strip_tags( $this->piVars ['view'] ) );
-      $this->conf ['lastview'] = htmlspecialchars( strip_tags( $this->piVars ['lastview'] ) );
-      $this->conf ['uid'] = intval( $this->piVars ['uid'] );
-      $this->conf ['type'] = htmlspecialchars( strip_tags( $this->piVars ['type'] ) );
-      $this->conf ['monitor'] = htmlspecialchars( strip_tags( $this->piVars ['monitor'] ) );
-      $this->conf ['gettime'] = intval( $this->piVars ['gettime'] );
-      $this->conf ['postview'] = intval( $this->piVars ['postview'] );
-      $this->conf ['page_id'] = intval( $this->piVars ['page_id'] );
-      $this->conf ['option'] = htmlspecialchars( strip_tags( $this->piVars ['option'] ) );
-      $this->conf ['switch_calendar'] = intval( $this->piVars ['switch_calendar'] );
+    if (!isset($this->conf ['dontListenToPiVars']) || ! $this->conf ['dontListenToPiVars']) {
+      $this->conf ['view'] = htmlspecialchars( strip_tags( $this->piVars ['view'] ?? '' ) );
+      $this->conf ['lastview'] = htmlspecialchars( strip_tags( $this->piVars ['lastview'] ?? '' ) );
+      $this->conf ['uid'] = intval( $this->piVars ['uid'] ?? 0 );
+      $this->conf ['type'] = htmlspecialchars( strip_tags( $this->piVars ['type'] ?? '' ) );
+      $this->conf ['monitor'] = htmlspecialchars( strip_tags( $this->piVars ['monitor'] ?? '' ) );
+      $this->conf ['gettime'] = intval( $this->piVars ['gettime'] ?? 0 );
+      $this->conf ['postview'] = intval( $this->piVars ['postview'] ?? 0 );
+      $this->conf ['page_id'] = intval( $this->piVars ['page_id'] ?? 0 );
+      $this->conf ['option'] = htmlspecialchars( strip_tags( $this->piVars ['option'] ?? '' ) );
+      $this->conf ['switch_calendar'] = intval( $this->piVars ['switch_calendar'] ?? 0 );
       $this->conf ['location'] = $location;
-      $this->conf ['preview'] = intval( $this->piVars ['preview'] );
+      $this->conf ['preview'] = intval( $this->piVars ['preview'] ?? 0 );
     }
     
     if (! is_array( $this->conf ['view.'] ['allowedViews'] )) {
@@ -421,7 +424,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       
       if ($cachingEngine == 'cachingFramework') {
         
-        if (! is_object( $GLOBALS ['typo3CacheFactory'] ) || ! isset( $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['backend'] )) {
+        if ((isset($GLOBALS ['typo3CacheFactory']) && ! is_object( $GLOBALS ['typo3CacheFactory'] )) || ! isset( $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['caching'] ['cacheConfigurations'] ['tx_cal_cache'] ['backend'] )) {
           // if there's no cacheFactory object fall back to internal caching (TYPO3 < 4.3)
           $cachingEngine = 'internal';
         }
@@ -431,14 +434,14 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
         $cachingEngine = 'internal';
       }
       
-      if ($this->conf ['writeCachingInfoToDevlog']) {
+      if (isset($this->conf ['writeCachingInfoToDevlog']) && $this->conf ['writeCachingInfoToDevlog']) {
         $tmp = GeneralUtility::trimExplode( '|', $this->conf ['writeCachingInfoToDevlog'], 0 );
         if ($tmp [1]) {
           $this->writeCachingInfoToDevlog = $tmp [1];
         }
       }
       
-      switch ($this->conf ['cacheClearMode']) {
+      switch ($this->conf ['cacheClearMode'] ?? '') {
         case 'lifetime' :
           $lifetime = $this->conf ['cacheLifetime'];
           break;
@@ -483,7 +486,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $catIDs [] = $row ['uid'];
     }
     
-    if ($this->piVars ['categorySelection'] == 1 && empty( $this->piVars ['category'] )) {
+    if (isset($this->piVars ['categorySelection']) && $this->piVars ['categorySelection'] == 1 && empty( $this->piVars ['category'] )) {
       $catIDs = Array ();
     } else {
       unset( $this->piVars ['categorySelection'] );
@@ -500,10 +503,13 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     $category = $this->conf ['view.'] ['category'];
     $this->conf ['view.'] ['allowedCategory'] = $this->conf ['view.'] ['category'];
     
-    $piVarCategory = Controller::convertLinkVarArrayToList( $this->piVars ['category'] );
+    $piVarCategory = Array();
+    if(isset($this->piVars ['category'])){
+      $piVarCategory = Controller::convertLinkVarArrayToList( $this->piVars ['category'] );
+    }
     
     if ($piVarCategory) {
-      if ($this->conf ['view.'] ['category']) {
+      if (isset($this->conf ['view.'] ['category'])) {
         $categoryArray = explode( ',', $category );
         $piVarCategoryArray = explode( ',', $piVarCategory );
         $sameValues = array_intersect( $categoryArray, $piVarCategoryArray );
@@ -527,18 +533,18 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     }
     
     // ompile calendar array
-    switch ($this->conf ['view.'] ['calendarMode']) {
+    switch ($this->conf ['view.'] ['calendarMode'] ?? 0) {
       case 0 : // show all
         $calendar = $this->conf ['view.'] ['calendar'] = $this->conf ['view.'] ['allowedCalendar'] = implode( ',', $allCalendars );
         break;
       case 1 : // how selected
-        if ($this->conf ['view.'] ['calendar']) {
+        if (isset($this->conf ['view.'] ['calendar'])) {
           $calendar = $this->conf ['view.'] ['calendar'];
           $this->conf ['view.'] ['allowedCalendar'] = $this->conf ['view.'] ['calendar'];
         }
         break;
       case 2 : // xclude selected
-        if ($this->conf ['view.'] ['calendar']) {
+        if (isset($this->conf ['view.'] ['calendar'])) {
           $calendar = $this->conf ['view.'] ['calendar'] = implode( ',', array_diff( $allCalendars, explode( ',', $this->conf ['view.'] ['calendar'] ) ) );
           $this->conf ['view.'] ['allowedCalendar'] = $this->conf ['view.'] ['calendar'];
         } else {
@@ -561,13 +567,14 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       }
     }
     
-    if ($this->conf ['view.'] ['calendar.'] ['subscription'] != '') {
+    if (isset($this->conf ['view.'] ['calendar.'] ['subscription']) && $this->conf ['view.'] ['calendar.'] ['subscription'] != '') {
       $calendar = $this->conf ['view.'] ['allowedCalendar'] = $this->conf ['view.'] ['calendar'] = implode( ',', array_diff( explode( ',', $calendar ), explode( ',', $this->conf ['view.'] ['calendar.'] ['subscription'] ) ) );
     }
     
-    $piVarCalendar = Controller::convertLinkVarArrayToList( $this->piVars ['calendar'] );
-    if ($piVarCalendar) {
-      if ($this->conf ['view.'] ['calendar']) {
+    
+    if (isset($this->piVars ['calendar'])) {
+      $piVarCalendar = Controller::convertLinkVarArrayToList( $this->piVars ['calendar'] );
+      if (isset($this->conf ['view.'] ['calendar'])) {
         $calendarArray = explode( ',', $calendar );
         $piVarCalendarArray = explode( ',', $piVarCalendar );
         $sameValues = array_intersect( $calendarArray, $piVarCalendarArray );
@@ -578,7 +585,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $calendar = is_array( $calendar ) ? implode( ',', $calendar ) : $calendar;
     }
     
-    if ($this->conf ['view.'] ['freeAndBusy.'] ['enable']) {
+    if (isset($this->conf ['view.'] ['freeAndBusy.'] ['enable']) && $this->conf ['view.'] ['freeAndBusy.'] ['enable']) {
       $this->conf ['option'] = 'freeandbusy';
       $this->conf ['view.'] ['calendarMode'] = 1;
       $calendar = intval( $this->piVars ['calendar'] ) ? intval( $this->piVars ['calendar'] ) : $this->conf ['view.'] ['freeAndBusy.'] ['defaultCalendarUid'];
@@ -1220,7 +1227,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     
     $hookObjectsArr = $this->getHookObjectsArray( 'drawMonthClass' );
     
-    if ($this->conf ['view.'] ['enableAjax']) {
+    if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
       $master_array = Array ();
     } else {
       
@@ -1435,7 +1442,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       return \TYPO3\CMS\Cal\Utility\Functions::createErrorMessage( 'Missing or wrong parameter. The location you are looking for could not be found.', 'Please verify your URL parameter: tx_cal_controller[uid]' );
     }
     
-    if ($this->conf ['view.'] ['enableAjax']) {
+    if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
       return '{' . $this->getEventAjaxString( $location ) . '}';
     }
     $relatedEvents = &$this->findRelatedEvents( 'location', ' AND location_id = ' . $uid );
@@ -1535,8 +1542,8 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $type = '';
     }
     
-    $starttimePreset = $this->cObj->stdWrap( $this->conf ['view.'] ['list.'] ['starttime'], $this->conf ['view.'] ['list.'] ['starttime.'] );
-    $endtimePreset = $this->cObj->stdWrap( $this->conf ['view.'] ['list.'] ['endtime'], $this->conf ['view.'] ['list.'] ['endtime.'] );
+    $starttimePreset = $this->cObj->stdWrap( $this->conf ['view.'] ['list.'] ['starttime'] ?? '', $this->conf ['view.'] ['list.'] ['starttime.'] ?? array() );
+    $endtimePreset = $this->cObj->stdWrap( $this->conf ['view.'] ['list.'] ['endtime'] ?? '', $this->conf ['view.'] ['list.'] ['endtime.'] ?? array() );
     
     $starttime = $this->getListViewTime( $starttimePreset );
     $endtime = $this->getListViewTime( $endtimePreset );
@@ -3234,126 +3241,123 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
   public function updateConfWithFlexform(&$piFlexForm) {
     // Controller::updateIfNotEmpty($this->conf['pages'], $this->pi_getFFvalue($piFlexForm, 'pages'));
     // Controller::updateIfNotEmpty($this->conf['recursive'], $this->pi_getFFvalue($piFlexForm, 'recursive'));
-    if ($this->conf ['dontListenToFlexForm'] == 1) {
+    if (isset($this->conf ['dontListenToFlexForm']) && $this->conf ['dontListenToFlexForm'] == 1) {
       return;
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['general.'] ['calendarName'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['general.'] ['calendarName']) || $this->conf ['dontListenToFlexForm.'] ['general.'] ['calendarName'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['calendarName'], $this->pi_getFFvalue( $piFlexForm, 'calendarName' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['general.'] ['allowSubscribe'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['general.'] ['allowSubscribe']) || $this->conf ['dontListenToFlexForm.'] ['general.'] ['allowSubscribe'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['allowSubscribe'], $this->pi_getFFvalue( $piFlexForm, 'subscription' ) == 1 ? 1 : - 1 );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['general.'] ['subscribeFeUser'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['general.'] ['subscribeFeUser']) || $this->conf ['dontListenToFlexForm.'] ['general.'] ['subscribeFeUser'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['subscribeFeUser'], $this->pi_getFFvalue( $piFlexForm, 'subscription' ) == 2 ? 1 : - 1 );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['general.'] ['subscribeWithCaptcha'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['general.'] ['subscribeWithCaptcha']) || $this->conf ['dontListenToFlexForm.'] ['general.'] ['subscribeWithCaptcha'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['subscribeWithCaptcha'], $this->pi_getFFvalue( $piFlexForm, 'subscribeWithCaptcha' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['general.'] ['allowedViews'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['general.'] ['allowedViews']) || $this->conf ['dontListenToFlexForm.'] ['general.'] ['allowedViews'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['allowedViews'], $this->pi_getFFvalue( $piFlexForm, 'allowedViews' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['general.'] ['calendarDistance'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['general.'] ['calendarDistance']) || $this->conf ['dontListenToFlexForm.'] ['general.'] ['calendarDistance'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['calendar.'] ['nearbyDistance'], intval( $this->pi_getFFvalue( $piFlexForm, 'calendarDistance' ) ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['day.'] ['dayViewPid'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['day.'] ['dayViewPid']) || $this->conf ['dontListenToFlexForm.'] ['day.'] ['dayViewPid'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['day.'] ['dayViewPid'], $this->pi_getFFvalue( $piFlexForm, 'dayViewPid', 's_Day_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['day.'] ['dayStart'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['day.'] ['dayStart']) || $this->conf ['dontListenToFlexForm.'] ['day.'] ['dayStart'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['day.'] ['dayStart'], $this->pi_getFFvalue( $piFlexForm, 'dayStart', 's_Day_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['day.'] ['dayEnd'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['day.'] ['dayEnd']) || $this->conf ['dontListenToFlexForm.'] ['day.'] ['dayEnd'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['day.'] ['dayEnd'], $this->pi_getFFvalue( $piFlexForm, 'dayEnd', 's_Day_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['day.'] ['gridLength'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['day.'] ['gridLength']) || $this->conf ['dontListenToFlexForm.'] ['day.'] ['gridLength'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['day.'] ['gridLength'], $this->pi_getFFvalue( $piFlexForm, 'gridLength', 's_Day_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['day.'] ['weekViewPid'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['day.'] ['weekViewPid']) || $this->conf ['dontListenToFlexForm.'] ['day.'] ['weekViewPid'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['week.'] ['weekViewPid'], $this->pi_getFFvalue( $piFlexForm, 'weekViewPid', 's_Week_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['month.'] ['monthViewPid'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['month.'] ['monthViewPid']) || $this->conf ['dontListenToFlexForm.'] ['month.'] ['monthViewPid'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['month.'] ['monthViewPid'], $this->pi_getFFvalue( $piFlexForm, 'monthViewPid', 's_Month_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['month.'] ['monthMakeMiniCal'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['month.'] ['monthMakeMiniCal']) || $this->conf ['dontListenToFlexForm.'] ['month.'] ['monthMakeMiniCal'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['month.'] ['monthMakeMiniCal'], $this->pi_getFFvalue( $piFlexForm, 'monthMakeMiniCal', 's_Month_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['month.'] ['monthShowListView'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['month.'] ['monthShowListView']) || $this->conf ['dontListenToFlexForm.'] ['month.'] ['monthShowListView'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['month.'] ['showListInMonthView'], $this->pi_getFFvalue( $piFlexForm, 'monthShowListView', 's_Month_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['year.'] ['yearViewPid'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['year.'] ['yearViewPid']) || $this->conf ['dontListenToFlexForm.'] ['year.'] ['yearViewPid'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['year.'] ['yearViewPid'], $this->pi_getFFvalue( $piFlexForm, 'yearViewPid', 's_Year_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['event.'] ['eventViewPid'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['event.'] ['eventViewPid']) || $this->conf ['dontListenToFlexForm.'] ['event.'] ['eventViewPid'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['event.'] ['eventViewPid'], $this->pi_getFFvalue( $piFlexForm, 'eventViewPid', 's_Event_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['event.'] ['isPreview'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['event.'] ['isPreview']) || $this->conf ['dontListenToFlexForm.'] ['event.'] ['isPreview'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['event.'] ['isPreview'], $this->pi_getFFvalue( $piFlexForm, 'isPreview', 's_Event_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['listViewPid'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['listViewPid']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['listViewPid'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['listViewPid'], $this->pi_getFFvalue( $piFlexForm, 'listViewPid', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['starttime'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['starttime']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['starttime'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['starttime'], $this->pi_getFFvalue( $piFlexForm, 'starttime', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['endtime'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['endtime']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['endtime'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['endtime'], $this->pi_getFFvalue( $piFlexForm, 'endtime', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['maxEvents'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['maxEvents']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['maxEvents'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['maxEvents'], $this->pi_getFFvalue( $piFlexForm, 'maxEvents', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['maxRecurringEvents'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['maxRecurringEvents']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['maxRecurringEvents'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['maxRecurringEvents'], $this->pi_getFFvalue( $piFlexForm, 'maxRecurringEvents', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['usePageBrowser'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['usePageBrowser']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['usePageBrowser'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['usePageBrowser'], $this->pi_getFFvalue( $piFlexForm, 'usePageBrowser', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['recordsPerPage'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['recordsPerPage']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['recordsPerPage'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['recordsPerPage'], $this->pi_getFFvalue( $piFlexForm, 'recordsPerPage', 's_List_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['list.'] ['pagesCount'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['list.'] ['pagesCount']) || $this->conf ['dontListenToFlexForm.'] ['list.'] ['pagesCount'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['pagesCount'], $this->pi_getFFvalue( $piFlexForm, 'pagesCount', 's_List_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['ics.'] ['showIcsLinks'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['ics.'] ['showIcsLinks']) || $this->conf ['dontListenToFlexForm.'] ['ics.'] ['showIcsLinks'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['ics.'] ['showIcsLinks'], $this->pi_getFFvalue( $piFlexForm, 'showIcsLinks', 's_Ics_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showLogin'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['other.'] ['showLogin']) || $this->conf ['dontListenToFlexForm.'] ['other.'] ['showLogin'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showLogin'], $this->pi_getFFvalue( $piFlexForm, 'showLogin', 's_Other_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showSearch'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['other.'] ['showSearch']) || $this->conf ['dontListenToFlexForm.'] ['other.'] ['showSearch'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showSearch'], $this->pi_getFFvalue( $piFlexForm, 'showSearch', 's_Other_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showJumps'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['other.'] ['showJumps']) || $this->conf ['dontListenToFlexForm.'] ['other.'] ['showJumps'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showJumps'], $this->pi_getFFvalue( $piFlexForm, 'showJumps', 's_Other_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showGoto'] != 1) {
-      Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showGoto'], $this->pi_getFFvalue( $piFlexForm, 'showGoto', 's_Other_View' ) );
-    }
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showCalendarSelection'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['other.'] ['showCalendarSelection']) || $this->conf ['dontListenToFlexForm.'] ['other.'] ['showCalendarSelection'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showCalendarSelection'], $this->pi_getFFvalue( $piFlexForm, 'showCalendarSelection', 's_Other_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showCategorySelection'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['other.'] ['showCategorySelection']) || $this->conf ['dontListenToFlexForm.'] ['other.'] ['showCategorySelection'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showCategorySelection'], $this->pi_getFFvalue( $piFlexForm, 'showCategorySelection', 's_Other_View' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['other.'] ['showTomorrowEvents'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['other.'] ['showTomorrowEvents']) || $this->conf ['dontListenToFlexForm.'] ['other.'] ['showTomorrowEvents'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['other.'] ['showTomorrowEvents'], $this->pi_getFFvalue( $piFlexForm, 'showTomorrowEvents', 's_Other_View' ) );
     }
     
-    if ($this->conf ['dontListenToFlexForm.'] ['filters.'] ['categorySelection'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['filters.'] ['categorySelection']) || $this->conf ['dontListenToFlexForm.'] ['filters.'] ['categorySelection'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['category'], $this->pi_getFFvalue( $piFlexForm, 'categorySelection', 's_Cat' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['filters.'] ['categoryMode'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['filters.'] ['categoryMode']) || $this->conf ['dontListenToFlexForm.'] ['filters.'] ['categoryMode'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['categoryMode'], $this->pi_getFFvalue( $piFlexForm, 'categoryMode', 's_Cat' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['filters.'] ['calendarSelection'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['filters.'] ['calendarSelection']) || $this->conf ['dontListenToFlexForm.'] ['filters.'] ['calendarSelection'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['calendar'], $this->pi_getFFvalue( $piFlexForm, 'calendarSelection', 's_Cat' ) );
     }
-    if ($this->conf ['dontListenToFlexForm.'] ['filters.'] ['calendarMode'] != 1) {
+    if (!isset($this->conf ['dontListenToFlexForm.'] ['filters.'] ['calendarMode']) || $this->conf ['dontListenToFlexForm.'] ['filters.'] ['calendarMode'] != 1) {
       Controller::updateIfNotEmpty( $this->conf ['view.'] ['calendarMode'], $this->pi_getFFvalue( $piFlexForm, 'calendarMode', 's_Cat' ) );
     }
     
@@ -3417,7 +3421,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
    * @param string $page          
    * @return string
    */
-  public static function replace_tags($tags = Array(), $page) {
+  public static function replace_tags($tags = Array(), $page = '') {
 
     if (sizeof( $tags ) > 0) {
       $sims = Array ();
@@ -3457,7 +3461,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $viewParams = Controller::convertLastViewParamsToArray( $target );
       $returnParams = $viewParams [0];
       
-      switch (trim( $returnParams ['view'] )) {
+      switch (trim( $returnParams ['view'] ?? '' )) {
         case 'event' :
         case 'organizer' :
         case 'location' :
@@ -3554,7 +3558,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $paramArray = explode( '|', $viewConf );
       foreach ( $paramArray as $paramString ) {
         $param = explode( '-', $paramString );
-        $result [$viewNr] [$param [0]] = $param [1];
+        $result [$viewNr] [$param [0]] = $param [1] ?? '';
       }
     }
     return $result;
@@ -3604,7 +3608,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     $content = '<div class="' . str_replace( '_', '-', $this->prefixId ) . ' ' . implode( ' ', $additionalClasses ) . '">
 		' . $str . '</div>';
     
-    if (! $GLOBALS ['TSFE']->config ['config'] ['disablePrefixComment']) {
+    if (!isset($GLOBALS ['TSFE']->config ['config'] ['disablePrefixComment']) || ! $GLOBALS ['TSFE']->config ['config'] ['disablePrefixComment']) {
       $content = '
 			<!--
 
@@ -3644,32 +3648,32 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
    */
   public function getParamsFromSession() {
 
-    if (! $this->piVars ['view']) {
-      if ($this->piVars ['week']) {
+    if (! isset($this->piVars ['view'])) {
+      if (isset($this->piVars ['week'])) {
         $this->piVars ['view'] = 'week';
-      } else if ($this->piVars ['day']) {
+      } else if (isset($this->piVars ['day'])) {
         $this->piVars ['view'] = 'day';
-      } else if ($this->piVars ['month']) {
+      } else if (isset($this->piVars ['month'])) {
         $this->piVars ['view'] = 'month';
-      } else if ($this->piVars ['year']) {
+      } else if (isset($this->piVars ['year'])) {
         $this->piVars ['view'] = 'year';
       }
     }
     
-    if ($this->conf ['dontListenToPiVars']) {
+    if (isset($this->conf ['dontListenToPiVars']) && $this->conf ['dontListenToPiVars']) {
       $this->piVars = array ();
-    } else {
+    } else if (isset( $_SESSION [$this->prefixId]) && is_array( $_SESSION [$this->prefixId])){
       foreach ( ( array ) $_SESSION [$this->prefixId] as $key => $value ) {
         if (! array_key_exists( $key, $this->piVars )) {
           $this->piVars [$key] = $value;
         }
       }
     }
-    if (! $this->piVars ['getdate'] && ! $this->piVars ['week'] && ! $this->piVars ['year'] && $this->conf ['_DEFAULT_PI_VARS.'] ['getdate']) {
+    if (!isset($this->piVars ['getdate']) && ! isset($this->piVars ['week']) && ! isset($this->piVars ['year']) && isset($this->conf ['_DEFAULT_PI_VARS.'] ['getdate'])) {
       $this->piVars ['getdate'] = $this->conf ['_DEFAULT_PI_VARS.'] ['getdate'];
     }
-    if (! $this->piVars ['getdate']) {
-      if ($this->piVars ['week']) {
+    if (! isset($this->piVars ['getdate'])) {
+      if (isset($this->piVars ['week'])) {
         $this->piVars ['getdate'] = \TYPO3\CMS\Cal\Utility\Functions::getDayByWeek( $this->piVars ['year'], $this->piVars ['week'], $this->piVars ['weekday'] );
         
         unset( $this->piVars ['year'] );
@@ -3678,13 +3682,13 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       } else {
         $date = new \TYPO3\CMS\Cal\Model\CalDate();
         $date->setTZbyID( 'UTC' );
-        if (! $this->piVars ['year']) {
+        if (! isset($this->piVars ['year'])) {
           $this->piVars ['year'] = $date->format( '%Y' );
         }
-        if (! $this->piVars ['month']) {
+        if (! isset($this->piVars ['month'])) {
           $this->piVars ['month'] = $date->format( '%m' );
         }
-        if (! $this->piVars ['day']) {
+        if (! isset($this->piVars ['day'])) {
           $this->piVars ['day'] = $date->format( '%d' );
         }
         if ($this->piVars ['month'] == 2) {
@@ -3708,17 +3712,19 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
         unset( $this->piVars ['day'] );
       }
     }
-    unset( $_SESSION [$this->prefixId] );
+    if(isset($_SESSION [$this->prefixId])) {
+      unset( $_SESSION [$this->prefixId] );
+    }
   }
 
   /**
    */
   public function clearPiVarParams() {
 
-    if ($this->conf ['dontListenToPiVars'] || $this->conf ['clearPiVars'] == 'all') {
+    if ((isset($this->conf ['dontListenToPiVars']) && $this->conf ['dontListenToPiVars']) || (isset($this->conf ['clearPiVars']) && $this->conf ['clearPiVars'] == 'all')) {
       $this->piVars = array ();
     } else {
-      $clearPiVars = GeneralUtility::trimExplode( ',', $this->conf ['clearPiVars'], 1 );
+      $clearPiVars = GeneralUtility::trimExplode( ',', $this->conf ['clearPiVars'] ?? false, 1 );
       foreach ( ( array ) $this->piVars as $key => $value ) {
         if (in_array( $key, $clearPiVars )) {
           unset( $this->piVars [$key] );
@@ -3817,7 +3823,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     // once useCacheHash property in typolinks has stdWrap, we can use this flag - until then it's unfortunately useless :(
     // $parameterArray ['link_no_cache'] = $this->pi_USER_INT_obj ? 0 : ! $cache;
     $parameterArray ['link_parameter'] = $altPageId ? $altPageId : ($this->pi_tmpPageId ? $this->pi_tmpPageId : $GLOBALS ['TSFE']->id);
-    $parameterArray ['link_additionalParams'] = $this->conf ['parent.'] ['addParams'] . GeneralUtility::implodeArrayForUrl( '', $piVars, '', true ) . $this->pi_moreParams;
+    $parameterArray ['link_additionalParams'] = $this->conf ['parent.'] ['addParams'] ?? '' . GeneralUtility::implodeArrayForUrl( '', $piVars, '', true ) . $this->pi_moreParams;
     $parameterArray ['link_ATagParams'] = 'class="url"';
     
     // add time/date related parameters to all link objects, so that they can use them e.g. to display the monthname etc.
@@ -3847,6 +3853,9 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
   public function pi_linkTP($str, $urlParameters = array(), $cache = 0, $altPageId = 0) {
 
     $this->cleanupUrlParameter( $urlParameters );
+    if(!isset($this->conf['parent.']['addParams'])){
+      $this->conf['parent.']['addParams'] = '';
+    }
     $link = parent::pi_linkTP( $str, $urlParameters, $cache, $altPageId );
     return $link;
   }
@@ -3865,29 +3874,31 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     $lastViewParams = array ();
     $useLastView = true;
     // temporary fix for BACK_LINK urls
-    $dontExtendLastView = $params ['dontExtendLastView'];
+    $dontExtendLastView = $params ['dontExtendLastView'] ?? false;
     unset( $params ['dontExtendLastView'] );
     
-    switch (trim( $params ['view'] )) {
-      case 'search_all' :
-      case 'search_event' :
-      case 'search_location' :
-      case 'search_organizer' :
-        $useLastView = false;
-        break;
-      default :
-        if ($params ['type'] || GeneralUtility::inList( 'week,day,year', trim( $params ['view'] ) )) {
-          $removeParams = array (
-              
-              $this->getPointerName(),
-              'submit',
-              'query'
-          );
-        }
-        if ($params [$this->getPointerName] || ($params ['category'] && $params ['view'] != 'event')) {
+    if(isset($params ['view'])) {
+      switch (trim( $params ['view'] )) {
+        case 'search_all' :
+        case 'search_event' :
+        case 'search_location' :
+        case 'search_organizer' :
           $useLastView = false;
-        }
-        break;
+          break;
+        default :
+          if (isset($params ['type']) || GeneralUtility::inList( 'week,day,year', trim( $params ['view'] ) )) {
+            $removeParams = array (
+                
+                $this->getPointerName(),
+                'submit',
+                'query'
+            );
+          }
+          if ($params [$this->getPointerName()] ?? false || ($params ['category'] ?? false && $params ['view'] != 'event')) {
+            $useLastView = false;
+          }
+          break;
+      }
     }
     if (count( $removeParams )) {
       foreach ( $removeParams as $name ) {
@@ -4036,7 +4047,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       $this->pi_initPIflexForm(); // Init and get the flexform data of the plugin
       $piFlexForm = $this->cObj->data ['pi_flexform'];
       
-      if ($this->conf ['dontListenToFlexForm.'] ['day.'] ['weekStartDay'] != 1) {
+      if (!isset($this->conf ['dontListenToFlexForm.'] ['day.'] ['weekStartDay']) || $this->conf ['dontListenToFlexForm.'] ['day.'] ['weekStartDay'] != 1) {
         Controller::updateIfNotEmpty( $this->conf ['view.'] ['weekStartDay'], $this->pi_getFFvalue( $piFlexForm, 'weekStartDay' ) );
       }
     }

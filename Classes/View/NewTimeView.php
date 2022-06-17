@@ -26,11 +26,15 @@ abstract class NewTimeView {
 
   private $day;
 
-  private $month;
+  public $month;
 
   private $year;
+  
+  protected $minute;
+  
+  protected $hour;
 
-  private $weekdayNumber;
+  public $weekdayNumber;
 
   private $mySubpart;
 
@@ -46,7 +50,7 @@ abstract class NewTimeView {
 
   protected $current = false;
 
-  private $selected = false;
+  public $selected = false;
 
   private $parentMonth;
 
@@ -127,7 +131,7 @@ abstract class NewTimeView {
           } else if (preg_match( '/MODULE__([A-Z0-9_-|])*/', $marker )) {
             $tmp = explode( '___', substr( $marker, 8 ) );
             $modules [$tmp [0]] [] = $tmp [1];
-          } else if ($conf [$base . '.'] [$view . '.'] [strtolower( $marker )]) {
+          } else if (isset($conf [$base . '.'] [$view . '.'] [strtolower( $marker )]) && $conf [$base . '.'] [$view . '.'] [strtolower( $marker )]) {
             $current = '';
             
             // first, try to fill $current with a method of the model matching the markers name
@@ -153,7 +157,7 @@ abstract class NewTimeView {
     // his allows to spread the Module-Markers over complete template instead of one time
     // lso work with old way of MODULE__-Marker
     
-    if (is_array( $modules )) { // ODULE-MARKER FOUND
+    if (isset($modules) && is_array( $modules )) { // ODULE-MARKER FOUND
       foreach ( $modules as $themodule => $markerArray ) {
         $module = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstanceService( $themodule, 'module' );
         if (is_object( $module )) {
@@ -495,6 +499,7 @@ abstract class NewTimeView {
     }
     $than = new \TYPO3\CMS\Cal\Model\CalDate();
     $than->setTZbyId( 'UTC' );
+    $createOffset = intval( $this->conf ['rights.'] ['create.'] ['event.'] ['timeOffset'] ?? 0 ) * 60;
     $than->addSeconds( $createOffset );
     
     $date = new \TYPO3\CMS\Cal\Model\CalDate();

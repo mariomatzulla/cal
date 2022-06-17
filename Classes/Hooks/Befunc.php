@@ -25,14 +25,14 @@ class Befunc {
 
   public function preprocessvalue(&$conf) {
 
-    if ($conf ['tx_cal_event']) {
+    if (isset($conf ['tx_cal_event'])) {
       unset( $conf ['eval'] );
     }
   }
 
   public function postprocessvalue(&$conf) {
 
-    if ($conf ['colConf'] ['tx_cal_event']) {
+    if (isset($conf ['colConf'] ['tx_cal_event'])) {
       $value = new \TYPO3\CMS\Cal\Model\CalDate( $conf ['value'] . '000000' );
       if ($GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['USdateFormat'] == '1') {
         $conf ['value'] = $value->format( '%d.%m.%Y' );

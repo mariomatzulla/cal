@@ -324,11 +324,11 @@ class NewWeekView extends \TYPO3\CMS\Cal\View\NewTimeView {
         $done = false;
         for($i = $values [1]; $i < 7 && ! $done; $i ++) {
           for($j = 0; $j < 1000 && ! $done; $j ++) {
-            if (! $theMatrix [$i] [$j] && $values [0] + $i < 8) {
+            if (! isset($theMatrix [$i] [$j]) && $values [0] + $i < 8) {
               // Found an empty start spot
               $empty = true;
               for($k = $i; $k < $values [0] + $i && $empty; $k ++) {
-                if ($theMatrix [$k] [$j]) {
+                if (isset($theMatrix [$k] [$j])) {
                   $empty = false;
                 }
               }
@@ -371,7 +371,7 @@ class NewWeekView extends \TYPO3\CMS\Cal\View\NewTimeView {
         if ($this->currentDayIndex == $i) {
           $currentDayClass .= ' currentDay';
         }
-        if ($theMatrix [$i] [$j] == false) {
+        if (!isset($theMatrix [$i] [$j]) || $theMatrix [$i] [$j] == false) {
           $this->content .= '<td class="' . $classes . $currentDayClass . '">&nbsp;</td>';
         } else if (is_object( $theMatrix [$i] [$j] )) {
           $this->content .= '<td class="' . $classes . $currentDayClass . '" colspan="' . ($theMatrix [$i] [$j]->matrixValue) . '">' . $theMatrix [$i] [$j]->renderEventFor( 'week' ) . '</td>';
@@ -403,7 +403,7 @@ class NewWeekView extends \TYPO3\CMS\Cal\View\NewTimeView {
         if ($currentMonth != $this->days [$daysKeys [$i]]->month) {
           $currentDayClass .= ' monthOff';
         }
-        if ($theMatrix [$i] [$j] == false) {
+        if (!isset($theMatrix [$i] [$j]) || $theMatrix [$i] [$j] == false) {
           $this->content .= '<td class="empty ' . $classes . $currentDayClass . '">';
         } else if (is_object( $theMatrix [$i] [$j] )) {
           $this->content .= '<td class="event ' . $classes . $currentDayClass . '" colspan="' . ($theMatrix [$i] [$j]->matrixValue) . '">' . $theMatrix [$i] [$j]->renderEventFor( 'month' );
@@ -462,9 +462,9 @@ class NewWeekView extends \TYPO3\CMS\Cal\View\NewTimeView {
           'getdate' => $this->weekStart,
           'view' => $weekLinkViewTarget,
           $controller->getPointerName() => NULL
-      ), $conf ['cache'], $conf ['clear_anyway'], $conf ['view.'] [$weekLinkViewTarget . '.'] [$weekLinkViewTarget . 'ViewPid'] );
+      ), $conf ['cache'], $conf ['clear_anyway'] ?? false, $conf ['view.'] [$weekLinkViewTarget . '.'] [$weekLinkViewTarget . 'ViewPid'] );
     }
-    $sims ['###WEEK_LINK###'] = $local_cObj->cObjGetSingle( $conf ['view.'] [$view . '.'] [$weekLinkViewTarget . 'ViewLink'], $conf ['view.'] [$view . '.'] [$weekLinkViewTarget . 'ViewLink.'] );
+    $sims ['###WEEK_LINK###'] = $local_cObj->cObjGetSingle( $conf ['view.'] [$view . '.'] [$weekLinkViewTarget . 'ViewLink'], $conf ['view.'] [$view . '.'] [$weekLinkViewTarget . 'ViewLink.'] ?? array());
   }
 
   public function getDaysMarker(& $template, & $sims, & $rems, & $wrapped, $view) {
@@ -604,6 +604,7 @@ class NewWeekView extends \TYPO3\CMS\Cal\View\NewTimeView {
     }
     
     $daysKeys = array_keys( $this->days );
+    array_filter($daysKeys);
     return $this->days [$daysKeys [$weekdayIndex]]->getDayLink( $conf ['view'], $this->days [$daysKeys [$weekdayIndex]]->getTime(), $this->dayHasEvent [$this->days [$daysKeys [$weekdayIndex]]->weekdayNumber] );
   }
 

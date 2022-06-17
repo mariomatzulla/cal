@@ -18,20 +18,26 @@
 	float: right;
 }
 
-.tx-cal-controller .header-buttons div a {
+.tx-cal-controller .header-buttons div a, .tx-cal-controller .previous-button, .tx-cal-controller .next-button {
 	line-height: 29px;
 	font-size: xx-small;
 }
 
 .tx-cal-controller .previous-button, .tx-cal-controller .next-button {
 	margin-bottom: 2px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 40px;
+	height: 27px;
 }
 
 .tx-cal-controller .previous-button {
+	background-image: url(../img/control-180.png);
 	float: left;
 }
 
 .tx-cal-controller .next-button {
+	background-image: url(../img/control.png);
 	float: right;
 }
 

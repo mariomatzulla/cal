@@ -38,6 +38,8 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
   var $local_cObj;
   // reference to a locally created cObject whos data is allowed to be altered and is used to render TS objects
   var $templateService;
+  
+  var $cachedValueArray = array ();
 
   public function __construct() {
 
@@ -138,7 +140,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           'view' => $this->conf ['view'],
           $this->pointerName => NULL
       );
-      $local_sims ['###LOGIN_ACTION###'] = $this->controller->pi_linkTP_keepPIvars_url( $parameter, $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['other.'] ['loginPageId'] );
+      $local_sims ['###LOGIN_ACTION###'] = $this->controller->pi_linkTP_keepPIvars_url( $parameter, $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['other.'] ['loginPageId'] );
       
       if ($this->rightsObj->isLoggedIn()) {
         $local_sims ['###LOGIN_TYPE###'] = 'logout';
@@ -275,13 +277,13 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
     // checking for a allowed view with '$this->rightsObj->isViewEnabled($viewParams['view'])' for a chash-validated backlink piVar seems a bit odd.
     // So I removed this check in order to ease website admins life to not have to care about allowedViews only to get backlinks working :)
     // Hope this doesn't break anything or opens up XSS leaks. Feel free to put it back in if in doubt.
-    if ($this->conf ['view'] != $viewParams ['view']) {
+    if ($this->conf ['view'] ?? '' != $viewParams ['view'] ?? '') {
       $this->initLocalCObject();
       $this->local_cObj->setCurrentVal( $this->controller->pi_getLL( 'l_back' ) );
-      $this->local_cObj->data ['view'] = $viewParams ['view'];
-      $pid = intval( $viewParams ['page_id'] );
+      $this->local_cObj->data ['view'] = $viewParams ['view'] ?? '';
+      $pid = intval( $viewParams ['page_id'] ?? 0 );
       $viewParams ['dontExtendLastView'] = true;
-      $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, $viewParams, $this->conf ['cache'], $this->conf ['clear_anyway'], $pid );
+      $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, $viewParams, $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $pid );
       $sims ['###BACK_LINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['backLink'], $this->conf ['view.'] ['backLink.'] );
     }
   }
@@ -301,8 +303,8 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'list'
     ] );
     // set alternate rendering view, so that the rendering of the attached listView can be customized
-    $tempAlternateRenderingView = $tx_cal_listview->conf ['alternateRenderingView'];
-    $renderingView = $this->conf ['view.'] [$this->conf ['view'] . '.'] ['useListEventRenderSettingsView'];
+    $tempAlternateRenderingView = $tx_cal_listview->conf ['alternateRenderingView'] ?? '';
+    $renderingView = $this->conf ['view.'] [$this->conf ['view'] . '.'] ['useListEventRenderSettingsView'] ?? '';
     $tx_cal_listview->conf ['alternateRenderingView'] = $renderingView ? $renderingView : 'list';
     $listSubpart = $this->templateService->getSubpart( $page, '###LIST###' );
     
@@ -385,7 +387,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
     }
     if (($cal_time_obj->after( $now ) || $this->rightsObj->isAllowedToCreateEventInPast()) && $isAllowedToCreateEvent) {
       $this->initLocalCObject();
-      if ($this->conf ['view.'] ['enableAjax']) {
+      if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
         $this->local_cObj->setCurrentVal( $this->conf ['view.'] [$view . '.'] ['event.'] ['addIcon'] );
         $this->local_cObj->data ['link_ATagParams'] = sprintf( ' onclick="' . $this->conf ['view.'] [$view . '.'] ['event.'] ['addLinkOnClick'] . '"', $time, $cal_time_obj->format( '%Y%m%d' ) );
         $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, array (
@@ -393,7 +395,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'gettime' => $time,
             'getdate' => $cal_time_obj->format( '%Y%m%d' ),
             'view' => 'create_event'
-        ), 0, $this->conf ['clear_anyway'], $this->conf ['view.'] ['event.'] ['createEventViewPid'] );
+        ), 0, $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['event.'] ['createEventViewPid'] );
         $tmp .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['event.'] ['addLink'], $this->conf ['view.'] [$view . '.'] ['event.'] ['addLink.'] );
         if ($wrap) {
           $tmp = sprintf( $wrap, 'id="cell_' . $cal_time_obj->format( '%Y%m%d' ) . $time . '" ondblclick="javascript:eventUid=0;eventTime=\'' . $time . '\';eventDate=' . $cal_time_obj->format( '%Y%m%d' ) . ';EventDialog.showDialog(this);" ', $remember, $class, $tmp, $cal_time_obj->format( '%Y %m %d %H %M %s' ) );
@@ -598,10 +600,10 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           } else if (preg_match( '/MODULE__([A-Z0-9_-|])*/', $marker )) {
             $tmp = explode( '___', substr( $marker, 8 ) );
             $modules [$tmp [0]] [] = $tmp [1];
-          } else if ($this->conf ['view.'] [$view . '.'] [strtolower( $marker )]) {
+          } else if (isset($this->conf ['view.'] [$view . '.'] [strtolower( $marker )])) {
             $this->initLocalCObject();
             $current = '';
-            if ($this->row [strtolower( $marker )] != '') {
+            if (isset($this->row [strtolower( $marker )]) && $this->row [strtolower( $marker )] != '') {
               $current = $this->row [strtolower( $marker )];
             }
             $this->local_cObj->setCurrentVal( $current );
@@ -619,7 +621,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
     // this allows to spread the Module-Markers over complete template instead of one time
     // also work with old way of MODULE__-Marker
     
-    if (is_array( $modules )) { // MODULE-MARKER FOUND
+    if (isset($modules) && is_array( $modules )) { // MODULE-MARKER FOUND
       foreach ( $modules as $themodule => $markerArray ) {
         $module = GeneralUtility::makeInstanceService( $themodule, 'module' );
         if (is_object( $module )) {
@@ -710,7 +712,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $next_day->format( '%Y%m%d' ),
         'view' => $this->conf ['view.'] ['dayLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $dayViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $dayViewPid );
     $rems ['###NEXT_DAYLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['day.'] ['nextDayLink'], $this->conf ['view.'] ['day.'] ['nextDayLink.'] );
     
     // prev day
@@ -721,7 +723,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $prev_day->format( '%Y%m%d' ),
         'view' => $this->conf ['view.'] ['dayLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $dayViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $dayViewPid );
     $rems ['###PREV_DAYLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['day.'] ['prevDayLink'], $this->conf ['view.'] ['day.'] ['prevDayLink.'] );
     
     // next week
@@ -732,7 +734,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $next_week->format( '%Y%m%d' ),
         'view' => $this->conf ['view.'] ['weekLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $weekViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $weekViewPid );
     $rems ['###NEXT_WEEKLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['week.'] ['nextWeekLink'], $this->conf ['view.'] ['week.'] ['nextWeekLink.'] );
     
     // prev week
@@ -743,7 +745,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $prev_week->format( '%Y%m%d' ),
         'view' => $this->conf ['view.'] ['weekLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $weekViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $weekViewPid );
     $rems ['###PREV_WEEKLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['week.'] ['prevWeekLink'], $this->conf ['view.'] ['week.'] ['prevWeekLink.'] );
     
     // next month
@@ -754,7 +756,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $next_month,
         'view' => $this->conf ['view.'] ['monthLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $monthViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $monthViewPid );
     $rems ['###NEXT_MONTHLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['month.'] ['nextMonthLink'], $this->conf ['view.'] ['month.'] ['nextMonthLink.'] );
     
     // prev month
@@ -765,7 +767,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $prev_month,
         'view' => $this->conf ['view.'] ['monthLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $monthViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $monthViewPid );
     $rems ['###PREV_MONTHLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['month.'] ['prevMonthLink'], $this->conf ['view.'] ['month.'] ['prevMonthLink.'] );
     
     // next year
@@ -776,7 +778,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $next_year,
         'view' => $this->conf ['view.'] ['yearLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $yearViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $yearViewPid );
     $rems ['###NEXT_YEARLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['year.'] ['nextYearLink'], $this->conf ['view.'] ['year.'] ['nextYearLink.'] );
     
     // prev year
@@ -787,12 +789,12 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
         'getdate' => $prev_year,
         'view' => $this->conf ['view.'] ['yearLinkTarget'],
         $this->pointerName => NULL
-    ), $this->conf ['cache'], $this->conf ['clear_anyway'], $yearViewPid );
+    ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $yearViewPid );
     $rems ['###PREV_YEARLINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['year.'] ['prevYearLink'], $this->conf ['view.'] ['year.'] ['prevYearLink.'] );
     
     $this->local_cObj->setCurrentVal( $this->controller->getDateTimeObject->getTime() );
     
-    $sims ['###DISPLAY_DATE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['displayDate'], $this->conf ['view.'] [$this->conf ['view'] . '.'] ['displayDate.'] );
+    $sims ['###DISPLAY_DATE###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['displayDate'] ?? '', $this->conf ['view.'] [$this->conf ['view'] . '.'] ['displayDate.'] ?? array() );
     
     $wrapped = array ();
     $hookObjectsArr = \TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray( 'tx_cal_base_model', 'searchForObjectMarker', 'model' );
@@ -896,14 +898,14 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'getdate' => $date->format( '%Y%m%d' ),
             'view' => $viewTarget,
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       } else {
         $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, array (
             
             'getdate' => $this->conf ['getdate'],
             'view' => $viewTarget,
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       }
       $rems [$viewMarker] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewLink'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewLink.'] );
     }
@@ -960,7 +962,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           'getdate' => $today,
           'view' => $viewTarget,
           $this->pointerName => NULL
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
     } else {
       $link = $this->controller->pi_linkTP_keepPIvars_url( array (
           
@@ -1012,7 +1014,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'getdate' => $monthdate,
             'view' => 'month',
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['month.'] ['monthViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['month.'] ['monthViewPid'] );
       }
       $link = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['month.'] ['monthViewLink'], $this->conf ['view.'] ['month.'] ['monthViewLink.'] );
       
@@ -1049,7 +1051,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'getdate' => $yeardate,
             'view' => 'year',
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['year.'] ['yearViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['year.'] ['yearViewPid'] );
       }
       $link = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['year.'] ['yearViewLink'], $this->conf ['view.'] ['year.'] ['yearViewLink.'] );
       
@@ -1077,7 +1079,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           $calendarParams = explode( '###', $calendarTitle );
           $calendarTitle = $calendarParams [1];
           $calendarUid = $calendarParams [0];
-          if ($calendarParams [2]) {
+          if (isset($calendarParams [2])) {
             $calendarType = $calendarParams [2];
             $calendarService = &$this->modelObj->getServiceObjByKey( 'cal_calendar_model', 'calendar', 'tx_cal_calendar' );
             $calendar = $calendarService->find( $calendarUid, $this->conf ['pidList'] );
@@ -1175,7 +1177,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           
           'view' => 'create_calendar',
           'type' => 'tx_cal_calendar'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['calendar.'] ['createCalendarViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['calendar.'] ['createCalendarViewPid'] );
       $sims ['###CREATE_CALENDAR_LINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['calendar.'] ['calendar.'] ['addLink'], $this->conf ['view.'] ['calendar.'] ['calendar.'] ['addLink.'] );
     }
   }
@@ -1225,7 +1227,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'getdate' => $monthdate,
             'view' => $viewTarget,
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       } else {
         $link = $this->controller->pi_linkTP_keepPIvars_url( array (
             
@@ -1279,7 +1281,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'getdate' => $date,
             'view' => $viewTarget,
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       } else {
         $link = $this->controller->pi_linkTP_keepPIvars_url( array (
             
@@ -1337,7 +1339,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
             'getdate' => $weekdate,
             'view' => $viewTarget,
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       } else {
         $link = $this->controller->pi_linkTP_keepPIvars_url( array (
             
@@ -1434,7 +1436,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
     return $freq_type;
   }
 
-  function _draw_month_new($offset = '+0', $type) {
+  function _draw_month_new($offset = '+0', $type = '') {
 
     if (preg_match( '![+|-][0-9]{1,2}!is', $offset )) { // new one
       $monthDate = new \TYPO3\CMS\Cal\Model\CalDate();
@@ -1500,7 +1502,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
    *          The date of the event
    * @return string The HTML output.
    */
-  function _draw_month($page, $offset = '+0', $type) {
+  function _draw_month($page, $offset = '+0', $type = '') {
 
     $viewTarget = $this->conf ['view.'] ['monthLinkTarget'];
     $monthTemplate = $this->templateService->getSubpart( $page, '###MONTH_TEMPLATE###' );
@@ -1547,7 +1549,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           'getdate' => $fake_getdate_time->format( '%Y%m%d' ),
           'view' => $viewTarget,
           $this->pointerName => NULL
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       $month_title = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewLink'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewLink.'] );
       $month_date = $fake_getdate_time->format( '%Y%m%d' );
       
@@ -1684,7 +1686,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
                 'getdate' => $formatedGetdate,
                 'view' => $weekLinkViewTarget,
                 $this->pointerName => NULL
-            ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$weekLinkViewTarget . '.'] [$weekLinkViewTarget . 'ViewPid'] );
+            ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$weekLinkViewTarget . '.'] [$weekLinkViewTarget . 'ViewPid'] );
             $num = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$weekLinkViewTarget . '.'] [$weekLinkViewTarget . 'ViewLink'], $this->conf ['view.'] [$weekLinkViewTarget . '.'] [$weekLinkViewTarget . 'ViewLink.'] );
           }
           
@@ -1732,7 +1734,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
               'getdate' => $formatedGetdate,
               'view' => $dayLinkViewTarget,
               $this->pointerName => NULL
-          ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
+          ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
           $switch ['###LINK###'] .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewLink'], $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewLink.'] );
           if ($switch ['###LINK###'] === '') {
             $switch ['###LINK###'] .= $formatedDayDate;
@@ -1880,7 +1882,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           'getdate' => $month_date,
           'view' => $viewTarget,
           $this->pointerName => NULL
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewPid'] );
       $month_link = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewLink'], $this->conf ['view.'] [$viewTarget . '.'] [$viewTarget . 'ViewLink.'] );
     } else {
       $month_link = $month_title;

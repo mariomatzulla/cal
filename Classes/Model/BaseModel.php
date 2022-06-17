@@ -60,6 +60,10 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
   var $initializingCacheValues = false;
 
   var $templatePath;
+  
+  var $isPreview = false;
+  
+  var $classMethodVars = Array ();
 
   /**
    * Constructor.
@@ -123,7 +127,7 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
         }
         $cObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'cobj' );
         $autoFetchTextFields = explode( ',', strtolower( $this->conf ['autoFetchTextFields'] ) );
-        $autoFetchTextSplitValue = $cObj->stdWrap( $this->conf ['autoFetchTextSplitValue'], $this->conf ['autoFetchTextSplitValue.'] );
+        $autoFetchTextSplitValue = $cObj->stdWrap( $this->conf ['autoFetchTextSplitValue'] ?? '', $this->conf ['autoFetchTextSplitValue.'] ?? array());
         
         // new way - get everything dynamically
         if ((is_array( $this->classMethodVars ) || is_countable( $this->classMethodVars )) && ! count( $this->classMethodVars )) {
@@ -165,7 +169,7 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
           $methodName = 'get' . $varName;
           $methodValue = $this->$methodName();
           // convert any probable array to a comma list, except it contains objects
-          if (is_array( $methodValue ) && ! is_object( $methodValue [0] )) {
+          if (is_array( $methodValue ) && ((isset($methodValue [0]) && ! is_object( $methodValue [0] )) || !isset($methodValue [0]))) {
             if (in_array( strtolower( $varName ), $autoFetchTextFields )) {
               $methodValue = implode( $autoFetchTextSplitValue, $methodValue );
             } else {
@@ -491,7 +495,7 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
           } else if (preg_match( '/MODULE__([A-Z0-9_-|])*/', $marker )) {
             $tmp = explode( '___', substr( $marker, 8 ) );
             $modules [$tmp [0]] [] = $tmp [1];
-          } else if ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower( $marker )]) {
+          } else if ($this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower( $marker )] ?? false) {
             $current = '';
             
             // first, try to fill $current with a method of the model matching the markers name
@@ -504,7 +508,7 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
               unset( $tmp );
             }
             // if $current is still empty and we have a db-field matching the markers name, use this one
-            if ($current == '' && $this->row [strtolower( $marker )] != '') {
+            if ($current == '' && (isset($this->row [strtolower( $marker )]) && $this->row [strtolower( $marker )] != '')) {
               $current = $this->row [strtolower( $marker )];
             }
             
@@ -512,7 +516,7 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
             $this->local_cObj->setCurrentVal( $current );
             $sims ['###' . $marker . '###'] = $this->local_cObj->cObjGetSingle( $this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower( $marker )], $this->conf [$base . '.'] [$view . '.'] [$this->getObjectType() . '.'] [strtolower( $marker ) . '.'] );
           } else {
-            $sims ['###' . $marker . '###'] = $this->row [strtolower( $marker )];
+            $sims ['###' . $marker . '###'] = $this->row [strtolower( $marker )] ?? '';
           }
           break;
       }

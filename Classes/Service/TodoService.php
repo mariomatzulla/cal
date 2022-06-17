@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  * A concrete model for the calendar.
@@ -99,8 +100,10 @@ class TodoService extends \TYPO3\CMS\Cal\Service\EventService {
     $insertFields ['tstamp'] = $crdate;
     $insertFields ['crdate'] = $crdate;
     
-    if ($GLOBALS ['TSFE']->sys_language_content > 0 && $this->conf ['showRecordsWithoutDefaultTranslation'] == 1 && $this->rightsObj->isAllowedTo( 'create', 'translation' )) {
-      $insertFields ['sys_language_uid'] = $GLOBALS ['TSFE']->sys_language_content;
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    
+    if ($languageAspect->getContentId() > 0 && $this->conf ['showRecordsWithoutDefaultTranslation'] == 1 && $this->rightsObj->isAllowedTo( 'create', 'translation' )) {
+      $insertFields ['sys_language_uid'] = $languageAspect->getContentId();
     }
     
     // TODO: Check if all values are correct
@@ -646,7 +649,7 @@ class TodoService extends \TYPO3\CMS\Cal\Service\EventService {
     }
   }
 
-  function search($pidList = '', $start_date, $end_date, $searchword, $locationIds = '', $organizerIds = '', $eventType = '0,1,2,3') {
+  function search($pidList = '', $start_date = '', $end_date = '', $searchword = '', $locationIds = '', $organizerIds = '', $eventType = '0,1,2,3') {
 
     return parent::search( $pidList, $start_date, $end_date, $searchword, $locationIds, $organizerIds, '4' );
   }

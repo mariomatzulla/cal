@@ -227,8 +227,8 @@ class LocationModel extends \TYPO3\CMS\Cal\Model\BaseModel {
     $this->setEmail( $row ['email'] );
     $this->setImage( GeneralUtility::trimExplode( ',', $row ['image'], 1 ) );
     $this->setLink( $row ['link'] );
-    $this->setLatitude( $row ['latitude'] );
-    $this->setLongitude( $row ['longitude'] );
+    $this->setLatitude( $row ['latitude'] ?? 0 );
+    $this->setLongitude( $row ['longitude'] ?? 0 );
   }
 
   function getMapMarker(& $template, & $sims, & $rems, & $wrapped, $view) {
@@ -350,7 +350,7 @@ class LocationModel extends \TYPO3\CMS\Cal\Model\BaseModel {
           'view' => 'edit_' . $this->getObjectType(),
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$this->getObjectType() . '.'] ['edit' . ucwords( $this->getObjectType() ) . 'ViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$this->getObjectType() . '.'] ['edit' . ucwords( $this->getObjectType() ) . 'ViewPid'] );
       $this->local_cObj->setCurrentVal( $this->conf ['view.'] [$this->conf ['view'] . '.'] [$this->getObjectType() . '.'] ['editIcon'] ); // controller->pi_getLL('l_edit_'.$this->getObjectType())
       $sims ['###EDIT_LINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] [$this->getObjectType() . '.'] ['editLink'], $this->conf ['view.'] [$this->conf ['view'] . '.'] [$this->getObjectType() . '.'] ['editLink.'] );
     }
@@ -365,7 +365,7 @@ class LocationModel extends \TYPO3\CMS\Cal\Model\BaseModel {
           'view' => 'delete_' . $this->getObjectType(),
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$this->getObjectType() . '.'] ['delete' . ucwords( $this->getObjectType() ) . 'ViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$this->getObjectType() . '.'] ['delete' . ucwords( $this->getObjectType() ) . 'ViewPid'] );
       $this->initLocalCObject( $linkConf );
       $this->local_cObj->setCurrentVal( $this->conf ['view.'] [$this->conf ['view'] . '.'] [$this->getObjectType() . '.'] ['deleteIcon'] ); // controller->pi_getLL('l_delete_'.$this->getObjectType())
       $sims ['###EDIT_LINK###'] .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] [$this->getObjectType() . '.'] ['deleteLink'], $this->conf ['view.'] [$this->conf ['view'] . '.'] [$this->getObjectType() . '.'] ['deleteLink.'] );
@@ -399,7 +399,7 @@ class LocationModel extends \TYPO3\CMS\Cal\Model\BaseModel {
           'view' => $this->getObjectType(),
           'uid' => $this->getUid(),
           'type' => $this->getType()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'ViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$this->getObjectType() . '.'] [$this->getObjectType() . 'ViewPid'] );
     }
     return $linktext;
   }

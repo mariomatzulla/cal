@@ -49,7 +49,7 @@ class WeekView extends \TYPO3\CMS\Cal\View\BaseView {
     $weekModel->setCurrent( $today );
     $weekModel->setSelected( $getdate );
     
-    $weekdayLength = intval( $this->conf ['view.'] ['month.'] ['weekdayLength' . ucwords( $type ) . 'Month'] );
+    $weekdayLength = intval( $this->conf ['view.'] ['month.'] ['weekdayLength'] ?? 0 );
     if ($weekdayLength > 0) {
       $weekModel->weekDayLength = $weekdayLength;
     }
@@ -475,7 +475,7 @@ class WeekView extends \TYPO3\CMS\Cal\View\BaseView {
               'getdate' => $daylink,
               'view' => $this->conf ['view.'] ['dayLinkTarget'],
               $this->pointerName => NULL
-          ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
+          ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
         } else {
           $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, Array (
               

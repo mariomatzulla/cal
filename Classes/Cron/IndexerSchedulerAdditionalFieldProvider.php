@@ -65,7 +65,7 @@ class IndexerSchedulerAdditionalFieldProvider implements AdditionalFieldProvider
     $fieldConfiguration = array (
         
         'code' => $fieldHtml,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xml:tableHeader1',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xlf:tableHeader1',
         'cshKey' => '',
         'cshLabel' => $fieldId
     );
@@ -91,7 +91,7 @@ class IndexerSchedulerAdditionalFieldProvider implements AdditionalFieldProvider
     $fieldConfiguration = array (
         
         'code' => $fieldHtml,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xml:tableHeader2',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xlf:tableHeader2',
         'cshKey' => '',
         'cshLabel' => $fieldId
     );
@@ -117,7 +117,7 @@ class IndexerSchedulerAdditionalFieldProvider implements AdditionalFieldProvider
     $fieldConfiguration = array (
         
         'code' => $fieldHtml,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xml:indexStart',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xlf:indexStart',
         'cshKey' => '',
         'cshLabel' => $fieldId
     );
@@ -143,7 +143,7 @@ class IndexerSchedulerAdditionalFieldProvider implements AdditionalFieldProvider
     $fieldConfiguration = array (
         
         'code' => $fieldHtml,
-        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xml:indexEnd',
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_indexer.xlf:indexEnd',
         'cshKey' => '',
         'cshLabel' => $fieldId
     );

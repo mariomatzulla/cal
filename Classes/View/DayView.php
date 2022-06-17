@@ -44,7 +44,7 @@ class DayView extends \TYPO3\CMS\Cal\View\BaseView {
     $dayModel->setSelected( $getdate );
     
     $dayModel->weekDayFormat = $this->conf ['view.'] ['day.'] ['dateFormatDay'];
-    $weekdayLength = intval( $this->conf ['view.'] ['day.'] ['weekdayLength'] );
+    $weekdayLength = intval( $this->conf ['view.'] ['day.'] ['weekdayLength'] ?? 0 );
     if ($weekdayLength > 0) {
       $dayModel->weekDayLength = $weekdayLength;
     }
@@ -343,7 +343,7 @@ class DayView extends \TYPO3\CMS\Cal\View\BaseView {
             'getdate' => $daylink,
             'view' => $dayLinkViewTarget,
             $this->pointerName => NULL
-        ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
+        ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
         $link = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewLink'], $this->conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewLink.'] );
       } else {
         $link = $weekday;

@@ -133,7 +133,7 @@ class NewMonthView extends \TYPO3\CMS\Cal\View\NewTimeView {
       $eventEndYear ++;
     }
     do {
-      if ($this->weeks [$eventStartYear . '_' . $eventStartWeek]) {
+      if (isset($this->weeks [$eventStartYear . '_' . $eventStartWeek])) {
         $this->weeks [$eventStartYear . '_' . $eventStartWeek]->addEvent( $event );
       }
       $eventStartWeek ++;

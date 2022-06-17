@@ -147,7 +147,6 @@
 			<label index="cal.pi_flexform.showLogin">Show login</label>
 			<label index="cal.pi_flexform.showSearch">Show search</label>
 			<label index="cal.pi_flexform.showJumps">Show jumps</label>
-			<label index="cal.pi_flexform.showGoto">Show goto</label>
 			<label index="cal.pi_flexform.showCalendarSelection">Show calendar selector</label>
 			<label index="cal.pi_flexform.showCategorySelection">Show category selector</label>
 			<label index="cal.pi_flexform.showTomorrowEvents">Show tomorrows events</label>
@@ -291,7 +290,6 @@
 			<label index="cal.pi_flexform.showLogin">Zeige Login</label>
 			<label index="cal.pi_flexform.showSearch">Zeige Suche</label>
 			<label index="cal.pi_flexform.showJumps">Zeige Direktauswahlbox</label>
-			<label index="cal.pi_flexform.showGoto">Zeige Goto</label>
 			<label index="cal.pi_flexform.showCalendarSelection">Zeige Kalender-Auswahl</label>
 			<label index="cal.pi_flexform.showCategorySelection">Zeige Kategorie-Auswahl</label>
 			<label index="cal.pi_flexform.showTomorrowEvents">Zeige morgige Ereignisse</label>
@@ -363,7 +361,6 @@
 			<label index="cal.pi_flexform.searchBoxTemplate">Søgeboks skabelon</label>
 			<label index="cal.pi_flexform.showLogin">Vis login</label>
 			<label index="cal.pi_flexform.showSearch">Vis søgeboks</label>
-			<label index="cal.pi_flexform.showGoto">Vis Gå Til</label>
 			<label index="cal.pi_flexform.showCategorySelection">Vis flere</label>
 			<label index="cal.pi_flexform.showTomorrowEvents">Vis morgendagens begivenheder</label>
 		</languageKey>
@@ -431,7 +428,6 @@
 			<label index="cal.pi_flexform.searchBoxTemplate">Plantilla de búsqueda</label>
 			<label index="cal.pi_flexform.showLogin">Mostrar acceso</label>
 			<label index="cal.pi_flexform.showSearch">Mostrar búsqueda</label>
-			<label index="cal.pi_flexform.showGoto">Mostrar ir hacia</label>
 			<label index="cal.pi_flexform.showCategorySelection">Mostrar múltiples</label>
 			<label index="cal.pi_flexform.showTomorrowEvents">Mostrar los eventos del día siguiente</label>
 		</languageKey>
@@ -554,7 +550,6 @@
 			<label index="cal.pi_flexform.showLogin">Toon login</label>
 			<label index="cal.pi_flexform.showSearch">Toon zoek</label>
 			<label index="cal.pi_flexform.showJumps">Toon jumps</label>
-			<label index="cal.pi_flexform.showGoto">Toon goto</label>
 			<label index="cal.pi_flexform.showCalendarSelection">Toon kalenderkiezer</label>
 			<label index="cal.pi_flexform.showCategorySelection">Toon categoriekiezer</label>
 			<label index="cal.pi_flexform.showTomorrowEvents">Toon gebeurtenissen van morgen</label>
@@ -687,7 +682,6 @@
 			<label index="cal.pi_flexform.showLogin" type="integer">186715550</label>
 			<label index="cal.pi_flexform.showSearch" type="integer">161753662</label>
 			<label index="cal.pi_flexform.showJumps" type="integer">29316574</label>
-			<label index="cal.pi_flexform.showGoto" type="integer">140470604</label>
 			<label index="cal.pi_flexform.showCalendarSelection" type="integer">79710286</label>
 			<label index="cal.pi_flexform.showCategorySelection" type="integer">207121387</label>
 			<label index="cal.pi_flexform.showTomorrowEvents" type="integer">135212303</label>
@@ -821,7 +815,6 @@
 			<label index="cal.pi_flexform.showLogin">Show login</label>
 			<label index="cal.pi_flexform.showSearch">Show search</label>
 			<label index="cal.pi_flexform.showJumps">Show jumps</label>
-			<label index="cal.pi_flexform.showGoto">Show goto</label>
 			<label index="cal.pi_flexform.showCalendarSelection">Show calendar selector</label>
 			<label index="cal.pi_flexform.showCategorySelection">Show category selector</label>
 			<label index="cal.pi_flexform.showTomorrowEvents">Show tomorrows events</label>

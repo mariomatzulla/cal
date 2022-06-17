@@ -112,7 +112,7 @@ class Api {
     $template->start( $rootline ); // This generates the constants/config + hierarchy info for the template.
     $conf = $template->setup ['plugin.'] ['tx_cal_controller.'];
     
-    $sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Frontend\Page\PageRepository::class );
+    $sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Core\Domain\Repository\PageRepository::class );
     
     $cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class );
     

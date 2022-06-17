@@ -138,11 +138,11 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
       $this->count = 0;
       $this->eventCounter = array ();
       $this->listStartOffsetCounter = 0;
-      $this->listStartOffset = intval( $this->conf ['view.'] ['list.'] ['listStartOffset'] );
+      $this->listStartOffset = intval( $this->conf ['view.'] ['list.'] ['listStartOffset'] ?? 0 );
       
       if ($this->conf ['view.'] ['list.'] ['pageBrowser.'] ['usePageBrowser']) {
-        $this->offset = intval( $this->controller->piVars [$this->pointerName] );
-        $this->recordsPerPage = intval( $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['recordsPerPage'] );
+        $this->offset = intval( $this->controller->piVars [$this->pointerName] ?? 0 );
+        $this->recordsPerPage = intval( $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['recordsPerPage'] ?? 10 );
       }
       
       $this->walkThroughMasterArray( $master_array, $this->reverse, $firstEventDate );
@@ -169,6 +169,7 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
         $listItemCount = 0;
         $alternationCount = 0;
         $pageItemCount = $this->recordsPerPage * $this->offset;
+        $middle = '';
         
         // don't assign these dates in one line like "$date1 = $date2 = $date3 = new CalDate()", as this will make all dates references to each other!!!
         $lastEventDay = new \TYPO3\CMS\Cal\Model\CalDate( '000000001000000' );
@@ -196,7 +197,7 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
           $layout_keys = array_keys( $alternatingLayoutConfig );
           foreach ( $layout_keys as $key ) {
             if (substr( $key, strlen( $key ) - 1 ) != '.') {
-              $suffix = $this->cObj->stdWrap( $alternatingLayoutConfig [$key], $alternatingLayoutConfig [$key . '.'] );
+              $suffix = $this->cObj->stdWrap( $alternatingLayoutConfig [$key] ?? '', $alternatingLayoutConfig [$key . '.'] ?? array() );
               if ($suffix) {
                 $alternatingLayouts [] = $suffix;
               }
@@ -257,6 +258,12 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
           }
           
           if ($firstTime) {
+            if (!isset($this->eventCounter ['byYear'] [$cal_year] ['previousPages'])) {
+              $this->eventCounter ['byYear'] [$cal_year] ['previousPages'] = 0;
+              $this->eventCounter ['byYearMonth'] [$cal_year] [$cal_month] ['previousPages'] = 0;
+              $this->eventCounter ['byWeek'] [$cal_week] ['previousPages'] = 0;
+              $this->eventCounter ['byDate'] [$cal_year] [$cal_month] [$cal_day] ['previousPages'] = 0;
+            }
             $yearItemCounter = ( int ) $this->eventCounter ['byYear'] [$cal_year] ['previousPages'];
             $monthItemCounter = ( int ) $this->eventCounter ['byYearMonth'] [$cal_year] [$cal_month] ['previousPages'];
             $weekItemCounter = ( int ) $this->eventCounter ['byWeek'] [$cal_week] ['previousPages'];
@@ -495,9 +502,10 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
 
     $eventStart = $event->getStart();
     $eventEnd = $event->getEnd();
+    $finished = false;
     
     if ($eventEnd->before( $this->starttime ) || $eventStart->after( $this->endtime )) {
-      return;
+      return $finished;
     }
     
     /* If we haven't saved an event date already, save this one */
@@ -520,41 +528,48 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
     $month = $eventStart->getMonth();
     $day = $eventStart->getDay();
     $week = $eventStart->getWeekOfYear();
-    $this->eventCounter ['byDate'] [$year] [$month] [$day] ['total'] ++;
-    $this->eventCounter ['byWeek'] [$week] ['total'] ++;
-    $this->eventCounter ['byYear'] [$year] ['total'] ++;
-    $this->eventCounter ['byMonth'] [$month] ['total'] ++;
-    $this->eventCounter ['byDay'] [$day] ['total'] ++;
-    $this->eventCounter ['byYearMonth'] [$year] [$month] ['total'] ++;
-    $this->eventCounter ['byYearDay'] [$year] [$day] ['total'] ++;
+    if (!isset($this->eventCounter ['byDate'] [$year] [$month] [$day] ['total'])) {
+      $this->eventCounter ['byDate'] [$year] [$month] [$day] ['total'] = 1;
+      $this->eventCounter ['byWeek'] [$week] ['total'] = 1;
+      $this->eventCounter ['byYear'] [$year] ['total'] = 1;
+      $this->eventCounter ['byMonth'] [$month] ['total'] = 1;
+      $this->eventCounter ['byDay'] [$day] ['total'] = 1;
+      $this->eventCounter ['byYearMonth'] [$year] [$month] ['total'] = 1;
+      $this->eventCounter ['byYearDay'] [$year] [$day] ['total'] = 1;
+    } else {
+      $this->eventCounter ['byDate'] [$year] [$month] [$day] ['total'] ++;
+      $this->eventCounter ['byWeek'] [$week] ['total'] ++;
+      $this->eventCounter ['byYear'] [$year] ['total'] ++;
+      $this->eventCounter ['byMonth'] [$month] ['total'] ++;
+      $this->eventCounter ['byDay'] [$day] ['total'] ++;
+      $this->eventCounter ['byYearMonth'] [$year] [$month] ['total'] ++;
+      $this->eventCounter ['byYearDay'] [$year] [$day] ['total'] ++;
+    }
     
     // Pagebrowser
-    if ($this->conf ['view.'] ['list.'] ['pageBrowser.'] ['usePageBrowser']) {
+    if (isset($this->conf ['view.'] ['list.'] ['pageBrowser.'] ['usePageBrowser']) && $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['usePageBrowser']) {
+      $key = 'currentPage';
       if ($this->count < $this->recordsPerPage * $this->offset) {
-        $this->eventCounter ['byDate'] [$year] [$month] [$day] ['previousPages'] ++;
-        $this->eventCounter ['byWeek'] [$week] ['previousPages'] ++;
-        $this->eventCounter ['byYear'] [$year] ['previousPages'] ++;
-        $this->eventCounter ['byMonth'] [$month] ['previousPages'] ++;
-        $this->eventCounter ['byYearMonth'] [$year] [$month] ['previousPages'] ++;
-        $this->eventCounter ['byDay'] [$day] ['previousPages'] ++;
-        $this->eventCounter ['byYearDay'] [$year] [$day] ['previousPages'] ++;
+        $key = 'previousPages';
       } else if ($this->count > $this->recordsPerPage * $this->offset + $this->recordsPerPage - 1) {
-        $this->eventCounter ['byDate'] [$year] [$month] [$day] ['nextPages'] ++;
-        $this->eventCounter ['byWeek'] [$week] ['nextPages'] ++;
-        $this->eventCounter ['byYear'] [$year] ['nextPages'] ++;
-        $this->eventCounter ['byMonth'] [$month] ['nextPages'] ++;
-        $this->eventCounter ['byYearMonth'] [$year] [$month] ['nextPages'] ++;
-        $this->eventCounter ['byDay'] [$day] ['nextPages'] ++;
-        $this->eventCounter ['byYearDay'] [$year] [$day] ['nextPages'] ++;
-      } else {
-        $this->eventCounter ['byDate'] [$year] [$month] [$day] ['currentPage'] ++;
-        $this->eventCounter ['byWeek'] [$week] ['currentPage'] ++;
-        $this->eventCounter ['byYear'] [$year] ['currentPage'] ++;
-        $this->eventCounter ['byMonth'] [$month] ['currentPage'] ++;
-        $this->eventCounter ['byYearMonth'] [$year] [$month] ['currentPage'] ++;
-        $this->eventCounter ['byDay'] [$day] ['currentPage'] ++;
-        $this->eventCounter ['byYearDay'] [$year] [$day] ['currentPage'] ++;
+        $key = 'nextPages';
       }
+      if (!isset($this->eventCounter ['byDate'] [$year] [$month] [$day] [$key])) {
+        $this->eventCounter ['byDate'] [$year] [$month] [$day] [$key] = 0;
+        $this->eventCounter ['byWeek'] [$week] [$key] = 0;
+        $this->eventCounter ['byYear'] [$year] [$key] = 0;
+        $this->eventCounter ['byMonth'] [$month] [$key] = 0;
+        $this->eventCounter ['byYearMonth'] [$year] [$month] [$key] = 0;
+        $this->eventCounter ['byDay'] [$day] [$key] = 0;
+        $this->eventCounter ['byYearDay'] [$year] [$day] [$key] = 0;
+      }
+      $this->eventCounter ['byDate'] [$year] [$month] [$day] [$key] ++;
+      $this->eventCounter ['byWeek'] [$week] [$key] ++;
+      $this->eventCounter ['byYear'] [$year] [$key] ++;
+      $this->eventCounter ['byMonth'] [$month] [$key] ++;
+      $this->eventCounter ['byYearMonth'] [$year] [$month] [$key] ++;
+      $this->eventCounter ['byDay'] [$day] [$key] ++;
+      $this->eventCounter ['byYearDay'] [$year] [$day] [$key] ++;
       
       if ($this->count < $this->recordsPerPage * $this->offset || $this->count > $this->recordsPerPage * $this->offset + $this->recordsPerPage - 1) {
         $this->count ++;
@@ -578,7 +593,7 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
       $this->objectsInList [$cal_time] [] = &$event;
     }
     
-    if ($this->conf ['view.'] ['list.'] ['showLongEventsInEachWrapper']) {
+    if (isset($this->conf ['view.'] ['list.'] ['showLongEventsInEachWrapper']) && $this->conf ['view.'] ['list.'] ['showLongEventsInEachWrapper']) {
       if ($this->conf ['view.'] ['list.'] ['enableDayWrapper'] && $eventStart->format( '%Y%m%d' ) != $eventEnd->format( '%Y%m%d' )) {
         $tempEventStart = new \TYPO3\CMS\Cal\Model\CalDate();
         $tempEventStart->copy( $eventStart );
@@ -663,7 +678,7 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
               if (! is_object( $event )) {
                 continue;
               }
-              if ($this->conf ['view.'] ['list.'] ['hideStartedEvents'] == 1 && $event->getStart()->before( $this->starttime )) {
+              if (isset($this->conf ['view.'] ['list.'] ['hideStartedEvents']) && $this->conf ['view.'] ['list.'] ['hideStartedEvents'] == 1 && $event->getStart()->before( $this->starttime )) {
                 continue;
               }
               
@@ -838,7 +853,7 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
       } else {
         // use default page browser of cal
         $browserConfig = $this->conf ['view.'] ['list.'] ['pageBrowser.'] ['default.'];
-        $this->offset = intval( $this->controller->piVars [$this->pointerName] );
+        $this->offset = intval( $this->controller->piVars [$this->pointerName] ?? 0 );
         
         $pagesTotal = intval( $this->recordsPerPage ) == 0 ? 1 : ceil( $this->count / $this->recordsPerPage );
         $nextPage = $this->offset + 1;
@@ -889,6 +904,9 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
           $pbMarker ['###PREVIOUS###'] = $this->local_cObj->cObjGetSingle( $browserConfig ['prevLink'], $browserConfig ['prevLink.'] );
         }
         
+        if(!isset($pbMarker ['###PAGES###'])){
+          $pbMarker ['###PAGES###'] = '';
+        }
         for($i = $min; $i <= $max; $i ++) {
           if ($this->offset + 1 == $i) {
             $pbMarker ['###PAGES###'] .= $this->cObj->stdWrap( $i, $browserConfig ['actPage_stdWrap.'] );

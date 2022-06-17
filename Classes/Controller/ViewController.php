@@ -645,7 +645,7 @@ class ViewController extends \TYPO3\CMS\Cal\Controller\BaseController {
    *          string The serviceKey.
    * @return object service object.
    */
-  function getServiceObjByKey($type, $subtype = '', $key) {
+  function getServiceObjByKey($type, $subtype = '', $key = '') {
 
     $serviceChain = [ ];
     /* Loop over all services providign the specified service type and subtype */

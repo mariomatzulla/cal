@@ -41,7 +41,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
 
     if (class_exists( 'TYPO3\\CMS\\Cal\\Utility\\Registry' )) {
       if (is_object( $GLOBALS ['TSFE'] )) {
-        if (! is_array( $GLOBALS ['TSFE']->register ['cal_shared_conf'] )) {
+        if (!isset($GLOBALS ['TSFE']->register ['cal_shared_conf']) || ! is_array( $GLOBALS ['TSFE']->register ['cal_shared_conf'] )) {
           $GLOBALS ['TSFE']->register ['cal_shared_conf'] = &Registry::Registry( 'basic', 'conf' );
         }
         $this->conf = &$GLOBALS ['TSFE']->register ['cal_shared_conf'];
@@ -280,19 +280,13 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
             $output .= sprintf( "%04d", $hn_isoyear );
             break;
           case 'h' :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= sprintf( "%d", $this->hour );
             break;
           case "H" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= sprintf( "%02d", $this->hour );
             break;
           case "i" :
           case "I" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $hour = $this->hour + 1 > 12 ? $this->hour - 12 : $this->hour;
             $output .= $hour == 0 ? 12 : ($nextchar == "i" ? $hour : sprintf( '%02d', $hour ));
             break;
@@ -312,8 +306,6 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
             $output .= $this->month;
             break;
           case "O" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $offms = $this->getTZOffset();
             $direction = $offms >= 0 ? "+" : "-";
             $offmins = abs( $offms ) / 1000 / 60;
@@ -332,24 +324,16 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
             $output .= sprintf( "%s%02d:%02d", $direction, $hours, $minutes );
             break;
           case "p" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= $this->hour >= 12 ? "pm" : "am";
             break;
           case "P" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= $this->hour >= 12 ? "PM" : "AM";
             break;
           case "r" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $hour = $this->hour + 1 > 12 ? $this->hour - 12 : $this->hour;
             $output .= sprintf( "%02d:%02d:%02d %s", $hour == 0 ? 12 : $hour, $this->minute, $this->second, $this->hour >= 12 ? "PM" : "AM" );
             break;
           case "R" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= sprintf( "%02d:%02d", $this->hour, $this->minute );
             break;
           case "s" :
@@ -362,8 +346,6 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
             $output .= "\t";
             break;
           case "T" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= sprintf( "%02d:%02d:%02d", $this->hour, $this->minute, $this->second );
             break;
           case "u" :
@@ -389,8 +371,6 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
             $output .= sprintf( '%0' . ($this->year < 0 ? '5' : '4') . 'd', $this->year );
             break;
           case "Z" :
-            if ($this->ob_invalidtime)
-              return $this->_getErrorInvalidTime();
             $output .= $this->getTZShortName();
             break;
           case "%" :
@@ -482,7 +462,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
    */
   public function applyStdWrap($value = '') {
     // only apply if actually configured
-    if (is_array( $this->conf ['date_stdWrap.'] ) && count( $this->conf ['date_stdWrap.'] ) && $value != '' && is_object( $this->cObj ) && is_object( $GLOBALS ['TSFE'] )) {
+    if (isset($this->conf ['date_stdWrap.']) && is_array( $this->conf ['date_stdWrap.'] ) && isset($this->conf ['date_stdWrap.']) && count( $this->conf ['date_stdWrap.'] ) && $value != '' && is_object( $this->cObj ) && is_object( $GLOBALS ['TSFE'] )) {
       $value = $this->cObj->stdWrap( $value, $this->conf ['date_stdWrap.'] );
     }
     return $value;

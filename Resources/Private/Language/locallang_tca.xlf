@@ -139,7 +139,6 @@
 			<trans-unit id="cal.pi_flexform.showLogin"><source>Show login</source></trans-unit>
 			<trans-unit id="cal.pi_flexform.showSearch"><source>Show search</source></trans-unit>
 			<trans-unit id="cal.pi_flexform.showJumps"><source>Show jumps</source></trans-unit>
-			<trans-unit id="cal.pi_flexform.showGoto"><source>Show goto</source></trans-unit>
 			<trans-unit id="cal.pi_flexform.showCalendarSelection"><source>Show calendar selector</source></trans-unit>
 			<trans-unit id="cal.pi_flexform.showCategorySelection"><source>Show category selector</source></trans-unit>
 			<trans-unit id="cal.pi_flexform.showTomorrowEvents"><source>Show tomorrows events</source></trans-unit>

@@ -72,6 +72,8 @@ class Model extends \TYPO3\CMS\Cal\Model\BaseModel {
   var $until;
 
   var $freq = '';
+  
+  var $interval;
 
   var $reccuring_end;
 
@@ -177,7 +179,7 @@ class Model extends \TYPO3\CMS\Cal\Model\BaseModel {
 
   var $priority = 0;
 
-  var $completetd = 0;
+  var $completed = 0;
 
   const EVENT_TYPE_DEFAULT = 0;
 
@@ -1567,11 +1569,11 @@ class Model extends \TYPO3\CMS\Cal\Model\BaseModel {
 
   function isEventOwner($userId, $groupIdArray) {
 
-    if (is_array( $this->eventOwner ['fe_users'] ) && in_array( $userId, $this->eventOwner ['fe_users'] )) {
+    if (isset($this->eventOwner ['fe_users']) && is_array( $this->eventOwner ['fe_users'] ) && in_array( $userId, $this->eventOwner ['fe_users'] )) {
       return true;
     }
     foreach ( $groupIdArray as $id ) {
-      if (is_array( $this->eventOwner ['fe_groups'] ) && in_array( $id, $this->eventOwner ['fe_groups'] )) {
+      if (isset($this->eventOwner ['fe_groups']) && is_array( $this->eventOwner ['fe_groups'] ) && in_array( $id, $this->eventOwner ['fe_groups'] )) {
         return true;
       }
     }
@@ -1644,7 +1646,7 @@ class Model extends \TYPO3\CMS\Cal\Model\BaseModel {
           $rememberCats [] = $categoryObject->getUid();
           // init object and hand over the data of the category as fake DB values
           $this->initLocalCObject( $categoryObject->getValuesAsArray() );
-          $categoryTitle = $this->local_cObj->stdWrap( $categoryObject->getTitle(), $this->conf ['view.'] [$this->conf ['view'] . '.'] [$objectType . '.'] ['categoryLink_stdWrap.'] );
+          $categoryTitle = $this->local_cObj->stdWrap( $categoryObject->getTitle(), $this->conf ['view.'] [$this->conf ['view'] . '.'] [$objectType . '.'] ['categoryLink_stdWrap.'] ?? array() );
           
           if ($asLink) {
             $headerstyle = $categoryObject->getHeaderStyle();
@@ -1663,7 +1665,7 @@ class Model extends \TYPO3\CMS\Cal\Model\BaseModel {
     }
     // reset the object
     $this->initLocalCObject();
-    return implode( $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] [$objectType . '.'] ['categoryLink_splitChar'], $this->conf ['view.'] [$this->conf ['view'] . '.'] [$objectType . '.'] ['categoryLink_splitChar.'] ), $this->categoriesAsString );
+    return implode( $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] [$objectType . '.'] ['categoryLink_splitChar'] ?? '', $this->conf ['view.'] [$this->conf ['view'] . '.'] [$objectType . '.'] ['categoryLink_splitChar.'] ?? array()), $this->categoriesAsString );
   }
 
   function getCategoryUidsAsArray() {

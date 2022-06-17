@@ -176,7 +176,7 @@ $tx_cal_calendar = array (
             'config' => array (
                 
                 'type' => 'group',
-                'internal_type' => 'file',
+                'internal_type' => 'folder',
                 'allowed' => 'ics', // Must be empty for disallowed to work.
                 'max_size' => '10000',
                 'uploadfolder' => 'uploads/tx_cal/ics',

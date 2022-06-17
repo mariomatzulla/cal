@@ -118,7 +118,7 @@ class Location extends \TYPO3\CMS\Cal\Model\LocationModel {
           'view' => 'edit_location',
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['calendar.'] ['editLocationViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['calendar.'] ['editLocationViewPid'] );
       $editlink = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['location.'] ['editLink'], $this->conf ['view.'] [$view . '.'] ['location.'] ['editLink.'] );
     }
     if ($this->isUserAllowedToDelete()) {
@@ -130,7 +130,7 @@ class Location extends \TYPO3\CMS\Cal\Model\LocationModel {
           'view' => 'delete_location',
           'type' => $this->getType(),
           'uid' => $this->getUid()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['location.'] ['deleteLocationViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['location.'] ['deleteLocationViewPid'] );
       $editlink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] ['location.'] ['deleteLink'], $this->conf ['view.'] [$view . '.'] ['location.'] ['deleteLink.'] );
     }
     return $editlink;

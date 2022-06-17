@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  *
@@ -59,11 +60,12 @@ class CalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
    */
   function findAll($pidList) {
 
-    return $this->getCalendarFromTable( $pidList, $this->getCalendarSearchString( $pidList, true, $this->conf ['calendar'] ) );
+    return $this->getCalendarFromTable( $pidList, $this->getCalendarSearchString( $pidList, true, $this->conf ['calendar'] ?? '' ) );
   }
 
   function getCalendarFromTable($pidList = '', $additionalWhere = '') {
 
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     $return = array ();
     $orderBy = \TYPO3\CMS\Cal\Utility\Functions::getOrderBy( 'tx_cal_calendar' );
     if ($pidList != '') {
@@ -74,8 +76,8 @@ class CalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
     $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( '*', 'tx_cal_calendar', '1=1' . $this->pageRepository->enableFields( 'tx_cal_calendar' ) . $additionalWhere, '', $orderBy );
     if ($result) {
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_calendar', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_calendar', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
         if (! $row ['uid']) {
           continue;
@@ -295,7 +297,7 @@ class CalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
   function getCalendarSearchString($pidList, $includePublic, $linkIds) {
 
     $hash = md5( $pidList . ' ' . $includePublic . ' ' . $linkIds );
-    if ($this->calendarSearchStringCache [$hash]) {
+    if (isset($this->calendarSearchStringCache [$hash])) {
       return $this->calendarSearchStringCache [$hash];
     }
     
@@ -354,6 +356,7 @@ class CalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
       $limitationList = $list;
     }
     
+    $userId = '';
     // Lets see if the user is logged in
     if ($this->rightsObj->isLoggedIn() && ! $onlyPublic) {
       $userId = $this->rightsObj->getUserId();
@@ -542,6 +545,7 @@ class CalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
       
       $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where, $groupby, $orderby );
       if ($result) {
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
           
           if (! $row ['uid']) {
@@ -549,14 +553,17 @@ class CalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
           }
           
           // TODO: Why do we need a translation of the title here? (Mario)
-          if ($GLOBALS ['TSFE']->sys_language_content) {
-            $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_calendar', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+          if ($languageAspect->getContentId()) {
+            $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_calendar', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
           }
           
-          if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
+          /**
+           * FIXME property versioningPreview doesn't exist anymore
+           * if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
             // get workspaces Overlay
             $GLOBALS ['TSFE']->sys_page->versionOL( 'tx_cal_calendar', $row );
           }
+           */
           if (! $row ['uid']) {
             continue;
           }

@@ -15,6 +15,8 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 /**
  * Base model for the category.
  * Provides basic model functionality that other
@@ -181,7 +183,7 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     // Filter events by categories
     
     // Include categories
-    if ($this->conf ['view.'] ['categoryMode'] == 1 && self::$categoryToFilter) {
+    if (isset($this->conf ['view.'] ['categoryMode']) && $this->conf ['view.'] ['categoryMode'] == 1 && self::$categoryToFilter) {
       // Query to select all blacklisted events
       $sql = 'SELECT uid_local FROM tx_cal_event_category_mm WHERE uid_foreign IN (' . self::$categoryToFilter . ')';
       // Add search substring with tx_cal_event.uid NOT IN
@@ -189,7 +191,7 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     }
     
     // Exclude categories
-    if ($this->conf ['view.'] ['categoryMode'] == 2 && self::$categoryToFilter) {
+    if (isset($this->conf ['view.'] ['categoryMode']) && $this->conf ['view.'] ['categoryMode'] == 2 && self::$categoryToFilter) {
       // Query to select all blacklisted events
       $sql = 'SELECT uid_local FROM tx_cal_event_category_mm WHERE uid_foreign IN (' . self::$categoryToFilter . ')';
       // Add search substring with tx_cal_event.uid NOT IN
@@ -197,7 +199,7 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     }
     
     // Minimum match
-    if ($this->conf ['view.'] ['categoryMode'] == 4 && self::$categoryToFilter) {
+    if (isset($this->conf ['view.'] ['categoryMode']) && $this->conf ['view.'] ['categoryMode'] == 4 && self::$categoryToFilter) {
       $categorySearchString = '';
       $categories = explode( ',', self::$categoryToFilter );
       for($i = 0; $i < count( $categories ); $i ++) {
@@ -227,7 +229,7 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
    */
   function getCategoryArray($pidList, &$categoryArrayToBeFilled, $showPublicCategories = true) {
 
-    if (! empty( $this->categoryArrayCached [md5( $this->conf ['view.'] ['categoryMode'] . $this->conf ['view.'] ['allowedCategories'] )] )) {
+    if (isset($this->conf ['view.'] ['allowedCategories']) && isset($this->conf ['view.'] ['categoryMode']) && ! empty( $this->categoryArrayCached [md5( $this->conf ['view.'] ['categoryMode'] . $this->conf ['view.'] ['allowedCategories'] )] )) {
       $categoryArrayToBeFilled [] = $this->categoryArrayCached [md5( $this->conf ['view.'] ['categoryMode'] . $this->conf ['view.'] ['allowedCategories'] )];
       return;
     }
@@ -249,7 +251,7 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     // ompile category array
     $filterWhere = '';
-    switch ($this->conf ['view.'] ['categoryMode']) {
+    switch ($this->conf ['view.'] ['categoryMode'] ?? 0) {
       case 0 : // show all
         break;
       case 1 : // show selected
@@ -294,12 +296,13 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
         break;
     }
     
-    if (! $this->rightsObj->isCalAdmin() && $this->conf ['rights.'] [$this->conf ['view'] == 'create_event' ? 'create.' : 'edit.'] ['event.'] ['fields.'] ['category.'] ['allowedUids'] != '') {
+    if (! $this->rightsObj->isCalAdmin() && isset($this->conf ['rights.'] [$this->conf ['view'] == 'create_event' ? 'create.' : 'edit.'] ['event.'] ['fields.'] ['category.'] ['allowedUids']) && $this->conf ['rights.'] [$this->conf ['view'] == 'create_event' ? 'create.' : 'edit.'] ['event.'] ['fields.'] ['category.'] ['allowedUids'] != '') {
       $filterWhere = ' AND tx_cal_category.uid IN (' . $this->conf ['rights.'] [$this->conf ['view'] == 'create_event' ? 'create.' : 'edit.'] ['event.'] ['fields.'] ['category.'] ['allowedUids'] . ')';
     }
     
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     $calendarService = &$this->modelObj->getServiceObjByKey( 'cal_calendar_model', 'calendar', 'tx_cal_calendar' );
-    $calendarSearchString = $calendarService->getCalendarSearchString( $pidList, $showPublicCategories, $this->conf ['calendar'] ? $this->conf ['calendar'] : '' );
+    $calendarSearchString = $calendarService->getCalendarSearchString( $pidList, $showPublicCategories, $this->conf ['calendar'] ?? '' );
     // Select all categories for the given pids
     $select = 'tx_cal_category.*,tx_cal_calendar.title AS calendar_title,tx_cal_calendar.uid AS calendar_uid';
     $table = 'tx_cal_category LEFT JOIN tx_cal_calendar ON tx_cal_category.calendar_id=tx_cal_calendar.uid';
@@ -317,8 +320,8 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     $calendarUids = array ();
     if ($result) {
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
         if (! $row ['uid']) {
           continue;
@@ -357,16 +360,19 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where, $groupby, $orderby );
     if ($result) {
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
         if (! $row ['uid']) {
           continue;
         }
-        if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
+        /**
+         * FIXME no public property anymore
+         if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
           // get workspaces Overlay
           $GLOBALS ['TSFE']->sys_page->versionOL( 'tx_cal_category', $row );
         }
+        */
         if (! $row ['uid']) {
           continue;
         }
@@ -411,8 +417,8 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
       $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where, $groupby );
       if ($result) {
         while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
-          if ($GLOBALS ['TSFE']->sys_language_content) {
-            $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+          if ($languageAspect->getContentId()) {
+            $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
           }
           if (! $row ['uid']) {
             continue;
@@ -501,12 +507,13 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
 
   function getCategoriesFromTable($select, $table, $where, $groupby = '') {
 
+    $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     $categories = array ();
     $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where, $groupby );
     if ($result) {
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_category', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
         if (! $row ['uid']) {
           continue;
@@ -602,13 +609,13 @@ class CategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
     $select .= ', tx_cal_event_category_mm.uid_foreign AS category_uid ';
     $table .= ' LEFT JOIN tx_cal_event_category_mm ON tx_cal_event_category_mm.uid_local = tx_cal_event.uid';
     $where .= $this->getCategorySearchString( $this->conf ['pidList'], true );
-    if ($this->conf ['view.'] ['joinCategoryByAnd']) {
+    if (isset($this->conf ['view.'] ['joinCategoryByAnd'])) {
       $categoryArray = GeneralUtility::trimExplode( ',', $this->conf ['category'], 1 );
       $groupBy .= ', tx_cal_event_category_mm.uid_foreign HAVING count(*) =' . count( $categoryArray );
     }
     $orderBy .= ', tx_cal_event.uid,tx_cal_event_category_mm.sorting';
     
-    if ($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalCategoryWhere']) {
+    if (isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalCategoryWhere'])) {
       $where .= ' ' . $this->cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalCategoryWhere'], $this->conf ['view.'] [$this->conf ['view'] . '.'] ['event.'] ['additionalCategoryWhere.'] );
     }
   }

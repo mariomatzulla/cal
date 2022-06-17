@@ -87,7 +87,7 @@ class OrganizerFeUserService extends \TYPO3\CMS\Cal\Service\BaseService {
    *          to search in
    * @return void|array \TYPO3\CMS\Cal\Model\OrganizerFeUser
    */
-  public function search($pidList = '', $searchword) {
+  public function search($pidList = '', $searchword = '') {
 
     if (! $this->isAllowedService())
       return;

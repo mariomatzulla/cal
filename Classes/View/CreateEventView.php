@@ -144,7 +144,7 @@ class CreateEventView extends \TYPO3\CMS\Cal\View\FeEditingBaseView {
     $this->table = 'tx_cal_event';
     
     $page = '';
-    if ($this->conf ['view.'] ['enableAjax'] && $this->controller->piVars ['pid']) {
+    if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax'] && isset($this->controller->piVars ['pid'])) {
       $path = $this->conf ['view.'] ['create_event.'] ['ajaxTemplate'];
       $page = Functions::getContent( $path );
       $this->conf ['noWrapInBaseClass'] = 1;
@@ -963,7 +963,7 @@ else {
                 
                 'tx_cal_controller[calendar]' => $row ['tx_cal_calendar'],
                 'tx_cal_controller[getdate]' => $start->format( '%Y%m%d' )
-            ), $this->conf ['clear_anyway'], $this->conf ['view.'] [$this->conf ['view'] . '.'] ['freeAndBusyViewPid'] );
+            ), $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] [$this->conf ['view'] . '.'] ['freeAndBusyViewPid'] );
             $tempArray ['link'] = $this->cObj->lastTypoLinkUrl;
             $this->initLocalCObject( $tempArray );
             $attendee .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['freeAndBusyViewLink'], $this->conf ['view.'] [$this->conf ['view'] . '.'] ['freeAndBusyViewLink.'] );

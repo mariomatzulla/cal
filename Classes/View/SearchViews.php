@@ -499,7 +499,7 @@ class SearchViews extends \TYPO3\CMS\Cal\View\ListView {
       $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, Array (
           
           'view' => 'search_all'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['page_id'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['page_id'] );
       $sims ['###SEARCH_ALL_LINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['search.'] ['searchAllLink'], $this->conf ['view.'] ['search.'] ['searchAllLink.'] );
     }
   }

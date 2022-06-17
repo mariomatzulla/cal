@@ -106,10 +106,13 @@ class Functions {
   // get used charset
   public static function getCharset() {
 
-    if ($GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['forceCharset']) { // First priority: forceCharset! If set, this will be authoritative!
+    if (isset($GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['forceCharset']) && $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['forceCharset']) { // First priority: forceCharset! If set, this will be authoritative!
       $charset = $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['forceCharset'];
-    } elseif (is_object( $GLOBALS ['LANG'] )) {
-      $charset = $GLOBALS ['LANG']->charSet; // If "LANG" is around, that will hold the current charset
+    /**
+     * FIXME the property $GLOBALS ['LANG']->charset doesn't exist anymore
+     */
+//     } elseif (is_object( $GLOBALS ['LANG'] )) {
+//       $charset = $GLOBALS ['LANG']->charset; // If "LANG" is around, that will hold the current charset
     } else {
       $charset = 'utf-8'; // THIS is just a hopeful guess!
     }
@@ -156,8 +159,10 @@ class Functions {
   public static function getYmdFromDateString($conf, $string) {
     // yyyy.mm.dd or dd.mm.yyyy or mm.dd.yyyy
     $stringArray = explode( $conf ['dateConfig.'] ['splitSymbol'], $string );
-    $ymdString = $stringArray [$conf ['dateConfig.'] ['yearPosition']] . $stringArray [$conf ['dateConfig.'] ['monthPosition']] . $stringArray [$conf ['dateConfig.'] ['dayPosition']];
-    return $ymdString;
+    if( count($stringArray) == 3) {
+     return $stringArray [$conf ['dateConfig.'] ['yearPosition']] . $stringArray [$conf ['dateConfig.'] ['monthPosition']] . $stringArray [$conf ['dateConfig.'] ['dayPosition']];
+    }
+    return $string;
   }
   
   // returns true if $str begins with $sub
@@ -581,7 +586,7 @@ class Functions {
   public static function getHookObjectsArray($className, $hookName, $modulePath = 'controller') {
 
     $hookObjectsArr = array ();
-    if (is_array( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/' . $modulePath . '/class.' . $className . '.php'] [$hookName] )) {
+    if (isset($GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/' . $modulePath . '/class.' . $className . '.php'] [$hookName] ) && is_array( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/' . $modulePath . '/class.' . $className . '.php'] [$hookName] )) {
       foreach ( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/' . $modulePath . '/class.' . $className . '.php'] [$hookName] as $classRef ) {
         if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger( TYPO3_version ) >= 8000000) {
           $hookObjectsArr [] = GeneralUtility::makeInstance( $classRef );

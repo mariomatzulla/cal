@@ -104,7 +104,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
                *
                * If the marker hasn't been defined already and the value for the marker isn't blank, set it. Otherwise, let the previous value stick.
                */
-              if (! ($sims ['###' . $marker . '###'] && $value == '')) {
+              if (! (isset($sims ['###' . $marker . '###']) && $value == '')) {
                 $sims ['###' . $marker . '###'] = $this->applyStdWrap( $value, strtolower( $marker ) . '_stdWrap' );
               }
             } else {
@@ -112,10 +112,10 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
               $sims ['###' . $marker . '_VALUE###'] = '';
             }
           }
-          if (! $this->isConfirm && $this->conf ['rights.'] [($this->isEditMode ? 'edit' : 'create') . '.'] [$this->objectString . '.'] ['fields.'] [strtolower( $marker ) . '.'] ['required']) {
-            $required = $this->conf ['view.'] ['required'];
+          if (! $this->isConfirm && isset($this->conf ['rights.'] [($this->isEditMode ? 'edit' : 'create') . '.'] [$this->objectString . '.'] ['fields.'] [strtolower( $marker ) . '.'] ['required']) && $this->conf ['rights.'] [($this->isEditMode ? 'edit' : 'create') . '.'] [$this->objectString . '.'] ['fields.'] [strtolower( $marker ) . '.'] ['required']) {
+            $required = $this->conf ['view.'] ['required'] ?? false;
           }
-          $sims ['###' . $marker . '###'] = str_replace( '###REQUIRED###', $required, $sims ['###' . $marker . '###'] );
+          $sims ['###' . $marker . '###'] = str_replace( '###REQUIRED###', $required, $sims ['###' . $marker . '###'] ?? '' );
           break;
       }
     }
@@ -559,7 +559,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     if (count( $viewParts ) == 2 && is_array( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] ) > 0) {
       foreach ( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] as $field => $fieldSetup ) {
         $myField = str_replace( '.', '', $field );
-        if ($this->isAllowed( $myField ) && is_array( $fieldSetup ) && $fieldSetup ['required'] && $this->controller->piVars [$myField] == '') {
+        if ($this->isAllowed( $myField ) && is_array( $fieldSetup ) && $fieldSetup ['required'] && isset($this->controller->piVars [$myField])) {
           $allRequiredFieldsAreFilled = false;
           $requiredFieldsSims ['###' . strtoupper( $myField ) . '_REQUIRED###'] = $this->conf ['view.'] ['required'];
         } else {
@@ -580,7 +580,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     if (count( $viewParts ) == 2 && is_array( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] ) > 0) {
       foreach ( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] as $field => $fieldSetup ) {
         $myField = str_replace( '.', '', $field );
-        if (! $this->controller->piVars [$myField] != '' && $fieldSetup ['default'] != '') {
+        if (!isset($this->controller->piVars [$myField]) && isset($fieldSetup ['default'])) {
           $defaultValues [$myField] = $fieldSetup ['default'];
         }
       }
@@ -595,9 +595,9 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     if (count( $viewParts ) == 2 && is_array( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] ) > 0) {
       foreach ( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] as $field => $fieldSetup ) {
         $myField = str_replace( '.', '', $field );
-        if ($fieldSetup ['constrain.'] != '') {
+        if (isset($fieldSetup ['constrain.'])) {
           $constrainSims ['###' . strtoupper( $myField ) . '_CONSTRAIN###'] = $this->constrainParser( $myField, $fieldSetup ['constrain.'] );
-          if ($constrainSims ['###' . strtoupper( $myField ) . '_CONSTRAIN###'] != '') {
+          if (!isset($constrainSims ['###' . strtoupper( $myField ) . '_CONSTRAIN###'])) {
             $noComplains = false;
           }
         }
@@ -629,7 +629,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     $passedAny = Array ();
     $rules = GeneralUtility::trimExplode( '|', $rule ['rule'], 1 );
     foreach ( $rules as $rulePart ) {
-      if ($rule ['conditionField']) {
+      if (isset($rule ['conditionField'])) {
         $field = $rule ['conditionField'];
       }
       $failed = false;
@@ -640,15 +640,15 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
             $functionA = 'get' . ucwords( $field );
             if (method_exists( $this->object, $functionA )) {
               $a = $this->object->$functionA();
-              if ($rule ['count']) {
+              if (isset($rule ['count'])) {
                 $a = count( $a );
               }
-              if ($rule ['field']) {
+              if (isset($rule ['field'])) {
                 $functionB = 'get' . ucwords( $rule ['field'] );
                 if (method_exists( $this->object, $functionB )) {
                   $b = $this->object->$functionB();
                   if (is_object( $a ) && method_exists( $a, $rulePart )) {
-                    $result = $a->compareTo( $result );
+                    $result = $a->compareTo( $b );
                     $failed = $result != - 1;
                   } else if (is_numeric( $a ) && is_numeric( $b )) {
                     $failed = $a >= $b;
@@ -666,10 +666,10 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
             $functionA = 'get' . ucwords( $field );
             if (method_exists( $this->object, $functionA )) {
               $a = $this->object->$functionA();
-              if ($rule ['count']) {
+              if (isset($rule ['count'])) {
                 $a = count( $a );
               }
-              if ($rule ['field']) {
+              if (isset($rule ['field'])) {
                 $functionB = 'get' . ucwords( $rule ['field'] );
                 if (method_exists( $this->object, $functionB )) {
                   $b = $this->object->$functionB();
@@ -692,10 +692,10 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
             $functionA = 'get' . ucwords( $field );
             if (method_exists( $this->object, $functionA )) {
               $a = $this->object->$functionA();
-              if ($rule ['count']) {
+              if (isset($rule ['count'])) {
                 $a = count( $a );
               }
-              if ($rule ['field']) {
+              if (isset($rule ['field'])) {
                 $functionB = 'get' . ucwords( $rule ['field'] );
                 if (method_exists( $this->object, $functionB )) {
                   $b = $this->object->$functionB();
@@ -777,7 +777,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     } else {
       $action = 'create';
     }
-    if ($this->conf ['rights.'] [$action . '.'] [$this->objectString . '.'] ['fields.'] [$field . '.'] ['displayCondition.'] != '') {
+    if (isset($this->conf ['rights.'] [$action . '.'] [$this->objectString . '.'] ['fields.'] [$field . '.'] ['displayCondition.']) != '') {
       $displayCondition = $this->conf ['rights.'] [$action . '.'] [$this->objectString . '.'] ['fields.'] [$field . '.'] ['displayCondition.'];
       foreach ( $displayCondition as $rule ) {
         $value = $this->ruleParser( $field, $rule );

@@ -122,7 +122,7 @@ class Cache {
       
       $cRec = $GLOBALS ['TYPO3_DB']->exec_SELECTgetRows( $select_fields, $from_table, $where_clause );
       
-      if (is_array( $cRec [0] ) && $cRec [0] ['content'] != '') {
+      if (isset($cRec [0]) && is_array( $cRec [0] ) && $cRec [0] ['content'] != '') {
         $cacheEntry = $cRec [0] ['content'];
       }
     }

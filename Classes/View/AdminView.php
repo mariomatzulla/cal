@@ -55,7 +55,7 @@ class AdminView extends \TYPO3\CMS\Cal\View\BaseView {
           
           'view' => 'create_calendar',
           'type' => 'tx_cal_calendar'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['calendar.'] ['createCalendarViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['calendar.'] ['createCalendarViewPid'] );
       $createCalendarLink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['calendar.'] ['calendar.'] ['addLink'], $this->conf ['view.'] ['calendar.'] ['calendar.'] ['addLink.'] );
       $showCalendarForm = true;
     } else {
@@ -84,7 +84,7 @@ class AdminView extends \TYPO3\CMS\Cal\View\BaseView {
           
           'view' => 'create_category',
           'type' => 'tx_cal_category'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['category.'] ['createCategoryViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['category.'] ['createCategoryViewPid'] );
       $createCategoryLink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['category.'] ['category.'] ['addLink'], $this->conf ['view.'] ['category.'] ['category.'] ['addLink.'] );
       $showCategoryForm = true;
     } else {
@@ -112,7 +112,7 @@ class AdminView extends \TYPO3\CMS\Cal\View\BaseView {
       $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, array (
           
           'view' => 'create_organizer'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['organizer.'] ['createOrganizerViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['organizer.'] ['createOrganizerViewPid'] );
       $createOrganizerLink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['organizer.'] ['organizer.'] ['addLink'], $this->conf ['view.'] ['organizer.'] ['organizer.'] ['addLink.'] );
       $showOrganizerForm = true;
     } else {
@@ -140,7 +140,7 @@ class AdminView extends \TYPO3\CMS\Cal\View\BaseView {
       $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, array (
           
           'view' => 'create_location'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['location.'] ['createLocationViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['location.'] ['createLocationViewPid'] );
       $createLocationLink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['location.'] ['location.'] ['addLink'], $this->conf ['view.'] ['location.'] ['location.'] ['addLink.'] );
       $showLocationForm = true;
     } else {
@@ -168,7 +168,7 @@ class AdminView extends \TYPO3\CMS\Cal\View\BaseView {
       $this->controller->getParametersForTyposcriptLink( $this->local_cObj->data, array (
           
           'view' => 'create_event'
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'], $this->conf ['view.'] ['event.'] ['createEventViewPid'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false, $this->conf ['view.'] ['event.'] ['createEventViewPid'] );
       $createEventLink .= $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['event.'] ['event.'] ['addLink'], $this->conf ['view.'] ['event.'] ['event.'] ['addLink.'] );
       $showEventForm = true;
     } else {

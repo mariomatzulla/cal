@@ -170,6 +170,11 @@ class TceMainProcesscmdmap {
               if ($row ['pid'] > 0 && ! $GLOBALS ['BE_USER']->workspace) {
                 /* Check Page TSConfig for a preview page that we should use */
                 
+                /* we need to initialize the cache through the cal_api object */
+                $pageIDForPlugin = $this->getPageIDForPlugin( $row ['pid'] );
+                $tx_cal_api = new \TYPO3\CMS\Cal\Controller\Api();
+                $tx_cal_api = &$tx_cal_api->tx_cal_api_without( $pageIDForPlugin );
+                
                 $notificationService = & \TYPO3\CMS\Cal\Utility\Functions::getNotificationService();
                 // Need to enforce deletion mode
                 $notificationService->notify( $row, 1 );

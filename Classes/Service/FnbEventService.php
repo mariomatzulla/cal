@@ -23,6 +23,8 @@ namespace TYPO3\CMS\Cal\Service;
 class FnbEventService extends \TYPO3\CMS\Cal\Service\EventService {
 
   protected $fnbCalendarSearchString;
+  
+  protected $fnbCalendarSearchStringCache = array();
 
   protected $calendarIds;
 
@@ -41,7 +43,7 @@ class FnbEventService extends \TYPO3\CMS\Cal\Service\EventService {
     }
     
     $this->setStartAndEndPoint( $start_date, $end_date );
-    $dontShowOldEvents = ( integer ) $this->conf ['view.'] [$this->conf ['view'] . '.'] ['dontShowOldEvents'];
+    $dontShowOldEvents = intval ( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['dontShowOldEvents'] ?? 0 );
     if ($dontShowOldEvents > 0) {
       $now = new \TYPO3\CMS\Cal\Model\CalDate();
       if ($dontShowOldEvents == 2) {
@@ -107,7 +109,7 @@ class FnbEventService extends \TYPO3\CMS\Cal\Service\EventService {
   function getFreeAndBusyCalendarSearchString($pidList, $includePublic, $linkIds) {
 
     $hash = md5( $pidList . ' ' . $includePublic . ' ' . $linkIds );
-    if ($this->fnbCalendarSearchStringCache [$hash]) {
+    if (isset($this->fnbCalendarSearchStringCache [$hash])) {
       return $this->fnbCalendarSearchStringCache [$hash];
     }
     

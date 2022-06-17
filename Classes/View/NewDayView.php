@@ -138,7 +138,7 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView {
             $count = count( $viewArray [$ymd] [$hm] );
             
             foreach ( $viewArray [$ymd] [$hm] as $mappingKey ) {
-              if (! $positionArray [$mappingKey] || $positionArray [$mappingKey] < $count) {
+              if (! isset($positionArray [$mappingKey]) || $positionArray [$mappingKey] < $count) {
                 $positionArray [$mappingKey] = $count;
               }
             }
@@ -167,7 +167,7 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView {
     while ( $i->before( $d_end ) ) {
       $i_formatted = $i->format( '%H%M' );
       
-      if (is_array( $viewArray [$this->getYmd()] [$i_formatted] ) && count( $viewArray [$this->getYmd()] [$i_formatted] ) > 0) {
+      if (isset($viewArray [$this->getYmd()] [$i_formatted]) && is_array( $viewArray [$this->getYmd()] [$i_formatted] ) && count( $viewArray [$this->getYmd()] [$i_formatted] ) > 0) {
         foreach ( $viewArray [$this->getYmd()] [$i_formatted] as $eventKey ) {
           $event = &$eventArray [$eventKey];
           $eventStart = $event->getStart();
@@ -188,7 +188,7 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView {
             }
           } else {
             for($j = 0; $j < $nbrGridCols; $j ++) {
-              if (((is_array( $t_array [$i_formatted] [$j] ) || is_countable( $t_array [$i_formatted] [$j] )) && count( $t_array [$i_formatted] [$j] ) == 0) || ! isset( $t_array [$i_formatted] [$j] )) {
+              if (! isset( $t_array [$i_formatted] [$j] ) || ((is_array( $t_array [$i_formatted] [$j] ) || is_countable( $t_array [$i_formatted] [$j] )) && count( $t_array [$i_formatted] [$j] ) == 0)) {
                 $pos_array [$eventMappingKey] = $j;
                 $t_array [$i_formatted] [$j] = array (
                     
@@ -212,11 +212,12 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView {
   private function renderEventsColumn(&$eventArray, &$d_start, &$d_end, &$view_array, &$t_array, &$positionArray) {
 
     $conf = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'conf' );
-    $gridLength = $conf ['day.'] ['gridLength'];
+    $gridLength = $conf ['day.'] ['gridLength'] ?? 15;
     
     $cal_time_obj = new \TYPO3\CMS\Cal\Model\CalDate( $this->getYmd() . '000000' );
     $cal_time_obj->setTZbyId( 'UTC' );
     $eventCounter = 0;
+    $daydisplay = '';
     foreach ( $t_array as $cal_time => $val ) {
       preg_match( '/([0-9]{2})([0-9]{2})/', $cal_time, $dTimeStart );
       $cal_time_obj->setHour( $dTimeStart [1] );
@@ -325,7 +326,7 @@ class NewDayView extends \TYPO3\CMS\Cal\View\NewTimeView {
           'getdate' => $this->getYmd(),
           'view' => $dayLinkViewTarget,
           $controller->getPointerName() => NULL
-      ), $conf ['cache'], $conf ['clear_anyway'], $conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
+      ), $conf ['cache'], $conf ['clear_anyway'] ?? false, $conf ['view.'] [$dayLinkViewTarget . '.'] [$dayLinkViewTarget . 'ViewPid'] );
     }
     return $local_cObj->cObjGetSingle( $conf ['view.'] [$view . '.'] [$dayLinkViewTarget . 'ViewLink'], $conf ['view.'] [$view . '.'] [$dayLinkViewTarget . 'ViewLink.'] );
   }

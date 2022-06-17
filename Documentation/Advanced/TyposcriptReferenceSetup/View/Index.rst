@@ -9053,23 +9053,6 @@ plugin.tx\_cal\_controller.view.other
 .. container:: table-row
 
    Property
-         showGoto
-   
-   Data type
-         Boolean
-   
-   Description
-         Show the goto box.
-         
-         also: FlexForm
-   
-   Default
-         0
-
-
-.. container:: table-row
-
-   Property
          showCategorySelection
    
    Data type

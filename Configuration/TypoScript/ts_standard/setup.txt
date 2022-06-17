@@ -2762,10 +2762,6 @@ plugin.tx_cal_controller {
 			# @also			FlexForm
 			showSearch = 0
 
-			# @description	Show the goto box.
-			# @also			FlexForm
-			showGoto = 0
-
 			# @description	Enables category filtering.
 			# @also			FlexForm
 			showCategorySelection = 0

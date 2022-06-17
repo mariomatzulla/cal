@@ -15,6 +15,7 @@ namespace TYPO3\CMS\Cal\Service;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Base model for the calendar organizer.
@@ -74,7 +75,7 @@ class LocationService extends \TYPO3\CMS\Cal\Service\BaseService {
    *          term
    * @return array containing the location objects
    */
-  function search($pidList = '', $searchword) {
+  function search($pidList = '', $searchword = '') {
 
     if (! $this->isAllowedService()) {
       return array ();
@@ -118,15 +119,18 @@ class LocationService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where, $groupBy, $orderBy, $limit );
     if ($result) {
+      $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
       while ( $row = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {
         
-        if ($GLOBALS ['TSFE']->sys_language_content) {
-          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_location', $row, $GLOBALS ['TSFE']->sys_language_content, $GLOBALS ['TSFE']->sys_language_contentOL, '' );
+        if ($languageAspect->getContentId()) {
+          $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( 'tx_cal_location', $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
-        if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
+        /**
+         * FIXMY no public property anymore
+         if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
           // get workspaces Overlay
           $GLOBALS ['TSFE']->sys_page->versionOL( 'tx_cal_location', $row );
-        }
+        }*/
         
         $lastLocation = new \TYPO3\CMS\Cal\Model\Location( $row, $pidList );
         

@@ -54,7 +54,7 @@ class DateParser {
     $this->timeObj = $timeObj;
     $this->conf = &$conf;
     for($i = 0; $i < strlen( $value ); $i ++) {
-      $chr = $value {$i};
+      $chr = $value [$i];
       
       switch ($chr) {
         case ' ' :

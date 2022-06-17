@@ -72,7 +72,7 @@ class OrganizerAddressService extends \TYPO3\CMS\Cal\Service\BaseService {
    *          term
    * @return array containing the organizer objects
    */
-  function search($pidList = '', $searchword) {
+  function search($pidList = '', $searchword = '') {
 
     if (! $this->isAllowedService())
       return;

@@ -214,11 +214,13 @@ class TceMainProcessdatamap {
             $oldPath = str_replace( 'EXT:cal/', $extPath, $oldPath );
             // $oldPath = str_replace(PATH_site, '', $oldPath);
             $tx_cal_api->conf ['view.'] ['event.'] ['eventModelTemplate'] = $oldPath;
-            $oldBackPath = $GLOBALS ['TSFE']->tmpl->getFileName_backPath;
-            $GLOBALS ['TSFE']->tmpl->getFileName_backPath = '';
-            $fileInfo = GeneralUtility::split_fileref( $oldPath );
-            $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
-            
+            /**
+             * FIXME
+             * $oldBackPath = $GLOBALS ['TSFE']->tmpl->getFileName_backPath;
+             * $GLOBALS ['TSFE']->tmpl->getFileName_backPath = '';
+             * $fileInfo = GeneralUtility::split_fileref( $oldPath );
+             * $GLOBALS ['TSFE']->tmpl->allowedPaths [] = $fileInfo ['path'];
+             */
             $notificationService->controller->getDateTimeObject = new \TYPO3\CMS\Cal\Model\CalDate( $event ['start_date'] . '000000' );
             
             if ($status == 'new') {
@@ -229,7 +231,7 @@ class TceMainProcessdatamap {
               $fieldArray ['send_invitation'] = 0;
             }
             
-            $GLOBALS ['TSFE']->tmpl->getFileName_backPath = $oldBackPath;
+            // FIXME $GLOBALS ['TSFE']->tmpl->getFileName_backPath = $oldBackPath;
           }
           /** @var \TYPO3\CMS\Cal\Utility\RecurrenceGenerator $rgc */
           $rgc = GeneralUtility::makeInstance( 'TYPO3\\CMS\\Cal\\Utility\\RecurrenceGenerator', $pageIDForPlugin );
