@@ -281,7 +281,7 @@ class NotificationView extends \TYPO3\CMS\Cal\Service\BaseService {
       $this->startMailer();
       $select = 'fe_users.*';
       $table = 'fe_users, tx_cal_fe_user_event_monitor_mm, tx_cal_event';
-      $where = 'fe_users.uid = tx_cal_fe_user_event_monitor_mm.uid_foreign AND  tx_cal_fe_user_event_monitor_mm.uid_local = tx_cal_event.uid AND tx_cal_event.deleted = ' . intval( $newEventDataArray ['deleted'] ) . ' AND tx_cal_event.uid = ' . $newEventDataArray ['uid'];
+      $where = 'fe_users.uid = tx_cal_fe_user_event_monitor_mm.uid_foreign AND  tx_cal_fe_user_event_monitor_mm.uid_local = tx_cal_event.uid AND tx_cal_event.deleted = ' . intval( $newEventDataArray ['deleted'] ?? 0 ) . ' AND tx_cal_event.uid = ' . $newEventDataArray ['uid'];
       $result = $GLOBALS ['TYPO3_DB']->exec_SELECTquery( $select, $table, $where );
       
       while ( $row1 = $GLOBALS ['TYPO3_DB']->sql_fetch_assoc( $result ) ) {

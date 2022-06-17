@@ -226,7 +226,7 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService {
 
   protected function checkOnNewOrDeletableFiles($objectType, $type, &$insertFields, $uid) {
 
-    if ($this->conf ['view.'] ['enableAjax'] || $this->conf ['view.'] ['dontShowConfirmView'] == 1) {
+    if ((isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) || (isset($this->conf ['view.'] ['dontShowConfirmView']) && $this->conf ['view.'] ['dontShowConfirmView'] == 1)) {
       $insertFields [$type] = Array ();
       if (is_array( $_FILES [$this->prefixId] ['name'] [$type] )) {
         $files = Array ();
@@ -277,11 +277,11 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService {
       }
       $insertFields [$type] = implode( ',', $insertFields [$type] );
     } else {
-      $insertFields [$type] = $this->controller->piVars [$type];
+      $insertFields [$type] = $this->controller->piVars [$type] ?? '';
       $this->checkOnTempFile( $type, $insertFields, $objectType, $uid );
     }
     
-    $removeFiles = $this->controller->piVars ['remove_' . $type] ? $this->controller->piVars ['remove_' . $type] : Array ();
+    $removeFiles = $this->controller->piVars ['remove_' . $type] ?? Array ();
     if (! empty( $removeFiles )) {
       $where = 'uid_foreign = ' . $uid . ' AND  tablenames=\'' . $objectType . '\' AND fieldname=\'' . $type . '\' AND uid in (' . implode( ',', array_values( $removeFiles ) ) . ')';
       $result = $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'sys_file_reference', $where );
@@ -477,11 +477,15 @@ abstract class BaseService extends \TYPO3\CMS\Core\Service\AbstractService {
         if ($languageAspect->getContentId()) {
           $row = $GLOBALS ['TSFE']->sys_page->getRecordOverlay( $table, $row, $languageAspect->getContentId(), $languageAspect->getLegacyOverlayType(), '' );
         }
+        /**
+         * FIXME property versioningPreview is not public available anymore
+         * 
         if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
           // get workspaces Overlay
           $GLOBALS ['TSFE']->sys_page->versionOL( $table, $row );
         }
-        if ($row ['_LOCALIZED_UID']) {
+        */
+        if (isset($row ['_LOCALIZED_UID'])) {
           $uid = $row ['_LOCALIZED_UID'];
         }
         return $uid;

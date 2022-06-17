@@ -44,7 +44,7 @@ class OrganizerService extends \TYPO3\CMS\Cal\Service\BaseService {
     if (! $this->isAllowedService())
       return;
     $organizerArray = $this->getOrganizerFromTable( $pidList, ' AND tx_cal_organizer.uid=' . $uid );
-    return $organizerArray [0];
+    return $organizerArray [0] ?? Array();
   }
 
   /**

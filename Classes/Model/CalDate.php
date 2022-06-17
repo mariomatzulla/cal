@@ -40,7 +40,7 @@ class CalDate extends \TYPO3\CMS\Cal\Model\Pear\Date {
   public function __construct($date = null) {
 
     if (class_exists( 'TYPO3\\CMS\\Cal\\Utility\\Registry' )) {
-      if (is_object( $GLOBALS ['TSFE'] )) {
+      if (isset( $GLOBALS ['TSFE'] ) &&is_object( $GLOBALS ['TSFE'] )) {
         if (!isset($GLOBALS ['TSFE']->register ['cal_shared_conf']) || ! is_array( $GLOBALS ['TSFE']->register ['cal_shared_conf'] )) {
           $GLOBALS ['TSFE']->register ['cal_shared_conf'] = &Registry::Registry( 'basic', 'conf' );
         }

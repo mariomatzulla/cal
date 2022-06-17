@@ -68,7 +68,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($this->conf ['view'] == 'create_event' || $this->conf ['view'] == 'edit_event') {
       $customFieldArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] [$this->conf ['view'] == 'create_event' ? 'create.' : 'edit.'] ['event.'] ['additionalFields'], 1 );
     } else if ($this->conf ['view'] == 'confirm_event') {
-      if ($this->row ['uid'] > 0) {
+      if (isset($this->row ['uid']) && $this->row ['uid'] > 0) {
         $customFieldArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['edit.'] ['event.'] ['additionalFields'], 1 );
       } else {
         $customFieldArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['additionalFields'], 1 );
@@ -96,7 +96,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
           $confArr = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class )->get( 'cal' );
           $categoryService = &$modelObj->getServiceObjByKey( 'cal_category_model', 'category', $confArr ['categoryService'] );
           $categoryService->getCategoryArray( $this->conf ['pidList'], $categories );
-          $piVarsCaregoryArray = explode( ',', \TYPO3\CMS\Cal\Controller\Controller::convertLinkVarArrayToList( $piVars [$key] ) );
+          $piVarsCaregoryArray = explode( ',', \TYPO3\CMS\Cal\Controller\Controller::convertLinkVarArrayToList( $piVars [$key] ?? '' ) );
           if (! empty( $piVarsCaregoryArray )) {
             foreach ( $piVarsCaregoryArray as $categoryId ) {
               if(isset($categories [0] [0] [$categoryId])){
@@ -121,6 +121,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
             $start = new \TYPO3\CMS\Cal\Model\CalDate( $piVars ['start_date'] . '000000' );
             $start->addSeconds( $piVars ['start_time'] );
             $this->setStart( $start );
+            $startDateIsSet = true;
           }
           unset( $piVars ['start_date'] );
           unset( $piVars ['start_time'] );
@@ -154,6 +155,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
             $end = new \TYPO3\CMS\Cal\Model\CalDate( $piVars ['end_date'] . '000000' );
             $end->addSeconds( $piVars ['end_time'] );
             $this->setEnd( $end );
+            $endDateIsSet = true;
           }
           unset( $piVars ['end_date'] );
           unset( $piVars ['end_time'] );
@@ -367,7 +369,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
               $this->addAttendee( $attendee );
             }
           }
-          foreach ( GeneralUtility::trimExplode( ',', $piVars ['attendee_external'], 1 ) as $emailAddress ) {
+          foreach ( GeneralUtility::trimExplode( ',', $piVars ['attendee_external'] ?? '', 1 ) as $emailAddress ) {
             if (is_object( $attendeeIndex [$serviceKey . '_' . $emailAddress] )) {
               // Attendee has been already assigned -> updating attendance
               $attendeeIndex [$serviceKey . '_' . $emailAddress]->setAttendance( $attendance [$entry] );
@@ -411,7 +413,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       }
     }
     
-    if (! $startDateIsSet && $piVars ['mygetdate']) {
+    if (! $startDateIsSet && isset($piVars ['mygetdate']) && $piVars ['mygetdate']) {
       $startDay = strip_tags( $piVars ['mygetdate'] );
       $startHour = '00';
       $startMinutes = '00';
@@ -424,7 +426,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       $start->setTzById( 'UTC' );
       $this->setStart( $start );
     }
-    if (! $endDateIsSet && $piVars ['mygetdate']) {
+    if (! $endDateIsSet && isset($piVars ['mygetdate']) && $piVars ['mygetdate']) {
       $end = new \TYPO3\CMS\Cal\Model\CalDate();
       $end->copy( $start );
       $end->addSeconds( $this->conf ['view.'] ['event.'] ['event.'] ['defaultEventLength'] );
@@ -544,7 +546,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
       $this->setBodyStyle( $row ['calendar_bodystyle'] );
     }
     
-    $this->setEventOwner( $row ['event_owner'] );
+    $this->setEventOwner( $row ['event_owner'] ?? '' );
     
     if (! $isException) {
       $this->setTeaser( $row ['teaser'] );
@@ -1492,7 +1494,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($this->isUserAllowedToEdit()) {
       // controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic','controller');
       $linkConf = $this->getValuesAsArray();
-      if ($this->conf ['view.'] ['enableAjax']) {
+      if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
         $temp = sprintf( $this->conf ['view.'] [$view . '.'] ['event.'] ['editLinkOnClick'], $this->getUid(), $this->getType() );
         $linkConf ['link_ATagParams'] = ' onclick="' . $temp . '"';
       }
@@ -1509,7 +1511,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($this->isUserAllowedToDelete()) {
       // controller = &\TYPO3\CMS\Cal\Utility\Registry::Registry('basic','controller');
       $linkConf = $this->getValuesAsArray();
-      if ($this->conf ['view.'] ['enableAjax']) {
+      if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
         $temp = sprintf( $this->conf ['view.'] [$view . '.'] ['event.'] ['deleteLinkOnClick'], $this->getUid(), $this->getType() );
         $linkConf ['link_ATagParams'] = ' onclick="' . $temp . '"';
       }

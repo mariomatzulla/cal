@@ -56,6 +56,8 @@ class Model extends \TYPO3\CMS\Cal\Model\BaseModel {
   var $calname;
 
   var $calendarUid;
+  
+  var $calendarObject;
 
   var $url;
 

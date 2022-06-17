@@ -635,7 +635,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
     $this->initConfigs();
     $viewParams = $this->shortenLastViewAndGetTargetViewParameters( true );
-    $this->conf ['view'] = $viewParams ['view'];
+    $this->conf ['view'] = $viewParams ['view'] ?? '';
     $this->conf ['lastview'] = '';
     $rightsObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'rightscontroller' );
     $this->conf ['view'] = $rightsObj->checkView( $this->conf ['view'] );
@@ -724,7 +724,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
       // Hook: postSaveEvent
       $this->executeHookObjectsFunction( $hookObjectsArr, 'postSaveEvent' );
       
-      if ($this->conf ['view.'] ['enableAjax']) {
+      if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
         if (is_object( $event )) {
           if (in_array( $event->getFreq(), Array (
               
@@ -792,7 +792,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
    */
   public function removeEvent() {
 
-    $eventType = intval( $this->piVars ['event_type'] );
+    $eventType = intval( $this->piVars ['event_type'] ?? 0);
     $hookObjectsArr = $this->getHookObjectsArray( 'removeEventClass' );
     // Hook: preRemoveEvent
     $this->executeHookObjectsFunction( $hookObjectsArr, 'preRemoveEvent' );
@@ -806,7 +806,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     // Hook: postRemoveEvent
     $this->executeHookObjectsFunction( $hookObjectsArr, 'postRemoveEvent' );
     
-    if ($this->conf ['view.'] ['enableAjax']) {
+    if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
       return 'true';
     }
     
@@ -3924,7 +3924,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
    */
   private function checkRedirect($action, $object) {
 
-    if ($this->conf ['view.'] ['enableAjax']) {
+    if (isset($this->conf ['view.'] ['enableAjax']) && $this->conf ['view.'] ['enableAjax']) {
       die();
     }
     if ($this->conf ['view.'] [$action . '_' . $object . '.'] ['redirectAfter' . ucwords( $action ) . 'ToPid'] || $this->conf ['view.'] [$action . '_' . $object . '.'] ['redirectAfter' . ucwords( $action ) . 'ToView']) {
@@ -4051,8 +4051,9 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
         Controller::updateIfNotEmpty( $this->conf ['view.'] ['weekStartDay'], $this->pi_getFFvalue( $piFlexForm, 'weekStartDay' ) );
       }
     }
-    
-    define( 'DATE_CALC_BEGIN_WEEKDAY', $this->conf ['view.'] ['weekStartDay'] == 'Sunday' ? 0 : 1 );
+    if(!defined('DATE_CALC_BEGIN_WEEKDAY')){
+      define( 'DATE_CALC_BEGIN_WEEKDAY', $this->conf ['view.'] ['weekStartDay'] == 'Sunday' ? 0 : 1 );
+    }
   }
 }
 

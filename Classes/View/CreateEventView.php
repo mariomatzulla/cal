@@ -760,7 +760,7 @@ else {
         $groupOffsetIndex [$groupOffsetArray [0]] = $groupOffsetArray [1] == '' ? $this->conf ['view.'] ['event.'] ['remind.'] ['time'] : $groupOffsetArray [1];
       }
       if (empty( $selectedGroups ) && ! $this->isEditMode) {
-        $selectedGroups = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultGroup'], 1 );
+        $selectedGroups = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultGroup'] ?? '', 1 );
       }
       
       $allowedGroupsList = implode( ',', $allowedGroups );

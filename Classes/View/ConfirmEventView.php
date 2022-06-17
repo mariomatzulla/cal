@@ -376,7 +376,7 @@ class ConfirmEventView extends \TYPO3\CMS\Cal\View\FeEditingBaseView {
   function getNotifyMarker(& $template, & $sims, & $rems) {
 
     $sims ['###NOTIFY###'] = '';
-    if ($this->isAllowed( 'notify' ) && is_array( $this->controller->piVars ['notify'] )) {
+    if ($this->isAllowed( 'notify' ) && isset( $this->controller->piVars ['notify'] ) && is_array( $this->controller->piVars ['notify'] )) {
       $notifydisplaylist = Array ();
       $notifyids = Array ();
       foreach ( $this->controller->piVars ['notify'] as $value ) {
@@ -395,7 +395,7 @@ class ConfirmEventView extends \TYPO3\CMS\Cal\View\FeEditingBaseView {
   function getSharedMarker(& $template, & $sims, & $rems) {
 
     $sims ['###SHARED###'] = '';
-    if ($this->isAllowed( 'shared' ) && is_array( $this->controller->piVars ['shared'] )) {
+    if ($this->isAllowed( 'shared' ) && isset($this->controller->piVars ['shared']) && is_array( $this->controller->piVars ['shared'] )) {
       $shareddisplaylist = Array ();
       $sharedids = Array ();
       foreach ( $this->controller->piVars ['shared'] as $value ) {
@@ -413,7 +413,7 @@ class ConfirmEventView extends \TYPO3\CMS\Cal\View\FeEditingBaseView {
   function getExceptionMarker(& $template, & $sims, & $rems) {
 
     $sims ['###EXCEPTION###'] = '';
-    if ($this->isAllowed( 'exception' ) && is_array( $this->controller->piVars ['exception_ids'] )) {
+    if ($this->isAllowed( 'exception' ) && isset( $this->controller->piVars ['exception_ids'] ) && is_array( $this->controller->piVars ['exception_ids'] )) {
       $exceptiondisplaylist = Array ();
       $exceptionids = Array ();
       foreach ( $this->controller->piVars ['exception_ids'] as $value ) {

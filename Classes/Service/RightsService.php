@@ -67,7 +67,6 @@ class RightsService extends \TYPO3\CMS\Cal\Service\BaseService {
   
 
   function isLoggedIn() {
-
     return $this->getContext()->getPropertyFromAspect( 'frontend.user', 'isLoggedIn' );
   }
 
@@ -82,8 +81,7 @@ class RightsService extends \TYPO3\CMS\Cal\Service\BaseService {
   function getUserId() {
 
     if ($this->isLoggedIn()) {
-      $val = ( int ) $this->getContext()->getPropertyFromAspect( 'frontend.user', 'userId' );
-      return $val;
+      return ( int ) $this->getContext()->getPropertyFromAspect( 'frontend.user', 'id' );
     }
     return - 1;
   }
@@ -109,12 +107,14 @@ class RightsService extends \TYPO3\CMS\Cal\Service\BaseService {
     if ($this->isLoggedIn()) {
       $users = explode( ',', $this->conf ['rights.'] ['admin.'] ['user'] ?? array() );
       $groups = explode( ',', $this->conf ['rights.'] ['admin.'] ['group'] ?? array() );
-      if (array_search( $this->getUserId(), $users ) !== false)
+      if (array_search( $this->getUserId(), $users ) !== false) {
         return true;
+      }
       $userGroups = $this->getUserGroups();
       foreach ( $groups as $key => $group ) {
-        if (array_search( ltrim( $group ), $userGroups ) !== false)
+        if (array_search( ltrim( $group ), $userGroups ) !== false) {
           return true;
+        }
       }
     }
     return false;
@@ -161,11 +161,11 @@ class RightsService extends \TYPO3\CMS\Cal\Service\BaseService {
   }
 
   function isAllowedToCreateEventCategory() {
-    $this->isAllowedToCreateEventFields('category.');
+    return $this->isAllowedToCreateEventFields('category.');
   }
 
   function isAllowedToCreateEventCalendar() {
-    $this->isAllowedToCreateEventFields('calendar_id.');
+    return $this->isAllowedToCreateEventFields('calendar_id.');
   }
 
   function isAllowedToCreatePublicEvent() {
@@ -187,39 +187,39 @@ class RightsService extends \TYPO3\CMS\Cal\Service\BaseService {
   }
 
   function isAllowedToCreateEventTitle() {
-    $this->isAllowedToCreateEventFields('title.');
+    return $this->isAllowedToCreateEventFields('title.');
   }
   
   function isAllowedToCreateEventOrganizer() {
-    $this->isAllowedToCreateEventFields('organizer.');
+    return $this->isAllowedToCreateEventFields('organizer.');
   }
 
   function isAllowedToCreateEventLocation() {
-    $this->isAllowedToCreateEventFields('location.');
+    return $this->isAllowedToCreateEventFields('location.');
   }
 
   function isAllowedToCreateEventDescription() {
-    $this->isAllowedToCreateEventFields('description.');
+    return $this->isAllowedToCreateEventFields('description.');
   }
 
   function isAllowedToCreateEventTeaser() {
-    $this->isAllowedToCreateEventFields('teaser.');
+    return $this->isAllowedToCreateEventFields('teaser.');
   }
 
   function isAllowedToCreateEventRecurring() {
-    $this->isAllowedToCreateEventFields('recurring.');
+    return $this->isAllowedToCreateEventFields('recurring.');
   }
 
   function isAllowedToCreateEventNotify() {
-    $this->isAllowedToCreateEventFields('notify.');
+    return $this->isAllowedToCreateEventFields('notify.');
   }
 
   function isAllowedToCreateEventException() {
-    $this->isAllowedToCreateEventFields('exception.');
+    return $this->isAllowedToCreateEventFields('exception.');
   }
 
   function isAllowedToCreateEventShared() {
-    $this->isAllowedToCreateEventFields('shared.');
+    return $this->isAllowedToCreateEventFields('shared.');
   }
 
   function isAllowedToEditEvent() {

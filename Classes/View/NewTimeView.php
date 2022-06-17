@@ -328,7 +328,7 @@ abstract class NewTimeView {
     if (($date->after( $now ) || $rightsObj->isAllowedToCreateEventInPast()) && $isAllowedToCreateEvent) {
       $local_cObj = $this->getLocalCObject();
       $conf ['clear_anyway'] = 1;
-      if ($conf ['view.'] ['enableAjax']) {
+      if (isset($conf ['view.'] ['enableAjax']) && $conf ['view.'] ['enableAjax']) {
         $local_cObj->setCurrentVal( $conf ['view.'] [$view . '.'] ['event.'] ['addIcon'] );
         $local_cObj->data ['link_ATagParams'] = sprintf( ' onclick="' . $conf ['view.'] [$view . '.'] ['event.'] ['addLinkOnClick'] . '"', $time, $date->format( '%Y%m%d' ) );
         $controller->getParametersForTyposcriptLink( $local_cObj->data, array (
@@ -355,7 +355,7 @@ abstract class NewTimeView {
         }
       }
     } else {
-      if ($conf ['view.'] ['enableAjax']) {
+      if (isset($conf ['view.'] ['enableAjax']) && $conf ['view.'] ['enableAjax']) {
         $tmp = sprintf( $wrap, $remember, $class, '' );
       } else {
         $tmp = sprintf( $wrap, $remember, $class, '' );

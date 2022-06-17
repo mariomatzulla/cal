@@ -222,7 +222,7 @@ class TceMainProcesscmdmap {
   public function getPageIDForPlugin($pid) {
 
     $pageTSConf = BackendUtility::getPagesTSconfig( $pid );
-    if ($pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin']) {
+    if (isset($pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin'])) {
       return $pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin'];
     }
     /**

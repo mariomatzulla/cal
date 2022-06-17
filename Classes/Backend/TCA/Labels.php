@@ -29,6 +29,9 @@ class Labels {
       
       // Get complete record
     $rec = BackendUtility::getRecordWSOL( $params ['table'], $params ['row'] ['uid'] );
+    if($rec == null){
+      return '';
+    }
     $dateObj = new \TYPO3\CMS\Cal\Model\CalDate( $rec ['start_date'] . '000000' );
     $dateObj->setTZbyId( 'UTC' );
     

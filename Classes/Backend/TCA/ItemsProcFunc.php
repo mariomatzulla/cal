@@ -122,10 +122,10 @@ class ItemsProcFunc {
   public function getRecords(&$params) {
 
     $table = $params ['config'] ['itemsProcFunc_config'] ['table'];
-    $where = $params ['config'] ['itemsProcFunc_config'] ['where'];
-    $groupBy = $params ['config'] ['itemsProcFunc_config'] ['groupBy'];
-    $orderBy = $params ['config'] ['itemsProcFunc_config'] ['orderBy'];
-    $limit = $params ['config'] ['itemsProcFunc_config'] ['limit'];
+    $where = $params ['config'] ['itemsProcFunc_config'] ['where'] ?? '';
+    $groupBy = $params ['config'] ['itemsProcFunc_config'] ['groupBy'] ?? '';
+    $orderBy = $params ['config'] ['itemsProcFunc_config'] ['orderBy'] ?? '';
+    $limit = $params ['config'] ['itemsProcFunc_config'] ['limit'] ?? '';
     
     /* Get the records, with access restrictions and all that good stuff applied. */
     $res = self::getSQLResource( $table, $where, $groupBy, $orderBy, $limit, $params ['row'] ['pid'] );
@@ -216,7 +216,7 @@ class ItemsProcFunc {
     if (! $cache) {
       $cache = Array ();
     }
-    
+    $pidlist = '';
     if (! $GLOBALS ['BE_USER']->user ['admin']) {
       // Check if we can return something from cache
       if (is_array( $cache [$GLOBALS ['BE_USER']->user ['uid']] ) && $cache [$GLOBALS ['BE_USER']->user ['uid']] ['pidlist']) {

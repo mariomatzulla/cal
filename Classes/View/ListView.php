@@ -690,7 +690,7 @@ class ListView extends \TYPO3\CMS\Cal\View\BaseView {
     }
   }
 
-  function drawList(&$master_array, $page = '', $starttime, $endtime) {
+  function drawList(&$master_array, $page = '', $starttime = null, $endtime = null) {
 
     $this->starttime = $starttime;
     $this->endtime = $endtime;

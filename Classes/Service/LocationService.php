@@ -49,7 +49,7 @@ class LocationService extends \TYPO3\CMS\Cal\Service\BaseService {
     if (! $this->isAllowedService())
       return;
     $locationArray = $this->getLocationFromTable( $pidList, ' AND tx_cal_location.uid=' . $uid );
-    return $locationArray [0];
+    return $locationArray [0] ?? Array();
   }
 
   /**

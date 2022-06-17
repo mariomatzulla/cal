@@ -358,7 +358,7 @@ class ViewController extends \TYPO3\CMS\Cal\Controller\BaseController {
 
     /* Call the view and pass it the event to draw */
     $viewObj = $this->getServiceObjByKey( 'cal_view', 'create_event', '_create_event' );
-    $content = $viewObj->drawCreateEvent( $this->conf ['getdate'], $pidList, $event );
+    $content = $viewObj->drawCreateEvent( $this->conf ['getdate'] ?? '', $pidList, $event );
     
     return $content;
   }

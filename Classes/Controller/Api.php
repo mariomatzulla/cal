@@ -279,7 +279,7 @@ class Api {
     return $this->modelObj->findCategoriesForList( $type, $pidList );
   }
 
-  function findEventsForIcs($timestamp, $type = '', $pidList) {
+  function findEventsForIcs($timestamp, $type = '', $pidList = '') {
 
     return $this->modelObj->findEventsForIcs( $timestamp, $type, $pidList );
   }

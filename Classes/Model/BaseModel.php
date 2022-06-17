@@ -424,9 +424,9 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
       $sims ['###DESCRIPTION_STRIPTAGS###'] = strip_tags( $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description.'] ) );
     } else {
       if ($this->isPreview) {
-        $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['preview'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['preview.'] );
+        $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['preview'] ?? '', $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['preview.'] ?? Array());
       } else {
-        $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description'], $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description.'] );
+        $sims ['###DESCRIPTION###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description'] ?? '', $this->conf ['view.'] [$view . '.'] [$this->getObjectType() . '.'] ['description.'] ?? Array());
       }
     }
   }

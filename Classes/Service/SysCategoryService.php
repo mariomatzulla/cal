@@ -332,6 +332,10 @@ class SysCategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
         if (! $row ['uid']) {
           continue;
         }
+        
+        /**
+        * FIXME property versioningPreview is not public available anymore
+        * 
         if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
           // get workspaces Overlay
           $GLOBALS ['TSFE']->sys_page->versionOL( 'sys_category', $row );
@@ -339,6 +343,7 @@ class SysCategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
         if (! $row ['uid']) {
           continue;
         }
+        */
         $category = $this->createCategory( $row );
         $foundUids [] = $row ['uid'];
         $calendarUids [] = $row ['calendar_uid'];
@@ -367,6 +372,9 @@ class SysCategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
           if (! $row ['uid']) {
             continue;
           }
+          /**
+           * FIXME property versioningPreview is not public available anymore
+           * 
           if ($GLOBALS ['TSFE']->sys_page->versioningPreview == TRUE) {
             // get workspaces Overlay
             $GLOBALS ['TSFE']->sys_page->versionOL( 'tx_cal_calendar', $row );
@@ -374,6 +382,7 @@ class SysCategoryService extends \TYPO3\CMS\Cal\Service\BaseService {
           if (! $row ['uid']) {
             continue;
           }
+          */
           $this->categoryArrayByCalendarUid [$row ['uid'] . '###' . $row ['title'] . '###tx_cal_calendar'] = array ();
         }
         $GLOBALS ['TYPO3_DB']->sql_free_result( $result );

@@ -308,7 +308,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
         $tmp_endtime = new \TYPO3\CMS\Cal\Model\CalDate();
         $tmp_endtime->copy( $this->endtime );
         $this->starttime->copy( $event->getStart() );
-        $this->endtime->copy( new \TYPO3\CMS\Cal\Model\CalDate( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxDate'] . '000000' ) );
+        $this->endtime->copy( new \TYPO3\CMS\Cal\Model\CalDate( $this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxDate'] ?? '' . '000000' ) );
       }
       
       $result3 = $GLOBALS ['TYPO3_DB']->exec_SELECT_mm_query( 'tx_cal_exception_event_group.*', 'tx_cal_event', 'tx_cal_exception_event_mm', 'tx_cal_exception_event_group', $where, $groupBy, $orderBy, $limit );
@@ -595,7 +595,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     }
     if (empty( $events ))
       return;
-    if ($this->conf ['getdate'] && $events [$this->conf ['getdate']]) {
+    if ($this->conf ['getdate'] && isset($events [$this->conf ['getdate']])) {
       $event = array_pop( array_pop( $events [$this->conf ['getdate']] ) );
       return $event;
     } else {
@@ -623,22 +623,22 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     $this->searchForAdditionalFieldsToAddFromPostData( $insertFields, 'event' );
     $this->filterDataToBeSaved( $insertFields, $object );
     
-    if (! $insertFields ['calendar_id'] && $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['calendar_id.'] ['default']) {
+    if ((!isset($insertFields ['calendar_id']) || !$insertFields ['calendar_id']) && $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['calendar_id.'] ['default']) {
       $insertFields ['calendar_id'] = $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['calendar_id.'] ['default'];
     }
     
     $insertFields ['cruser_id'] = $this->rightsObj->getUserId();
     $insertFields ['fe_cruser_id'] = $this->rightsObj->getUserId();
     
-    if (is_array( $this->controller->piVars ['notify'] )) {
+    if (isset( $this->controller->piVars ['notify'] ) && is_array( $this->controller->piVars ['notify'] )) {
       $insertFields ['notify_ids'] = implode( ',', $this->controller->piVars ['notify'] );
     } else {
-      $insertFields ['notify_ids'] = $this->controller->piVars ['notify_ids'];
+      $insertFields ['notify_ids'] = $this->controller->piVars ['notify_ids'] ?? '';
     }
-    if (is_array( $this->controller->piVars ['exception_ids'] )) {
+    if (isset($this->controller->piVars ['exception_ids']) && is_array( $this->controller->piVars ['exception_ids'] )) {
       $insertFields ['exception_ids'] = implode( ',', $this->controller->piVars ['exception_ids'] );
     } else {
-      $insertFields ['exception_ids'] = $this->controller->piVars ['exception_ids'];
+      $insertFields ['exception_ids'] = $this->controller->piVars ['exception_ids'] ?? '';
     }
     
     $uid = $this->_saveEvent( $insertFields, $object );
@@ -649,7 +649,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     $this->unsetPiVars();
     $insertFields ['uid'] = $uid;
-    $insertFields ['category'] = $this->controller->piVars ['category_ids'];
+    $insertFields ['category'] = $this->controller->piVars ['category_ids'] ?? '';
     $this->_notify( $insertFields );
     if ($object->getSendoutInvitation()) {
       $this->_invite( $object );
@@ -672,13 +672,15 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
   function _saveEvent(&$eventData, $object) {
 
     $tempValues = array ();
-    $tempValues ['notify_ids'] = $eventData ['notify_ids'];
+    $tempValues ['notify_ids'] = $eventData ['notify_ids'] ?? '';
     unset( $eventData ['notify_ids'] );
-    $tempValues ['exception_ids'] = $eventData ['exception_ids'];
+    $tempValues ['exception_ids'] = $eventData ['exception_ids'] ?? '';
     unset( $eventData ['exception_ids'] );
-    $tempValues ['attendee_ids'] = $eventData ['attendee_ids'];
+    $tempValues ['attendee_ids'] = $eventData ['attendee_ids'] ?? '';
     unset( $eventData ['attendee_ids'] );
     
+    $eventData['l18n_diffsource'] = '';
+
     // Creating DB records
     $table = 'tx_cal_event';
     $result = $GLOBALS ['TYPO3_DB']->exec_INSERTquery( $table, $eventData );
@@ -728,9 +730,10 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
           }
         }
       }
-    } else if ($this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultUser'] || $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultGroup']) {
+    } else if ((isset($this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultUser']) && $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultUser'])
+        || (isset($this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultGroup']) && $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultGroup'])) {
       $idArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultUser'], 1 );
-      if ($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToNotify']) {
+      if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToNotify']) && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToNotify']) {
         $idArray [] = $this->rightsObj->getUserId();
       }
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_fe_user_event_monitor_mm', array_unique( $idArray ), $uid, 'fe_users', array (
@@ -739,32 +742,32 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
           'pid' => $eventData ['pid']
       ) );
       $idArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['notify.'] ['defaultGroup'], 1 );
-      if ($this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToNotify']) {
+      if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToNotify']) && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToNotify']) {
         $idArray = array_merge( $idArray, $this->rightsObj->getUserGroups() );
       }
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_fe_user_event_monitor_mm', array_unique( $idArray ), $uid, 'fe_groups', array (
           
-          'offset' => $this->conf ['view.'] ['event.'] ['remind.'] ['time'],
+          'offset' => $this->conf ['view.'] ['event.'] ['remind.'] ['time'] ?? 0,
           'pid' => $eventData ['pid']
       ) );
-    } else if ($this->rightsObj->isLoggedIn() && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToNotify']) {
+        } else if ($this->rightsObj->isLoggedIn() && isset($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToNotify']) && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToNotify']) {
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_fe_user_event_monitor_mm', array (
           
           $this->rightsObj->getUserId()
       ), $uid, 'fe_users', array (
           
-          'offset' => $this->conf ['view.'] ['event.'] ['remind.'] ['time'],
+          'offset' => $this->conf ['view.'] ['event.'] ['remind.'] ['time'] ?? 0,
           'pid' => $eventData ['pid']
       ) );
     }
-    if ($this->conf ['rights.'] ['create.'] ['event.'] ['public']) {
-      $this->insertIdsIntoTableWithMMRelation( 'tx_cal_fe_user_event_monitor_mm', GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['notifyUsersOnPublicCreate'], 1 ), $uid, 'fe_users', array (
+    if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['public']) && $this->conf ['rights.'] ['create.'] ['event.'] ['public']) {
+      $this->insertIdsIntoTableWithMMRelation( 'tx_cal_fe_user_event_monitor_mm', GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['notifyUsersOnPublicCreate'] ?? '', 1 ), $uid, 'fe_users', array (
           
-          'offset' => $this->conf ['view.'] ['event.'] ['remind.'] ['time'],
+          'offset' => $this->conf ['view.'] ['event.'] ['remind.'] ['time'] ?? 0,
           'pid' => $eventData ['pid']
       ) );
     }
-    if ($this->rightsObj->isAllowedToCreateEventException() && $tempValues ['exception_ids'] != '') {
+    if ($this->rightsObj->isAllowedToCreateEventException() && isset($tempValues ['exception_ids']) && $tempValues ['exception_ids'] != '') {
       $user = Array ();
       $group = Array ();
       $this->splitUserAndGroupIds( explode( ',', strip_tags( $tempValues ['exception_ids'] ) ), $user, $group );
@@ -775,24 +778,24 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     if ($this->rightsObj->isAllowedToCreateEventShared()) {
       $user = $object->getSharedUsers();
       $group = $object->getSharedGroups();
-      if ($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToShared']) {
+      if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToShared']) && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToShared']) {
         $user [] = $this->rightsObj->getUserId();
       }
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_event_shared_user_mm', array_unique( $user ), $uid, 'fe_users' );
-      $ignore = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared.'] ['ignore'], 1 );
+      $ignore = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared.'] ['ignore'] ?? '', 1 );
       $groupArray = array_diff( $group, $ignore );
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_event_shared_user_mm', array_unique( $groupArray ), $uid, 'fe_groups' );
     } else {
-      $idArray = explode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['shared.'] ['defaultUser'] );
-      if ($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToShared']) {
+      $idArray = explode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['shared.'] ['defaultUser'] ?? '' );
+      if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToShared']) && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeUserToShared']) {
         $idArray [] = $this->rightsObj->getUserId();
       }
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_event_shared_user_mm', array_unique( $idArray ), $uid, 'fe_users' );
       
-      $groupArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['shared.'] ['defaultGroup'], 1 );
-      if ($this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared']) {
+      $groupArray = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['fields.'] ['shared.'] ['defaultGroup'] ?? '', 1 );
+      if (isset($this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared']) && $this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared']) {
         $idArray = $this->rightsObj->getUserGroups();
-        $ignore = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared.'] ['ignore'], 1 );
+        $ignore = GeneralUtility::trimExplode( ',', $this->conf ['rights.'] ['create.'] ['event.'] ['addFeGroupToShared.'] ['ignore'] ?? '', 1 );
         $groupArray = array_diff( $idArray, $ignore );
       }
       $this->insertIdsIntoTableWithMMRelation( 'tx_cal_event_shared_user_mm', array_unique( $groupArray ), $uid, 'fe_groups' );
@@ -889,7 +892,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
       
       if (isset( $this->controller->piVars ['notify_ids'] )) {
         $insertFields ['notify_ids'] = strip_tags( $this->controller->piVars ['notify_ids'] );
-      } else if (is_array( $this->controller->piVars ['notify'] )) {
+      } else if (isset($this->controller->piVars ['notify']) && is_array( $this->controller->piVars ['notify'] )) {
         $insertFields ['notify_ids'] = strip_tags( implode( ',', $this->controller->piVars ['notify'] ) );
       }
       if (isset( $this->controller->piVars ['exception_ids'] )) {
@@ -924,12 +927,12 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
   function _updateEvent($uid, $eventData, $object) {
 
     $tempValues = array ();
-    $tempValues ['notify_ids'] = $eventData ['notify_ids'];
-    $tempValues ['notify_offset'] = $eventData ['notify_offset'] ? $eventData ['notify_offset'] : $this->conf ['view.'] ['event.'] ['remind.'] ['time'];
+    $tempValues ['notify_ids'] = $eventData ['notify_ids'] ?? '';
+    $tempValues ['notify_offset'] = $eventData ['notify_offset'] ?? $this->conf ['view.'] ['event.'] ['remind.'] ['time'] ?? 0;
     unset( $eventData ['notify_ids'] );
-    $tempValues ['exception_ids'] = $eventData ['exception_ids'];
+    $tempValues ['exception_ids'] = $eventData ['exception_ids'] ?? '';
     unset( $eventData ['exception_ids'] );
-    $tempValues ['attendee_ids'] = $eventData ['attendee_ids'];
+    $tempValues ['attendee_ids'] = $eventData ['attendee_ids'] ?? '';
     unset( $eventData ['attendee_ids'] );
     
     // Creating DB records
@@ -1223,7 +1226,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     if ($this->rightsObj->isAllowedToCreateEventOrganizer()) {
       $insertFields ['organizer'] = $object->getOrganizer();
     }
-    if ($insertFields ['organizer'] == null) {
+    if (!isset($insertFields ['organizer'])) {
       $insertFields ['organizer'] = '';
     }
     if ($this->rightsObj->isAllowedTo( 'create', 'event', 'cal_organizer' )) {
@@ -1232,7 +1235,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     if ($this->rightsObj->isAllowedToCreateEventLocation()) {
       $insertFields ['location'] = $object->getLocation();
     }
-    if ($insertFields ['location'] == null) {
+    if (!isset($insertFields['location'])) {
       $insertFields ['location'] = '';
     }
     if ($this->rightsObj->isAllowedTo( 'create', 'event', 'cal_location' )) {
@@ -1266,7 +1269,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     // Hook initialization:
     $hookObjectsArr = array ();
-    if (is_array( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] )) {
+    if (isset($GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] ) && is_array( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] )) {
       foreach ( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] as $classRef ) {
         $hookObjectsArr [] = & GeneralUtility::getUserObj( $classRef );
       }
@@ -1361,7 +1364,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     // Hook initialization:
     $hookObjectsArr = array ();
-    if (is_array( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] )) {
+    if (isset( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] ) && is_array( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] )) {
       foreach ( $GLOBALS ['TYPO3_CONF_VARS'] [TYPO3_MODE] ['EXTCONF'] ['ext/cal/service/class.tx_cal_event_service.php'] ['addAdditionalField'] as $classRef ) {
         $hookObjectsArr [] = & GeneralUtility::getUserObj( $classRef );
       }
@@ -1516,9 +1519,9 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     }
     
     // new feature for limiting f.e. the listed recurring events in listView
-    $maxRecurringEvents = Array ();
-    if (TYPO3_MODE != 'BE') {
-      $maxRecurringEvents = ( int ) $this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'];
+    $maxRecurringEvents = 0;
+    if (TYPO3_MODE != 'BE' && isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'])) {
+      $maxRecurringEvents = (int) $this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'];
     }
     $maxRecurringEvents = ! empty( $maxRecurringEvents ) ? $maxRecurringEvents : $count;
     

@@ -65,7 +65,7 @@ class BaseView extends \TYPO3\CMS\Cal\Service\BaseService {
           
           'view' => 'admin',
           'lastview' => $this->controller->extendLastView()
-      ), $this->conf ['cache'], $this->conf ['clear_anyway'] );
+      ), $this->conf ['cache'], $this->conf ['clear_anyway'] ?? false );
       $sims ['###ADMIN_LINK###'] = $this->local_cObj->cObjGetSingle( $this->conf ['view.'] ['admin.'] ['adminViewLink'], $this->conf ['view.'] ['admin.'] ['adminViewLink.'] );
     }
   }

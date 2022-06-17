@@ -83,9 +83,9 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
                *
                * If the marker hasn't been defined already and the value for the marker isn't blank, set it. Otherwise, let the previous value stick.
                */
-              if (! ($sims ['###' . $marker . '###'] && ! $this->object->row [strtolower( $marker )])) {
-                $sims ['###' . $marker . '_VALUE###'] = $this->object->row [strtolower( $marker )];
-                $sims ['###' . $marker . '###'] = $this->applyStdWrap( $this->object->row [strtolower( $marker )], strtolower( $marker ) . '_stdWrap' );
+              if (! (isset($sims ['###' . $marker . '###']) && ! $this->object->row [strtolower( $marker )])) {
+                $sims ['###' . $marker . '_VALUE###'] = $this->object->row [strtolower( $marker )] ?? '';
+                $sims ['###' . $marker . '###'] = $this->applyStdWrap( $this->object->row [strtolower( $marker )] ?? '', strtolower( $marker ) . '_stdWrap' ) ?? Array();
               }
             } else if (! $this->isEditMode && $this->isAllowed( strtolower( $marker ) )) {
               $value = '';
@@ -96,7 +96,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
                 if (! empty( $this->conf ['rights.'] ['create.'] [$this->objectString . '.'] ['fields.'] [strtolower( $marker ) . '.'] ['default'] )) {
                   $value = $this->conf ['rights.'] ['create.'] [$this->objectString . '.'] ['fields.'] [strtolower( $marker ) . '.'] ['default'];
                 } else {
-                  $value = $this->object->row [strtolower( $marker )];
+                  $value = $this->object->row [strtolower( $marker )] ?? '';
                 }
               }
               /**
@@ -164,7 +164,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     foreach ( $linkParams as $key => $value ) {
       $preLinkParams [$this->prefixId . '[' . $key . ']'] = $value;
     }
-    $this->controller->pi_linkTP( '', $preLinkParams, $this->conf ['cache'], $linkParams ['page_id'] );
+    $this->controller->pi_linkTP( '', $preLinkParams, $this->conf ['cache'], $linkParams ['page_id'] ?? '' );
     $temp_sims ['###BACK_LINK###'] = $this->cObj->lastTypoLinkUrl;
     $temp_sims ['###L_CANCEL###'] = $this->controller->pi_getLL( 'l_cancel' );
     $temp_sims ['###L_SUBMIT###'] = $this->controller->pi_getLL( 'l_submit' );
@@ -309,7 +309,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
       return;
     }
     
-    $max = $GLOBALS ['TCA'] ['tx_cal_' . $this->objectString] ['columns'] [$marker] ['config'] ['maxitems'];
+    $max = $GLOBALS ['TCA'] ['tx_cal_' . $this->objectString] ['columns'] [$marker] ['config'] ['maxitems'] ?? 1;
     $sims ['###' . strtoupper( $marker ) . '###'] = '';
     $sims ['###' . strtoupper( $marker ) . '_VALUE###'] = '';
     $sims ['###' . strtoupper( $marker ) . '_CAPTION###'] = '';
@@ -328,10 +328,10 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
       $allowedExt = array ();
       $denyExt = array ();
       if ($marker == 'image') {
-        $allowedExt = explode( ',', $GLOBALS ['TYPO3_CONF_VARS'] ['GFX'] ['imagefile_ext'] );
+        $allowedExt = explode( ',', $GLOBALS ['TYPO3_CONF_VARS'] ['GFX'] ['imagefile_ext'] ?? '');
       } else if ($marker == 'attachment') {
-        $allowedExt = explode( ',', $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['fileExtensions'] ['webspace'] ['allow'] );
-        $denyExt = explode( ',', $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['fileExtensions'] ['webspace'] ['deny'] );
+        $allowedExt = explode( ',', $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['fileExtensions'] ['webspace'] ['allow'] ?? '' );
+        $denyExt = explode( ',', $GLOBALS ['TYPO3_CONF_VARS'] ['BE'] ['fileExtensions'] ['webspace'] ['deny'] ?? '');
       }
       $i = 0;
       
@@ -339,7 +339,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
       if (is_array( $_FILES [$this->prefixId] ['name'] [$marker] )) {
         foreach ( $_FILES [$this->prefixId] ['name'] [$marker] as $id => $filename ) {
           $theDestFile = '';
-          $iConf = $this->conf ['view.'] [$this->conf ['view'] . '.'] [strtolower( $marker ) . '_stdWrap.'];
+          $iConf = $this->conf ['view.'] [$this->conf ['view'] . '.'] [strtolower( $marker ) . '_stdWrap.'] ?? Array();
           if ($_FILES [$this->prefixId] ['error'] [$marker] [$id]) {
             continue;
           } else {
@@ -377,7 +377,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
         }
       }
       
-      $removeFiles = $this->controller->piVars ['remove_' . $marker] ? $this->controller->piVars ['remove_' . $marker] : Array ();
+      $removeFiles = $this->controller->piVars ['remove_' . $marker] ?? Array ();
       $where = 'uid_foreign = ' . $this->conf ['uid'] . ' AND  tablenames=\'tx_cal_' . $this->objectString . '\' AND fieldname=\'' . $marker . '\' AND deleted=0';
       if (! empty( $removeFiles )) {
         $where .= ' AND uid not in (' . implode( ',', array_values( $removeFiles ) ) . ')';
@@ -464,7 +464,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
       } else if (! $this->isEditMode && $this->rightsObj->isAllowedTo( 'create', $this->objectString, $marker )) {
         for($i = 0; $i < $max; $i ++) {
           $value = '';
-          $upload = $this->cObj->stdWrap( $value, $this->conf ['view.'] [$this->conf ['view'] . '.'] [$marker . 'Upload_stdWrap.'] );
+          $upload = $this->cObj->stdWrap( $value, $this->conf ['view.'] [$this->conf ['view'] . '.'] [$marker . 'Upload_stdWrap.'] ?? Array());
           $value = '';
           if ($this->isAllowed( $marker . '_caption' )) {
             $upload .= $this->applyStdWrap( '', $marker . '_caption_stdWrap' );
@@ -559,7 +559,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
     if (count( $viewParts ) == 2 && is_array( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] ) > 0) {
       foreach ( $this->conf ['rights.'] [$viewParts [0] . '.'] [$viewParts [1] . '.'] ['fields.'] as $field => $fieldSetup ) {
         $myField = str_replace( '.', '', $field );
-        if ($this->isAllowed( $myField ) && is_array( $fieldSetup ) && $fieldSetup ['required'] && isset($this->controller->piVars [$myField])) {
+        if ($this->isAllowed( $myField ) && is_array( $fieldSetup ) && isset($fieldSetup ['required']) && $fieldSetup ['required'] && ! isset($this->controller->piVars [$myField])) {
           $allRequiredFieldsAreFilled = false;
           $requiredFieldsSims ['###' . strtoupper( $myField ) . '_REQUIRED###'] = $this->conf ['view.'] ['required'];
         } else {
@@ -567,7 +567,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
         }
       }
     }
-    if ($allRequiredFieldsAreFilled && ! $this->controller->piVars ['formCheck'] == '1') {
+    if ($allRequiredFieldsAreFilled && (!isset($this->controller->piVars ['formCheck']) || (isset($this->controller->piVars ['formCheck']) && ! $this->controller->piVars ['formCheck'] == '1'))) {
       $allRequiredFieldsAreFilled = false;
     }
     return $allRequiredFieldsAreFilled;
@@ -793,7 +793,7 @@ class FeEditingBaseView extends \TYPO3\CMS\Cal\View\BaseView {
   protected function applyStdWrap($value, $key) {
 
     $this->object->initLocalCObject();
-    return $this->object->local_cObj->stdWrap( $value, $this->conf ['view.'] [$this->conf ['view'] . '.'] [$key . '.'] );
+    return $this->object->local_cObj->stdWrap( $value, $this->conf ['view.'] [$this->conf ['view'] . '.'] [$key . '.'] ?? array() );
   }
 
   protected function renderFile($file, $caption, $title, $marker, $isTemp = false) {

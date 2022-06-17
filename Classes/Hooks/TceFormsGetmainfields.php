@@ -33,7 +33,7 @@ class TceFormsGetmainfields {
         $GLOBALS ['TCA'] ['tx_cal_event'] ['ctrl'] ['readOnly'] = 1;
       }
       /* If we have posted data and a new record, preset values to what they were on the previous record */
-      if (is_array( $GLOBALS ['HTTP_POST_VARS'] ['data'] ['tx_cal_event'] ) && strstr( $row ['uid'], 'NEW' )) {
+      if (isset($GLOBALS ['HTTP_POST_VARS'] ['data'] ['tx_cal_event']) && is_array( $GLOBALS ['HTTP_POST_VARS'] ['data'] ['tx_cal_event'] ) && strstr( $row ['uid'], 'NEW' )) {
         $eventPostData = array_pop( $GLOBALS ['HTTP_POST_VARS'] ['data'] ['tx_cal_event'] );
         
         /* Set the calendar if there's not already a value set (from TSConfig) */
