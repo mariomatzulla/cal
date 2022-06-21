@@ -253,11 +253,11 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
     
     // apply stdWrap to pages and pidList
     $this->conf ['pages'] = $this->cObj->stdWrap( $this->conf ['pages'] ?? '', $this->conf ['pages.'] ?? array() );
-    $this->conf ['pidList'] = $this->cObj->stdWrap( $this->conf ['pidList'], $this->conf ['pidList.'] ?? array() );
+    $this->conf ['pidList'] = $this->cObj->stdWrap( $this->conf ['pidList'] ?? '', $this->conf ['pidList.'] ?? array() );
     
-    Controller::updateIfNotEmpty( $this->conf ['pages'], $this->cObj->data ['pages'] );
+    Controller::updateIfNotEmpty( $this->conf ['pages'], $this->cObj->data ['pages'] ?? '' );
     // don't use "updateIfNotEmpty" here, as the default value of "recursive" is 0 and thus not empty and will always override TS settings.
-    if ($this->cObj->data ['recursive']) {
+    if ($this->cObj->data ['recursive'] ?? false) {
       $this->conf ['recursive'] = $this->cObj->data ['recursive'];
     }
     
@@ -411,7 +411,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
     $this->SIM_ACCESS_TIME = $GLOBALS ['SIM_ACCESS_TIME'];
     // fallback for TYPO3 < 4.2
-    if (! $this->SIM_ACCESS_TIME) {
+    if (! $this->SIM_ACCESS_TIME && isset($GLOBALS ['SIM_EXEC_TIME'])) {
       $simTime = $GLOBALS ['SIM_EXEC_TIME'];
       $this->SIM_ACCESS_TIME = $simTime - ($simTime % 60);
     }
@@ -447,7 +447,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
           break;
         
         default : // normal
-          if (method_exists( $GLOBALS ['TSFE'], 'get_cache_timeout' )) { // TYPO3 >= 4.2
+          if (isset($GLOBALS ['TSFE']) && isset($GLOBALS ['TSFE']->page['cache_timeout'])) {
             $lifetime = $GLOBALS ['TSFE']->get_cache_timeout(); // seconds until a cached page is too old
           } else {
             $lifetime = 86400;
@@ -4043,7 +4043,7 @@ class Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
    */
   public function setWeekStartDay() {
 
-    if ($this->cObj->data ['pi_flexform']) {
+    if (isset($this->cObj->data ['pi_flexform'])) {
       $this->pi_initPIflexForm(); // Init and get the flexform data of the plugin
       $piFlexForm = $this->cObj->data ['pi_flexform'];
       

@@ -125,19 +125,19 @@ class Api {
     $tables = 'tt_content';
     $where = 'tt_content.list_type="cal_controller" AND tt_content.deleted=0 AND pid=' . $pid;
     
-    list ( $tt_content_row ) = $GLOBALS ['TYPO3_DB']->exec_SELECTgetRows( $fields, $tables, $where );
+    $tt_content_rows = $GLOBALS ['TYPO3_DB']->exec_SELECTgetRows( $fields, $tables, $where );
     
     // if starting point didn't return any records, look for general records
     // storage page.
-    if (! $tt_content_row) {
+    if (! empty($tt_content_rows)) {
       $tables = 'tt_content LEFT JOIN pages ON tt_content.pid = pages.uid';
       $where = 'tt_content.list_type="cal_controller" AND tt_content.deleted=0 AND tt_content.pid=' . $pid;
-      list ( $tt_content_row ) = $GLOBALS ['TYPO3_DB']->exec_SELECTgetRows( $fields, $tables, $where );
+      $tt_content_rows = $GLOBALS ['TYPO3_DB']->exec_SELECTgetRows( $fields, $tables, $where );
     }
     
-    if ($tt_content_row ['pages']) {
+    if (! empty($tt_content_rows) && isset($tt_content_rows [0] ['pages'])) {
       // $conf['pages'] = $tt_content_row['pages'];
-      $cObj->data = $tt_content_row;
+      $cObj->data = $tt_content_rows [0];
     }
     return $this->tx_cal_api_with( $cObj, $conf );
   }

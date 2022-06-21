@@ -17,7 +17,7 @@ namespace TYPO3\CMS\Cal\Hooks;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
-define( 'ICALENDAR_PATH', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath( 'cal' ) . 'Classes/Model/ICalendar.php' );
+//define( 'ICALENDAR_PATH', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath( 'cal' ) . 'Classes/Model/ICalendar.php' );
 
 /**
  * This hook extends the tcemain class.
@@ -44,7 +44,7 @@ class TceMainProcessdatamap {
         $fieldArray ['end_date'] = $fieldArray ['start_date'];
       }
       
-      if ($fieldArray ['until']) {
+      if (isset($fieldArray ['until'])) {
         $fieldArray ['until'] = self::convertBackendDateToYMD( $fieldArray ['until'] );
       }
       
@@ -58,12 +58,12 @@ class TceMainProcessdatamap {
         if ($event ['end_date'] == $fieldArray ['end_date']) {
           unset( $fieldArray ['end_date'] );
         }
-        if ($event ['until'] == $fieldArray ['until']) {
+        if (isset($event ['until']) && isset($fieldArray ['until']) && $event ['until'] == $fieldArray ['until']) {
           unset( $fieldArray ['until'] );
         }
         /* If we're in a workspace, don't notify anyone about the event */
         if ($event ['pid'] > 0 && count( $fieldArray ) > 1 && ! $GLOBALS ['BE_USER']->workspace) {
-          if ($fieldArray ['calendar_id'] && $event ['calendar_id'] != $fieldArray ['calendar_id']) {
+          if (isset($fieldArray ['calendar_id']) && isset($event ['calendar_id']) && $event ['calendar_id'] != $fieldArray ['calendar_id']) {
             $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'tx_cal_event_category_mm', 'uid_local=' . intval( $id ) );
           }
           
@@ -99,7 +99,7 @@ class TceMainProcessdatamap {
               }
               $notificationService->controller->getDateTimeObject = new \TYPO3\CMS\Cal\Model\CalDate( $event ['start_date'] . '000000' );
               $notificationService->notifyOfChanges( $event, $fieldArray );
-              if ($fieldArray ['send_invitation']) {
+              if (isset($fieldArray ['send_invitation']) && $fieldArray ['send_invitation']) {
                 $notificationService->invite( $event );
                 $fieldArray ['send_invitation'] = 0;
               }
@@ -140,7 +140,7 @@ class TceMainProcessdatamap {
       /** @var \TYPO3\CMS\Cal\Service\ICalendarService $service */
       $service = GeneralUtility::makeInstance( 'TYPO3\\CMS\\Cal\\Service\\ICalendarService' );
       
-      if ($calendar ['type'] == 1 or $calendar ['type'] == 2) {
+      if (isset($calendar ['type']) && ($calendar ['type'] == 1 or $calendar ['type'] == 2)) {
         self::processICS( $calendar, $fieldArray, $service );
       }
     }
@@ -198,12 +198,12 @@ class TceMainProcessdatamap {
           $tx_cal_api = new \TYPO3\CMS\Cal\Controller\Api();
           $tx_cal_api = &$tx_cal_api->tx_cal_api_without( $pageIDForPlugin );
           
-          if ($event ['event_type'] == 3 && ! $event ['ref_event_id']) {
+          if (isset($event ['event_type']) && isset($event ['ref_event_id']) && $event ['event_type'] == 3 && ! $event ['ref_event_id']) {
             $modelObj = &\TYPO3\CMS\Cal\Utility\Registry::Registry( 'basic', 'modelcontroller' );
             $modelObj->updateEventAttendees( $event ['uid'], 'tx_cal_phpicalendar' );
           }
           
-          if ($table == 'tx_cal_event' && ($status == 'new' || $fieldArray ['send_invitation'])) {
+          if ($table == 'tx_cal_event' && ($status == 'new' || (isset($fieldArray ['send_invitation']) && $fieldArray ['send_invitation']))) {
             /* Notify of new event */
             $notificationService = & \TYPO3\CMS\Cal\Utility\Functions::getNotificationService();
             
@@ -520,7 +520,7 @@ class TceMainProcessdatamap {
 
     /* Check Page TSConfig for a preview page that we should use */
     $pageTSConf = BackendUtility::getPagesTSconfig( $pid );
-    if ($pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin']) {
+    if (isset($pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin'])) {
       $pageIDForPlugin = $pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin'];
     } else {
       $pageIDForPlugin = $pid;

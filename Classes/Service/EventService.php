@@ -1520,7 +1520,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
     
     // new feature for limiting f.e. the listed recurring events in listView
     $maxRecurringEvents = 0;
-    if (TYPO3_MODE != 'BE' && isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'])) {
+    if (TYPO3_MODE != 'BE' && isset($this->conf ['view']) && isset($this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'])) {
       $maxRecurringEvents = (int) $this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'];
     }
     $maxRecurringEvents = ! empty( $maxRecurringEvents ) ? $maxRecurringEvents : $count;

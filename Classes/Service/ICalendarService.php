@@ -30,27 +30,6 @@ class ICalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
     parent::__construct();
   }
 
-  public $pageIdForPlugin;
-
-  private function getPageIdForPlugin() {
-
-    if ($this->pageIdForPlugin) {
-      return $this->pageIdForPlugin;
-    }
-    /**
-     * FIXME
-     */
-    $this->pageIdForPlugin = 84;
-    
-    // $pageTSConf = BackendUtility::getPagesTSconfig ( $pid );
-    // if ($pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin']) {
-    // $this->pageIdForPlugin = $pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin'];
-    // } else {
-    // $this->pageIdForPlugin = $pid;
-    // }
-    return $this->pageIdForPlugin;
-  }
-
   /**
    * Looks for an external calendar with a given uid on a certain pid-list
    *
@@ -725,7 +704,7 @@ class ICalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
 
   private function sendReminders($eventUid, $pid) {
 
-    if ($this->conf ['view.'] ['event.'] ['remind']) {
+    if (isset($this->conf ['view.'] ['event.'] ['remind']) && $this->conf ['view.'] ['event.'] ['remind']) {
       /* Schedule reminders for new and changed events */
       $reminderService = &\TYPO3\CMS\Cal\Utility\Functions::getReminderService();
       $reminderService->scheduleReminder( $eventUid );
@@ -884,12 +863,19 @@ class ICalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
    * @return array The inserted or updated event uids
    * @throws \RuntimeException
    */
-  public function insertCalEventsIntoDB($iCalendarComponentArray = array(), $calId, $pid = '', $cruserId = '', $isTemp = 1, $deleteNotUsedCategories = true) {
+  public function insertCalEventsIntoDB($iCalendarComponentArray = array(), $calId = '', $pid = '', $cruserId = '', $isTemp = 1, $deleteNotUsedCategories = true) {
 
     $insertedOrUpdatedEventUids = Array ();
     $insertedOrUpdatedCategoryUids = Array ();
     if (empty( $iCalendarComponentArray )) {
       return $insertedOrUpdatedEventUids;
+    }
+    
+    $pageTSConf = BackendUtility::getPagesTSconfig( $pid );
+    if ($pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin']) {
+      $pageIDForPlugin = $pageTSConf ['options.'] ['tx_cal_controller.'] ['pageIDForPlugin'];
+    } else {
+      $pageIDForPlugin = $pid;
     }
     
     foreach ( $iCalendarComponentArray as $component ) {
@@ -995,7 +981,7 @@ class ICalendarService extends \TYPO3\CMS\Cal\Service\BaseService {
           $this->setExceptions( $component, $eventUid, $pid, $cruserId );
         }
 
-        $this->generateIndexEntries( $eventUid, $this->getPageIdForPlugin() );
+        $this->generateIndexEntries( $eventUid, $pageIDForPlugin );
         
         if(count($eventDeviationUids) > 0) {
           $GLOBALS ['TYPO3_DB']->exec_DELETEquery( 'tx_cal_event_deviation', 'parentid = ' . $eventUid.' and uid not in ('.implode( ',', $eventDeviationUids).')');

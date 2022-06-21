@@ -1917,7 +1917,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     $eventStart = $this->getStart();
     if ($this->isAllday()) {
       $sims ['###DTSTART_YEAR_MONTH_DAY_HOUR_MINUTE###'] = 'DTSTART;VALUE=DATE:' . $eventStart->format( '%Y%m%d' );
-    } else if ($this->conf ['view.'] ['ics.'] ['timezoneId'] != '') {
+    } else if (isset($this->conf ['view.'] ['ics.'] ['timezoneId']) && $this->conf ['view.'] ['ics.'] ['timezoneId'] != '') {
       $sims ['###DTSTART_YEAR_MONTH_DAY_HOUR_MINUTE###'] = 'DTSTART;TZID=' . $this->conf ['view.'] ['ics.'] ['timezoneId'] . ':' . $eventStart->format( '%Y%m%dT%H%M%S' );
     } else {
       $offset = \TYPO3\CMS\Cal\Utility\Functions::strtotimeOffset( $eventStart->getTime() );
@@ -1934,7 +1934,7 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
     if ($this->isAllday()) {
       $eventEnd->addSeconds( 84600 );
       $sims ['###DTEND_YEAR_MONTH_DAY_HOUR_MINUTE###'] = 'DTEND;VALUE=DATE:' . $eventEnd->format( '%Y%m%d' );
-    } else if ($this->conf ['view.'] ['ics.'] ['timezoneId'] != '') {
+    } else if (isset($this->conf ['view.'] ['ics.'] ['timezoneId']) && $this->conf ['view.'] ['ics.'] ['timezoneId'] != '') {
       $sims ['###DTEND_YEAR_MONTH_DAY_HOUR_MINUTE###'] = 'DTEND;TZID=' . $this->conf ['view.'] ['ics.'] ['timezoneId'] . ':' . $eventEnd->format( '%Y%m%dT%H%M%S' );
     } else {
       $offset = \TYPO3\CMS\Cal\Utility\Functions::strtotimeOffset( $eventEnd->getTime() );

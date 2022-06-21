@@ -200,7 +200,7 @@ END:VCALENDAR
         
         '###CAL_VERSION###' => $myem_conf ['version'],
         '###METHOD###' => $method,
-        '###TIMEZONE###' => $this->cObj->cObjGetSingle( $this->conf ['view.'] ['ics.'] ['timezone'], $this->conf ['view.'] ['ics.'] ['timezone.'] )
+        '###TIMEZONE###' => $this->cObj->cObjGetSingle( $this->conf ['view.'] ['ics.'] ['timezone'] ?? '', $this->conf ['view.'] ['ics.'] ['timezone.'] ?? Array())
     ), $rems, Array () );
     return \TYPO3\CMS\Cal\Utility\Functions::removeEmptyLines( $return );
   }

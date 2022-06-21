@@ -773,5 +773,17 @@ class Functions {
 
     return str_replace( '%2F', '/', rawurlencode( $str ) );
   }
+  
+  public static function implodeRecursive($array) {
+    $list = Array();
+    foreach ($array as $key => $value) {
+      if(is_array($value)){
+        $list[] = $key . '['.static::implodeRecursive($value).']';
+      } else {
+        $list[] = $key.':'.$value;
+      }
+    }
+    return implode(', ', $list);
+  }
 }
 ?>

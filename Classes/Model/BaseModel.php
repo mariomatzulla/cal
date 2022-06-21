@@ -173,7 +173,7 @@ abstract class BaseModel extends \TYPO3\CMS\Cal\Model\AbstractModel {
             if (in_array( strtolower( $varName ), $autoFetchTextFields )) {
               $methodValue = implode( $autoFetchTextSplitValue, $methodValue );
             } else {
-              $methodValue = implode( ',', $methodValue );
+              $methodValue = \TYPO3\CMS\Cal\Utility\Functions::implodeRecursive($methodValue);
             }
           }
           // now fill the array, except the methods return value is a object, which can't be used in TS

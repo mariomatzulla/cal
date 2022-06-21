@@ -11,6 +11,9 @@
  * writing. "version" and "dependencies" must not be touched!
  * *************************************************************
  */
+if(!isset($_EXTKEY)) {
+  $_EXTKEY = 'cal';
+}
 $EM_CONF [$_EXTKEY] = array (
     
     'title' => 'Calendar Base',
@@ -30,14 +33,8 @@ $EM_CONF [$_EXTKEY] = array (
         
         'depends' => array (
             
-            'typo3' => '10.4.1-',
-            'typo3db_legacy' => '1.1.3-'
-        ),
-        'suggests' => array (
-            
-            'css_styled_content' => '6.1.0-8.9.99',
-            'wec_map' => '',
-            'tt_address' => ''
+            'typo3' => '11.5.1-',
+            'typo3db_legacy' => '1.1.5-'
         )
     )
 );

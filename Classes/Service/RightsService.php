@@ -903,7 +903,7 @@ class RightsService extends \TYPO3\CMS\Cal\Service\BaseService {
    */
   function setDefaultSaveToPage() {
 
-    $pagesArray = explode( ",", $this->conf ['pidList'] );
+    $pagesArray = explode( ",", $this->conf ['pidList'] ?? '' );
     
     /* If there's only one page in pidList */
     if (count( $pagesArray ) == 1) {
