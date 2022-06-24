@@ -5,21 +5,21 @@
     <body>
       <trans-unit id="pi1_title">
         <source>Calendar</source>
-        <target state="needs-translation">Calendar</target>
+        <target state="translated">Kalender</target>
       </trans-unit>
       <trans-unit id="pi1_plus_wiz_description">
         <source>A Calendar designed to fit the needs of a community, FE and BE entries</source>
-        <target state="needs-translation">A Calendar designed to fit the needs of a community, FE and BE entries</target>
+        <target state="translated">Ein Kalender, der auf die Bedürfnisse der Gemeinschaft zugeschnitten ist; FE und BE-Einträge</target>
       </trans-unit>
       <trans-unit id="extmng.useInternalCaching">
         <source>Internal caching: If enabled cal caches some processing intensive information (archive period count, category count, categories) in an internal cache.</source>
-        <target state="needs-translation">Internal caching: If enabled cal caches some processing intensive information (archive period count, category count, categories) in an internal cache.</target>
+        <target state="translated">Interner Cache: Wenn aktivierte cal cacht einige Verarbeitungen intensiver Informationen (Archiv-Periodenanzahl, Kategorieanzahl, Kategorien) in einem internen Cache.</target>
       </trans-unit>
       <trans-unit id="extmng.writeCachingInfoToDevlog">
         <source>Debug caching info: Which information about internal caching should be written to devlog (extension "devlog" required)."disabled": don't write any information about caching to devlog.
 					"cache misses": log only cache misses. "all": log cache misses and cache hits to devlog.</source>
-        <target state="needs-translation">Debug caching info: Which information about internal caching should be written to devlog (extension "devlog" required)."disabled": don't write any information about caching to devlog.
-					"cache misses": log only cache misses. "all": log cache misses and cache hits to devlog.</target>
+        <target state="translated">Debug-Caching-Infos: Welche Informationen über das interne Caching sollten in das devlog geschrieben werden (Erweiterung "devlog" erforderlich). disabled": Schreibt keine Informationen über das Caching in devlog.
+					„cache misses": Logging von nicht Cachebarem. „all": Cachebares und gecachtes.</target>
       </trans-unit>
       <trans-unit id="extmng.cachingMode">
         <source>Caching Mode: Determines the cache entries lifetime and when the internal cache from cal will be cleared.
@@ -27,18 +27,18 @@
 					"lifetime": will set the livetime of cache entries to the given amount of seconds in field "cacheLifetime". The cache table is not cleared when "clear all caches" is clicked.
 					"static": means: the lifetime of cache entries is set to zero (= unlimited). TYPO3 does not clear the cal cache (useful if you clear the cache with an external script or for debugging).
 				</source>
-        <target state="needs-translation">Caching Mode: Determines the cache entries lifetime and when the internal cache from cal will be cleared.
-					"normal": (default) the cache entries will get the same lifetime as normal pages. The cal cache will be cleared when the "clear all caches" button is pressed.
-					"lifetime": will set the livetime of cache entries to the given amount of seconds in field "cacheLifetime". The cache table is not cleared when "clear all caches" is clicked.
-					"static": means: the lifetime of cache entries is set to zero (= unlimited). TYPO3 does not clear the cal cache (useful if you clear the cache with an external script or for debugging).
+        <target state="translated">Caching-Modus: Bestimmt die Lebensdauer der Cache-Einträge und wann der interne Cache von cal geleert wird.
+					„normal": (Standard) werden die Cache-Einträge die gleiche Lebensdauer wie normale Seiten erhalten. Der cal Cache wird geleert, wenn die Schaltfläche "Alle Caches löschen" gedrückt wird.
+					„lifetime": legt die Lebensdauer der Cache-Einträge auf die angegebene Anzahl von Sekunden im Feld „cacheLifetime“ fest. Die Cache-Tabelle wird nicht geleert, wenn "Alle Caches löschen" geklickt wird.
+					„static": bedeutet: Die Lebensdauer der Cache-Einträge ist auf Null gesetzt (= unbegrenzt). TYPO3 löscht den cal-Cache nicht (nützlich, wenn Sie den Cache mit einem externen Skript oder zum Debuggen leeren).
 				</target>
       </trans-unit>
       <trans-unit id="extmng.cacheLifetime">
         <source>Cache lifetime: lifetime in seconds of the internal cache entries (if "cachingMode" is set to "lifetime").
 					example: 86400 (a day), 604800 (a week)
 				</source>
-        <target state="needs-translation">Cache lifetime: lifetime in seconds of the internal cache entries (if "cachingMode" is set to "lifetime").
-					example: 86400 (a day), 604800 (a week)
+        <target state="translated">Cache-Lebensdauer: Lebensdauer in Sekunden der internen Cache-Einträge (wenn „cachingMode“ auf „cachingMode“ gesetzt ist).
+					Beispiel: 86400 (Tag), 604800 (eine Woche)
 				</target>
       </trans-unit>
       <trans-unit id="extmng.cachingEngine">
@@ -46,14 +46,14 @@
 					"internal": store cache records directly in the database using internal methods.
 					"cachingFramework" Requires at least TYPO3 4.3: store cache records in the TYPO3 caching framework (in the default configuration cal uses the DB backend of the caching framework).
 				</source>
-        <target state="needs-translation">Caching engine: where should the cache entries from cal be stored.
-					"internal": store cache records directly in the database using internal methods.
-					"cachingFramework" Requires at least TYPO3 4.3: store cache records in the TYPO3 caching framework (in the default configuration cal uses the DB backend of the caching framework).
+        <target state="translated">Caching-Engine: Wo sollen die Cache-Einträge von cal gespeichert werden.
+					„internal“: Speichern Sie Cache-Datensätze direkt in der Datenbank mit internen Methoden.
+					„cachingFramework“ : Speichere Cache-Datensätze im TYPO3-Caching-Framework (in der Standardkonfiguration verwendet der Datenbank-Backend des Caching-Frameworks).
 				</target>
       </trans-unit>
       <trans-unit id="extmng.treeOrderBy">
         <source>Category ordering in BackEnd trees: Here you can configure the the ordering of categories in category trees in BackEnd forms.</source>
-        <target state="needs-translation">Category ordering in BackEnd trees: Here you can configure the the ordering of categories in category trees in BackEnd forms.</target>
+        <target state="translated">Kategoriendarstellung in BackEnd-Bäumen: Hier können Sie die Reihenfolge der Kategorien in Kategoriebäumen in BackEnd-Formularen festlegen.</target>
       </trans-unit>
     </body>
   </file>
