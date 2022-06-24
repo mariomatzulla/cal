@@ -3,113 +3,113 @@
   <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_db.xlf" date="2014-06-02T11:47:43Z" product-name="cal" target-language="de">
     <header/>
     <body>
-      <trans-unit id="tx_cal_event">
+      <trans-unit id="tx_cal_event" approved="yes">
         <source>Calendar Event</source>
-        <target state="translated">Kalender Ereignis</target>
+        <target state="final">Kalender Ereignis</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event_label">
+      <trans-unit id="tx_cal_event_label" approved="yes">
         <source>Start: Title</source>
-        <target state="translated">Beginn: Titel</target>
+        <target state="final">Beginn: Titel</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.general_sheet">
+      <trans-unit id="tx_cal_event.general_sheet" approved="yes">
         <source>General</source>
-        <target state="translated">Allgemein</target>
+        <target state="final">Allgemein</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.recurrence_sheet">
+      <trans-unit id="tx_cal_event.recurrence_sheet" approved="yes">
         <source>Recurrence</source>
-        <target state="translated">Wiederholung</target>
+        <target state="final">Wiederholung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.location_sheet">
+      <trans-unit id="tx_cal_event.location_sheet" approved="yes">
         <source>Location</source>
-        <target state="translated">Ort</target>
+        <target state="final">Ort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.organizer_sheet">
+      <trans-unit id="tx_cal_event.organizer_sheet" approved="yes">
         <source>Organizer</source>
-        <target state="translated">Organisator</target>
+        <target state="final">Organisator</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.files_sheet">
+      <trans-unit id="tx_cal_event.files_sheet" approved="yes">
         <source>Files</source>
-        <target state="translated">Dateien</target>
+        <target state="final">Dateien</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.other_sheet">
+      <trans-unit id="tx_cal_event.other_sheet" approved="yes">
         <source>Other</source>
-        <target state="translated">Andere</target>
+        <target state="final">Andere</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.attendance_sheet">
+      <trans-unit id="tx_cal_event.attendance_sheet" approved="yes">
         <source>Attendance</source>
-        <target state="translated">Teilnehmer</target>
+        <target state="final">Teilnehmer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.todo_sheet">
+      <trans-unit id="tx_cal_event.todo_sheet" approved="yes">
         <source>Todo</source>
-        <target state="translated">Aufgabe</target>
+        <target state="final">Aufgabe</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.category">
+      <trans-unit id="tx_cal_event.category" approved="yes">
         <source>Category</source>
-        <target state="translated">Kategorie</target>
+        <target state="final">Kategorie</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.calendar">
+      <trans-unit id="tx_cal_event.calendar" approved="yes">
         <source>Calendar</source>
-        <target state="translated">Kalender</target>
+        <target state="final">Kalender</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.title">
+      <trans-unit id="tx_cal_event.title" approved="yes">
         <source>Title</source>
-        <target state="translated">Titel</target>
+        <target state="final">Titel</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.start">
+      <trans-unit id="tx_cal_event.start" approved="yes">
         <source>Start</source>
-        <target state="translated">Start</target>
+        <target state="final">Start</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.orig_start">
+      <trans-unit id="tx_cal_event.orig_start" approved="yes">
         <source>Start (original recurrence instance would occur)</source>
-        <target state="translated">Start (ursprüngliche Wiederholung)</target>
+        <target state="final">Start (ursprüngliche Wiederholung)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.starttime">
+      <trans-unit id="tx_cal_event.starttime" approved="yes">
         <source>Starttime</source>
-        <target state="translated">Startzeit</target>
+        <target state="final">Startzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.endtime">
+      <trans-unit id="tx_cal_event.endtime" approved="yes">
         <source>Endtime</source>
-        <target state="translated">Endzeit</target>
+        <target state="final">Endzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.end">
+      <trans-unit id="tx_cal_event.end" approved="yes">
         <source>End</source>
-        <target state="translated">Ende</target>
+        <target state="final">Ende</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.due">
+      <trans-unit id="tx_cal_event.due" approved="yes">
         <source>Due</source>
-        <target state="translated">Fällig</target>
+        <target state="final">Fällig</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.start_date">
+      <trans-unit id="tx_cal_event.start_date" approved="yes">
         <source>Event Start Day</source>
-        <target state="translated">Ereignis Starttag</target>
+        <target state="final">Ereignis Starttag</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.orig_start_date" approved="yes">
         <source>Original recurrence instance start day</source>
         <target state="final">Start Tag der ursprüngliche Wiederholung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.start_time">
+      <trans-unit id="tx_cal_event.start_time" approved="yes">
         <source>Event Start Time</source>
-        <target state="translated">Ereignis Startzeit</target>
+        <target state="final">Ereignis Startzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.orig_start_time">
+      <trans-unit id="tx_cal_event.orig_start_time" approved="yes">
         <source>Original recurrence instance start time (leave empty for allday)</source>
-        <target state="translated">Start Zeit der ursprüngliche Wiederholung (für ganztägig leer lassen)</target>
+        <target state="final">Start Zeit der ursprüngliche Wiederholung (für ganztägig leer lassen)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.end_date">
+      <trans-unit id="tx_cal_event.end_date" approved="yes">
         <source>Event End Day</source>
-        <target state="translated">Ereignis Endtag</target>
+        <target state="final">Ereignis Endtag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.end_time">
+      <trans-unit id="tx_cal_event.end_time" approved="yes">
         <source>Event End Time</source>
-        <target state="translated">Ereignis Endzeit</target>
+        <target state="final">Ereignis Endzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.allday">
+      <trans-unit id="tx_cal_event.allday" approved="yes">
         <source>All Day Event</source>
-        <target state="translated">Ganztägiges Ereignis</target>
+        <target state="final">Ganztägiges Ereignis</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.timezone">
+      <trans-unit id="tx_cal_event.timezone" approved="yes">
         <source>Timezone</source>
-        <target state="translated">Zeitzone</target>
+        <target state="final">Zeitzone</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.organizer" approved="yes">
         <source>Organizer, or...</source>
@@ -119,13 +119,13 @@
         <source>Cal Organizer, or...</source>
         <target state="final">Cal Organizer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.organizer_pid">
+      <trans-unit id="tx_cal_event.organizer_pid" approved="yes">
         <source>Page to link the organizer to</source>
-        <target state="translated">Link zur Seite des Veranstalters</target>
+        <target state="final">Link zur Seite des Veranstalters</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.organizer_link">
+      <trans-unit id="tx_cal_event.organizer_link" approved="yes">
         <source>External link to the organizer</source>
-        <target state="translated">Externer Link zum Veranstalter</target>
+        <target state="final">Externer Link zum Veranstalter</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.location" approved="yes">
         <source>Location, or...</source>
@@ -135,29 +135,29 @@
         <source>Cal Location, or...</source>
         <target state="final">Eingetragener Ort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.location_pid">
+      <trans-unit id="tx_cal_event.location_pid" approved="yes">
         <source>Page to link the location to</source>
-        <target state="translated">Link zur Seite des Ereignisortes</target>
+        <target state="final">Link zur Seite des Ereignisortes</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.location_link">
+      <trans-unit id="tx_cal_event.location_link" approved="yes">
         <source>External link to the location</source>
-        <target state="translated">Externer Link zum Ereignisort</target>
+        <target state="final">Externer Link zum Ereignisort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.freq">
+      <trans-unit id="tx_cal_event.freq" approved="yes">
         <source>Regular Frequency Rule</source>
-        <target state="translated">Frequenz</target>
+        <target state="final">Frequenz</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.add_recurrence">
+      <trans-unit id="tx_cal_event.add_recurrence" approved="yes">
         <source>Add Recurrence</source>
-        <target state="translated">Wiederholung hinzufügen</target>
+        <target state="final">Wiederholung hinzufügen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.remove_recurrence">
+      <trans-unit id="tx_cal_event.remove_recurrence" approved="yes">
         <source>Remove Recurrence</source>
-        <target state="translated">Wiederholung entfernen</target>
+        <target state="final">Wiederholung entfernen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.recurs_day">
+      <trans-unit id="tx_cal_event.recurs_day" approved="yes">
         <source>Day</source>
-        <target state="translated">Tag</target>
+        <target state="final">Tag</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.recurs_every_month" approved="yes">
         <source>of every month.</source>
@@ -171,397 +171,397 @@
         <source>By Day (a combination of: &quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot; and &quot;su&quot;, or &quot;all&quot;)</source>
         <target state="final">Nach Tag (eine Kombination von: "mo","tu","wir","du","fr","sa" und "su", oder "alle")</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_short">
+      <trans-unit id="tx_cal_event.byday_short" approved="yes">
         <source>By Day of the Week</source>
-        <target state="translated">Nach Wochentag</target>
+        <target state="final">Nach Wochentag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_all">
+      <trans-unit id="tx_cal_event.byday_all" approved="yes">
         <source>All Days</source>
-        <target state="translated">Alle Tage</target>
+        <target state="final">Alle Tage</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_first">
+      <trans-unit id="tx_cal_event.byday_count_first" approved="yes">
         <source>First</source>
-        <target state="translated">Erster</target>
+        <target state="final">Erster</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_second">
+      <trans-unit id="tx_cal_event.byday_count_second" approved="yes">
         <source>Second</source>
-        <target state="translated">Zweiter</target>
+        <target state="final">Zweiter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_third">
+      <trans-unit id="tx_cal_event.byday_count_third" approved="yes">
         <source>Third</source>
-        <target state="translated">Dritter</target>
+        <target state="final">Dritter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_fourth">
+      <trans-unit id="tx_cal_event.byday_count_fourth" approved="yes">
         <source>Fourth</source>
-        <target state="translated">Vierter</target>
+        <target state="final">Vierter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_fifth">
+      <trans-unit id="tx_cal_event.byday_count_fifth" approved="yes">
         <source>Fifth</source>
-        <target state="translated">Fünfter</target>
+        <target state="final">Fünfter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_thirdtolast">
+      <trans-unit id="tx_cal_event.byday_count_thirdtolast" approved="yes">
         <source>Third to Last</source>
-        <target state="translated">Drittletzter</target>
+        <target state="final">Drittletzter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_secondtolast">
+      <trans-unit id="tx_cal_event.byday_count_secondtolast" approved="yes">
         <source>Second to Last</source>
-        <target state="needs-translation">Second to Last</target>
+        <target state="final">Vorletzter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_count_last">
+      <trans-unit id="tx_cal_event.byday_count_last" approved="yes">
         <source>Last</source>
-        <target state="needs-translation">Last</target>
+        <target state="final">Letzter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_sunday">
+      <trans-unit id="tx_cal_event.byday_sunday" approved="yes">
         <source>Sunday</source>
-        <target state="needs-translation">Sunday</target>
+        <target state="final">Sonntag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_monday">
+      <trans-unit id="tx_cal_event.byday_monday" approved="yes">
         <source>Monday</source>
-        <target state="needs-translation">Monday</target>
+        <target state="final">Montag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_tuesday">
+      <trans-unit id="tx_cal_event.byday_tuesday" approved="yes">
         <source>Tuesday</source>
-        <target state="needs-translation">Tuesday</target>
+        <target state="final">Dienstag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_wednesday">
+      <trans-unit id="tx_cal_event.byday_wednesday" approved="yes">
         <source>Wednesday</source>
-        <target state="needs-translation">Wednesday</target>
+        <target state="final">Mittwoch</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_thursday">
+      <trans-unit id="tx_cal_event.byday_thursday" approved="yes">
         <source>Thursday</source>
-        <target state="needs-translation">Thursday</target>
+        <target state="final">Donnerstag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_friday">
+      <trans-unit id="tx_cal_event.byday_friday" approved="yes">
         <source>Friday</source>
-        <target state="needs-translation">Friday</target>
+        <target state="final">Freitag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday_saturday">
+      <trans-unit id="tx_cal_event.byday_saturday" approved="yes">
         <source>Saturday</source>
-        <target state="needs-translation">Saturday</target>
+        <target state="final">Samstag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonthday">
+      <trans-unit id="tx_cal_event.bymonthday" approved="yes">
         <source>By Monthday (e.g.: 1,2,30 or all)</source>
-        <target state="needs-translation">By Monthday (e.g.: 1,2,30 or all)</target>
+        <target state="final">Nach Monatstag (z.B.: 1,2,30 oder all)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonthday_short">
+      <trans-unit id="tx_cal_event.bymonthday_short" approved="yes">
         <source>By Day of the Month</source>
-        <target state="needs-translation">By Day of the Month</target>
+        <target state="final">Nach Tag des Monats</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth">
+      <trans-unit id="tx_cal_event.bymonth" approved="yes">
         <source>By Month (e.g.: 1,2,3,4,12 or all)</source>
-        <target state="needs-translation">By Month (e.g.: 1,2,3,4,12 or all)</target>
+        <target state="final">Nach Monat (z.B.: 1,2,3,4,12 oder all)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_short">
+      <trans-unit id="tx_cal_event.bymonth_short" approved="yes">
         <source>By Month</source>
-        <target state="needs-translation">By Month</target>
+        <target state="final">Nach Monat</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_all">
+      <trans-unit id="tx_cal_event.bymonth_all" approved="yes">
         <source>All Months</source>
-        <target state="needs-translation">All Months</target>
+        <target state="final">Alle Monate</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_january">
+      <trans-unit id="tx_cal_event.bymonth_january" approved="yes">
         <source>January</source>
-        <target state="needs-translation">January</target>
+        <target state="final">Januar</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_february">
+      <trans-unit id="tx_cal_event.bymonth_february" approved="yes">
         <source>February</source>
-        <target state="needs-translation">February</target>
+        <target state="final">Februar</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_march">
+      <trans-unit id="tx_cal_event.bymonth_march" approved="yes">
         <source>March</source>
-        <target state="needs-translation">March</target>
+        <target state="final">März</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_april">
+      <trans-unit id="tx_cal_event.bymonth_april" approved="yes">
         <source>April</source>
-        <target state="needs-translation">April</target>
+        <target state="final">April</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_may">
+      <trans-unit id="tx_cal_event.bymonth_may" approved="yes">
         <source>May</source>
-        <target state="needs-translation">May</target>
+        <target state="final">Mai</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_june">
+      <trans-unit id="tx_cal_event.bymonth_june" approved="yes">
         <source>June</source>
-        <target state="needs-translation">June</target>
+        <target state="final">Juni</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_july">
+      <trans-unit id="tx_cal_event.bymonth_july" approved="yes">
         <source>July</source>
-        <target state="needs-translation">July</target>
+        <target state="final">Juli</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_august">
+      <trans-unit id="tx_cal_event.bymonth_august" approved="yes">
         <source>August</source>
-        <target state="needs-translation">August</target>
+        <target state="final">August</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_september">
+      <trans-unit id="tx_cal_event.bymonth_september" approved="yes">
         <source>September</source>
-        <target state="needs-translation">September</target>
+        <target state="final">September</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_october">
+      <trans-unit id="tx_cal_event.bymonth_october" approved="yes">
         <source>October</source>
-        <target state="needs-translation">October</target>
+        <target state="final">Oktober</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_november">
+      <trans-unit id="tx_cal_event.bymonth_november" approved="yes">
         <source>November</source>
-        <target state="needs-translation">November</target>
+        <target state="final">November</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.bymonth_december">
+      <trans-unit id="tx_cal_event.bymonth_december" approved="yes">
         <source>December</source>
-        <target state="needs-translation">December</target>
+        <target state="final">Dezember</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.until">
+      <trans-unit id="tx_cal_event.until" approved="yes">
         <source>Until Date</source>
-        <target state="needs-translation">Until Date</target>
+        <target state="final">Bis Datum</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.count">
+      <trans-unit id="tx_cal_event.count" approved="yes">
         <source>Count</source>
-        <target state="needs-translation">Count</target>
+        <target state="final">Anzahl</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.interval">
+      <trans-unit id="tx_cal_event.interval" approved="yes">
         <source>Interval</source>
-        <target state="needs-translation">Interval</target>
+        <target state="final">Intervall</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.rdate">
+      <trans-unit id="tx_cal_event.rdate" approved="yes">
         <source>Dates</source>
-        <target state="needs-translation">Dates</target>
+        <target state="final">Daten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.rdate_type">
+      <trans-unit id="tx_cal_event.rdate_type" approved="yes">
         <source>Recurrence by</source>
-        <target state="needs-translation">Recurrence by</target>
+        <target state="final">Wiederholung an</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.deviation">
+      <trans-unit id="tx_cal_event.deviation" approved="yes">
         <source>Deviation</source>
-        <target state="needs-translation">Deviation</target>
+        <target state="final">Abweichung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.teaser">
+      <trans-unit id="tx_cal_event.teaser" approved="yes">
         <source>Teaser</source>
-        <target state="needs-translation">Teaser</target>
+        <target state="final">Vorschau</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.description">
+      <trans-unit id="tx_cal_event.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.exception">
+      <trans-unit id="tx_cal_event.exception" approved="yes">
         <source>Exceptions</source>
-        <target state="needs-translation">Exceptions</target>
+        <target state="final">Ausnahmen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.fe_cruser_id">
+      <trans-unit id="tx_cal_event.fe_cruser_id" approved="yes">
         <source>Creator</source>
-        <target state="needs-translation">Creator</target>
+        <target state="final">Ersteller</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.shared_user">
+      <trans-unit id="tx_cal_event.shared_user" approved="yes">
         <source>Shared Users</source>
-        <target state="needs-translation">Shared Users</target>
+        <target state="final">Mit Benutzer teilen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.fe_crgroup_id">
+      <trans-unit id="tx_cal_event.fe_crgroup_id" approved="yes">
         <source>Creator Group</source>
-        <target state="needs-translation">Creator Group</target>
+        <target state="final">Ersteller Gruppe</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.none">
+      <trans-unit id="tx_cal_event.none" approved="yes">
         <source>None</source>
-        <target state="needs-translation">None</target>
+        <target state="final">Keine</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.type">
+      <trans-unit id="tx_cal_event.type" approved="yes">
         <source>Event type</source>
-        <target state="needs-translation">Event type</target>
+        <target state="final">Ereignistyp</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.type.I.0">
+      <trans-unit id="tx_cal_event.type.I.0" approved="yes">
         <source>Event with description</source>
-        <target state="needs-translation">Event with description</target>
+        <target state="final">Ereignis mit Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.type.I.1">
+      <trans-unit id="tx_cal_event.type.I.1" approved="yes">
         <source>Shortcut to page</source>
-        <target state="needs-translation">Shortcut to page</target>
+        <target state="final">Verweis auf Seite</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.type.I.2">
+      <trans-unit id="tx_cal_event.type.I.2" approved="yes">
         <source>Link to external url</source>
-        <target state="needs-translation">Link to external url</target>
+        <target state="final">Link zu einer externen URL</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.type.I.3">
+      <trans-unit id="tx_cal_event.type.I.3" approved="yes">
         <source>Meeting</source>
-        <target state="needs-translation">Meeting</target>
+        <target state="final">Meeting</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.type.I.4">
+      <trans-unit id="tx_cal_event.type.I.4" approved="yes">
         <source>Todo</source>
-        <target state="needs-translation">Todo</target>
+        <target state="final">Aufgabe</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.external">
+      <trans-unit id="tx_cal_event.external" approved="yes">
         <source>External URL</source>
-        <target state="needs-translation">External URL</target>
+        <target state="final">Externe URL</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.shortcut_page">
+      <trans-unit id="tx_cal_event.shortcut_page" approved="yes">
         <source>Shortcut to page</source>
-        <target state="needs-translation">Shortcut to page</target>
+        <target state="final">Verknüpfung zu Seite</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.imagealttext">
+      <trans-unit id="tx_cal_event.imagealttext" approved="yes">
         <source>alt-text</source>
-        <target state="needs-translation">alt-text</target>
+        <target state="final">alternativer Text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.imagetitletext">
+      <trans-unit id="tx_cal_event.imagetitletext" approved="yes">
         <source>title-text</source>
-        <target state="needs-translation">title-text</target>
+        <target state="final">Titel Text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.attendee">
+      <trans-unit id="tx_cal_event.attendee" approved="yes">
         <source>Attendance</source>
-        <target state="needs-translation">Attendance</target>
+        <target state="final">Teilnahme</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.send_invitation">
+      <trans-unit id="tx_cal_event.send_invitation" approved="yes">
         <source>Send out invitations</source>
-        <target state="translated">Einladungen versenden</target>
+        <target state="final">Einladungen versenden</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.status.COMPLETED">
+      <trans-unit id="tx_cal_event.status.COMPLETED" approved="yes">
         <source>Completed</source>
-        <target state="translated">Erledigt</target>
+        <target state="final">Erledigt</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.status.IN-PROGRESS">
+      <trans-unit id="tx_cal_event.status.IN-PROGRESS" approved="yes">
         <source>In progress</source>
-        <target state="translated">Wird ausgeführt</target>
+        <target state="final">Wird ausgeführt</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.status.CANCELLED">
+      <trans-unit id="tx_cal_event.status.CANCELLED" approved="yes">
         <source>Cancelled</source>
-        <target state="translated">Abgesagt</target>
+        <target state="final">Abgesagt</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.priority">
+      <trans-unit id="tx_cal_event.priority" approved="yes">
         <source>Priority</source>
-        <target state="translated">Priorität</target>
+        <target state="final">Priorität</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.completed">
+      <trans-unit id="tx_cal_event.completed" approved="yes">
         <source>Completed (%)</source>
-        <target state="translated">Erledigt (%)</target>
+        <target state="final">Erledigt (%)</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event" approved="yes">
         <source>Calendar Exception Event</source>
         <target state="final">Kalenderausnahmereignis</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.title">
+      <trans-unit id="tx_cal_exception_event.title" approved="yes">
         <source>Title</source>
-        <target state="translated">Titel</target>
+        <target state="final">Titel</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.starttime">
+      <trans-unit id="tx_cal_exception_event.starttime" approved="yes">
         <source>Starttime</source>
-        <target state="translated">Startzeit</target>
+        <target state="final">Startzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.endtime">
+      <trans-unit id="tx_cal_exception_event.endtime" approved="yes">
         <source>Endtime</source>
-        <target state="translated">Endzeit</target>
+        <target state="final">Endzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.start">
+      <trans-unit id="tx_cal_exception_event.start" approved="yes">
         <source>Start</source>
-        <target state="translated">Start</target>
+        <target state="final">Start</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.start_date">
+      <trans-unit id="tx_cal_exception_event.start_date" approved="yes">
         <source>Exception Day</source>
-        <target state="translated">Ausnahmetag</target>
+        <target state="final">Ausnahmetag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.start_time">
+      <trans-unit id="tx_cal_exception_event.start_time" approved="yes">
         <source>Exception Start Time</source>
-        <target state="translated">Ausnahme-Startzeit</target>
+        <target state="final">Ausnahme-Startzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.end">
+      <trans-unit id="tx_cal_exception_event.end" approved="yes">
         <source>End</source>
-        <target state="translated">Ende</target>
+        <target state="final">Ende</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.end_date">
+      <trans-unit id="tx_cal_exception_event.end_date" approved="yes">
         <source>Exception End Day</source>
-        <target state="translated">Ausnahme-Endtag</target>
+        <target state="final">Ausnahme-Endtag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.end_time">
+      <trans-unit id="tx_cal_exception_event.end_time" approved="yes">
         <source>Exception End Time</source>
-        <target state="translated">Ausnahme-Endzeit</target>
+        <target state="final">Ausnahme-Endzeit</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.allday">
+      <trans-unit id="tx_cal_exception_event.allday" approved="yes">
         <source>All Day Exception</source>
-        <target state="translated">Ganztägige Ausnahme</target>
+        <target state="final">Ganztägige Ausnahme</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.freq">
+      <trans-unit id="tx_cal_exception_event.freq" approved="yes">
         <source>Exception Frequency</source>
-        <target state="translated">Ausnahme-Frequenz</target>
+        <target state="final">Ausnahme-Frequenz</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.byday" approved="yes">
         <source>By Day (a combination of: &quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot; and &quot;su&quot;, or &quot;all&quot;)</source>
         <target state="final">Nach Tag (eine Kombination von: "mo","tu","wir","du","fr","sa" und "su", oder "alle")</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.byday_short">
+      <trans-unit id="tx_cal_exception_event.byday_short" approved="yes">
         <source>By Day of the Week</source>
-        <target state="translated">Nach Wochentag</target>
+        <target state="final">Nach Wochentag</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.bymonthday" approved="yes">
         <source>By Monthday (e.g.: 1,2,30 or all)</source>
         <target state="final">Nach Monatstag (z.B.: 1,2,30 or all)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.bymonthday_short">
+      <trans-unit id="tx_cal_exception_event.bymonthday_short" approved="yes">
         <source>By Day of the Month</source>
-        <target state="translated">Nach Wochentag</target>
+        <target state="final">Nach Wochentag</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.bymonth" approved="yes">
         <source>By Month (e.g.: 1,2,3,4,12 or all)</source>
         <target state="final">Nach Monat (z.B.: 1,2,3,4,12 or all)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.bymonth_short">
+      <trans-unit id="tx_cal_exception_event.bymonth_short" approved="yes">
         <source>By Month</source>
-        <target state="translated">Nach Monat</target>
+        <target state="final">Nach Monat</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.rdate">
+      <trans-unit id="tx_cal_exception_event.rdate" approved="yes">
         <source>Dates</source>
-        <target state="translated">Daten</target>
+        <target state="final">Daten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.rdate_type">
+      <trans-unit id="tx_cal_exception_event.rdate_type" approved="yes">
         <source>Recurrence by</source>
-        <target state="translated">Wiederholung an</target>
+        <target state="final">Wiederholung an</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.until">
+      <trans-unit id="tx_cal_exception_event.until" approved="yes">
         <source>Until Date</source>
-        <target state="translated">Bis Datum</target>
+        <target state="final">Bis Datum</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.count">
+      <trans-unit id="tx_cal_exception_event.count" approved="yes">
         <source>Count</source>
-        <target state="translated">Anzahl</target>
+        <target state="final">Anzahl</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.interval">
+      <trans-unit id="tx_cal_exception_event.interval" approved="yes">
         <source>Interval</source>
-        <target state="translated">Intervall</target>
+        <target state="final">Intervall</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.description">
+      <trans-unit id="tx_cal_exception_event.description" approved="yes">
         <source>Description</source>
-        <target state="translated">Beschreibung</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event_group">
+      <trans-unit id="tx_cal_exception_event_group" approved="yes">
         <source>Calendar Exception Event Group</source>
-        <target state="translated">Kalender-Ausnahme-Ereignisgruppe</target>
+        <target state="final">Kalender-Ausnahme-Ereignisgruppe</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event_group.title">
+      <trans-unit id="tx_cal_exception_event_group.title" approved="yes">
         <source>Title</source>
-        <target state="translated">Titel</target>
+        <target state="final">Titel</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event_group.exception_event_cnt" approved="yes">
         <source>Exception Events</source>
         <target state="final">Ausnahmereignisse</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event">
+      <trans-unit id="tx_cal_fe_user_event" approved="yes">
         <source>Frontend User - Event Relation</source>
-        <target state="translated">Frontend-Benutzer - Ereignisverbindung</target>
+        <target state="final">Frontend-Benutzer - Ereignisverbindung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.fe_user">
+      <trans-unit id="tx_cal_fe_user_event.fe_user" approved="yes">
         <source>User</source>
-        <target state="translated">Benutzer</target>
+        <target state="final">Benutzer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.event">
+      <trans-unit id="tx_cal_fe_user_event.event" approved="yes">
         <source>Event</source>
-        <target state="translated">Ereignis</target>
+        <target state="final">Ereignis</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_group_event">
+      <trans-unit id="tx_cal_fe_group_event" approved="yes">
         <source>Frontend Group - Event Relation</source>
-        <target state="translated">Frontend-Gruppe - Ereignisverbindung</target>
+        <target state="final">Frontend-Gruppe - Ereignisverbindung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_group_event.fe_group">
+      <trans-unit id="tx_cal_fe_group_event.fe_group" approved="yes">
         <source>Group</source>
-        <target state="translated">Gruppe</target>
+        <target state="final">Gruppe</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_group_event.event">
+      <trans-unit id="tx_cal_fe_group_event.event" approved="yes">
         <source>Event</source>
-        <target state="translated">Ereignis</target>
+        <target state="final">Ereignis</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.monitor">
+      <trans-unit id="tx_cal_fe_user_event.monitor" approved="yes">
         <source>Monitoring Users</source>
-        <target state="translated">Benachrichtigung bei Änderungen</target>
+        <target state="final">Benachrichtigung bei Änderungen</target>
       </trans-unit>
       <trans-unit id="tx_cal_fe_user_event.offset" approved="yes">
         <source>Notification offset</source>
@@ -571,245 +571,245 @@
         <source>Scheduler ID</source>
         <target state="final">Scheduler ID</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar">
+      <trans-unit id="tx_cal_calendar" approved="yes">
         <source>Calendar</source>
-        <target state="translated">Kalender</target>
+        <target state="final">Kalender</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.title">
+      <trans-unit id="tx_cal_calendar.title" approved="yes">
         <source>Calendar Title</source>
-        <target state="translated">Kalendertitel</target>
+        <target state="final">Kalendertitel</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.type">
+      <trans-unit id="tx_cal_calendar.type" approved="yes">
         <source>Calendar Type</source>
-        <target state="translated">Kalendertyp</target>
+        <target state="final">Kalendertyp</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.type.I.0">
+      <trans-unit id="tx_cal_calendar.type.I.0" approved="yes">
         <source>Standard Calendar (database)</source>
-        <target state="translated">Standard Kalender (Datenbank)</target>
+        <target state="final">Standard Kalender (Datenbank)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.type.I.1">
+      <trans-unit id="tx_cal_calendar.type.I.1" approved="yes">
         <source>External Calendar</source>
-        <target state="translated">Externer Kalender</target>
+        <target state="final">Externer Kalender</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.type.I.2">
+      <trans-unit id="tx_cal_calendar.type.I.2" approved="yes">
         <source>Include ICS File</source>
-        <target state="translated">ICS-Datei einbeziehen</target>
+        <target state="final">ICS-Datei einbeziehen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.ext_url">
+      <trans-unit id="tx_cal_calendar.ext_url" approved="yes">
         <source>External Calendar URL</source>
-        <target state="translated">URL des externen Kalenders</target>
+        <target state="final">URL des externen Kalenders</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.ext_url_url">
+      <trans-unit id="tx_cal_calendar.ext_url_url" approved="yes">
         <source>URL</source>
-        <target state="translated">URL</target>
+        <target state="final">URL</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.ext_url_note">
+      <trans-unit id="tx_cal_calendar.ext_url_note" approved="yes">
         <source>Note</source>
-        <target state="needs-translation">Note</target>
+        <target state="final">Hinweis</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.ics_file">
+      <trans-unit id="tx_cal_calendar.ics_file" approved="yes">
         <source>ICS File</source>
-        <target state="needs-translation">ICS File</target>
+        <target state="final">ICS-Datei</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.refresh">
+      <trans-unit id="tx_cal_calendar.refresh" approved="yes">
         <source>Refresh Interval (Minutes) (scheduler needed)</source>
-        <target state="needs-translation">Refresh Interval (Minutes) (scheduler needed)</target>
+        <target state="final">Aktualisierungsintervall (Minuten) (scheduler erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.owner">
+      <trans-unit id="tx_cal_calendar.owner" approved="yes">
         <source>Owner</source>
-        <target state="needs-translation">Owner</target>
+        <target state="final">Besitzer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.activate_fnb">
+      <trans-unit id="tx_cal_calendar.activate_fnb" approved="yes">
         <source>Enable free and busy view</source>
-        <target state="needs-translation">Enable free and busy view</target>
+        <target state="final">Frei- und Besetztzeiten anzeigen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.fb_users_groups">
+      <trans-unit id="tx_cal_calendar.fb_users_groups" approved="yes">
         <source>Limit the free and busy view to these users and/or groups (else public)</source>
-        <target state="needs-translation">Limit the free and busy view to these users and/or groups (else public)</target>
+        <target state="final">Begrenze die freie und besetzte Ansicht auf diese Benutzer und/oder Gruppen (sonst öffentlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.createNew">
+      <trans-unit id="tx_cal_calendar.createNew" approved="yes">
         <source>create a new calendar</source>
-        <target state="needs-translation">create a new calendar</target>
+        <target state="final">neuen Kalender erstellen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.edit">
+      <trans-unit id="tx_cal_calendar.edit" approved="yes">
         <source>edit selected calendar</source>
-        <target state="needs-translation">edit selected calendar</target>
+        <target state="final">ausgewählten Kalender bearbeiten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.nearby">
+      <trans-unit id="tx_cal_calendar.nearby" approved="yes">
         <source>Show only events within a certain distance of a user (wec_map needed)</source>
-        <target state="needs-translation">Show only events within a certain distance of a user (wec_map needed)</target>
+        <target state="final">Nur Ereignisse innerhalb einer bestimmten Distanz eines Benutzers anzeigen (wec_map erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar_private">
+      <trans-unit id="tx_cal_calendar_private" approved="yes">
         <source>The users private calendar</source>
-        <target state="needs-translation">The users private calendar</target>
+        <target state="final">Der private Kalender der Benutzer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar.schedulerId">
+      <trans-unit id="tx_cal_calendar.schedulerId" approved="yes">
         <source>Scheduler ID (scheduler needed)</source>
-        <target state="needs-translation">Scheduler ID (scheduler needed)</target>
+        <target state="final">Scheduler-ID (scheduler erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category">
+      <trans-unit id="tx_cal_category" approved="yes">
         <source>Calendar Category</source>
-        <target state="needs-translation">Calendar Category</target>
+        <target state="final">Kalender Kategorie</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.title">
+      <trans-unit id="tx_cal_category.title" approved="yes">
         <source>Category title</source>
-        <target state="needs-translation">Category title</target>
+        <target state="final">Kategorie Titel</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.headerstyle">
+      <trans-unit id="tx_cal_category.headerstyle" approved="yes">
         <source>Header style</source>
-        <target state="needs-translation">Header style</target>
+        <target state="final">Header-Style</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.bodystyle">
+      <trans-unit id="tx_cal_category.bodystyle" approved="yes">
         <source>Body style</source>
-        <target state="needs-translation">Body style</target>
+        <target state="final">Body-Style</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.headercolor">
+      <trans-unit id="tx_cal_category.headercolor" approved="yes">
         <source>Header Color (e.g. green or #15E337)</source>
-        <target state="needs-translation">Header Color (e.g. green or #15E337)</target>
+        <target state="final">Header Farbe (z.B. grün oder #15E337)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.bodycolor">
+      <trans-unit id="tx_cal_category.bodycolor" approved="yes">
         <source>Body Color (e.g. green or #15E337)</source>
-        <target state="needs-translation">Body Color (e.g. green or #15E337)</target>
+        <target state="final">Farbe des Bodys (z.B. grün oder #15E337)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.calendar">
+      <trans-unit id="tx_cal_category.calendar" approved="yes">
         <source>Calendar</source>
-        <target state="needs-translation">Calendar</target>
+        <target state="final">Kalender</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.none">
+      <trans-unit id="tx_cal_category.none" approved="yes">
         <source>None</source>
-        <target state="needs-translation">None</target>
+        <target state="final">Keine</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.parent_category">
+      <trans-unit id="tx_cal_category.parent_category" approved="yes">
         <source>Parent category</source>
-        <target state="needs-translation">Parent category</target>
+        <target state="final">Übergeordnete Kategorie</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.shared_user_allowed">
+      <trans-unit id="tx_cal_category.shared_user_allowed" approved="yes">
         <source>Allow shared user to select this category</source>
-        <target state="needs-translation">Allow shared user to select this category</target>
+        <target state="final">Erlaube dem geteilten Benutzer, diese Kategorie auszuwählen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.single_pid">
+      <trans-unit id="tx_cal_category.single_pid" approved="yes">
         <source>Event view page for events from this category</source>
-        <target state="needs-translation">Event view page for events from this category</target>
+        <target state="final">Einzelansicht für Ereignisse aus dieser Kategorie</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.createNew">
+      <trans-unit id="tx_cal_category.createNew" approved="yes">
         <source>create a new category</source>
-        <target state="needs-translation">create a new category</target>
+        <target state="final">neue Kategorie erstellen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.edit">
+      <trans-unit id="tx_cal_category.edit" approved="yes">
         <source>edit selected category</source>
-        <target state="needs-translation">edit selected category</target>
+        <target state="final">ausgewählte Kategorie bearbeiten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.notification_emails">
+      <trans-unit id="tx_cal_category.notification_emails" approved="yes">
         <source>Notification emails (comma separated)</source>
-        <target state="needs-translation">Notification emails (comma separated)</target>
+        <target state="final">Benachrichtigungs-E-Mails (Komma getrennt)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.icon">
+      <trans-unit id="tx_cal_category.icon" approved="yes">
         <source>Icon</source>
-        <target state="needs-translation">Icon</target>
+        <target state="final">Symbol</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category.global">
+      <trans-unit id="tx_cal_category.global" approved="yes">
         <source>Global categories</source>
-        <target state="needs-translation">Global categories</target>
+        <target state="final">Globale Kategorien</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer">
+      <trans-unit id="tx_cal_organizer" approved="yes">
         <source>Calendar Event Organizer</source>
-        <target state="needs-translation">Calendar Event Organizer</target>
+        <target state="final">Kalenderereignis-Organisator</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.name">
+      <trans-unit id="tx_cal_organizer.name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.description">
+      <trans-unit id="tx_cal_organizer.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.street">
+      <trans-unit id="tx_cal_organizer.street" approved="yes">
         <source>Street</source>
-        <target state="needs-translation">Street</target>
+        <target state="final">Straße</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.zip">
+      <trans-unit id="tx_cal_organizer.zip" approved="yes">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="final">PLZ</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.city">
+      <trans-unit id="tx_cal_organizer.city" approved="yes">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="final">Ort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.country">
+      <trans-unit id="tx_cal_organizer.country" approved="yes">
         <source>Country (static_info_tables needed)</source>
-        <target state="needs-translation">Country (static_info_tables needed)</target>
+        <target state="final">Land (static_info_tables erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.countryzone">
+      <trans-unit id="tx_cal_organizer.countryzone" approved="yes">
         <source>State/Province (static_info_tables needed)</source>
-        <target state="needs-translation">State/Province (static_info_tables needed)</target>
+        <target state="final">Bundesland (static_info_tables erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.phone">
+      <trans-unit id="tx_cal_organizer.phone" approved="yes">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="final">Telefon</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.fax">
+      <trans-unit id="tx_cal_organizer.fax" approved="yes">
         <source>Facsimile</source>
-        <target state="needs-translation">Facsimile</target>
+        <target state="final">Fax</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.email">
+      <trans-unit id="tx_cal_organizer.email" approved="yes">
         <source>E-mail</source>
-        <target state="needs-translation">E-mail</target>
+        <target state="final">E-Mail</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.image">
+      <trans-unit id="tx_cal_organizer.image" approved="yes">
         <source>Logo/Image</source>
-        <target state="needs-translation">Logo/Image</target>
+        <target state="final">Logo/Bild</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.imagealttext">
+      <trans-unit id="tx_cal_organizer.imagealttext" approved="yes">
         <source>alt-text</source>
-        <target state="needs-translation">alt-text</target>
+        <target state="final">alternativer Text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.imagetitletext">
+      <trans-unit id="tx_cal_organizer.imagetitletext" approved="yes">
         <source>title-text</source>
-        <target state="needs-translation">title-text</target>
+        <target state="final">titel Text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.link">
+      <trans-unit id="tx_cal_organizer.link" approved="yes">
         <source>Homepage</source>
-        <target state="needs-translation">Homepage</target>
+        <target state="final">Homepage</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.isorganizer">
+      <trans-unit id="tx_cal_organizer.isorganizer" approved="yes">
         <source>Is Cal Organizer</source>
-        <target state="needs-translation">Is Cal Organizer</target>
+        <target state="final">Ist Cal Organizer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.createNew">
+      <trans-unit id="tx_cal_organizer.createNew" approved="yes">
         <source>create a new organizer</source>
-        <target state="needs-translation">create a new organizer</target>
+        <target state="final">neuen Organisator erstellen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.edit">
+      <trans-unit id="tx_cal_organizer.edit" approved="yes">
         <source>edit selected organizer</source>
-        <target state="needs-translation">edit selected organizer</target>
+        <target state="final">ausgewählten Organisator bearbeiten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location">
+      <trans-unit id="tx_cal_location" approved="yes">
         <source>Calendar Event Location</source>
-        <target state="needs-translation">Calendar Event Location</target>
+        <target state="final">Ort des Kalenderereignisses</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.location">
+      <trans-unit id="tx_cal_location.location" approved="yes">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="final">Ort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.description">
+      <trans-unit id="tx_cal_location.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.name">
+      <trans-unit id="tx_cal_location.name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.street">
+      <trans-unit id="tx_cal_location.street" approved="yes">
         <source>Street</source>
-        <target state="needs-translation">Street</target>
+        <target state="final">Straße</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.zip">
+      <trans-unit id="tx_cal_location.zip" approved="yes">
         <source>Zip</source>
-        <target state="translated">Postleitzahl</target>
+        <target state="final">Postleitzahl</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.city">
+      <trans-unit id="tx_cal_location.city" approved="yes">
         <source>City</source>
-        <target state="translated">Stadt</target>
+        <target state="final">Stadt</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.country" approved="yes">
         <source>Country (static_info_tables needed)</source>
@@ -819,33 +819,33 @@
         <source>State/Province (static_info_tables needed)</source>
         <target state="final">Bundesland (static_info_tables erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.phone">
+      <trans-unit id="tx_cal_location.phone" approved="yes">
         <source>Phone</source>
-        <target state="translated">Telefon</target>
+        <target state="final">Telefon</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.fax">
+      <trans-unit id="tx_cal_location.fax" approved="yes">
         <source>Facsimile</source>
-        <target state="translated">Fax</target>
+        <target state="final">Fax</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.email">
+      <trans-unit id="tx_cal_location.email" approved="yes">
         <source>E-mail</source>
-        <target state="translated">E-Mail</target>
+        <target state="final">E-Mail</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.image">
+      <trans-unit id="tx_cal_location.image" approved="yes">
         <source>Logo/Image</source>
-        <target state="translated">Logo/Bild</target>
+        <target state="final">Logo/Bild</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.imagealttext">
+      <trans-unit id="tx_cal_location.imagealttext" approved="yes">
         <source>alt-text</source>
-        <target state="translated">alternativer Text</target>
+        <target state="final">alternativer Text</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.imagetitletext" approved="yes">
         <source>title-text</source>
         <target state="final">Titel Text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.link">
+      <trans-unit id="tx_cal_location.link" approved="yes">
         <source>Homepage</source>
-        <target state="translated">Homepage</target>
+        <target state="final">Homepage</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.islocation" approved="yes">
         <source>Is Cal Location</source>
@@ -859,29 +859,29 @@
         <source>edit selected location</source>
         <target state="final">Ausgewählten Ort bearbeiten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.latitude">
+      <trans-unit id="tx_cal_location.latitude" approved="yes">
         <source>Latitude</source>
-        <target state="translated">Breitengrad</target>
+        <target state="final">Breitengrad</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.longitude">
+      <trans-unit id="tx_cal_location.longitude" approved="yes">
         <source>Longitude</source>
-        <target state="translated">Längengrad</target>
+        <target state="final">Längengrad</target>
       </trans-unit>
-      <trans-unit id="tx_cal_unknown_users">
+      <trans-unit id="tx_cal_unknown_users" approved="yes">
         <source>Unregistered users monitoring events</source>
-        <target state="translated">Nicht registrierte Benutzer die das Event beobachten</target>
+        <target state="final">Nicht registrierte Benutzer die das Event beobachten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_unknown_users.email">
+      <trans-unit id="tx_cal_unknown_users.email" approved="yes">
         <source>Email</source>
-        <target state="translated">E-Mail</target>
+        <target state="final">E-Mail</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_general" approved="yes">
         <source>[ General Settings ]</source>
         <target state="final">[ Allgemeine Einstellungen ]</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode" approved="yes">
         <source>Plugin Mode:</source>
-        <target state="translated">Plugin Modus:</target>
+        <target state="final">Plugin Modus:</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.1" approved="yes">
         <source>search data</source>
@@ -935,13 +935,13 @@
         <source>Debug On</source>
         <target state="final">Debug An</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.2">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.2" approved="yes">
         <source>Debug Verbose</source>
-        <target state="translated">Debug Verbose</target>
+        <target state="final">Debug Verbose</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-template">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-template" approved="yes">
         <source>Template:</source>
-        <target state="translated">Template:</target>
+        <target state="final">Template:</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_general-listpage" approved="yes">
         <source>PageID of Result ListPage:</source>
@@ -967,21 +967,21 @@
         <source>[ Template Settings ]</source>
         <target state="final">[ Template Einstellungen ]</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_statistics-template">
+      <trans-unit id="tx_cal_controller_flexform.sheet_statistics-template" approved="yes">
         <source>Template:</source>
-        <target state="translated">Template:</target>
+        <target state="final">Template:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_localconf">
+      <trans-unit id="tx_cal_controller_flexform.sheet_localconf" approved="yes">
         <source>[ Local Config ]</source>
-        <target state="translated">[ Lokale Einstellungen ]</target>
+        <target state="final">[ Lokale Einstellungen ]</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_localconf-data" approved="yes">
         <source>LocalConf (TS-Style)</source>
         <target state="final">LocalConf (TS-Style)</target>
       </trans-unit>
-      <trans-unit id="tt_content.list_type">
+      <trans-unit id="tt_content.list_type" approved="yes">
         <source>TYPO3 Calendar</source>
-        <target state="translated">TYPO3 Kalender</target>
+        <target state="final">TYPO3 Kalender</target>
       </trans-unit>
       <trans-unit id="frequency.none" approved="yes">
         <source>None</source>
@@ -1003,137 +1003,137 @@
         <source>Yearly</source>
         <target state="final">Jährlich</target>
       </trans-unit>
-      <trans-unit id="rdate_type.none">
+      <trans-unit id="rdate_type.none" approved="yes">
         <source>None</source>
-        <target state="translated">Keine</target>
+        <target state="final">Keine</target>
       </trans-unit>
-      <trans-unit id="rdate_type.date_time">
+      <trans-unit id="rdate_type.date_time" approved="yes">
         <source>Date and Time</source>
-        <target state="translated">Datum und Uhrzeit</target>
+        <target state="final">Datum und Uhrzeit</target>
       </trans-unit>
-      <trans-unit id="rdate_type.date">
+      <trans-unit id="rdate_type.date" approved="yes">
         <source>Date</source>
-        <target state="translated">Datum</target>
+        <target state="final">Datum</target>
       </trans-unit>
-      <trans-unit id="rdate_type.period">
+      <trans-unit id="rdate_type.period" approved="yes">
         <source>Period</source>
-        <target state="translated">Zeitraum</target>
+        <target state="final">Zeitraum</target>
       </trans-unit>
       <trans-unit id="tx_cal_enable_accesscontroll" approved="yes">
         <source>Enable Cal Access Control</source>
         <target state="final">Cal Access Control aktivieren</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar_accesscontroll">
+      <trans-unit id="tx_cal_calendar_accesscontroll" approved="yes">
         <source>Select allowed Calendar</source>
-        <target state="translated">Erlaubte Kalender auswählen</target>
+        <target state="final">Erlaubte Kalender auswählen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_category_accesscontroll">
+      <trans-unit id="tx_cal_category_accesscontroll" approved="yes">
         <source>Select allowed Categories (attention)</source>
-        <target state="translated">Erlaubte Kategorien auswählen (Achtung)</target>
+        <target state="final">Erlaubte Kategorien auswählen (Achtung)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee">
+      <trans-unit id="tx_cal_attendee" approved="yes">
         <source>Event attendee</source>
-        <target state="translated">Ereignisteilnehmer</target>
+        <target state="final">Ereignisteilnehmer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.attendance.NON">
+      <trans-unit id="tx_cal_attendee.attendance.NON" approved="yes">
         <source>-</source>
-        <target state="translated">-</target>
+        <target state="final">-</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.attendance.OPT-PARTICIPANT">
+      <trans-unit id="tx_cal_attendee.attendance.OPT-PARTICIPANT" approved="yes">
         <source>Optional</source>
-        <target state="translated">Optional</target>
+        <target state="final">Optional</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.attendance.REQ-PARTICIPANT">
+      <trans-unit id="tx_cal_attendee.attendance.REQ-PARTICIPANT" approved="yes">
         <source>Required</source>
-        <target state="translated">Erforderlich</target>
+        <target state="final">Erforderlich</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.attendance.CHAIR">
+      <trans-unit id="tx_cal_attendee.attendance.CHAIR" approved="yes">
         <source>Chairman</source>
-        <target state="translated">Vorsitzende/Leiter</target>
+        <target state="final">Vorsitzende/Leiter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status.0">
+      <trans-unit id="tx_cal_attendee.status.0" approved="yes">
         <source>No action</source>
-        <target state="translated">Keine Aktion</target>
+        <target state="final">Keine Aktion</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status.NEEDS-ACTION">
+      <trans-unit id="tx_cal_attendee.status.NEEDS-ACTION" approved="yes">
         <source>Needs action</source>
-        <target state="translated">Aktion durchführen</target>
+        <target state="final">Aktion durchführen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status.ACCEPTED">
+      <trans-unit id="tx_cal_attendee.status.ACCEPTED" approved="yes">
         <source>Accepted</source>
-        <target state="translated">Angenommen</target>
+        <target state="final">Angenommen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status.DECLINE">
+      <trans-unit id="tx_cal_attendee.status.DECLINE" approved="yes">
         <source>Declined</source>
-        <target state="translated">Abgelehnt</target>
+        <target state="final">Abgelehnt</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status.TENTATIVE">
+      <trans-unit id="tx_cal_attendee.status.TENTATIVE" approved="yes">
         <source>Tentative</source>
-        <target state="translated">Vorläufig</target>
+        <target state="final">Vorläufig</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status.DELEGATED">
+      <trans-unit id="tx_cal_attendee.status.DELEGATED" approved="yes">
         <source>Delegated</source>
-        <target state="translated">Delegiert</target>
+        <target state="final">Delegiert</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.fe_user_id">
+      <trans-unit id="tx_cal_attendee.fe_user_id" approved="yes">
         <source>FE User or</source>
-        <target state="translated">FE Benutzer</target>
+        <target state="final">FE Benutzer</target>
       </trans-unit>
       <trans-unit id="tx_cal_attendee.fe_group_id" approved="yes">
         <source>FE Group or</source>
         <target state="final">FE-Gruppe</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.email">
+      <trans-unit id="tx_cal_attendee.email" approved="yes">
         <source>Email</source>
-        <target state="translated">E-Mail</target>
+        <target state="final">E-Mail</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.attendance">
+      <trans-unit id="tx_cal_attendee.attendance" approved="yes">
         <source>Attendance</source>
-        <target state="translated">Teilnahme</target>
+        <target state="final">Teilnahme</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.status">
+      <trans-unit id="tx_cal_attendee.status" approved="yes">
         <source>Status</source>
-        <target state="translated">Status</target>
+        <target state="final">Status</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.createNew">
+      <trans-unit id="tx_cal_attendee.createNew" approved="yes">
         <source>create a new attendee</source>
-        <target state="translated">neuen Teilnehmer erstellen</target>
+        <target state="final">neuen Teilnehmer erstellen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.edit">
+      <trans-unit id="tx_cal_attendee.edit" approved="yes">
         <source>edit selected attendee</source>
-        <target state="translated">ausgewählten Teilnehmer bearbeiten</target>
+        <target state="final">ausgewählten Teilnehmer bearbeiten</target>
       </trans-unit>
-      <trans-unit id="l_day">
+      <trans-unit id="l_day" approved="yes">
         <source>Day</source>
-        <target state="translated">Tag</target>
+        <target state="final">Tag</target>
       </trans-unit>
-      <trans-unit id="l_week">
+      <trans-unit id="l_week" approved="yes">
         <source>Week</source>
-        <target state="translated">Woche</target>
+        <target state="final">Woche</target>
       </trans-unit>
-      <trans-unit id="l_month">
+      <trans-unit id="l_month" approved="yes">
         <source>Month</source>
-        <target state="translated">Monat</target>
+        <target state="final">Monat</target>
       </trans-unit>
-      <trans-unit id="l_year">
+      <trans-unit id="l_year" approved="yes">
         <source>Year</source>
-        <target state="translated">Jahr</target>
+        <target state="final">Jahr</target>
       </trans-unit>
-      <trans-unit id="l_hour">
+      <trans-unit id="l_hour" approved="yes">
         <source>Hour</source>
-        <target state="translated">Stunde</target>
+        <target state="final">Stunde</target>
       </trans-unit>
-      <trans-unit id="l_minute">
+      <trans-unit id="l_minute" approved="yes">
         <source>Minute</source>
-        <target state="translated">Minute</target>
+        <target state="final">Minute</target>
       </trans-unit>
-      <trans-unit id="l_duration">
+      <trans-unit id="l_duration" approved="yes">
         <source>Duration</source>
-        <target state="translated">Dauer</target>
+        <target state="final">Dauer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_calendar_subscription">
+      <trans-unit id="tx_cal_calendar_subscription" approved="yes">
         <source>Deselected calendar subscription</source>
-        <target state="translated">Abgewählte Kalenderabonnements</target>
+        <target state="final">Abgewählte Kalenderabonnements</target>
       </trans-unit>
     </body>
   </file>
