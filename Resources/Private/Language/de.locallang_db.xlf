@@ -83,9 +83,9 @@
         <source>Event Start Day</source>
         <target state="translated">Ereignis Starttag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.orig_start_date">
+      <trans-unit id="tx_cal_event.orig_start_date" approved="yes">
         <source>Original recurrence instance start day</source>
-        <target state="translated">Start Tag der ursprüngliche Wiederholung</target>
+        <target state="final">Start Tag der ursprüngliche Wiederholung</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.start_time">
         <source>Event Start Time</source>
@@ -111,13 +111,13 @@
         <source>Timezone</source>
         <target state="translated">Zeitzone</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.organizer">
+      <trans-unit id="tx_cal_event.organizer" approved="yes">
         <source>Organizer, or...</source>
-        <target state="translated">Organisator</target>
+        <target state="final">Organisator</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.organizer_id">
+      <trans-unit id="tx_cal_event.organizer_id" approved="yes">
         <source>Cal Organizer, or...</source>
-        <target state="translated">Cal Organizer</target>
+        <target state="final">Cal Organizer</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.organizer_pid">
         <source>Page to link the organizer to</source>
@@ -127,13 +127,13 @@
         <source>External link to the organizer</source>
         <target state="translated">Externer Link zum Veranstalter</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.location">
+      <trans-unit id="tx_cal_event.location" approved="yes">
         <source>Location, or...</source>
-        <target state="translated">Ort</target>
+        <target state="final">Ort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.location_id">
+      <trans-unit id="tx_cal_event.location_id" approved="yes">
         <source>Cal Location, or...</source>
-        <target state="translated">Eingetragener Ort</target>
+        <target state="final">Eingetragener Ort</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.location_pid">
         <source>Page to link the location to</source>
@@ -159,17 +159,17 @@
         <source>Day</source>
         <target state="translated">Tag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.recurs_every_month">
+      <trans-unit id="tx_cal_event.recurs_every_month" approved="yes">
         <source>of every month.</source>
-        <target state="translated">jeden Monats</target>
+        <target state="final">jeden Monats</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.recurs_selected_months">
+      <trans-unit id="tx_cal_event.recurs_selected_months" approved="yes">
         <source>of selected months.</source>
-        <target state="translated">der selektierten Monate</target>
+        <target state="final">der selektierten Monate</target>
       </trans-unit>
-      <trans-unit id="tx_cal_event.byday">
+      <trans-unit id="tx_cal_event.byday" approved="yes">
         <source>By Day (a combination of: &quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot; and &quot;su&quot;, or &quot;all&quot;)</source>
-        <target state="translated">Nach Tag (eine Kombination von: "mo","tu","wir","du","fr","sa" und "su", oder "alle")</target>
+        <target state="final">Nach Tag (eine Kombination von: "mo","tu","wir","du","fr","sa" und "su", oder "alle")</target>
       </trans-unit>
       <trans-unit id="tx_cal_event.byday_short">
         <source>By Day of the Week</source>
@@ -427,9 +427,9 @@
         <source>Completed (%)</source>
         <target state="translated">Erledigt (%)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event">
+      <trans-unit id="tx_cal_exception_event" approved="yes">
         <source>Calendar Exception Event</source>
-        <target state="translated">Kalenderausnahmereignis</target>
+        <target state="final">Kalenderausnahmereignis</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.title">
         <source>Title</source>
@@ -475,25 +475,25 @@
         <source>Exception Frequency</source>
         <target state="translated">Ausnahme-Frequenz</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.byday">
+      <trans-unit id="tx_cal_exception_event.byday" approved="yes">
         <source>By Day (a combination of: &quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot; and &quot;su&quot;, or &quot;all&quot;)</source>
-        <target state="translated">Nach Tag (eine Kombination von: "mo","tu","wir","du","fr","sa" und "su", oder "alle")</target>
+        <target state="final">Nach Tag (eine Kombination von: "mo","tu","wir","du","fr","sa" und "su", oder "alle")</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.byday_short">
         <source>By Day of the Week</source>
         <target state="translated">Nach Wochentag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.bymonthday">
+      <trans-unit id="tx_cal_exception_event.bymonthday" approved="yes">
         <source>By Monthday (e.g.: 1,2,30 or all)</source>
-        <target state="translated">Nach Monatstag (z.B.: 1,2,30 or all)</target>
+        <target state="final">Nach Monatstag (z.B.: 1,2,30 or all)</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.bymonthday_short">
         <source>By Day of the Month</source>
         <target state="translated">Nach Wochentag</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event.bymonth">
+      <trans-unit id="tx_cal_exception_event.bymonth" approved="yes">
         <source>By Month (e.g.: 1,2,3,4,12 or all)</source>
-        <target state="translated">Nach Monat (z.B.: 1,2,3,4,12 or all)</target>
+        <target state="final">Nach Monat (z.B.: 1,2,3,4,12 or all)</target>
       </trans-unit>
       <trans-unit id="tx_cal_exception_event.bymonth_short">
         <source>By Month</source>
@@ -531,9 +531,9 @@
         <source>Title</source>
         <target state="translated">Titel</target>
       </trans-unit>
-      <trans-unit id="tx_cal_exception_event_group.exception_event_cnt">
+      <trans-unit id="tx_cal_exception_event_group.exception_event_cnt" approved="yes">
         <source>Exception Events</source>
-        <target state="translated">Ausnahmereignisse</target>
+        <target state="final">Ausnahmereignisse</target>
       </trans-unit>
       <trans-unit id="tx_cal_fe_user_event">
         <source>Frontend User - Event Relation</source>
@@ -563,13 +563,13 @@
         <source>Monitoring Users</source>
         <target state="translated">Benachrichtigung bei Änderungen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.offset">
+      <trans-unit id="tx_cal_fe_user_event.offset" approved="yes">
         <source>Notification offset</source>
-        <target state="translated">Benachrichtigungs-Versatz</target>
+        <target state="final">Benachrichtigungs-Versatz</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.schedulerId">
+      <trans-unit id="tx_cal_fe_user_event.schedulerId" approved="yes">
         <source>Scheduler ID</source>
-        <target state="translated">Scheduler ID</target>
+        <target state="final">Scheduler ID</target>
       </trans-unit>
       <trans-unit id="tx_cal_calendar">
         <source>Calendar</source>
@@ -811,13 +811,13 @@
         <source>City</source>
         <target state="translated">Stadt</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.country">
+      <trans-unit id="tx_cal_location.country" approved="yes">
         <source>Country (static_info_tables needed)</source>
-        <target state="translated">Land (static_info_tables erforderlich)</target>
+        <target state="final">Land (static_info_tables erforderlich)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.countryzone">
+      <trans-unit id="tx_cal_location.countryzone" approved="yes">
         <source>State/Province (static_info_tables needed)</source>
-        <target state="translated">Bundesland (static_info_tables erforderlich)</target>
+        <target state="final">Bundesland (static_info_tables erforderlich)</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.phone">
         <source>Phone</source>
@@ -839,25 +839,25 @@
         <source>alt-text</source>
         <target state="translated">alternativer Text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.imagetitletext">
+      <trans-unit id="tx_cal_location.imagetitletext" approved="yes">
         <source>title-text</source>
-        <target state="translated">Titel Text</target>
+        <target state="final">Titel Text</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.link">
         <source>Homepage</source>
         <target state="translated">Homepage</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.islocation">
+      <trans-unit id="tx_cal_location.islocation" approved="yes">
         <source>Is Cal Location</source>
-        <target state="translated">Ist Cal Ort</target>
+        <target state="final">Ist Cal Ort</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.createNew">
+      <trans-unit id="tx_cal_location.createNew" approved="yes">
         <source>create a new location</source>
-        <target state="translated">Neuen Ort erstellen</target>
+        <target state="final">Neuen Ort erstellen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.edit">
+      <trans-unit id="tx_cal_location.edit" approved="yes">
         <source>edit selected location</source>
-        <target state="translated">Ausgewählten Ort bearbeiten</target>
+        <target state="final">Ausgewählten Ort bearbeiten</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.latitude">
         <source>Latitude</source>
@@ -875,65 +875,65 @@
         <source>Email</source>
         <target state="translated">E-Mail</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general" approved="yes">
         <source>[ General Settings ]</source>
-        <target state="translated">[ Allgemeine Einstellungen ]</target>
+        <target state="final">[ Allgemeine Einstellungen ]</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_general-mode">
         <source>Plugin Mode:</source>
         <target state="translated">Plugin Modus:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.1">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.1" approved="yes">
         <source>search data</source>
-        <target state="translated">Daten suchen</target>
+        <target state="final">Daten suchen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.11">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.11" approved="yes">
         <source>select data</source>
-        <target state="translated">Daten auswählen</target>
+        <target state="final">Daten auswählen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.2">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.2" approved="yes">
         <source>list data</source>
-        <target state="translated">Daten auflisten</target>
+        <target state="final">Daten auflisten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.3">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.3" approved="yes">
         <source>view/edit data</source>
-        <target state="translated">Daten anzeigen/bearbeiten</target>
+        <target state="final">Daten anzeigen/bearbeiten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.4">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.4" approved="yes">
         <source>import data</source>
-        <target state="translated">Daten importieren</target>
+        <target state="final">Daten importieren</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.30">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.30" approved="yes">
         <source>search+list data</source>
-        <target state="translated">Daten suchen/auflisten</target>
+        <target state="final">Daten suchen/auflisten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.31">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.31" approved="yes">
         <source>list+view/edit data</source>
-        <target state="translated">Daten auflisten+betrachten/editieren</target>
+        <target state="final">Daten auflisten+betrachten/editieren</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.32">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.32" approved="yes">
         <source>search+list+view/edit data</source>
-        <target state="translated">Daten suchen+auflisten+betrachten/editieren</target>
+        <target state="final">Daten suchen+auflisten+betrachten/editieren</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.33">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.33" approved="yes">
         <source>select+list data</source>
-        <target state="translated">Daten auswählen+auflisten</target>
+        <target state="final">Daten auswählen+auflisten</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.99">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.99" approved="yes">
         <source>show info for plugin</source>
-        <target state="translated">Infos des Plugins anzeigen</target>
+        <target state="final">Informationen des Plugins anzeigen</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode" approved="yes">
         <source>Plugins Debug-Mode:</source>
-        <target state="translated">Plugins Debug-Modus:</target>
+        <target state="final">Plugins Debug-Modus:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.0">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.0" approved="yes">
         <source>Debug Off</source>
-        <target state="translated">Debug Aus</target>
+        <target state="final">Debug Aus</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.1">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.1" approved="yes">
         <source>Debug On</source>
-        <target state="translated">Debug An</target>
+        <target state="final">Debug An</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.2">
         <source>Debug Verbose</source>
@@ -943,29 +943,29 @@
         <source>Template:</source>
         <target state="translated">Template:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-listpage">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-listpage" approved="yes">
         <source>PageID of Result ListPage:</source>
-        <target state="translated">PageID der Result ListPage:</target>
+        <target state="final">PageID der Result ListPage:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-editpage">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-editpage" approved="yes">
         <source>PageID of EditPage:</source>
-        <target state="translated">PageID der EditPage:</target>
+        <target state="final">PageID der EditPage:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-editpopup">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-editpopup" approved="yes">
         <source>Edit in Popup-Window:</source>
-        <target state="translated">Edit in Popup-Window:</target>
+        <target state="final">Edit in Popup-Window:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_general-backpage">
+      <trans-unit id="tx_cal_controller_flexform.sheet_general-backpage" approved="yes">
         <source>PageID for BackButton:</source>
-        <target state="translated">PageID des BackButton:</target>
+        <target state="final">PageID des BackButton:</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_more">
+      <trans-unit id="tx_cal_controller_flexform.sheet_more" approved="yes">
         <source>[ More Settings ]</source>
-        <target state="translated">[ Mehr Einstellungen ]</target>
+        <target state="final">[ Mehr Einstellungen ]</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_statistics">
+      <trans-unit id="tx_cal_controller_flexform.sheet_statistics" approved="yes">
         <source>[ Template Settings ]</source>
-        <target state="translated">[ Template Einstellungen ]</target>
+        <target state="final">[ Template Einstellungen ]</target>
       </trans-unit>
       <trans-unit id="tx_cal_controller_flexform.sheet_statistics-template">
         <source>Template:</source>
@@ -975,33 +975,33 @@
         <source>[ Local Config ]</source>
         <target state="translated">[ Lokale Einstellungen ]</target>
       </trans-unit>
-      <trans-unit id="tx_cal_controller_flexform.sheet_localconf-data">
+      <trans-unit id="tx_cal_controller_flexform.sheet_localconf-data" approved="yes">
         <source>LocalConf (TS-Style)</source>
-        <target state="translated">LocalConf (TS-Style)</target>
+        <target state="final">LocalConf (TS-Style)</target>
       </trans-unit>
       <trans-unit id="tt_content.list_type">
         <source>TYPO3 Calendar</source>
         <target state="translated">TYPO3 Kalender</target>
       </trans-unit>
-      <trans-unit id="frequency.none">
+      <trans-unit id="frequency.none" approved="yes">
         <source>None</source>
-        <target state="translated">keine</target>
+        <target state="final">Keine</target>
       </trans-unit>
-      <trans-unit id="frequency.day">
+      <trans-unit id="frequency.day" approved="yes">
         <source>Daily</source>
-        <target state="translated">täglich</target>
+        <target state="final">Täglich</target>
       </trans-unit>
-      <trans-unit id="frequency.week">
+      <trans-unit id="frequency.week" approved="yes">
         <source>Weekly</source>
-        <target state="translated">wöchentlich</target>
+        <target state="final">Wöchentlich</target>
       </trans-unit>
-      <trans-unit id="frequency.month">
+      <trans-unit id="frequency.month" approved="yes">
         <source>Monthly</source>
-        <target state="translated">monatlich</target>
+        <target state="final">Monatlich</target>
       </trans-unit>
-      <trans-unit id="frequency.year">
+      <trans-unit id="frequency.year" approved="yes">
         <source>Yearly</source>
-        <target state="translated">jährlich</target>
+        <target state="final">Jährlich</target>
       </trans-unit>
       <trans-unit id="rdate_type.none">
         <source>None</source>
@@ -1019,9 +1019,9 @@
         <source>Period</source>
         <target state="translated">Zeitraum</target>
       </trans-unit>
-      <trans-unit id="tx_cal_enable_accesscontroll">
+      <trans-unit id="tx_cal_enable_accesscontroll" approved="yes">
         <source>Enable Cal Access Control</source>
-        <target state="translated">Cal Access Control aktivieren</target>
+        <target state="final">Cal Access Control aktivieren</target>
       </trans-unit>
       <trans-unit id="tx_cal_calendar_accesscontroll">
         <source>Select allowed Calendar</source>
@@ -1079,9 +1079,9 @@
         <source>FE User or</source>
         <target state="translated">FE Benutzer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_attendee.fe_group_id">
+      <trans-unit id="tx_cal_attendee.fe_group_id" approved="yes">
         <source>FE Group or</source>
-        <target state="translated">FE-Gruppe</target>
+        <target state="final">FE-Gruppe</target>
       </trans-unit>
       <trans-unit id="tx_cal_attendee.email">
         <source>Email</source>
