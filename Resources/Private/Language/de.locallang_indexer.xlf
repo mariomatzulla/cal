@@ -3,109 +3,109 @@
   <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_indexer.xlf" date="2022-04-05T11:47:43Z" product-name="cal" target-language="de">
     <header/>
     <body>
-      <trans-unit id="title">
+      <trans-unit id="title" approved="yes">
         <source>Index generator for calendar base recurring events</source>
-        <target state="translated">Indexgenerator für wiederkehrende Kalenderereignisse</target>
+        <target state="final">Indexgenerator für wiederkehrende Kalenderereignisse</target>
       </trans-unit>
-      <trans-unit id="mlang_tabs_tab ">
+      <trans-unit id="mlang_tabs_tab " approved="yes">
         <source>Cal Indexer</source>
-        <target state="translated">Cal Indexer</target>
+        <target state="final">Cal Indexer</target>
       </trans-unit>
-      <trans-unit id="mlang_labels_tabdescr ">
+      <trans-unit id="mlang_labels_tabdescr " approved="yes">
         <source>Index recurring events for calendar base</source>
-        <target state="translated">Wiederkehrende Termine für cal indizieren</target>
+        <target state="final">Wiederkehrende Termine für cal indizieren</target>
       </trans-unit>
-      <trans-unit id="mlang_labels_tablabel ">
+      <trans-unit id="mlang_labels_tablabel " approved="yes">
         <source>Index recurring events for calendar base</source>
-        <target state="translated">Wiederkehrende Termine für cal indizieren</target>
+        <target state="final">Wiederkehrende Termine für cal indizieren</target>
       </trans-unit>
-      <trans-unit id="function1">
+      <trans-unit id="function1" approved="yes">
         <source>Information</source>
-        <target state="translated">Informationen</target>
+        <target state="final">Informationen</target>
       </trans-unit>
-      <trans-unit id="function2">
+      <trans-unit id="function2" approved="yes">
         <source>Generate</source>
-        <target state="translated">Generieren</target>
+        <target state="final">Generieren</target>
       </trans-unit>
-      <trans-unit id="notice_header">
+      <trans-unit id="notice_header" approved="yes">
         <source>Welcome</source>
-        <target state="translated">Willkommen</target>
+        <target state="final">Willkommen</target>
       </trans-unit>
-      <trans-unit id="notice">
+      <trans-unit id="notice" approved="yes">
         <source>&lt;div align=center&gt;&lt;strong&gt;Notice header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed, please read carefully:</source>
-        <target state="translated">&lt;div align="center"&gt;&lt;strong&gt;Hinweis&lt;/strong&gt;&lt;/div&gt;Bevor Sie fortfahren, lesen Sie bitte sorgfältig:</target>
+        <target state="final">&lt;div align="center"&gt;&lt;strong&gt;Hinweis&lt;/strong&gt;&lt;/div&gt;Bevor Sie fortfahren, lesen Sie bitte sorgfältig:</target>
       </trans-unit>
-      <trans-unit id="capabilities_header">
+      <trans-unit id="capabilities_header" approved="yes">
         <source>Capabilities of this tool</source>
-        <target state="translated">Fähigkeiten dieses Werkzeugs</target>
+        <target state="final">Fähigkeiten dieses Werkzeugs</target>
       </trans-unit>
-      <trans-unit id="capabilities">
+      <trans-unit id="capabilities" approved="yes">
         <source>This tool will create an index for all recurring tx_cal_event and tx_cal_exception_event instances.</source>
-        <target state="translated">Dieses Tool erstellt einen Index für alle wiederkehrenden tx_cal_event und tx_cal_exception_event Instanzen.</target>
+        <target state="final">Dieses Tool erstellt einen Index für alle wiederkehrenden tx_cal_event und tx_cal_exception_event Instanzen.</target>
       </trans-unit>
-      <trans-unit id="tableHeader1">
+      <trans-unit id="tableHeader1" approved="yes">
         <source>Page/Folder</source>
-        <target state="translated">Seite/Ordner</target>
+        <target state="final">Seite/Ordner</target>
       </trans-unit>
-      <trans-unit id="tableHeader2">
+      <trans-unit id="tableHeader2" approved="yes">
         <source>Frontend Page with calendar plugin</source>
-        <target state="translated">Frontend Seite mit Kalender-Plugin</target>
+        <target state="final">Frontend Seite mit Kalender-Plugin</target>
       </trans-unit>
-      <trans-unit id="nothingToDo">
+      <trans-unit id="nothingToDo" approved="yes">
         <source>No event / exception event records found</source>
-        <target state="translated">Keine Ereignis-/Ausnahme-Ereigniseinträge gefunden</target>
+        <target state="final">Keine Ereignis-/Ausnahme-Ereigniseinträge gefunden</target>
       </trans-unit>
-      <trans-unit id="browse">
+      <trans-unit id="browse" approved="yes">
         <source>Browse for records</source>
-        <target state="translated">Datensätze durchblättern</target>
+        <target state="final">Datensätze durchblättern</target>
       </trans-unit>
-      <trans-unit id="submit">
+      <trans-unit id="submit" approved="yes">
         <source>Submit</source>
-        <target state="translated">Speichern</target>
+        <target state="final">Speichern</target>
       </trans-unit>
-      <trans-unit id="selectPage">
+      <trans-unit id="selectPage" approved="yes">
         <source>Select the page where the typoscript of calendar base can be found. This should be a normal frontend page.</source>
-        <target state="translated">Wählen Sie die Seite, auf der das typoscript für cal gefunden werden kann. Dies sollte eine normale Frontend-Seite sein.</target>
+        <target state="final">Wählen Sie die Seite, auf der das typoscript für cal gefunden werden kann. Dies sollte eine normale Frontend-Seite sein.</target>
       </trans-unit>
-      <trans-unit id="indexStart">
+      <trans-unit id="indexStart" approved="yes">
         <source>Index start (YYYYMMDD or a dynamic value like: -3 month, -2 years)</source>
-        <target state="translated">Indexstart (YYYYMMDD oder ein dynamischer Wert wie: -3 Monat, -2 Jahre)</target>
+        <target state="final">Indexstart (YYYYMMDD oder ein dynamischer Wert wie: -3 Monat, -2 Jahre)</target>
       </trans-unit>
-      <trans-unit id="indexEnd">
+      <trans-unit id="indexEnd" approved="yes">
         <source>Index end (YYYYMMDD or a dynamic value like: +5 month, +4 years)</source>
-        <target state="translated">Indexstart (YYYYMMDD oder ein dynamischer Wert wie: -5 Monat, -4 Jahre)</target>
+        <target state="final">Indexstart (YYYYMMDD oder ein dynamischer Wert wie: -5 Monat, -4 Jahre)</target>
       </trans-unit>
-      <trans-unit id="startIndexing">
+      <trans-unit id="startIndexing" approved="yes">
         <source>Start indexing</source>
-        <target state="translated">Indizierung jetzt starten</target>
+        <target state="final">Indizierung jetzt starten</target>
       </trans-unit>
-      <trans-unit id="atLeastOne">
+      <trans-unit id="atLeastOne" approved="yes">
         <source>You need to assign at least one frontend page to a found storage places in order to start indexing!</source>
-        <target state="translated">Sie müssen mindestens eine Frontend-Seite einem gefundenen Speicherort zuweisen, um mit der Indizierung beginnen zu können!</target>
+        <target state="final">Sie müssen mindestens eine Frontend-Seite einem gefundenen Speicherort zuweisen, um mit der Indizierung beginnen zu können!</target>
       </trans-unit>
-      <trans-unit id="notAllPagesAssigned">
+      <trans-unit id="notAllPagesAssigned" approved="yes">
         <source>You need to assign a frontend page to all found storage places in order to start indexing!</source>
-        <target state="translated">Sie müssen allen gefundenen Speicherplätzen eine Frontend-Seite zuordnen, um mit der Indizierung beginnen zu können?</target>
+        <target state="final">Sie müssen allen gefundenen Speicherplätzen eine Frontend-Seite zuordnen, um mit der Indizierung beginnen zu können?</target>
       </trans-unit>
-      <trans-unit id="result">
+      <trans-unit id="result" approved="yes">
         <source>Result: </source>
-        <target state="translated">Ergebnis:</target>
+        <target state="final">Ergebnis:</target>
       </trans-unit>
-      <trans-unit id="toBeIndexed">
+      <trans-unit id="toBeIndexed" approved="yes">
         <source> -&gt; Events to be indexed: </source>
-        <target state="translated"> -&gt; Ereignisse die indiziert werden sollen: </target>
+        <target state="final"> -&gt; Ereignisse die indiziert werden sollen: </target>
       </trans-unit>
-      <trans-unit id="droppingTable">
+      <trans-unit id="droppingTable" approved="yes">
         <source>Removing events with pid %s from index</source>
-        <target state="translated">Entferne Termine mit pid %s aus dem Index</target>
+        <target state="final">Entferne Termine mit pid %s aus dem Index</target>
       </trans-unit>
-      <trans-unit id="indexing">
+      <trans-unit id="indexing" approved="yes">
         <source>Indexing</source>
-        <target state="translated">Indizieren</target>
+        <target state="final">Indizieren</target>
       </trans-unit>
-      <trans-unit id="back">
+      <trans-unit id="back" approved="yes">
         <source>Back</source>
-        <target state="translated">Zurück</target>
+        <target state="final">Zurück</target>
       </trans-unit>
     </body>
   </file>
