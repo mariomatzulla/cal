@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:24:53Z" product-name="cal" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" approved="yes">
+        <source>Categories for the Calendar Base extension.</source>
+        <target state="final">Kategorien für den TYPO3 Kalender</target>
+      </trans-unit>
+      <trans-unit id=".details" resname=".details" approved="yes">
+        <source>Categories that events can be assigned to.</source>
+        <target state="final">Erstellt Kategorien für den TYPO3 Kalender, in
+				welche dann Ereignisse einsortiert werden.</target>
+      </trans-unit>
+      <trans-unit id="title.description" resname="title.description" approved="yes">
+        <source>Category name.</source>
+        <target state="final">Titel dieser Kategorie</target>
+      </trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve" approved="yes">
+				<source>Disables the category so that it is not visible in
+				the frontend.</source>
+			<target state="final">Versteckt diese Kategorie</target></trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve" approved="yes">
+				<source>Sets a date at which the category will be visible
+				in the frontend.</source>
+			<target state="final">Die "Start"-Zeit definiert, ab wann
+				dieser Datensatz aktiv sein sein soll. Vor diesem Zeitpunkt wird die
+				Kategorie nicht verwendet. Siehe auch "verstecken"</target></trans-unit>
+      <trans-unit id="_starttime.seeAlso" resname="_starttime.seeAlso" approved="yes">
+        <source>tx_cal_category:hidden</source>
+        <target state="final">tx_cal_category:hidden</target>
+      </trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve" approved="yes">
+				<source>Sets a date at which the category will no longer
+				be visible in the frontend.</source>
+			<target state="final">Die "End"-Zeit definiert, ab wann dieser
+				Datensatz nicht mehr aktiv sein sein soll. Nach diesem Zeitpunkt
+				wird die Kategorie nicht verwendet. Siehe auch
+				"verstecken"</target></trans-unit>
+      <trans-unit id="_endtime.seeAlso" resname="_endtime.seeAlso" approved="yes">
+        <source>tx_cal_category:hidden</source>
+        <target state="final">tx_cal_category:hidden</target>
+      </trans-unit>
+      <trans-unit id="headerstyle.description" resname="headerstyle.description" xml:space="preserve" approved="yes">
+				<source>CSS class used to format all event headers in this
+				category.</source>
+			<target state="final">Definiert den Style, der für alle
+				Ereignisüberschriften dieser Kategorie verwendet wird.</target></trans-unit>
+      <trans-unit id="headerstyle.details" resname="headerstyle.details" xml:space="preserve" approved="yes">
+				<source>
+				
+				You can assign each category a different colored bullet that precedes the events in the Month View and the Header colors in the Day and Week views. To use the out-of-the-box bullet colors, simply enter the corresponding style in the Header Style field:
+
+				Blue Bullets: 	default_catheader
+				Green Bullets:	green_catheader
+				Grey Bullets:	grey_catheader
+				Orange Bullets:	orange_catheader
+				Pink Bullets:	pink_catheader
+				Red Bullets:	red_catheader
+				Yellow Bullets:	yellow_catheader
+				
+				Note: If you would like to expand or change the color choices, you can do so by modifying the default style sheet.
+				
+			</source>
+			<target state="final">Jeder Kategorie kann ein andersfarbiges Aufzählungszeichen zugewiesen werden, welches dem Termin in der Monatsansicht und den Überschriftenfarben in den Tages- und Wochenansichten vorangestellt wird. Die eingebauten Farben für Aufzählungszeichen lassen sich durch Eingabe entsprechender Stile im Feld Überschriftenstil verwenden: Blaue Aufzählungszeichen: default_catheader Grüne Aufzählungszeichen: green_catheader Graue Aufzählungszeichen: grey_catheader Orange Aufzählungszeichen: orange_catheader Pinke Aufzählungszeichen: pink_catheader Rote Aufzählungszeichen: red_catheader Gelbe Aufzählungszeichen: yellow_catheader Hinweis: Wenn Sie die Farbauswahl ändern oder erweitern möchten, können Sie dies tun, indem Sie das Standard-CSS ändern.</target></trans-unit>
+      <trans-unit id="bodystyle.description" resname="bodystyle.description" xml:space="preserve" approved="yes">
+				<source>CSS class used to format all event bodies in this
+				category.</source>
+			<target state="final">Definiert den Stil, der für alle
+				Ereignis-Textkörper dieser Kategorie verwendet wird.</target></trans-unit>
+      <trans-unit id="bodystyle.details" resname="bodystyle.details" xml:space="preserve" approved="yes">
+				<source>
+				
+				You can assign each category a different colored “Busy Time” in the Day and Week views. To use the out-of-the-box colors, simply enter the corresponding style in the Body Style field:
+
+				Blue:		default_catbody
+				Green:		green_catbody
+				Grey:		grey_catbody
+				Orange:		orange_catbody
+				Pink:		pink_catbody
+				Red:		red_catbody
+				Yellow:		yellow_catbody
+
+
+				Note: If you would like to expand or change the color choices, you can do so by modifying the default style sheet.
+				
+			</source>
+			<target state="final">Jeder Kategorie kann eine andersfarbiges Farbhinterlegung für belegte Zeiten in der Tages- und Wochenansicht zugewiesen werden. Die eingebauten Farben lassen sich durch Eingabe entsprechender Stile im Feld Inhaltsstil verwenden: Blau: default_catbody Grün: green_catbody Grau: grey_catbody Orange: orange_catbody Pink: pink_catbody Rot: red_catbody Gelb: yellow_catbody Hinweis: Wenn Sie die Farbauswahl ändern oder erweitern möchten, können Sie dies tun, indem Sie das Standard-CSS ändern.</target></trans-unit>
+      <trans-unit id="calendar_id.description" resname="calendar_id.description" approved="yes">
+        <source>Calendar that this category appears on.</source>
+        <target state="final">Gibt den Kalender an, in dem diese Kategorie erscheinen soll.</target>
+      </trans-unit>
+      <trans-unit id="calendar_id.details" resname="calendar_id.details" xml:space="preserve" approved="yes">
+				<source>By limiting the category to a specific calendar,
+				you can limit users or usergroups who can view the category's events</source>
+			<target state="final">Indem Sie die Kategorie auf einen bestimmten Kalender begrenzen, können Sie die Benutzer oder Benutzergruppen begrenzen, die auf Termine dieser Kategorie zugreifen können.</target></trans-unit>
+      <trans-unit id="parent_category.description" resname="parent_category.description" approved="yes">
+        <source>Sets the current category as a sub-category.</source>
+        <target state="final">Setzt die aktuelle Kategorie als Unterkategorie.</target>
+      </trans-unit>
+      <trans-unit id="shared_user_allowed.description" resname="shared_user_allowed.description" xml:space="preserve" approved="yes">
+				<source>Allows the category to be shared with anyone who
+				has shared event priviliges already.</source>
+			<target state="final">Erlaubt es, die Kategorie mit anderen Benutzern, die dazu Berechtigungen haben, gemeinsam zu nutzen.</target></trans-unit>
+      <trans-unit id="single_pid.description" resname="single_pid.description" xml:space="preserve" approved="yes">
+				<source>Page where individual events from this category
+				will be shown.</source>
+			<target state="final">Seite, auf der einzelne Termine aus dieser Kategorie angezeigt werden.</target></trans-unit>
+    </body>
+  </file>
+</xliff>
