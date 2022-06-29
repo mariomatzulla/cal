@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_db.xlf" date="2014-06-02T11:47:43Z" product-name="cal" target-language="zh-CN">
+  <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_db.xlf" date="2014-06-02T11:47:43Z" product-name="cal" target-language="zh-TW">
     <header/>
     <body>
       <trans-unit id="tx_cal_event">
