@@ -3,573 +3,573 @@
   <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_tca.xlf" date="2022-04-05T11:47:43Z" product-name="cal" target-language="de">
     <header/>
     <body>
-      <trans-unit id="cal.pi_flexform.sheetGeneral" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetGeneral">
         <source>General Settings</source>
-        <target state="final">Allgemeine Einstellungen</target>
+        <target state="needs-translation">General Settings</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.allowedViews" approved="yes">
+      <trans-unit id="cal.pi_flexform.allowedViews">
         <source>Allowed views</source>
-        <target state="final">Erlaubte Ansichten</target>
+        <target state="needs-translation">Allowed views</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewMonth" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewMonth">
         <source>Month</source>
-        <target state="final">Monat</target>
+        <target state="needs-translation">Month</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewYear" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewYear">
         <source>Year</source>
-        <target state="final">Jahr</target>
+        <target state="needs-translation">Year</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewList" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewList">
         <source>List</source>
-        <target state="final">Liste</target>
+        <target state="needs-translation">List</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewWeek" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewWeek">
         <source>Week</source>
-        <target state="final">Woche</target>
+        <target state="needs-translation">Week</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDay" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewDay">
         <source>Day</source>
-        <target state="final">Tag</target>
+        <target state="needs-translation">Day</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewOrganizer" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewOrganizer">
         <source>Organizer</source>
-        <target state="final">Veranstalter</target>
+        <target state="needs-translation">Organizer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewLocation" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewLocation">
         <source>Location</source>
-        <target state="final">Ort</target>
+        <target state="needs-translation">Location</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSingle" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewSingle">
         <source>Single Event</source>
-        <target state="final">Einzelner Termin</target>
+        <target state="needs-translation">Single Event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewIcs" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewIcs">
         <source>ICS</source>
-        <target state="final">ICS</target>
+        <target state="needs-translation">ICS</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewRss" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewRss">
         <source>Rss</source>
-        <target state="final">RSS</target>
+        <target state="needs-translation">Rss</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchEvent" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewSearchEvent">
         <source>Search Event</source>
-        <target state="final">Ereignis suchen</target>
+        <target state="needs-translation">Search Event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchLocation" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewSearchLocation">
         <source>Search Location</source>
-        <target state="final">Ort suchen</target>
+        <target state="needs-translation">Search Location</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchOrganizer" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewSearchOrganizer">
         <source>Search Organizer</source>
-        <target state="final">Veranstalter suchen</target>
+        <target state="needs-translation">Search Organizer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchAll" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewSearchAll">
         <source>Search All</source>
-        <target state="final">Alle suchen</target>
+        <target state="needs-translation">Search All</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateEvent" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewCreateEvent">
         <source>Create Event</source>
-        <target state="final">Ereignis erstellen</target>
+        <target state="needs-translation">Create Event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditEvent" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewEditEvent">
         <source>Edit Event</source>
-        <target state="final">Ereignis bearbeiten</target>
+        <target state="needs-translation">Edit Event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteEvent" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewDeleteEvent">
         <source>Delete Event</source>
-        <target state="final">Ereignis löschen</target>
+        <target state="needs-translation">Delete Event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateCalendar" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewCreateCalendar">
         <source>Create Calendar</source>
-        <target state="final">Kalender erstellen</target>
+        <target state="needs-translation">Create Calendar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditCalendar" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewEditCalendar">
         <source>Edit Calendar</source>
-        <target state="final">Kalender ändern</target>
+        <target state="needs-translation">Edit Calendar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteCalendar" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewDeleteCalendar">
         <source>Delete Calendar</source>
-        <target state="final">Kalender löschen</target>
+        <target state="needs-translation">Delete Calendar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateCategory" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewCreateCategory">
         <source>Create Category</source>
-        <target state="final">Kategorie erstellen</target>
+        <target state="needs-translation">Create Category</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditCategory" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewEditCategory">
         <source>Edit Category</source>
-        <target state="final">Kategorie bearbeiten</target>
+        <target state="needs-translation">Edit Category</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteCategory" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewDeleteCategory">
         <source>Delete Category</source>
-        <target state="final">Kategorie löschen</target>
+        <target state="needs-translation">Delete Category</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateLocation" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewCreateLocation">
         <source>Create Location</source>
-        <target state="final">Ort erstellen</target>
+        <target state="needs-translation">Create Location</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditLocation" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewEditLocation">
         <source>Edit Location</source>
-        <target state="final">Ort bearbeiten</target>
+        <target state="needs-translation">Edit Location</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteLocation" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewDeleteLocation">
         <source>Delete Location</source>
-        <target state="final">Ort löschen</target>
+        <target state="needs-translation">Delete Location</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateOrganizer" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewCreateOrganizer">
         <source>Create Organizer</source>
-        <target state="final">Veranstalter erstellen</target>
+        <target state="needs-translation">Create Organizer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditOrganizer" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewEditOrganizer">
         <source>Edit Organizer</source>
-        <target state="final">Veranstalter bearbeiten</target>
+        <target state="needs-translation">Edit Organizer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteOrganizer" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewDeleteOrganizer">
         <source>Delete Organizer</source>
-        <target state="final">Veranstalter löschen</target>
+        <target state="needs-translation">Delete Organizer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSubscriptionManager" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewSubscriptionManager">
         <source>Subscription Manager</source>
-        <target state="final">Abonnementverwaltung</target>
+        <target state="needs-translation">Subscription Manager</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewMeetingManager" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewMeetingManager">
         <source>Meeting Manager</source>
-        <target state="final">Besprechungen verwalten</target>
+        <target state="needs-translation">Meeting Manager</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewTranslation" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewTranslation">
         <source>Translation Options</source>
-        <target state="final">Übersetzungs-Optionen</target>
+        <target state="needs-translation">Translation Options</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewTodo" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewTodo">
         <source>Todo</source>
-        <target state="final">Aufgabe</target>
+        <target state="needs-translation">Todo</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewAjax" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewAjax">
         <source>Ajax (requires ext:calajax)</source>
-        <target state="final">Ajax (benötigt ext:calajax)</target>
+        <target state="needs-translation">Ajax (requires ext:calajax)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewAdmin" approved="yes">
+      <trans-unit id="cal.pi_flexform.viewAdmin">
         <source>Administration Options</source>
-        <target state="final">Administrationsoptionen</target>
+        <target state="needs-translation">Administration Options</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarName" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendarName">
         <source>Calendar name</source>
-        <target state="final">Name des Kalenders</target>
+        <target state="needs-translation">Calendar name</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.defaultCalendarUid" approved="yes">
+      <trans-unit id="cal.pi_flexform.defaultCalendarUid">
         <source>Default calendar</source>
-        <target state="final">Standard-Kalender</target>
+        <target state="needs-translation">Default calendar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.subscrition" approved="yes">
+      <trans-unit id="cal.pi_flexform.subscrition">
         <source>Subscription</source>
-        <target state="final">Abonnement</target>
+        <target state="needs-translation">Subscription</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.noSubscription" approved="yes">
+      <trans-unit id="cal.pi_flexform.noSubscription">
         <source>Disabled</source>
-        <target state="final">Deaktiviert</target>
+        <target state="needs-translation">Disabled</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.allowSubscribe" approved="yes">
+      <trans-unit id="cal.pi_flexform.allowSubscribe">
         <source>Allow anyone to subscribe</source>
-        <target state="final">Jedem das Abonnieren erlauben</target>
+        <target state="needs-translation">Allow anyone to subscribe</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.subscribeFeUser" approved="yes">
+      <trans-unit id="cal.pi_flexform.subscribeFeUser">
         <source>Only allow frontend users to subscribe</source>
-        <target state="final">Nur Benutzer im Frontend abonnieren erlauben</target>
+        <target state="needs-translation">Only allow frontend users to subscribe</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.subscribeWithCaptcha" approved="yes">
+      <trans-unit id="cal.pi_flexform.subscribeWithCaptcha">
         <source>Force captcha to subscribe (captcha needed)</source>
-        <target state="final">Captcha zum Abonnieren erzwingen (Captcha erforderlich)</target>
+        <target state="needs-translation">Force captcha to subscribe (captcha needed)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetCategory" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetCategory">
         <source>Filters</source>
-        <target state="final">Filter</target>
+        <target state="needs-translation">Filters</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.category_selection" approved="yes">
+      <trans-unit id="cal.pi_flexform.category_selection">
         <source>Category selection</source>
-        <target state="final">Kategorieauswahl</target>
+        <target state="needs-translation">Category selection</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendar_selection" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendar_selection">
         <source>Calendar selection</source>
-        <target state="final">Kalenderauswahl</target>
+        <target state="needs-translation">Calendar selection</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.select_deselect_categories" approved="yes">
+      <trans-unit id="cal.pi_flexform.select_deselect_categories">
         <source>Category mode</source>
-        <target state="final">Kategoriemodus</target>
+        <target state="needs-translation">Category mode</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.itemsHeader" approved="yes">
+      <trans-unit id="cal.pi_flexform.itemsHeader">
         <source>Special options:</source>
-        <target state="final">Spezielle Optionen:</target>
+        <target state="needs-translation">Special options:</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.category_selection_notCategorized" approved="yes">
+      <trans-unit id="cal.pi_flexform.category_selection_notCategorized">
         <source>[not categorized]</source>
-        <target state="final">[nicht kategorisiert]</target>
+        <target state="needs-translation">[not categorized]</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendarMode">
         <source>Calendar selection mode</source>
-        <target state="final">Kalender Auswahlmodus</target>
+        <target state="needs-translation">Calendar selection mode</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode.showAll" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendarMode.showAll">
         <source>Show all calendars (don't care about selection below)</source>
-        <target state="final">Alle Kalender anzeigen (egal ob Auswahl unten)</target>
+        <target state="needs-translation">Show all calendars (don't care about selection below)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode.showSelected" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendarMode.showSelected">
         <source>Show only selected calendars</source>
-        <target state="final">Ausschließlich markierte Kalender anzeigen</target>
+        <target state="needs-translation">Show only selected calendars</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode.excludeSelected" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendarMode.excludeSelected">
         <source>Don't show selected calendars</source>
-        <target state="final">Ausgewählte Kalender nicht anzeigen</target>
+        <target state="needs-translation">Don't show selected calendars</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode" approved="yes">
+      <trans-unit id="cal.pi_flexform.categoryMode">
         <source>Category selection mode</source>
-        <target state="final">Kategorie Auswahlmodus</target>
+        <target state="needs-translation">Category selection mode</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.showAll" approved="yes">
+      <trans-unit id="cal.pi_flexform.categoryMode.showAll">
         <source>Show all categories (don't care about selection below)</source>
-        <target state="final">Alle Kategorien anzeigen (egal ob Auswahl unten)</target>
+        <target state="needs-translation">Show all categories (don't care about selection below)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.showSelected" approved="yes">
+      <trans-unit id="cal.pi_flexform.categoryMode.showSelected">
         <source>Show only selected categories (exact match)</source>
-        <target state="final">Nur ausgewählte Kategorien anzeigen (exakte Übereinstimmung)</target>
+        <target state="needs-translation">Show only selected categories (exact match)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.excludeSelected" approved="yes">
+      <trans-unit id="cal.pi_flexform.categoryMode.excludeSelected">
         <source>Don't show selected categories</source>
-        <target state="final">Ausgewählte Kategorien nicht anzeigen</target>
+        <target state="needs-translation">Don't show selected categories</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.showSelectedOr" approved="yes">
+      <trans-unit id="cal.pi_flexform.categoryMode.showSelectedOr">
         <source>Show only selected categories (any)</source>
-        <target state="final">Nur ausgewählte Kategorien anzeigen (alle)</target>
+        <target state="needs-translation">Show only selected categories (any)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.showMinSelected" approved="yes">
+      <trans-unit id="cal.pi_flexform.categoryMode.showMinSelected">
         <source>Show selected categories (minimum match)</source>
-        <target state="final">Ausgewählte Kategorien anzeigen (Mindestgleich)</target>
+        <target state="needs-translation">Show selected categories (minimum match)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetYearView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetYearView">
         <source>Year View</source>
-        <target state="final">Jahresansicht</target>
+        <target state="needs-translation">Year View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.yearViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.yearViewPid">
         <source>Year view page</source>
-        <target state="final">Jahresansicht Seite</target>
+        <target state="needs-translation">Year view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.yearTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.yearTemplate">
         <source>Year template</source>
-        <target state="final">Jahresvorlage</target>
+        <target state="needs-translation">Year template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetMonthView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetMonthView">
         <source>Month View</source>
-        <target state="final">Monatsansicht</target>
+        <target state="needs-translation">Month View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthViewPid">
         <source>Month view page</source>
-        <target state="final">Monatsansicht Seite</target>
+        <target state="needs-translation">Month view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthShowListView" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthShowListView">
         <source>Show list view (not applicable for mini calendar)</source>
-        <target state="final">Listenansicht anzeigen (nicht anwendbar für Mini-Kalender)</target>
+        <target state="needs-translation">Show list view (not applicable for mini calendar)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthTemplate">
         <source>Month template</source>
-        <target state="final">Monatsvorlage</target>
+        <target state="needs-translation">Month template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthSmallTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthSmallTemplate">
         <source>Month small template</source>
-        <target state="final">Kleine Monatsvorlage</target>
+        <target state="needs-translation">Month small template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthMediumTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthMediumTemplate">
         <source>Month medium template</source>
-        <target state="final">Mittlere Monatsvorlage</target>
+        <target state="needs-translation">Month medium template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthLargeTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthLargeTemplate">
         <source>Month large template</source>
-        <target state="final">Große Monatsvorlage</target>
+        <target state="needs-translation">Month large template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthMakeMiniCal" approved="yes">
+      <trans-unit id="cal.pi_flexform.monthMakeMiniCal">
         <source>Display as a mini calendar</source>
-        <target state="final">Als Minikalender anzeigen</target>
+        <target state="needs-translation">Display as a mini calendar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showListInMonthView" approved="yes">
+      <trans-unit id="cal.pi_flexform.showListInMonthView">
         <source>Show events of this month</source>
-        <target state="final">Ereignisse dieses Monats anzeigen</target>
+        <target state="needs-translation">Show events of this month</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetWeekView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetWeekView">
         <source>Week View</source>
-        <target state="final">Wochenansicht</target>
+        <target state="needs-translation">Week View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.weekViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.weekViewPid">
         <source>Week view page</source>
-        <target state="final">Wochenansicht Seite</target>
+        <target state="needs-translation">Week view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.weekTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.weekTemplate">
         <source>Week template</source>
-        <target state="final">Wochenvorlage</target>
+        <target state="needs-translation">Week template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.weekStartDay" approved="yes">
+      <trans-unit id="cal.pi_flexform.weekStartDay">
         <source>Week start day</source>
-        <target state="final">Wochenanfang</target>
+        <target state="needs-translation">Week start day</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetDayView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetDayView">
         <source>Day View</source>
-        <target state="final">Tagesansicht</target>
+        <target state="needs-translation">Day View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.dayViewPid">
         <source>Day view page</source>
-        <target state="final">Tagesansicht Seite</target>
+        <target state="needs-translation">Day view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.dayTemplate">
         <source>Day template</source>
-        <target state="final">Tagesvorlage</target>
+        <target state="needs-translation">Day template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayStart" approved="yes">
+      <trans-unit id="cal.pi_flexform.dayStart">
         <source>Day start time</source>
-        <target state="final">Tagesstart</target>
+        <target state="needs-translation">Day start time</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayEnd" approved="yes">
+      <trans-unit id="cal.pi_flexform.dayEnd">
         <source>Day endtime</source>
-        <target state="final">Tagesende</target>
+        <target state="needs-translation">Day endtime</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.gridLength" approved="yes">
+      <trans-unit id="cal.pi_flexform.gridLength">
         <source>Show divider every x minutes</source>
-        <target state="final">Trenner alle x Minuten anzeigen</target>
+        <target state="needs-translation">Show divider every x minutes</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetListView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetListView">
         <source>List View</source>
-        <target state="final">Listenansicht</target>
+        <target state="needs-translation">List View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.listViewPid">
         <source>List view page</source>
-        <target state="final">Listenansicht Seite</target>
+        <target state="needs-translation">List view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.listTemplate">
         <source>List template</source>
-        <target state="final">Listenvorlage</target>
+        <target state="needs-translation">List template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.starttime" approved="yes">
+      <trans-unit id="cal.pi_flexform.starttime">
         <source>Start time</source>
-        <target state="final">Startzeit</target>
+        <target state="needs-translation">Start time</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.endtime" approved="yes">
+      <trans-unit id="cal.pi_flexform.endtime">
         <source>End time</source>
-        <target state="final">Endzeit</target>
+        <target state="needs-translation">End time</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.default" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.default">
         <source>Use Typoscript Default</source>
-        <target state="final">Standard TypoScript benutzen</target>
+        <target state="needs-translation">Use Typoscript Default</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.now" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.now">
         <source>Now</source>
-        <target state="final">Jetzt</target>
+        <target state="needs-translation">Now</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.yesterday" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.yesterday">
         <source>Yesterday</source>
-        <target state="final">Gestern</target>
+        <target state="needs-translation">Yesterday</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.today" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.today">
         <source>Today</source>
-        <target state="final">Heute</target>
+        <target state="needs-translation">Today</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.tomorrow" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.tomorrow">
         <source>Tomorrow</source>
-        <target state="final">Morgen</target>
+        <target state="needs-translation">Tomorrow</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.weekStart" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.weekStart">
         <source>Beginning Of This Week</source>
-        <target state="final">Anfang dieser Woche</target>
+        <target state="needs-translation">Beginning Of This Week</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.weekEnd" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.weekEnd">
         <source>End Of This Week</source>
-        <target state="final">Ende dieser Woche</target>
+        <target state="needs-translation">End Of This Week</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.plusOneWeek" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.plusOneWeek">
         <source>1 Week From Now</source>
-        <target state="final">Von jetzt an 1 Woche</target>
+        <target state="needs-translation">1 Week From Now</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.monthStart" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.monthStart">
         <source>Beginning Of This Month</source>
-        <target state="final">Beginn dieses Monats</target>
+        <target state="needs-translation">Beginning Of This Month</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.monthEnd" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.monthEnd">
         <source>End Of This Month</source>
-        <target state="final">Ende dieses Monats</target>
+        <target state="needs-translation">End Of This Month</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.plusOneMonth" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.plusOneMonth">
         <source>1 Month From Now</source>
-        <target state="final">1 Monat ab jetzt</target>
+        <target state="needs-translation">1 Month From Now</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.yearStart" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.yearStart">
         <source>Beginning Of This Year</source>
-        <target state="final">Anfang dieses Jahres</target>
+        <target state="needs-translation">Beginning Of This Year</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.yearEnd" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.yearEnd">
         <source>End Of This Year</source>
-        <target state="final">Ende dieses Jahres</target>
+        <target state="needs-translation">End Of This Year</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.quarterStart" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.quarterStart">
         <source>Beginning Of This Quarter</source>
-        <target state="final">Anfang dieses Quartals</target>
+        <target state="needs-translation">Beginning Of This Quarter</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.quarterEnd" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.quarterEnd">
         <source>End Of This Quarter</source>
-        <target state="final">Ende dieses Quartals</target>
+        <target state="needs-translation">End Of This Quarter</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.plusOneYear" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.plusOneYear">
         <source>1 Year From Now</source>
-        <target state="final">Von jetzt an 1 Jahr</target>
+        <target state="needs-translation">1 Year From Now</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.usePageBrowser" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.usePageBrowser">
         <source>Page browser options</source>
-        <target state="final">Seitenbrowser Optionen</target>
+        <target state="needs-translation">Page browser options</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.usePageBrowser.use" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.usePageBrowser.use">
         <source>Enable the page browser</source>
-        <target state="final">Seitenbrowser aktivieren</target>
+        <target state="needs-translation">Enable the page browser</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.usePageBrowser.dontUse" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.usePageBrowser.dontUse">
         <source>Disable the page browser</source>
-        <target state="final">Seitenbrowser deaktivieren</target>
+        <target state="needs-translation">Disable the page browser</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.recordsPerPage" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.recordsPerPage">
         <source>Events per page</source>
-        <target state="final">Ereignisse pro Seite</target>
+        <target state="needs-translation">Events per page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.pagesCount" approved="yes">
+      <trans-unit id="cal.pi_flexform.listView.pagesCount">
         <source>Max pages</source>
-        <target state="final">Maximale Seiten</target>
+        <target state="needs-translation">Max pages</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.maxEvents" approved="yes">
+      <trans-unit id="cal.pi_flexform.maxEvents">
         <source>Max events</source>
-        <target state="final">Maximale Ereignisse</target>
+        <target state="needs-translation">Max events</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.maxRecurringEvents" approved="yes">
+      <trans-unit id="cal.pi_flexform.maxRecurringEvents">
         <source>Max instances of the same recurring event</source>
-        <target state="final">Maximale Anzahl anInstanzen des gleichen wiederkehrenden Ereignisses</target>
+        <target state="needs-translation">Max instances of the same recurring event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetEventView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetEventView">
         <source>Event View</source>
-        <target state="final">Ereignisansicht</target>
+        <target state="needs-translation">Event View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.eventViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.eventViewPid">
         <source>Event view page</source>
-        <target state="final">Event-Ansicht Seite</target>
+        <target state="needs-translation">Event view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.eventTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.eventTemplate">
         <source>Event template</source>
-        <target state="final">Ereignis Vorlage</target>
+        <target state="needs-translation">Event template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.isPreview" approved="yes">
+      <trans-unit id="cal.pi_flexform.isPreview">
         <source>Show preview</source>
-        <target state="final">Vorschau anzeigen</target>
+        <target state="needs-translation">Show preview</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.createEventTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.createEventTemplate">
         <source>Create event template</source>
-        <target state="final">Ereignisvorlage erstellen</target>
+        <target state="needs-translation">Create event template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.confirmEventTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.confirmEventTemplate">
         <source>Confirm event template</source>
-        <target state="final">Ereignisvorlage bestätigen</target>
+        <target state="needs-translation">Confirm event template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.deleteEventTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.deleteEventTemplate">
         <source>Delete event template</source>
-        <target state="final">Ereignisvorlage löschen</target>
+        <target state="needs-translation">Delete event template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetLocationView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetLocationView">
         <source>Location View</source>
-        <target state="final">Standortansicht</target>
+        <target state="needs-translation">Location View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.locationViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.locationViewPid">
         <source>Location view page</source>
-        <target state="final">Standortansicht Seite</target>
+        <target state="needs-translation">Location view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.locationTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.locationTemplate">
         <source>Location template</source>
-        <target state="final">Standortvorlage</target>
+        <target state="needs-translation">Location template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.createLocationTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.createLocationTemplate">
         <source>Create location template</source>
-        <target state="final">Standortvorlage erstellen</target>
+        <target state="needs-translation">Create location template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.confirmLocationTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.confirmLocationTemplate">
         <source>Confirm location template</source>
-        <target state="final">Standortvorlage bestätigen</target>
+        <target state="needs-translation">Confirm location template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetOrganizerView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetOrganizerView">
         <source>Organizer View</source>
-        <target state="final">Veranstalteransicht</target>
+        <target state="needs-translation">Organizer View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.organizerViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.organizerViewPid">
         <source>Organizer view page</source>
-        <target state="final">Veranstalteransicht Seite</target>
+        <target state="needs-translation">Organizer view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.organizerTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.organizerTemplate">
         <source>Organizer template</source>
-        <target state="final">Veranstaltervorlage</target>
+        <target state="needs-translation">Organizer template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetIcsView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetIcsView">
         <source>Ics View</source>
-        <target state="final">ICS Ansicht</target>
+        <target state="needs-translation">Ics View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.icsViewPid" approved="yes">
+      <trans-unit id="cal.pi_flexform.icsViewPid">
         <source>Ics view page</source>
-        <target state="final">ICS-Ansichtsseite</target>
+        <target state="needs-translation">Ics view page</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.icsTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.icsTemplate">
         <source>Ics template</source>
-        <target state="final">ICS-Vorlage</target>
+        <target state="needs-translation">Ics template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calUid" approved="yes">
+      <trans-unit id="cal.pi_flexform.calUid">
         <source>Calendar id</source>
-        <target state="final">Kalender ID</target>
+        <target state="needs-translation">Calendar id</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showIcsLinks" approved="yes">
+      <trans-unit id="cal.pi_flexform.showIcsLinks">
         <source>Show ics links</source>
-        <target state="final">ICS Links anzeigen</target>
+        <target state="needs-translation">Show ics links</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetOtherView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetOtherView">
         <source>Other View</source>
-        <target state="final">Andere Ansichten</target>
+        <target state="needs-translation">Other View</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sidebarTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.sidebarTemplate">
         <source>Sidebar template</source>
-        <target state="final">Seitenleisten-Vorlage</target>
+        <target state="needs-translation">Sidebar template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.searchBoxTemplate" approved="yes">
+      <trans-unit id="cal.pi_flexform.searchBoxTemplate">
         <source>Searchbox template</source>
-        <target state="final">Suchbox Vorlage</target>
+        <target state="needs-translation">Searchbox template</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showLogin" approved="yes">
+      <trans-unit id="cal.pi_flexform.showLogin">
         <source>Show login</source>
-        <target state="final">Login anzeigen</target>
+        <target state="needs-translation">Show login</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showSearch" approved="yes">
+      <trans-unit id="cal.pi_flexform.showSearch">
         <source>Show search</source>
-        <target state="final">Suche anzeigen</target>
+        <target state="needs-translation">Show search</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showJumps" approved="yes">
+      <trans-unit id="cal.pi_flexform.showJumps">
         <source>Show jumps</source>
-        <target state="final">Sprünge anzeigen</target>
+        <target state="needs-translation">Show jumps</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showCalendarSelection" approved="yes">
+      <trans-unit id="cal.pi_flexform.showCalendarSelection">
         <source>Show calendar selector</source>
-        <target state="final">Kalenderauswahl anzeigen</target>
+        <target state="needs-translation">Show calendar selector</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showCategorySelection" approved="yes">
+      <trans-unit id="cal.pi_flexform.showCategorySelection">
         <source>Show category selector</source>
-        <target state="final">Kategorieauswahl anzeigen</target>
+        <target state="needs-translation">Show category selector</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showTomorrowEvents" approved="yes">
+      <trans-unit id="cal.pi_flexform.showTomorrowEvents">
         <source>Show tomorrows events</source>
-        <target state="final">Morgige Ereignisse anzeigen</target>
+        <target state="needs-translation">Show tomorrows events</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetTSView" approved="yes">
+      <trans-unit id="cal.pi_flexform.sheetTSView">
         <source>Typoscript</source>
-        <target state="final">TypoScript</target>
+        <target state="needs-translation">Typoscript</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.tsconfig" approved="yes">
+      <trans-unit id="cal.pi_flexform.tsconfig">
         <source>plugin.tx_cal_controller:</source>
-        <target state="final">plugin.tx_cal_controller:</target>
+        <target state="needs-translation">plugin.tx_cal_controller:</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarDistance" approved="yes">
+      <trans-unit id="cal.pi_flexform.calendarDistance">
         <source>Distance (Km) for events in a nearby calendar (wec_map needed)</source>
-        <target state="final">Entfernung (Km) für Ereignissen einem nahe gelegenen Kalender (wec_map erforderlich)</target>
+        <target state="needs-translation">Distance (Km) for events in a nearby calendar (wec_map needed)</target>
       </trans-unit>
     </body>
   </file>
