@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:16Z" product-name="cal" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" xml:space="preserve" approved="yes">
+				<source>An exception event group is a collection of
+				multiple exception events that can be applied to an event at one
+				time.</source>
+			<target state="final">Bei Ausnahmegruppen handelt es sich um eine Zusammenstellung mehrerer Ausnahmen, die auf diese Weise auf einmal einem Ereignis zugewiesen werden können.</target></trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve" approved="yes">
+				<source>Exception event groups provide the ability to
+				group common exceptions, such as holidays, into one record and apply
+				that single record to an event. As an example, this allows you to
+				close the office for all holidays by adding one exception group to
+				the recurring event for office hours.</source>
+			<target state="final">Mit Hilfe von Ausnahmegruppen lassen sich übliche Ausnahmen, wie z.B. Ferien, in einem Datensatz zusammenfassen, der dann einem Ereignis zugewiesen werden kann. Beispielsweise kann hierüber das Büro über die Ferien geschlossen werden, indem dem wiederkehrenden Ereignis für Arbeitszeiten eine Ausnahmegruppe zugewiesen wird.</target></trans-unit>
+      <trans-unit id="title.description" resname="title.description" approved="yes">
+        <source>Title of the exception event group.</source>
+        <target state="final">Titel dieser Ausnahmegruppe</target>
+      </trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve" approved="yes">
+				<source>Use this to temporarily exclude this exception
+				event from display.</source>
+			<target state="final">Mit dieser Option kann diese Ausnahme zeitweise von der Anzeige ausgeschlossen werden.</target></trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve" approved="yes">
+				<source>The &quot;Start&quot; time determines the date
+				from which the record will be available online.</source>
+			<target state="final">Der Zeitpunkt "Start" legt das Datum fest, von dem an der Datensatz sichtbar sein soll.</target></trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve" approved="yes">
+				<source>The &quot;End&quot; time determines the date from
+				which the db-record will NOT be available online anymore.</source>
+			<target state="final">Der Zeitpunkt "Stopp" legt das Datum fest, von dem an der Datensatz nicht mehr sichtbar sein soll.</target></trans-unit>
+      <trans-unit id="exception_event_cnt.description" resname="exception_event_cnt.description" approved="yes">
+        <source>Assigns exception event records to this group.</source>
+        <target state="final">Gibt an, welche Ausnahmeereignisse dieser Ausnahmegruppe zugeordnet sind.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
