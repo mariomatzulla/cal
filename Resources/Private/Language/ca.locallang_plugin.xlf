@@ -1,60 +1,105 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_plugin.xlf" date="2014-06-02T11:47:43Z" product-name="cal" target-language="ca">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:35:25Z" product-name="cal" target-language="ca">
     <header/>
     <body>
-      <trans-unit id="pi1_title">
+      <trans-unit id="pi1_title" resname="pi1_title">
         <source>Calendar</source>
         <target state="needs-translation">Calendar</target>
       </trans-unit>
-      <trans-unit id="pi1_plus_wiz_description">
-        <source>A Calendar designed to fit the needs of a community, FE and BE entries</source>
-        <target state="needs-translation">A Calendar designed to fit the needs of a community, FE and BE entries</target>
-      </trans-unit>
-      <trans-unit id="extmng.useInternalCaching">
-        <source>Internal caching: If enabled cal caches some processing intensive information (archive period count, category count, categories) in an internal cache.</source>
-        <target state="needs-translation">Internal caching: If enabled cal caches some processing intensive information (archive period count, category count, categories) in an internal cache.</target>
-      </trans-unit>
-      <trans-unit id="extmng.writeCachingInfoToDevlog">
-        <source>Debug caching info: Which information about internal caching should be written to devlog (extension "devlog" required)."disabled": don't write any information about caching to devlog.
-					"cache misses": log only cache misses. "all": log cache misses and cache hits to devlog.</source>
-        <target state="needs-translation">Debug caching info: Which information about internal caching should be written to devlog (extension "devlog" required)."disabled": don't write any information about caching to devlog.
-					"cache misses": log only cache misses. "all": log cache misses and cache hits to devlog.</target>
-      </trans-unit>
-      <trans-unit id="extmng.cachingMode">
-        <source>Caching Mode: Determines the cache entries lifetime and when the internal cache from cal will be cleared.
-					"normal": (default) the cache entries will get the same lifetime as normal pages. The cal cache will be cleared when the "clear all caches" button is pressed.
-					"lifetime": will set the livetime of cache entries to the given amount of seconds in field "cacheLifetime". The cache table is not cleared when "clear all caches" is clicked.
-					"static": means: the lifetime of cache entries is set to zero (= unlimited). TYPO3 does not clear the cal cache (useful if you clear the cache with an external script or for debugging).
-				</source>
-        <target state="needs-translation">Caching Mode: Determines the cache entries lifetime and when the internal cache from cal will be cleared.
-					"normal": (default) the cache entries will get the same lifetime as normal pages. The cal cache will be cleared when the "clear all caches" button is pressed.
-					"lifetime": will set the livetime of cache entries to the given amount of seconds in field "cacheLifetime". The cache table is not cleared when "clear all caches" is clicked.
-					"static": means: the lifetime of cache entries is set to zero (= unlimited). TYPO3 does not clear the cal cache (useful if you clear the cache with an external script or for debugging).
-				</target>
-      </trans-unit>
-      <trans-unit id="extmng.cacheLifetime">
-        <source>Cache lifetime: lifetime in seconds of the internal cache entries (if "cachingMode" is set to "lifetime").
-					example: 86400 (a day), 604800 (a week)
-				</source>
-        <target state="needs-translation">Cache lifetime: lifetime in seconds of the internal cache entries (if "cachingMode" is set to "lifetime").
-					example: 86400 (a day), 604800 (a week)
-				</target>
-      </trans-unit>
-      <trans-unit id="extmng.cachingEngine">
-        <source>Caching engine: where should the cache entries from cal be stored.
-					"internal": store cache records directly in the database using internal methods.
-					"cachingFramework" Requires at least TYPO3 4.3: store cache records in the TYPO3 caching framework (in the default configuration cal uses the DB backend of the caching framework).
-				</source>
-        <target state="needs-translation">Caching engine: where should the cache entries from cal be stored.
-					"internal": store cache records directly in the database using internal methods.
-					"cachingFramework" Requires at least TYPO3 4.3: store cache records in the TYPO3 caching framework (in the default configuration cal uses the DB backend of the caching framework).
-				</target>
-      </trans-unit>
-      <trans-unit id="extmng.treeOrderBy">
-        <source>Category ordering in BackEnd trees: Here you can configure the the ordering of categories in category trees in BackEnd forms.</source>
-        <target state="needs-translation">Category ordering in BackEnd trees: Here you can configure the the ordering of categories in category trees in BackEnd forms.</target>
-      </trans-unit>
+      <trans-unit id="pi1_plus_wiz_description" resname="pi1_plus_wiz_description" xml:space="preserve">
+				<source>A Calendar designed to fit the needs of a
+				community, FE and BE entries</source>
+			<target state="needs-translation">A Calendar designed to fit the needs of a
+				community, FE and BE entries</target></trans-unit>
+      <trans-unit id="extmng.useInternalCaching" resname="extmng.useInternalCaching" xml:space="preserve">
+				<source>Internal caching: If enabled cal caches some
+				processing intensive information (archive period count,
+				category
+				count, categories) in an internal cache.</source>
+			<target state="needs-translation">Internal caching: If enabled cal caches some
+				processing intensive information (archive period count,
+				category
+				count, categories) in an internal cache.</target></trans-unit>
+      <trans-unit id="extmng.writeCachingInfoToDevlog" resname="extmng.writeCachingInfoToDevlog" xml:space="preserve">
+				<source>Debug caching info: Which information about
+				internal caching should be written to devlog
+				(extension &quot;devlog&quot;
+				required).&quot;disabled&quot;: don't write any information about
+				caching to
+				devlog. &quot;cache misses&quot;: log only cache misses.
+				&quot;all&quot;: log cache
+				misses and cache hits to devlog.</source>
+			<target state="needs-translation">Debug caching info: Which information about
+				internal caching should be written to devlog
+				(extension "devlog"
+				required)."disabled": don't write any information about
+				caching to
+				devlog. "cache misses": log only cache misses.
+				"all": log cache
+				misses and cache hits to devlog.</target></trans-unit>
+      <trans-unit id="extmng.cachingMode" resname="extmng.cachingMode" xml:space="preserve">
+				<source>Caching Mode: Determines the cache entries
+				lifetime and when the internal cache from cal will be cleared.
+				&quot;normal&quot;: (default) the cache entries will get the same lifetime as
+				normal pages. The cal cache will be cleared
+				when the &quot;clear all
+				caches&quot; button is pressed.
+				&quot;lifetime&quot;: will set the livetime of cache
+				entries to the given amount of
+				seconds in field &quot;cacheLifetime&quot;. The
+				cache table is not cleared
+				when &quot;clear all caches&quot; is clicked.
+				&quot;static&quot;: means: the lifetime of cache entries is set to zero (=
+				unlimited).
+				TYPO3 does not clear the cal cache (useful if you clear
+				the cache
+				with an external script or
+				for debugging).</source>
+			<target state="needs-translation">Caching Mode: Determines the cache entries
+				lifetime and when the internal cache from cal will be cleared.
+				"normal": (default) the cache entries will get the same lifetime as
+				normal pages. The cal cache will be cleared
+				when the "clear all
+				caches" button is pressed.
+				"lifetime": will set the livetime of cache
+				entries to the given amount of
+				seconds in field "cacheLifetime". The
+				cache table is not cleared
+				when "clear all caches" is clicked.
+				"static": means: the lifetime of cache entries is set to zero (=
+				unlimited).
+				TYPO3 does not clear the cal cache (useful if you clear
+				the cache
+				with an external script or
+				for debugging).</target></trans-unit>
+      <trans-unit id="extmng.cacheLifetime" resname="extmng.cacheLifetime" xml:space="preserve">
+				<source>Cache lifetime: lifetime in seconds of the
+				internal cache entries (if &quot;cachingMode&quot; is set to &quot;lifetime&quot;).
+				example: 86400 (a day), 604800 (a week)</source>
+			<target state="needs-translation">Cache lifetime: lifetime in seconds of the
+				internal cache entries (if "cachingMode" is set to "lifetime").
+				example: 86400 (a day), 604800 (a week)</target></trans-unit>
+      <trans-unit id="extmng.cachingEngine" resname="extmng.cachingEngine" xml:space="preserve">
+				<source>Caching engine: where should the cache entries
+				from cal be stored. &quot;internal&quot;: store cache records directly in the
+				database using internal methods. &quot;cachingFramework&quot; Requires at
+				least TYPO3 4.3: store cache records in the TYPO3 caching framework
+				(in the default configuration cal uses the DB backend of the caching
+				framework).</source>
+			<target state="needs-translation">Caching engine: where should the cache entries
+				from cal be stored. "internal": store cache records directly in the
+				database using internal methods. "cachingFramework" Requires at
+				least TYPO3 4.3: store cache records in the TYPO3 caching framework
+				(in the default configuration cal uses the DB backend of the caching
+				framework).</target></trans-unit>
+      <trans-unit id="extmng.treeOrderBy" resname="extmng.treeOrderBy" xml:space="preserve">
+				<source>Category ordering in BackEnd trees: Here you can
+				configure the the ordering of categories in category trees in
+				BackEnd forms.</source>
+			<target state="needs-translation">Category ordering in BackEnd trees: Here you can
+				configure the the ordering of categories in category trees in
+				BackEnd forms.</target></trans-unit>
     </body>
   </file>
 </xliff>
