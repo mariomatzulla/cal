@@ -1,417 +1,1265 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang.xlf" date="2022-04-05T11:47:43Z" product-name="cal">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:31:50Z" product-name="cal">
 		<header/>
 		<body>
-			<trans-unit id="l_day"><source>Day</source></trans-unit>
-			<trans-unit id="l_week"><source>Week</source></trans-unit>
-			<trans-unit id="l_month"><source>Month</source></trans-unit>
-			<trans-unit id="l_year"><source>Year</source></trans-unit>
-			<trans-unit id="l_list"><source>List</source></trans-unit>
-			<trans-unit id="l_calendar"><source>Calendar</source></trans-unit>
-			<trans-unit id="l_create_calendar"><source>Create calendar</source></trans-unit>
-			<trans-unit id="l_administration_view"><source>Calendar Administration</source></trans-unit>
-			<trans-unit id="l_edit_calendar"><source>Edit calendar</source></trans-unit>
-			<trans-unit id="l_confirm_calendar"><source>Confirm calendar</source></trans-unit>
-			<trans-unit id="l_delete_calendar"><source>Delete calendar</source></trans-unit>
-			<trans-unit id="l_create_exception"><source>Create exception</source></trans-unit>
-			<trans-unit id="l_next_day"><source>Next Day</source></trans-unit>
-			<trans-unit id="l_next_month"><source>Next Month</source></trans-unit>
-			<trans-unit id="l_next_week"><source>Next Week</source></trans-unit>
-			<trans-unit id="l_next_year"><source>Next Year</source></trans-unit>
-			<trans-unit id="l_last_day"><source>Previous Day</source></trans-unit>
-			<trans-unit id="l_last_month"><source>Previous Month</source></trans-unit>
-			<trans-unit id="l_last_week"><source>Previous Week</source></trans-unit>
-			<trans-unit id="l_last_year"><source>Previous Year</source></trans-unit>
-			<trans-unit id="l_subscribe"><source>Subscribe</source></trans-unit>
-			<trans-unit id="l_download"><source>Download</source></trans-unit>
-			<trans-unit id="l_powered_by"><source>Powered by</source></trans-unit>
-			<trans-unit id="l_event"><source>Event</source></trans-unit>
-			<trans-unit id="l_events"><source>Events</source></trans-unit>
-			<trans-unit id="l_no_events"><source>No events found.</source></trans-unit>
-			<trans-unit id="l_event_start"><source>Start Time</source></trans-unit>
-			<trans-unit id="l_event_end"><source>End Time</source></trans-unit>
-			<trans-unit id="l_this_months"><source>This Month's Events</source></trans-unit>
-			<trans-unit id="l_date"><source>Date</source></trans-unit>
-			<trans-unit id="l_summary"><source>Summary</source></trans-unit>
-			<trans-unit id="l_all_day"><source>All day event</source></trans-unit>
-			<trans-unit id="l_notes"><source>Notes</source></trans-unit>
-			<trans-unit id="l_this_years"><source>This Year's Events</source></trans-unit>
-			<trans-unit id="l_today"><source>Today</source></trans-unit>
-			<trans-unit id="l_this_week"><source>This Week</source></trans-unit>
-			<trans-unit id="l_this_month"><source>This Month</source></trans-unit>
-			<trans-unit id="l_jump"><source>Jump to</source></trans-unit>
-			<trans-unit id="l_tomorrows"><source>Tomorrow's Events</source></trans-unit>
-			<trans-unit id="l_goday"><source>Go to Today</source></trans-unit>
-			<trans-unit id="l_goweek"><source>Go to This Week</source></trans-unit>
-			<trans-unit id="l_gomonth"><source>Go to This Month</source></trans-unit>
-			<trans-unit id="l_goyear"><source>Go to This Year</source></trans-unit>
-			<trans-unit id="l_search"><source>Search</source></trans-unit>
-			<trans-unit id="l_search_everything"><source>Search everything</source></trans-unit>
-			<trans-unit id="l_dosearch"><source>Search</source></trans-unit>
-			<trans-unit id="l_query_for"><source>Search for</source></trans-unit>
-			<trans-unit id="l_search_string"><source>Search string</source></trans-unit>
-			<trans-unit id="l_results"><source>Search Results</source></trans-unit>
-			<trans-unit id="l_query"><source>Query</source></trans-unit>
-			<trans-unit id="l_no_results"><source>No events found.</source></trans-unit>
-			<trans-unit id="l_no_location_results"><source>No locations found.</source></trans-unit>
-			<trans-unit id="l_no_organizer_results"><source>No organizers found.</source></trans-unit>
-			<trans-unit id="l_goprint"><source>Printer Friendly</source></trans-unit>
-			<trans-unit id="l_time"><source>Time</source></trans-unit>
-			<trans-unit id="l_teaser"><source>Teaser</source></trans-unit>
-			<trans-unit id="l_description"><source>Description</source></trans-unit>
-			<trans-unit id="l_no_title"><source>No title</source></trans-unit>
-			<trans-unit id="l_this_site_is"><source>This site is</source></trans-unit>
-			<trans-unit id="l_no_events_day"><source>No events today.</source></trans-unit>
-			<trans-unit id="l_no_events_week"><source>No events this week.</source></trans-unit>
-			<trans-unit id="l_no_events_month"><source>No events this month.</source></trans-unit>
-			<trans-unit id="l_rss_day_date"><source>g:i A</source></trans-unit>
-			<trans-unit id="l_rss_week_date"><source>%b %e</source></trans-unit>
-			<trans-unit id="l_rss_month_date"><source>%b %e</source></trans-unit>
-			<trans-unit id="l_rss_language"><source>en-us</source></trans-unit>
-			<trans-unit id="l_search_took"><source>Search took %s seconds</source></trans-unit>
-			<trans-unit id="l_recurring_event"><source>Recurring event</source></trans-unit>
-			<trans-unit id="l_exception"><source>Exception</source></trans-unit>
-			<trans-unit id="l_no_query"><source>No query given</source></trans-unit>
-			<trans-unit id="l_preferences"><source>Preferences</source></trans-unit>
-			<trans-unit id="l_printer"><source>Printer</source></trans-unit>
-			<trans-unit id="l_select_lang"><source>Select your default language:</source></trans-unit>
-			<trans-unit id="l_select_cal"><source>Select your default calendar:</source></trans-unit>
-			<trans-unit id="l_select_view"><source>Select your default view:</source></trans-unit>
-			<trans-unit id="l_select_time"><source>Select your default start time:</source></trans-unit>
-			<trans-unit id="l_select_day"><source>Select your default start day of week:</source></trans-unit>
-			<trans-unit id="l_select_style"><source>Select your default style:</source></trans-unit>
-			<trans-unit id="l_set_prefs"><source>Set preferences</source></trans-unit>
-			<trans-unit id="l_completed_date"><source>Completed on</source></trans-unit>
-			<trans-unit id="l_completed"><source>Completed</source></trans-unit>
-			<trans-unit id="l_created"><source>Created</source></trans-unit>
-			<trans-unit id="l_create"><source>Create</source></trans-unit>
-			<trans-unit id="l_due"><source>Due</source></trans-unit>
-			<trans-unit id="l_priority"><source>Priority</source></trans-unit>
-			<trans-unit id="l_priority_high"><source>High</source></trans-unit>
-			<trans-unit id="l_priority_low"><source>Low</source></trans-unit>
-			<trans-unit id="l_priority_medium"><source>Medium</source></trans-unit>
-			<trans-unit id="l_priority_none"><source>None</source></trans-unit>
-			<trans-unit id="l_status"><source>Status</source></trans-unit>
-			<trans-unit id="l_todo"><source>To do items</source></trans-unit>
-			<trans-unit id="l_unfinished"><source>Unfinished</source></trans-unit>
-			<trans-unit id="l_prefs_set"><source>Your preferences have been set.</source></trans-unit>
-			<trans-unit id="l_prefs_unset"><source>Preferences unset. Changes will take place next page load.</source></trans-unit>
-			<trans-unit id="l_unset_prefs"><source>Unset preferences:</source></trans-unit>
-			<trans-unit id="l_organizer"><source>Organizer</source></trans-unit>
-			<trans-unit id="l_edit_organizer"><source>Edit Organizer</source></trans-unit>
-			<trans-unit id="l_delete_organizer"><source>Delete Organizer</source></trans-unit>
-			<trans-unit id="l_organizers"><source>Organizers</source></trans-unit>
-			<trans-unit id="l_attendee"><source>Attendee</source></trans-unit>
-			<trans-unit id="l_location"><source>Location</source></trans-unit>
-			<trans-unit id="l_edit_location"><source>Edit Location</source></trans-unit>
-			<trans-unit id="l_delete_location"><source>Delete Location</source></trans-unit>
-			<trans-unit id="l_locations"><source>Locations</source></trans-unit>
-			<trans-unit id="l_admin_header"><source>Calendar Administration</source></trans-unit>
-			<trans-unit id="l_username"><source>Username</source></trans-unit>
-			<trans-unit id="l_password"><source>Password</source></trans-unit>
-			<trans-unit id="l_login"><source>Login</source></trans-unit>
-			<trans-unit id="l_invalid_login"><source>Wrong username or password.</source></trans-unit>
-			<trans-unit id="l_addupdate_cal"><source>Add or Update a Calendar</source></trans-unit>
-			<trans-unit id="l_addupdate_desc"><source>Add a calendar by uploading a new file. Update a calendar by uploading a file of the same name.</source></trans-unit>
-			<trans-unit id="l_delete_cal"><source>Delete a Calendar</source></trans-unit>
-			<trans-unit id="l_logout"><source>Logout</source></trans-unit>
-			<trans-unit id="l_cal_file"><source>Calendar File</source></trans-unit>
-			<trans-unit id="l_php_error"><source>PHP Error</source></trans-unit>
-			<trans-unit id="l_upload_error_type"><source>Only .ics files may be uploaded.</source></trans-unit>
-			<trans-unit id="l_copy_error"><source>Failed to copy file</source></trans-unit>
-			<trans-unit id="l_delete_confirm"><source>Do you really want to delete?</source></trans-unit>
-			<trans-unit id="l_delete_error"><source>Failed to delete file</source></trans-unit>
-			<trans-unit id="l_delete_success"><source>was deleted successfully.</source></trans-unit>
-			<trans-unit id="l_action_success"><source>Your action was successful.</source></trans-unit>
-			<trans-unit id="l_submit"><source>Submit</source></trans-unit>
-			<trans-unit id="l_edit"><source>Edit</source></trans-unit>
-			<trans-unit id="l_delete"><source>Delete</source></trans-unit>
-			<trans-unit id="l_refresh"><source>Refresh</source></trans-unit>
-			<trans-unit id="l_all_cal_comb_lang"><source>All Combined</source></trans-unit>
-			<trans-unit id="l_legend"><source>Legend</source></trans-unit>
-			<trans-unit id="l_admin_subhead"><source>Manage your calendars from this page</source></trans-unit>
-			<trans-unit id="l_prefs_subhead"><source>Sets a cookie for visiting this site</source></trans-unit>
-			<trans-unit id="l_rss_info"><source>RSS Information</source></trans-unit>
-			<trans-unit id="l_rss_subhead"><source>Basic RSS feeds available for each calendar</source></trans-unit>
-			<trans-unit id="l_rss_notenabled"><source>RSS is not enabled on this site</source></trans-unit>
-			<trans-unit id="l_back"><source>Back</source></trans-unit>
-			<trans-unit id="l_next"><source>Next</source></trans-unit>
-			<trans-unit id="l_prev"><source>Prev</source></trans-unit>
-			<trans-unit id="l_day_view"><source>Day View</source></trans-unit>
-			<trans-unit id="l_week_view"><source>Week View</source></trans-unit>
-			<trans-unit id="l_month_view"><source>Month View</source></trans-unit>
-			<trans-unit id="l_year_view"><source>Year View</source></trans-unit>
-			<trans-unit id="l_event_view"><source>Event View</source></trans-unit>
-			<trans-unit id="l_search_view"><source>Search</source></trans-unit>
-			<trans-unit id="l_ics_view"><source>ICS</source></trans-unit>
-			<trans-unit id="l_icslist_title"><source>List of available ics-files to download</source></trans-unit>
-			<trans-unit id="l_list_view"><source>List View</source></trans-unit>
-			<trans-unit id="format_recur_lang_delimiter"><source>, </source></trans-unit>
-			<trans-unit id="l_format_recur_lang_yearly_single"><source>year</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_yearly_multiple"><source>years</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_monthly_single"><source>month</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_monthly_multiple"><source>months</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_weekly_single"><source>week</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_weekly_multiple"><source>weeks</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_daily_single"><source>day</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_daily_multiple"><source>days</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_hourly_single"><source>hour</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_hourly_multiple"><source>hours</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_minutely_single"><source>minute</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_minutely_multiple"><source>minutes</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_secondly_single"><source>second</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_secondly_multiple"><source>seconds</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_start"><source>Every %int% %freq% %for%</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_until"><source>until %date%</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_count"><source>for a count of %int%</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_bymonth"><source>In months: %list%</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_bymonthday"><source>On dates: %list%</source></trans-unit>
-			<trans-unit id="l_format_recur_lang_byday"><source>On days: %list%</source></trans-unit>
-			<trans-unit id="l_daysofweek_all"><source>All Days</source></trans-unit>
-			<trans-unit id="l_monthsofyear_all"><source>All Months</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_sunday"><source>Sunday</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_monday"><source>Monday</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_tuesday"><source>Tuesday</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_wednesday"><source>Wednesday</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_thursday"><source>Thursday</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_friday"><source>Friday</source></trans-unit>
-			<trans-unit id="l_daysofweek_lang_saturday"><source>Saturday</source></trans-unit>
-			<trans-unit id="l_error_title"><source>Error!</source></trans-unit>
-			<trans-unit id="l_error_window"><source>There was an error!</source></trans-unit>
-			<trans-unit id="l_error_calendar"><source>The calendar &quot;%s&quot; was being processed when this error occurred.</source></trans-unit>
-			<trans-unit id="l_error_path"><source>Unable to open the path: &quot;%s&quot;</source></trans-unit>
-			<trans-unit id="l_error_back"><source>Please use the &quot;Back&quot; button to return.</source></trans-unit>
-			<trans-unit id="l_error_remotecal"><source>This server blocks remote calendars which have not been approved.</source></trans-unit>
-			<trans-unit id="l_error_restrictedcal"><source>You have tried to access a calendar that is restricted on this server.</source></trans-unit>
-			<trans-unit id="l_error_invalidcal"><source>Invalid calendar file. Please try a different calendar.</source></trans-unit>
-			<trans-unit id="l_error_cantopen"><source>Unable to open calendar.</source></trans-unit>
-			<trans-unit id="l_error_cache"><source>Unable to write to cache directory. Please check your config.</source></trans-unit>
-			<trans-unit id="l_error_noCategory"><source>You can not create an event without a category. Please create a category first</source></trans-unit>
-			<trans-unit id="l_monitor_event_not_logged_in"><source>&lt;br /&gt;&lt;br /&gt;</source></trans-unit>
-			<trans-unit id="l_monitor_event_logged_in_nomonitoring"><source>Subscribe to this event?</source></trans-unit>
-			<trans-unit id="l_monitor_event_logged_in_monitoring"><source>Unsubscribe?</source></trans-unit>
-			<trans-unit id="l_monitor_login_in_for_monitoring"><source>Please log in to manage your subscriptions.</source></trans-unit>
-			<trans-unit id="l_manage_subscription"><source>Manage your subscriptions</source></trans-unit>
-			<trans-unit id="l_monitor_event_unsubscribe_successful"><source>You have been unsubscribed from the event &quot;%s&quot;. You will no longer receive notifications about this event.</source></trans-unit>
-			<trans-unit id="l_monitor_event_unsubscribe_error"><source>There were problems unsubscribing you from the event &quot;%s&quot;.</source></trans-unit>
-			<trans-unit id="l_monitor_event_unsubscribe_noevent"><source>The event you are trying to unsubscribe does not exist anymore.</source></trans-unit>
-			<trans-unit id="l_monitor_event_subscribe_successful"><source>You have been subscribed to the event &quot;%s&quot;. You will receive notifications when the event approaches or if any important details are changed.</source></trans-unit>
-			<trans-unit id="l_monitor_event_subscribe_error"><source>There were problems subscribing you to the event &quot;%s&quot;.</source></trans-unit>
-			<trans-unit id="l_monitor_event_subscribe_noevent"><source>The event you are trying to subscribe does not exist anymore.</source></trans-unit>
-			<trans-unit id="l_fe_user"><source>User</source></trans-unit>
-			<trans-unit id="l_calendar_title"><source>Title</source></trans-unit>
-			<trans-unit id="l_calendar_owner"><source>Owner</source></trans-unit>
-			<trans-unit id="l_calendar_activate_freeandbusy"><source>Enable Free- and Busy view</source></trans-unit>
-			<trans-unit id="l_calendar_freeandbusyuser"><source>Free- and Busy user</source></trans-unit>
-			<trans-unit id="l_calendar_type"><source>Type</source></trans-unit>
-			<trans-unit id="l_calendar_type0"><source>Normal</source></trans-unit>
-			<trans-unit id="l_calendar_exturl"><source>External URL</source></trans-unit>
-			<trans-unit id="l_calendar_icsfile"><source>Local ICS file</source></trans-unit>
-			<trans-unit id="l_ics_file_upload"><source>Upload ICS file</source></trans-unit>
-			<trans-unit id="l_delete_icsfile"><source>Delete current ICS file</source></trans-unit>
-			<trans-unit id="l_calendar_refresh"><source>Refresh interval in minutes</source></trans-unit>
-			<trans-unit id="l_category"><source>Category</source></trans-unit>
-			<trans-unit id="l_global_category"><source>General Category</source></trans-unit>
-			<trans-unit id="l_delete_category"><source>Delete Category</source></trans-unit>
-			<trans-unit id="l_confirm_category"><source>Confirm Category</source></trans-unit>
-			<trans-unit id="l_category_selector"><source>Select category</source></trans-unit>
-			<trans-unit id="l_category_title"><source>Title</source></trans-unit>
-			<trans-unit id="l_category_headerstyle"><source>Header Style</source></trans-unit>
-			<trans-unit id="l_category_bodystyle"><source>Body Style</source></trans-unit>
-			<trans-unit id="l_category_calendar"><source>Calendar</source></trans-unit>
-			<trans-unit id="l_category_parent_category"><source>Parent Category</source></trans-unit>
-			<trans-unit id="l_category_shared_user_allowed"><source>Shared User Allowed</source></trans-unit>
-			<trans-unit id="l_event_general"><source>General</source></trans-unit>
-			<trans-unit id="l_event_category"><source>Category</source></trans-unit>
-			<trans-unit id="l_event_category_selected"><source>Selected Category</source></trans-unit>
-			<trans-unit id="l_event_user"><source>Creator, creator group</source></trans-unit>
-			<trans-unit id="l_event_user_selected"><source>Selected creator, creator group</source></trans-unit>
-			<trans-unit id="l_event_title"><source>Title</source></trans-unit>
-			<trans-unit id="l_event_edit_startdate"><source>Start date</source></trans-unit>
-			<trans-unit id="l_event_edit_enddate"><source>End date</source></trans-unit>
-			<trans-unit id="l_event_edit_starttime"><source>Start time</source></trans-unit>
-			<trans-unit id="l_event_edit_endtime"><source>End time</source></trans-unit>
-			<trans-unit id="l_event_startdate"><source>Start date</source></trans-unit>
-			<trans-unit id="l_event_enddate"><source>End date</source></trans-unit>
-			<trans-unit id="l_event_starttime"><source>Start time</source></trans-unit>
-			<trans-unit id="l_event_endtime"><source>End time</source></trans-unit>
-			<trans-unit id="l_event_allday"><source>Allday</source></trans-unit>
-			<trans-unit id="l_event_organizer"><source>Organizer</source></trans-unit>
-			<trans-unit id="l_event_location"><source>Location</source></trans-unit>
-			<trans-unit id="l_event_teaser"><source>Teaser</source></trans-unit>
-			<trans-unit id="l_event_description"><source>Description</source></trans-unit>
-			<trans-unit id="l_event_cal_organizer"><source>Cal Organizer</source></trans-unit>
-			<trans-unit id="l_event_cal_location"><source>Cal Location</source></trans-unit>
-			<trans-unit id="l_event_frequency"><source>Frequency</source></trans-unit>
-			<trans-unit id="l_event_edit_byday"><source>By Day</source></trans-unit>
-			<trans-unit id="l_event_edit_bymonthday"><source>By Monthday (e.g.: 1,2,30 or all)</source></trans-unit>
-			<trans-unit id="l_event_edit_bymonth"><source>By Month (e.g.: 1,2,3,4,12 or all)</source></trans-unit>
-			<trans-unit id="l_event_edit_until"><source>Until Date</source></trans-unit>
-			<trans-unit id="l_event_byday"><source>By Day</source></trans-unit>
-			<trans-unit id="l_event_bymonthday"><source>By Monthday</source></trans-unit>
-			<trans-unit id="l_event_bymonth"><source>By Month</source></trans-unit>
-			<trans-unit id="l_event_until"><source>Until Date</source></trans-unit>
-			<trans-unit id="l_event_count"><source>Count</source></trans-unit>
-			<trans-unit id="l_event_interval"><source>Interval</source></trans-unit>
-			<trans-unit id="l_event_exception"><source>Exception</source></trans-unit>
-			<trans-unit id="l_event_exception_selected"><source>Selected exception</source></trans-unit>
-			<trans-unit id="l_event_fe_cruser"><source>Creator</source></trans-unit>
-			<trans-unit id="l_event_fe_crgroup"><source>Creator Group</source></trans-unit>
-			<trans-unit id="l_event_notify"><source>Notify and remind</source></trans-unit>
-			<trans-unit id="l_event_shared"><source>Share with</source></trans-unit>
-			<trans-unit id="l_event_icslink"><source>Get this event as *.ics calendar entry</source></trans-unit>
-			<trans-unit id="l_event_image"><source>Image</source></trans-unit>
-			<trans-unit id="l_event_image_caption"><source>Caption</source></trans-unit>
-			<trans-unit id="l_event_image_title"><source>Title text</source></trans-unit>
-			<trans-unit id="l_event_image_alt"><source>Alt text</source></trans-unit>
-			<trans-unit id="l_event_attachment"><source>Attachment</source></trans-unit>
-			<trans-unit id="l_event_type"><source>Type</source></trans-unit>
-			<trans-unit id="l_event_type_0"><source>Event</source></trans-unit>
-			<trans-unit id="l_event_type_1"><source>Internal link</source></trans-unit>
-			<trans-unit id="l_event_type_2"><source>External link</source></trans-unit>
-			<trans-unit id="l_event_type_3"><source>Meeting</source></trans-unit>
-			<trans-unit id="l_event_type_4"><source>Todo</source></trans-unit>
-			<trans-unit id="l_event_attendee_0"><source>Status: Unknown</source></trans-unit>
-			<trans-unit id="l_event_attendee_CHAIR"><source>Status: Chairman</source></trans-unit>
-			<trans-unit id="l_event_attendee_OPT-PARTICIPANT"><source>Status: Optional</source></trans-unit>
-			<trans-unit id="l_event_attendee_REQ-PARTICIPANT"><source>Status: Required</source></trans-unit>
-			<trans-unit id="l_event_exturl"><source>Link</source></trans-unit>
-			<trans-unit id="l_category_relatedevents"><source>Related event(s)</source></trans-unit>
-			<trans-unit id="l_todo_enddate"><source>Due date</source></trans-unit>
-			<trans-unit id="l_todo_endtime"><source>Due time</source></trans-unit>
-			<trans-unit id="l_todo_status"><source>Status</source></trans-unit>
-			<trans-unit id="l_todo_priority"><source>Priority</source></trans-unit>
-			<trans-unit id="l_todo_completed"><source>Completed</source></trans-unit>
-			<trans-unit id="l_sendout_invitation"><source>Send out invitation</source></trans-unit>
-			<trans-unit id="l_attendee_external"><source>Guests</source></trans-unit>
-			<trans-unit id="l_guest_info"><source>Insert comma separated email addresses</source></trans-unit>
-			<trans-unit id="l_availability"><source>Check availability</source></trans-unit>
-			<trans-unit id="l_location_name"><source>Name</source></trans-unit>
-			<trans-unit id="l_location_description"><source>Description</source></trans-unit>
-			<trans-unit id="l_location_street"><source>Street</source></trans-unit>
-			<trans-unit id="l_location_zip"><source>Zip-code</source></trans-unit>
-			<trans-unit id="l_location_city"><source>City</source></trans-unit>
-			<trans-unit id="l_location_countryzone"><source>State/Province</source></trans-unit>
-			<trans-unit id="l_location_country"><source>Country</source></trans-unit>
-			<trans-unit id="l_location_phone"><source>Phone</source></trans-unit>
-			<trans-unit id="l_location_mobilephone"><source>Mobile Phone</source></trans-unit>
-			<trans-unit id="l_location_fax"><source>Fax</source></trans-unit>
-			<trans-unit id="l_location_email"><source>Email</source></trans-unit>
-			<trans-unit id="l_location_link"><source>Link</source></trans-unit>
-			<trans-unit id="l_location_image"><source>Image</source></trans-unit>
-			<trans-unit id="l_location_relatedevents"><source>Related event(s)</source></trans-unit>
-			<trans-unit id="l_organizer_name"><source>Name</source></trans-unit>
-			<trans-unit id="l_organizer_description"><source>Description</source></trans-unit>
-			<trans-unit id="l_organizer_street"><source>Street</source></trans-unit>
-			<trans-unit id="l_organizer_zip"><source>Zip-code</source></trans-unit>
-			<trans-unit id="l_organizer_city"><source>City</source></trans-unit>
-			<trans-unit id="l_organizer_countryzone"><source>State/Province</source></trans-unit>
-			<trans-unit id="l_organizer_country"><source>Country</source></trans-unit>
-			<trans-unit id="l_organizer_phone"><source>Phone</source></trans-unit>
-			<trans-unit id="l_organizer_mobilephone"><source>Mobile Phone</source></trans-unit>
-			<trans-unit id="l_organizer_fax"><source>Fax</source></trans-unit>
-			<trans-unit id="l_organizer_email"><source>Email</source></trans-unit>
-			<trans-unit id="l_organizer_link"><source>Link</source></trans-unit>
-			<trans-unit id="l_organizer_image"><source>Image</source></trans-unit>
-			<trans-unit id="l_organizer_relatedevents"><source>Related event(s)</source></trans-unit>
-			<trans-unit id="l_select"><source>Please choose one</source></trans-unit>
-			<trans-unit id="l_none"><source>None</source></trans-unit>
-			<trans-unit id="l_hidden"><source>Hide</source></trans-unit>
-			<trans-unit id="l_cancel"><source>Cancel</source></trans-unit>
-			<trans-unit id="l_save"><source>Save</source></trans-unit>
-			<trans-unit id="l_true"><source>True</source></trans-unit>
-			<trans-unit id="l_false"><source>False</source></trans-unit>
-			<trans-unit id="l_more"><source>[more]</source></trans-unit>
-			<trans-unit id="l_event_more"><source>[more]</source></trans-unit>
-			<trans-unit id="l_all_category"><source>All</source></trans-unit>
-			<trans-unit id="l_all_location"><source>All</source></trans-unit>
-			<trans-unit id="l_all_organizer"><source>All</source></trans-unit>
-			<trans-unit id="l_global"><source>Global</source></trans-unit>
-			<trans-unit id="l_edit_event"><source>Edit event</source></trans-unit>
-			<trans-unit id="l_create_event"><source>Create event</source></trans-unit>
-			<trans-unit id="l_new_event"><source>New event</source></trans-unit>
-			<trans-unit id="l_create_location"><source>Create location</source></trans-unit>
-			<trans-unit id="l_create_organizer"><source>Create organizer</source></trans-unit>
-			<trans-unit id="l_create_category"><source>Create category</source></trans-unit>
-			<trans-unit id="l_calendar_icslink"><source>Download *.ics file</source></trans-unit>
-			<trans-unit id="l_edit_event_atleastone_category"><source>You have to select at least one category</source></trans-unit>
-			<trans-unit id="l_confirm_event"><source>Confirm event</source></trans-unit>
-			<trans-unit id="l_confirm_location"><source>Confirm location</source></trans-unit>
-			<trans-unit id="l_confirm_organizer"><source>Confirm organizer</source></trans-unit>
-			<trans-unit id="l_enter_email"><source>Enter email-address:</source></trans-unit>
-			<trans-unit id="l_captcha_text"><source>Please insert the text you see in the picture:</source></trans-unit>
-			<trans-unit id="l_delete_event"><source>Delete Event</source></trans-unit>
-			<trans-unit id="l_event_has_been_delete"><source>The event has been deleted</source></trans-unit>
-			<trans-unit id="l_event_has_been_restored"><source>The event has been restored</source></trans-unit>
-			<trans-unit id="l_event_has_been_hidden"><source>The event has been hidden and will not be shown in the frontend</source></trans-unit>
-			<trans-unit id="l_event_has_been_unhidden"><source>The previouisly hidden event has now been unhidden and will be shown in the frontend</source></trans-unit>
-			<trans-unit id="l_wrong_split_symbol_msg"><source>Date split symbol is: \'###DATE_SPLIT_SYMBOL###\' !\n</source></trans-unit>
-			<trans-unit id="l_wrong_date"><source>Wrong date!</source></trans-unit>
-			<trans-unit id="l_wrong_time"><source>Wrong time!</source></trans-unit>
-			<trans-unit id="l_is_in_past"><source>is a past date!</source></trans-unit>
-			<trans-unit id="l_page"><source>Page</source></trans-unit>
-			<trans-unit id="l_page_of"><source>Page %s of %s</source></trans-unit>
-			<trans-unit id="l_search_found"><source>entries found</source></trans-unit>
-			<trans-unit id="l_monitor_start_thanks"><source>Thank you. An email has been sent to you. Please confirm the monitoring by clicking on the confirm link inside the email.</source></trans-unit>
-			<trans-unit id="l_monitor_stop_thanks"><source>Thank you. An email has been sent to you. Please confirm the monitoring stop by clicking on the confirm link inside the email.</source></trans-unit>
-			<trans-unit id="l_monitor_wrong_captcha"><source>Sorry, but you didn't type in the correct letters. Please try again.</source></trans-unit>
-			<trans-unit id="l_not_allowed_edit"><source>You are not allowed to edit this </source></trans-unit>
-			<trans-unit id="l_not_allowed_create"><source>You are not allowed to create a/an </source></trans-unit>
-			<trans-unit id="l_delete_image"><source>Delete image</source></trans-unit>
-			<trans-unit id="l_image_upload"><source>Upload image</source></trans-unit>
-			<trans-unit id="l_delete_attachment"><source>Delete attachment</source></trans-unit>
-			<trans-unit id="l_attachment_upload"><source>Upload attachment</source></trans-unit>
-			<trans-unit id="l_meeting_accept"><source>Accept</source></trans-unit>
-			<trans-unit id="l_meeting_decline"><source>Decline</source></trans-unit>
-			<trans-unit id="l_meeting_accepted"><source>Your status for &quot;%s&quot; has been successfully changed to &quot;ACCPETED&quot;.</source></trans-unit>
-			<trans-unit id="l_meeting_declined"><source>Your status for &quot;%s&quot; has been successfully changed to &quot;DECLINED&quot;.</source></trans-unit>
-			<trans-unit id="l_meeting_update_error"><source>There were problems updating your participation status to &quot;%s&quot;.</source></trans-unit>
-			<trans-unit id="l_meeting_error"><source>If you see this message, you probably have received an invitation to a meeting and you have clicked on the accept or decline link. But maybe not all of the parameters made it to the url? Please make sure all parameters are there.</source></trans-unit>
-			<trans-unit id="l_meeting_changestatus"><source> Change meeting status: </source></trans-unit>
-			<trans-unit id="l_required"><source>(*) Required fields</source></trans-unit>
-			<trans-unit id="l_constrain_start_before_end"><source>Start has to be before end</source></trans-unit>
-			<trans-unit id="l_constrain_end_after_start"><source>End has to be after start</source></trans-unit>
-			<trans-unit id="l_event_date_time"><source>Date/Time</source></trans-unit>
-			<trans-unit id="l_event_recurrence"><source>Recurrence</source></trans-unit>
-			<trans-unit id="l_event_files"><source>Files</source></trans-unit>
-			<trans-unit id="l_event_other"><source>Other</source></trans-unit>
-			<trans-unit id="l_options"><source>Options</source></trans-unit>
-			<trans-unit id="l_what"><source>What</source></trans-unit>
-			<trans-unit id="l_when"><source>When</source></trans-unit>
-			<trans-unit id="l_to"><source>to</source></trans-unit>
-			<trans-unit id="l_at"><source>at</source></trans-unit>
-			<trans-unit id="l_where"><source>Where</source></trans-unit>
-			<trans-unit id="l_repeats"><source>Repeats</source></trans-unit>
-			<trans-unit id="l_repeat_by"><source>Repeats</source></trans-unit>
-			<trans-unit id="l_daily"><source>Daily</source></trans-unit>
-			<trans-unit id="l_weekly"><source>Weekly</source></trans-unit>
-			<trans-unit id="l_monthly"><source>Monthly</source></trans-unit>
-			<trans-unit id="l_yearly"><source>Yearly</source></trans-unit>
-			<trans-unit id="l_every_weekday"><source>Every weekday (Mon-Fri)</source></trans-unit>
-			<trans-unit id="l_every_mo_we_fr"><source>Every Mon., Wed., and Fri.</source></trans-unit>
-			<trans-unit id="l_every_tu_th"><source>Every Tues., and Thurs.</source></trans-unit>
-			<trans-unit id="l_weekday"><source>Weekday</source></trans-unit>
-			<trans-unit id="l_until"><source>Until</source></trans-unit>
-			<trans-unit id="l_interval"><source>Repeat every</source></trans-unit>
-			<trans-unit id="l_rdate_type"><source>Repeats per</source></trans-unit>
-			<trans-unit id="l_event_rdate"><source>on</source></trans-unit>
-			<trans-unit id="l_ends"><source>Ends</source></trans-unit>
-			<trans-unit id="l_never"><source>Never</source></trans-unit>
-			<trans-unit id="l_date_time"><source>Date time</source></trans-unit>
-			<trans-unit id="l_period"><source>Period</source></trans-unit>
-			<trans-unit id="l_duration"><source>Duration</source></trans-unit>
-			<trans-unit id="l_no_action"><source>No action</source></trans-unit>
-			<trans-unit id="l_needs_action"><source>Needs action</source></trans-unit>
-			<trans-unit id="l_in_progress"><source>In progress</source></trans-unit>
-			<trans-unit id="l_cancelled"><source>Cancelled</source></trans-unit>
-			<trans-unit id="l_calendar_week"><source>calendar week</source></trans-unit>
-			<trans-unit id="l_remind"><source>Here's a reminder...</source></trans-unit>
-			<trans-unit id="l_remind_minutes_1"><source>&lt;span&gt; -&gt; And remind </source></trans-unit>
-			<trans-unit id="l_remind_minutes_2"><source> minutes before start&lt;/span&gt;</source></trans-unit>
-			<trans-unit id="l_calendar_subscription"><source>Manage calendar subscription</source></trans-unit>
-			<trans-unit id="l_color"><source>Color</source></trans-unit>
-			<trans-unit id="l_public_calendar"><source>Public calendar</source></trans-unit>
+			<trans-unit id="l_day" resname="l_day" >
+				<source>Day</source>
+			</trans-unit>
+			<trans-unit id="l_week" resname="l_week" >
+				<source>Week</source>
+			</trans-unit>
+			<trans-unit id="l_month" resname="l_month" >
+				<source>Month</source>
+			</trans-unit>
+			<trans-unit id="l_year" resname="l_year" >
+				<source>Year</source>
+			</trans-unit>
+			<trans-unit id="l_list" resname="l_list" >
+				<source>List</source>
+			</trans-unit>
+			<trans-unit id="l_calendar" resname="l_calendar" >
+				<source>Calendar</source>
+			</trans-unit>
+			<trans-unit id="l_create_calendar" resname="l_create_calendar" >
+				<source>Create calendar</source>
+			</trans-unit>
+			<trans-unit id="l_administration_view" resname="l_administration_view" >
+				<source>Calendar Administration</source>
+			</trans-unit>
+			<trans-unit id="l_edit_calendar" resname="l_edit_calendar" >
+				<source>Edit calendar</source>
+			</trans-unit>
+			<trans-unit id="l_confirm_calendar" resname="l_confirm_calendar" >
+				<source>Confirm calendar</source>
+			</trans-unit>
+			<trans-unit id="l_delete_calendar" resname="l_delete_calendar" >
+				<source>Delete calendar</source>
+			</trans-unit>
+			<trans-unit id="l_create_exception" resname="l_create_exception" >
+				<source>Create exception</source>
+			</trans-unit>
+			<trans-unit id="l_next_day" resname="l_next_day" >
+				<source>Next Day</source>
+			</trans-unit>
+			<trans-unit id="l_next_month" resname="l_next_month" >
+				<source>Next Month</source>
+			</trans-unit>
+			<trans-unit id="l_next_week" resname="l_next_week" >
+				<source>Next Week</source>
+			</trans-unit>
+			<trans-unit id="l_next_year" resname="l_next_year" >
+				<source>Next Year</source>
+			</trans-unit>
+			<trans-unit id="l_last_day" resname="l_last_day" >
+				<source>Previous Day</source>
+			</trans-unit>
+			<trans-unit id="l_last_month" resname="l_last_month" >
+				<source>Previous Month</source>
+			</trans-unit>
+			<trans-unit id="l_last_week" resname="l_last_week" >
+				<source>Previous Week</source>
+			</trans-unit>
+			<trans-unit id="l_last_year" resname="l_last_year" >
+				<source>Previous Year</source>
+			</trans-unit>
+			<trans-unit id="l_subscribe" resname="l_subscribe" >
+				<source>Subscribe</source>
+			</trans-unit>
+			<trans-unit id="l_download" resname="l_download" >
+				<source>Download</source>
+			</trans-unit>
+			<trans-unit id="l_powered_by" resname="l_powered_by" >
+				<source>Powered by</source>
+			</trans-unit>
+			<trans-unit id="l_event" resname="l_event" >
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="l_events" resname="l_events" >
+				<source>Events</source>
+			</trans-unit>
+			<trans-unit id="l_no_events" resname="l_no_events" >
+				<source>No events found.</source>
+			</trans-unit>
+			<trans-unit id="l_event_start" resname="l_event_start" >
+				<source>Start Time</source>
+			</trans-unit>
+			<trans-unit id="l_event_end" resname="l_event_end" >
+				<source>End Time</source>
+			</trans-unit>
+			<trans-unit id="l_this_months" resname="l_this_months" >
+				<source>This Month's Events</source>
+			</trans-unit>
+			<trans-unit id="l_date" resname="l_date" >
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="l_summary" resname="l_summary" >
+				<source>Summary</source>
+			</trans-unit>
+			<trans-unit id="l_all_day" resname="l_all_day" >
+				<source>All day event</source>
+			</trans-unit>
+			<trans-unit id="l_notes" resname="l_notes" >
+				<source>Notes</source>
+			</trans-unit>
+			<trans-unit id="l_this_years" resname="l_this_years" >
+				<source>This Year's Events</source>
+			</trans-unit>
+			<trans-unit id="l_today" resname="l_today" >
+				<source>Today</source>
+			</trans-unit>
+			<trans-unit id="l_this_week" resname="l_this_week" >
+				<source>This Week</source>
+			</trans-unit>
+			<trans-unit id="l_this_month" resname="l_this_month" >
+				<source>This Month</source>
+			</trans-unit>
+			<trans-unit id="l_jump" resname="l_jump" >
+				<source>Jump to</source>
+			</trans-unit>
+			<trans-unit id="l_tomorrows" resname="l_tomorrows" >
+				<source>Tomorrow's Events</source>
+			</trans-unit>
+			<trans-unit id="l_goday" resname="l_goday" >
+				<source>Go to Today</source>
+			</trans-unit>
+			<trans-unit id="l_goweek" resname="l_goweek" >
+				<source>Go to This Week</source>
+			</trans-unit>
+			<trans-unit id="l_gomonth" resname="l_gomonth" >
+				<source>Go to This Month</source>
+			</trans-unit>
+			<trans-unit id="l_goyear" resname="l_goyear" >
+				<source>Go to This Year</source>
+			</trans-unit>
+			<trans-unit id="l_search" resname="l_search" >
+				<source>Search</source>
+			</trans-unit>
+			<trans-unit id="l_search_everything" resname="l_search_everything" >
+				<source>Search everything</source>
+			</trans-unit>
+			<trans-unit id="l_dosearch" resname="l_dosearch" >
+				<source>Search</source>
+			</trans-unit>
+			<trans-unit id="l_query_for" resname="l_query_for" >
+				<source>Search for</source>
+			</trans-unit>
+			<trans-unit id="l_search_string" resname="l_search_string" >
+				<source>Search string</source>
+			</trans-unit>
+			<trans-unit id="l_results" resname="l_results" >
+				<source>Search Results</source>
+			</trans-unit>
+			<trans-unit id="l_query" resname="l_query" >
+				<source>Query</source>
+			</trans-unit>
+			<trans-unit id="l_no_results" resname="l_no_results" >
+				<source>No events found.</source>
+			</trans-unit>
+			<trans-unit id="l_no_location_results" resname="l_no_location_results" >
+				<source>No locations found.</source>
+			</trans-unit>
+			<trans-unit id="l_no_organizer_results" resname="l_no_organizer_results" >
+				<source>No organizers found.</source>
+			</trans-unit>
+			<trans-unit id="l_goprint" resname="l_goprint" >
+				<source>Printer Friendly</source>
+			</trans-unit>
+			<trans-unit id="l_time" resname="l_time" >
+				<source>Time</source>
+			</trans-unit>
+			<trans-unit id="l_teaser" resname="l_teaser" >
+				<source>Teaser</source>
+			</trans-unit>
+			<trans-unit id="l_description" resname="l_description" >
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="l_no_title" resname="l_no_title" >
+				<source>No title</source>
+			</trans-unit>
+			<trans-unit id="l_this_site_is" resname="l_this_site_is" >
+				<source>This site is</source>
+			</trans-unit>
+			<trans-unit id="l_no_events_day" resname="l_no_events_day" >
+				<source>No events today.</source>
+			</trans-unit>
+			<trans-unit id="l_no_events_week" resname="l_no_events_week" >
+				<source>No events this week.</source>
+			</trans-unit>
+			<trans-unit id="l_no_events_month" resname="l_no_events_month" >
+				<source>No events this month.</source>
+			</trans-unit>
+			<trans-unit id="l_rss_day_date" resname="l_rss_day_date" >
+				<source>g:i A</source>
+			</trans-unit>
+			<trans-unit id="l_rss_week_date" resname="l_rss_week_date" >
+				<source>%b %e</source>
+			</trans-unit>
+			<trans-unit id="l_rss_month_date" resname="l_rss_month_date" >
+				<source>%b %e</source>
+			</trans-unit>
+			<trans-unit id="l_rss_language" resname="l_rss_language" >
+				<source>en-us</source>
+			</trans-unit>
+			<trans-unit id="l_search_took" resname="l_search_took" >
+				<source>Search took %s seconds</source>
+			</trans-unit>
+			<trans-unit id="l_recurring_event" resname="l_recurring_event" >
+				<source>Recurring event</source>
+			</trans-unit>
+			<trans-unit id="l_exception" resname="l_exception" >
+				<source>Exception</source>
+			</trans-unit>
+			<trans-unit id="l_no_query" resname="l_no_query" >
+				<source>No query given</source>
+			</trans-unit>
+			<trans-unit id="l_preferences" resname="l_preferences" >
+				<source>Preferences</source>
+			</trans-unit>
+			<trans-unit id="l_printer" resname="l_printer" >
+				<source>Printer</source>
+			</trans-unit>
+			<trans-unit id="l_select_lang" resname="l_select_lang" >
+				<source>Select your default language:</source>
+			</trans-unit>
+			<trans-unit id="l_select_cal" resname="l_select_cal" >
+				<source>Select your default calendar:</source>
+			</trans-unit>
+			<trans-unit id="l_select_view" resname="l_select_view" >
+				<source>Select your default view:</source>
+			</trans-unit>
+			<trans-unit id="l_select_time" resname="l_select_time" >
+				<source>Select your default start time:</source>
+			</trans-unit>
+			<trans-unit id="l_select_day" resname="l_select_day" >
+				<source>Select your default start day of week:</source>
+			</trans-unit>
+			<trans-unit id="l_select_style" resname="l_select_style" >
+				<source>Select your default style:</source>
+			</trans-unit>
+			<trans-unit id="l_set_prefs" resname="l_set_prefs" >
+				<source>Set preferences</source>
+			</trans-unit>
+			<trans-unit id="l_completed_date" resname="l_completed_date" >
+				<source>Completed on</source>
+			</trans-unit>
+			<trans-unit id="l_completed" resname="l_completed" >
+				<source>Completed</source>
+			</trans-unit>
+			<trans-unit id="l_created" resname="l_created" >
+				<source>Created</source>
+			</trans-unit>
+			<trans-unit id="l_create" resname="l_create" >
+				<source>Create</source>
+			</trans-unit>
+			<trans-unit id="l_due" resname="l_due" >
+				<source>Due</source>
+			</trans-unit>
+			<trans-unit id="l_priority" resname="l_priority" >
+				<source>Priority</source>
+			</trans-unit>
+			<trans-unit id="l_priority_high" resname="l_priority_high" >
+				<source>High</source>
+			</trans-unit>
+			<trans-unit id="l_priority_low" resname="l_priority_low" >
+				<source>Low</source>
+			</trans-unit>
+			<trans-unit id="l_priority_medium" resname="l_priority_medium" >
+				<source>Medium</source>
+			</trans-unit>
+			<trans-unit id="l_priority_none" resname="l_priority_none" >
+				<source>None</source>
+			</trans-unit>
+			<trans-unit id="l_status" resname="l_status" >
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="l_todo" resname="l_todo" >
+				<source>To do items</source>
+			</trans-unit>
+			<trans-unit id="l_unfinished" resname="l_unfinished" >
+				<source>Unfinished</source>
+			</trans-unit>
+			<trans-unit id="l_prefs_set" resname="l_prefs_set" >
+				<source>Your preferences have been set.</source>
+			</trans-unit>
+			<trans-unit id="l_prefs_unset" resname="l_prefs_unset" xml:space="preserve">
+				<source>Preferences unset. Changes will take place next
+				page load.</source>
+			</trans-unit>
+			<trans-unit id="l_unset_prefs" resname="l_unset_prefs" >
+				<source>Unset preferences:</source>
+			</trans-unit>
+			<trans-unit id="l_organizer" resname="l_organizer" >
+				<source>Organizer</source>
+			</trans-unit>
+			<trans-unit id="l_edit_organizer" resname="l_edit_organizer" >
+				<source>Edit Organizer</source>
+			</trans-unit>
+			<trans-unit id="l_delete_organizer" resname="l_delete_organizer" >
+				<source>Delete Organizer</source>
+			</trans-unit>
+			<trans-unit id="l_organizers" resname="l_organizers" >
+				<source>Organizers</source>
+			</trans-unit>
+			<trans-unit id="l_attendee" resname="l_attendee" >
+				<source>Attendee</source>
+			</trans-unit>
+			<trans-unit id="l_location" resname="l_location" >
+				<source>Location</source>
+			</trans-unit>
+			<trans-unit id="l_edit_location" resname="l_edit_location" >
+				<source>Edit Location</source>
+			</trans-unit>
+			<trans-unit id="l_delete_location" resname="l_delete_location" >
+				<source>Delete Location</source>
+			</trans-unit>
+			<trans-unit id="l_locations" resname="l_locations" >
+				<source>Locations</source>
+			</trans-unit>
+			<trans-unit id="l_admin_header" resname="l_admin_header" >
+				<source>Calendar Administration</source>
+			</trans-unit>
+			<trans-unit id="l_username" resname="l_username" >
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="l_password" resname="l_password" >
+				<source>Password</source>
+			</trans-unit>
+			<trans-unit id="l_login" resname="l_login" >
+				<source>Login</source>
+			</trans-unit>
+			<trans-unit id="l_invalid_login" resname="l_invalid_login" >
+				<source>Wrong username or password.</source>
+			</trans-unit>
+			<trans-unit id="l_addupdate_cal" resname="l_addupdate_cal" >
+				<source>Add or Update a Calendar</source>
+			</trans-unit>
+			<trans-unit id="l_addupdate_desc" resname="l_addupdate_desc" xml:space="preserve">
+				<source>Add a calendar by uploading a new file. Update a
+				calendar by uploading a file of the same name.</source>
+			</trans-unit>
+			<trans-unit id="l_delete_cal" resname="l_delete_cal" >
+				<source>Delete a Calendar</source>
+			</trans-unit>
+			<trans-unit id="l_logout" resname="l_logout" >
+				<source>Logout</source>
+			</trans-unit>
+			<trans-unit id="l_cal_file" resname="l_cal_file" >
+				<source>Calendar File</source>
+			</trans-unit>
+			<trans-unit id="l_php_error" resname="l_php_error" >
+				<source>PHP Error</source>
+			</trans-unit>
+			<trans-unit id="l_upload_error_type" resname="l_upload_error_type" >
+				<source>Only .ics files may be uploaded.</source>
+			</trans-unit>
+			<trans-unit id="l_copy_error" resname="l_copy_error" >
+				<source>Failed to copy file</source>
+			</trans-unit>
+			<trans-unit id="l_delete_confirm" resname="l_delete_confirm" >
+				<source>Do you really want to delete?</source>
+			</trans-unit>
+			<trans-unit id="l_delete_error" resname="l_delete_error" >
+				<source>Failed to delete file</source>
+			</trans-unit>
+			<trans-unit id="l_delete_success" resname="l_delete_success" >
+				<source>was deleted successfully.</source>
+			</trans-unit>
+			<trans-unit id="l_action_success" resname="l_action_success" >
+				<source>Your action was successful.</source>
+			</trans-unit>
+			<trans-unit id="l_submit" resname="l_submit" >
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="l_edit" resname="l_edit" >
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="l_delete" resname="l_delete" >
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="l_refresh" resname="l_refresh" >
+				<source>Refresh</source>
+			</trans-unit>
+			<trans-unit id="l_all_cal_comb_lang" resname="l_all_cal_comb_lang" >
+				<source>All Combined</source>
+			</trans-unit>
+			<trans-unit id="l_legend" resname="l_legend" >
+				<source>Legend</source>
+			</trans-unit>
+			<trans-unit id="l_admin_subhead" resname="l_admin_subhead" >
+				<source>Manage your calendars from this page</source>
+			</trans-unit>
+			<trans-unit id="l_prefs_subhead" resname="l_prefs_subhead" >
+				<source>Sets a cookie for visiting this site</source>
+			</trans-unit>
+			<trans-unit id="l_rss_info" resname="l_rss_info" >
+				<source>RSS Information</source>
+			</trans-unit>
+			<trans-unit id="l_rss_subhead" resname="l_rss_subhead" >
+				<source>Basic RSS feeds available for each calendar</source>
+			</trans-unit>
+			<trans-unit id="l_rss_notenabled" resname="l_rss_notenabled" >
+				<source>RSS is not enabled on this site</source>
+			</trans-unit>
+			<trans-unit id="l_back" resname="l_back" >
+				<source>Back</source>
+			</trans-unit>
+			<trans-unit id="l_next" resname="l_next" >
+				<source>Next</source>
+			</trans-unit>
+			<trans-unit id="l_prev" resname="l_prev" >
+				<source>Prev</source>
+			</trans-unit>
+			<trans-unit id="l_day_view" resname="l_day_view" >
+				<source>Day View</source>
+			</trans-unit>
+			<trans-unit id="l_week_view" resname="l_week_view" >
+				<source>Week View</source>
+			</trans-unit>
+			<trans-unit id="l_month_view" resname="l_month_view" >
+				<source>Month View</source>
+			</trans-unit>
+			<trans-unit id="l_year_view" resname="l_year_view" >
+				<source>Year View</source>
+			</trans-unit>
+			<trans-unit id="l_event_view" resname="l_event_view" >
+				<source>Event View</source>
+			</trans-unit>
+			<trans-unit id="l_search_view" resname="l_search_view" >
+				<source>Search</source>
+			</trans-unit>
+			<trans-unit id="l_ics_view" resname="l_ics_view" >
+				<source>ICS</source>
+			</trans-unit>
+			<trans-unit id="l_icslist_title" resname="l_icslist_title" >
+				<source>List of available ics-files to download</source>
+			</trans-unit>
+			<trans-unit id="l_list_view" resname="l_list_view" >
+				<source>List View</source>
+			</trans-unit>
+			<trans-unit id="format_recur_lang_delimiter" resname="format_recur_lang_delimiter" >
+				<source>, </source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_yearly_single" resname="l_format_recur_lang_yearly_single" >
+				<source>year</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_yearly_multiple" resname="l_format_recur_lang_yearly_multiple" >
+				<source>years</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_monthly_single" resname="l_format_recur_lang_monthly_single" >
+				<source>month</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_monthly_multiple" resname="l_format_recur_lang_monthly_multiple" >
+				<source>months</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_weekly_single" resname="l_format_recur_lang_weekly_single" >
+				<source>week</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_weekly_multiple" resname="l_format_recur_lang_weekly_multiple" >
+				<source>weeks</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_daily_single" resname="l_format_recur_lang_daily_single" >
+				<source>day</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_daily_multiple" resname="l_format_recur_lang_daily_multiple" >
+				<source>days</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_hourly_single" resname="l_format_recur_lang_hourly_single" >
+				<source>hour</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_hourly_multiple" resname="l_format_recur_lang_hourly_multiple" >
+				<source>hours</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_minutely_single" resname="l_format_recur_lang_minutely_single" >
+				<source>minute</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_minutely_multiple" resname="l_format_recur_lang_minutely_multiple" >
+				<source>minutes</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_secondly_single" resname="l_format_recur_lang_secondly_single" >
+				<source>second</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_secondly_multiple" resname="l_format_recur_lang_secondly_multiple" >
+				<source>seconds</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_start" resname="l_format_recur_lang_start" >
+				<source>Every %int% %freq% %for%</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_until" resname="l_format_recur_lang_until" >
+				<source>until %date%</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_count" resname="l_format_recur_lang_count" >
+				<source>for a count of %int%</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_bymonth" resname="l_format_recur_lang_bymonth" >
+				<source>In months: %list%</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_bymonthday" resname="l_format_recur_lang_bymonthday" >
+				<source>On dates: %list%</source>
+			</trans-unit>
+			<trans-unit id="l_format_recur_lang_byday" resname="l_format_recur_lang_byday" >
+				<source>On days: %list%</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_all" resname="l_daysofweek_all" >
+				<source>All Days</source>
+			</trans-unit>
+			<trans-unit id="l_monthsofyear_all" resname="l_monthsofyear_all" >
+				<source>All Months</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_sunday" resname="l_daysofweek_lang_sunday" >
+				<source>Sunday</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_monday" resname="l_daysofweek_lang_monday" >
+				<source>Monday</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_tuesday" resname="l_daysofweek_lang_tuesday" >
+				<source>Tuesday</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_wednesday" resname="l_daysofweek_lang_wednesday" >
+				<source>Wednesday</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_thursday" resname="l_daysofweek_lang_thursday" >
+				<source>Thursday</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_friday" resname="l_daysofweek_lang_friday" >
+				<source>Friday</source>
+			</trans-unit>
+			<trans-unit id="l_daysofweek_lang_saturday" resname="l_daysofweek_lang_saturday" >
+				<source>Saturday</source>
+			</trans-unit>
+			<trans-unit id="l_error_title" resname="l_error_title" >
+				<source>Error!</source>
+			</trans-unit>
+			<trans-unit id="l_error_window" resname="l_error_window" >
+				<source>There was an error!</source>
+			</trans-unit>
+			<trans-unit id="l_error_calendar" resname="l_error_calendar" xml:space="preserve">
+				<source>The calendar &quot;%s&quot; was being processed
+				when this error occurred.</source>
+			</trans-unit>
+			<trans-unit id="l_error_path" resname="l_error_path" >
+				<source>Unable to open the path: &quot;%s&quot;</source>
+			</trans-unit>
+			<trans-unit id="l_error_back" resname="l_error_back" >
+				<source>Please use the &quot;Back&quot; button to return.</source>
+			</trans-unit>
+			<trans-unit id="l_error_remotecal" resname="l_error_remotecal" xml:space="preserve">
+				<source>This server blocks remote calendars which have not
+				been approved.</source>
+			</trans-unit>
+			<trans-unit id="l_error_restrictedcal" resname="l_error_restrictedcal" xml:space="preserve">
+				<source>You have tried to access a calendar that is
+				restricted on this server.</source>
+			</trans-unit>
+			<trans-unit id="l_error_invalidcal" resname="l_error_invalidcal" xml:space="preserve">
+				<source>Invalid calendar file. Please try a different
+				calendar.</source>
+			</trans-unit>
+			<trans-unit id="l_error_cantopen" resname="l_error_cantopen" >
+				<source>Unable to open calendar.</source>
+			</trans-unit>
+			<trans-unit id="l_error_cache" resname="l_error_cache" xml:space="preserve">
+				<source>Unable to write to cache directory. Please check
+				your config.</source>
+			</trans-unit>
+			<trans-unit id="l_error_noCategory" resname="l_error_noCategory" xml:space="preserve">
+				<source>You can not create an event without a category.
+				Please create a category first</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_not_logged_in" resname="l_monitor_event_not_logged_in" >
+				<source>&lt;br /&gt;&lt;br /&gt;</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_logged_in_nomonitoring" resname="l_monitor_event_logged_in_nomonitoring" >
+				<source>Subscribe to this event?</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_logged_in_monitoring" resname="l_monitor_event_logged_in_monitoring" >
+				<source>Unsubscribe?</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_login_in_for_monitoring" resname="l_monitor_login_in_for_monitoring" >
+				<source>Please log in to manage your subscriptions.</source>
+			</trans-unit>
+			<trans-unit id="l_manage_subscription" resname="l_manage_subscription" >
+				<source>Manage your subscriptions</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_unsubscribe_successful" resname="l_monitor_event_unsubscribe_successful" xml:space="preserve">
+				<source>You have been unsubscribed from the event
+				&quot;%s&quot;. You will no longer receive notifications about this
+				event.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_unsubscribe_error" resname="l_monitor_event_unsubscribe_error" xml:space="preserve">
+				<source>There were problems unsubscribing you from the
+				event &quot;%s&quot;.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_unsubscribe_noevent" resname="l_monitor_event_unsubscribe_noevent" xml:space="preserve">
+				<source>The event you are trying to unsubscribe does not
+				exist anymore.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_subscribe_successful" resname="l_monitor_event_subscribe_successful" xml:space="preserve">
+				<source>You have been subscribed to the event
+				&quot;%s&quot;. You will receive notifications when the event
+				approaches or if any important details are changed.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_subscribe_error" resname="l_monitor_event_subscribe_error" xml:space="preserve">
+				<source>There were problems subscribing you to the event
+				&quot;%s&quot;.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_event_subscribe_noevent" resname="l_monitor_event_subscribe_noevent" xml:space="preserve">
+				<source>The event you are trying to subscribe does not
+				exist anymore.</source>
+			</trans-unit>
+			<trans-unit id="l_fe_user" resname="l_fe_user" >
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_title" resname="l_calendar_title" >
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_owner" resname="l_calendar_owner" >
+				<source>Owner</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_activate_freeandbusy" resname="l_calendar_activate_freeandbusy" >
+				<source>Enable Free- and Busy view</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_freeandbusyuser" resname="l_calendar_freeandbusyuser" >
+				<source>Free- and Busy user</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_type" resname="l_calendar_type" >
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_type0" resname="l_calendar_type0" >
+				<source>Normal</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_exturl" resname="l_calendar_exturl" >
+				<source>External URL</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_icsfile" resname="l_calendar_icsfile" >
+				<source>Local ICS file</source>
+			</trans-unit>
+			<trans-unit id="l_ics_file_upload" resname="l_ics_file_upload" >
+				<source>Upload ICS file</source>
+			</trans-unit>
+			<trans-unit id="l_delete_icsfile" resname="l_delete_icsfile" >
+				<source>Delete current ICS file</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_refresh" resname="l_calendar_refresh" >
+				<source>Refresh interval in minutes</source>
+			</trans-unit>
+			<trans-unit id="l_category" resname="l_category" >
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="l_global_category" resname="l_global_category" >
+				<source>General Category</source>
+			</trans-unit>
+			<trans-unit id="l_delete_category" resname="l_delete_category" >
+				<source>Delete Category</source>
+			</trans-unit>
+			<trans-unit id="l_confirm_category" resname="l_confirm_category" >
+				<source>Confirm Category</source>
+			</trans-unit>
+			<trans-unit id="l_category_selector" resname="l_category_selector" >
+				<source>Select category</source>
+			</trans-unit>
+			<trans-unit id="l_category_title" resname="l_category_title" >
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="l_category_headerstyle" resname="l_category_headerstyle" >
+				<source>Header Style</source>
+			</trans-unit>
+			<trans-unit id="l_category_bodystyle" resname="l_category_bodystyle" >
+				<source>Body Style</source>
+			</trans-unit>
+			<trans-unit id="l_category_calendar" resname="l_category_calendar" >
+				<source>Calendar</source>
+			</trans-unit>
+			<trans-unit id="l_category_parent_category" resname="l_category_parent_category" >
+				<source>Parent Category</source>
+			</trans-unit>
+			<trans-unit id="l_category_shared_user_allowed" resname="l_category_shared_user_allowed" >
+				<source>Shared User Allowed</source>
+			</trans-unit>
+			<trans-unit id="l_event_general" resname="l_event_general" >
+				<source>General</source>
+			</trans-unit>
+			<trans-unit id="l_event_category" resname="l_event_category" >
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="l_event_category_selected" resname="l_event_category_selected" >
+				<source>Selected Category</source>
+			</trans-unit>
+			<trans-unit id="l_event_user" resname="l_event_user" >
+				<source>Creator, creator group</source>
+			</trans-unit>
+			<trans-unit id="l_event_user_selected" resname="l_event_user_selected" >
+				<source>Selected creator, creator group</source>
+			</trans-unit>
+			<trans-unit id="l_event_title" resname="l_event_title" >
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_startdate" resname="l_event_edit_startdate" >
+				<source>Start date</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_enddate" resname="l_event_edit_enddate" >
+				<source>End date</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_starttime" resname="l_event_edit_starttime" >
+				<source>Start time</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_endtime" resname="l_event_edit_endtime" >
+				<source>End time</source>
+			</trans-unit>
+			<trans-unit id="l_event_startdate" resname="l_event_startdate" >
+				<source>Start date</source>
+			</trans-unit>
+			<trans-unit id="l_event_enddate" resname="l_event_enddate" >
+				<source>End date</source>
+			</trans-unit>
+			<trans-unit id="l_event_starttime" resname="l_event_starttime" >
+				<source>Start time</source>
+			</trans-unit>
+			<trans-unit id="l_event_endtime" resname="l_event_endtime" >
+				<source>End time</source>
+			</trans-unit>
+			<trans-unit id="l_event_allday" resname="l_event_allday" >
+				<source>Allday</source>
+			</trans-unit>
+			<trans-unit id="l_event_organizer" resname="l_event_organizer" >
+				<source>Organizer</source>
+			</trans-unit>
+			<trans-unit id="l_event_location" resname="l_event_location" >
+				<source>Location</source>
+			</trans-unit>
+			<trans-unit id="l_event_teaser" resname="l_event_teaser" >
+				<source>Teaser</source>
+			</trans-unit>
+			<trans-unit id="l_event_description" resname="l_event_description" >
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="l_event_cal_organizer" resname="l_event_cal_organizer" >
+				<source>Cal Organizer</source>
+			</trans-unit>
+			<trans-unit id="l_event_cal_location" resname="l_event_cal_location" >
+				<source>Cal Location</source>
+			</trans-unit>
+			<trans-unit id="l_event_frequency" resname="l_event_frequency" >
+				<source>Frequency</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_byday" resname="l_event_edit_byday" >
+				<source>By Day</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_bymonthday" resname="l_event_edit_bymonthday" >
+				<source>By Monthday (e.g.: 1,2,30 or all)</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_bymonth" resname="l_event_edit_bymonth" >
+				<source>By Month (e.g.: 1,2,3,4,12 or all)</source>
+			</trans-unit>
+			<trans-unit id="l_event_edit_until" resname="l_event_edit_until" >
+				<source>Until Date</source>
+			</trans-unit>
+			<trans-unit id="l_event_byday" resname="l_event_byday" >
+				<source>By Day</source>
+			</trans-unit>
+			<trans-unit id="l_event_bymonthday" resname="l_event_bymonthday" >
+				<source>By Monthday</source>
+			</trans-unit>
+			<trans-unit id="l_event_bymonth" resname="l_event_bymonth" >
+				<source>By Month</source>
+			</trans-unit>
+			<trans-unit id="l_event_until" resname="l_event_until" >
+				<source>Until Date</source>
+			</trans-unit>
+			<trans-unit id="l_event_count" resname="l_event_count" >
+				<source>Count</source>
+			</trans-unit>
+			<trans-unit id="l_event_interval" resname="l_event_interval" >
+				<source>Interval</source>
+			</trans-unit>
+			<trans-unit id="l_event_exception" resname="l_event_exception" >
+				<source>Exception</source>
+			</trans-unit>
+			<trans-unit id="l_event_exception_selected" resname="l_event_exception_selected" >
+				<source>Selected exception</source>
+			</trans-unit>
+			<trans-unit id="l_event_fe_cruser" resname="l_event_fe_cruser" >
+				<source>Creator</source>
+			</trans-unit>
+			<trans-unit id="l_event_fe_crgroup" resname="l_event_fe_crgroup" >
+				<source>Creator Group</source>
+			</trans-unit>
+			<trans-unit id="l_event_notify" resname="l_event_notify" >
+				<source>Notify and remind</source>
+			</trans-unit>
+			<trans-unit id="l_event_shared" resname="l_event_shared" >
+				<source>Share with</source>
+			</trans-unit>
+			<trans-unit id="l_event_icslink" resname="l_event_icslink" >
+				<source>Get this event as *.ics calendar entry</source>
+			</trans-unit>
+			<trans-unit id="l_event_image" resname="l_event_image" >
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="l_event_image_caption" resname="l_event_image_caption" >
+				<source>Caption</source>
+			</trans-unit>
+			<trans-unit id="l_event_image_title" resname="l_event_image_title" >
+				<source>Title text</source>
+			</trans-unit>
+			<trans-unit id="l_event_image_alt" resname="l_event_image_alt" >
+				<source>Alt text</source>
+			</trans-unit>
+			<trans-unit id="l_event_attachment" resname="l_event_attachment" >
+				<source>Attachment</source>
+			</trans-unit>
+			<trans-unit id="l_event_type" resname="l_event_type" >
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="l_event_type_0" resname="l_event_type_0" >
+				<source>Event</source>
+			</trans-unit>
+			<trans-unit id="l_event_type_1" resname="l_event_type_1" >
+				<source>Internal link</source>
+			</trans-unit>
+			<trans-unit id="l_event_type_2" resname="l_event_type_2" >
+				<source>External link</source>
+			</trans-unit>
+			<trans-unit id="l_event_type_3" resname="l_event_type_3" >
+				<source>Meeting</source>
+			</trans-unit>
+			<trans-unit id="l_event_type_4" resname="l_event_type_4" >
+				<source>Todo</source>
+			</trans-unit>
+			<trans-unit id="l_event_attendee_0" resname="l_event_attendee_0" >
+				<source>Status: Unknown</source>
+			</trans-unit>
+			<trans-unit id="l_event_attendee_CHAIR" resname="l_event_attendee_CHAIR" >
+				<source>Status: Chairman</source>
+			</trans-unit>
+			<trans-unit id="l_event_attendee_OPT-PARTICIPANT" resname="l_event_attendee_OPT-PARTICIPANT" >
+				<source>Status: Optional</source>
+			</trans-unit>
+			<trans-unit id="l_event_attendee_REQ-PARTICIPANT" resname="l_event_attendee_REQ-PARTICIPANT" >
+				<source>Status: Required</source>
+			</trans-unit>
+			<trans-unit id="l_event_exturl" resname="l_event_exturl" >
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="l_category_relatedevents" resname="l_category_relatedevents" >
+				<source>Related event(s)</source>
+			</trans-unit>
+			<trans-unit id="l_todo_enddate" resname="l_todo_enddate" >
+				<source>Due date</source>
+			</trans-unit>
+			<trans-unit id="l_todo_endtime" resname="l_todo_endtime" >
+				<source>Due time</source>
+			</trans-unit>
+			<trans-unit id="l_todo_status" resname="l_todo_status" >
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="l_todo_priority" resname="l_todo_priority" >
+				<source>Priority</source>
+			</trans-unit>
+			<trans-unit id="l_todo_completed" resname="l_todo_completed" >
+				<source>Completed</source>
+			</trans-unit>
+			<trans-unit id="l_sendout_invitation" resname="l_sendout_invitation" >
+				<source>Send out invitation</source>
+			</trans-unit>
+			<trans-unit id="l_attendee_external" resname="l_attendee_external" >
+				<source>Guests</source>
+			</trans-unit>
+			<trans-unit id="l_guest_info" resname="l_guest_info" >
+				<source>Insert comma separated email addresses</source>
+			</trans-unit>
+			<trans-unit id="l_availability" resname="l_availability" >
+				<source>Check availability</source>
+			</trans-unit>
+			<trans-unit id="l_location_name" resname="l_location_name" >
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="l_location_description" resname="l_location_description" >
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="l_location_street" resname="l_location_street" >
+				<source>Street</source>
+			</trans-unit>
+			<trans-unit id="l_location_zip" resname="l_location_zip" >
+				<source>Zip-code</source>
+			</trans-unit>
+			<trans-unit id="l_location_city" resname="l_location_city" >
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="l_location_countryzone" resname="l_location_countryzone" >
+				<source>State/Province</source>
+			</trans-unit>
+			<trans-unit id="l_location_country" resname="l_location_country" >
+				<source>Country</source>
+			</trans-unit>
+			<trans-unit id="l_location_phone" resname="l_location_phone" >
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="l_location_mobilephone" resname="l_location_mobilephone" >
+				<source>Mobile Phone</source>
+			</trans-unit>
+			<trans-unit id="l_location_fax" resname="l_location_fax" >
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="l_location_email" resname="l_location_email" >
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="l_location_link" resname="l_location_link" >
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="l_location_image" resname="l_location_image" >
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="l_location_relatedevents" resname="l_location_relatedevents" >
+				<source>Related event(s)</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_name" resname="l_organizer_name" >
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_description" resname="l_organizer_description" >
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_street" resname="l_organizer_street" >
+				<source>Street</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_zip" resname="l_organizer_zip" >
+				<source>Zip-code</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_city" resname="l_organizer_city" >
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_countryzone" resname="l_organizer_countryzone" >
+				<source>State/Province</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_country" resname="l_organizer_country" >
+				<source>Country</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_phone" resname="l_organizer_phone" >
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_mobilephone" resname="l_organizer_mobilephone" >
+				<source>Mobile Phone</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_fax" resname="l_organizer_fax" >
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_email" resname="l_organizer_email" >
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_link" resname="l_organizer_link" >
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_image" resname="l_organizer_image" >
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_relatedevents" resname="l_organizer_relatedevents" >
+				<source>Related event(s)</source>
+			</trans-unit>
+			<trans-unit id="l_select" resname="l_select" >
+				<source>Please choose one</source>
+			</trans-unit>
+			<trans-unit id="l_none" resname="l_none" >
+				<source>None</source>
+			</trans-unit>
+			<trans-unit id="l_hidden" resname="l_hidden" >
+				<source>Hide</source>
+			</trans-unit>
+			<trans-unit id="l_cancel" resname="l_cancel" >
+				<source>Cancel</source>
+			</trans-unit>
+			<trans-unit id="l_save" resname="l_save" >
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="l_true" resname="l_true" >
+				<source>True</source>
+			</trans-unit>
+			<trans-unit id="l_false" resname="l_false" >
+				<source>False</source>
+			</trans-unit>
+			<trans-unit id="l_more" resname="l_more" >
+				<source>[more]</source>
+			</trans-unit>
+			<trans-unit id="l_event_more" resname="l_event_more" >
+				<source>[more]</source>
+			</trans-unit>
+			<trans-unit id="l_all_category" resname="l_all_category" >
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="l_all_location" resname="l_all_location" >
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="l_all_organizer" resname="l_all_organizer" >
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="l_global" resname="l_global" >
+				<source>Global</source>
+			</trans-unit>
+			<trans-unit id="l_edit_event" resname="l_edit_event" >
+				<source>Edit event</source>
+			</trans-unit>
+			<trans-unit id="l_create_event" resname="l_create_event" >
+				<source>Create event</source>
+			</trans-unit>
+			<trans-unit id="l_new_event" resname="l_new_event" >
+				<source>New event</source>
+			</trans-unit>
+			<trans-unit id="l_create_location" resname="l_create_location" >
+				<source>Create location</source>
+			</trans-unit>
+			<trans-unit id="l_create_organizer" resname="l_create_organizer" >
+				<source>Create organizer</source>
+			</trans-unit>
+			<trans-unit id="l_create_category" resname="l_create_category" >
+				<source>Create category</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_icslink" resname="l_calendar_icslink" >
+				<source>Download *.ics file</source>
+			</trans-unit>
+			<trans-unit id="l_edit_event_atleastone_category" resname="l_edit_event_atleastone_category" >
+				<source>You have to select at least one category</source>
+			</trans-unit>
+			<trans-unit id="l_confirm_event" resname="l_confirm_event" >
+				<source>Confirm event</source>
+			</trans-unit>
+			<trans-unit id="l_confirm_location" resname="l_confirm_location" >
+				<source>Confirm location</source>
+			</trans-unit>
+			<trans-unit id="l_confirm_organizer" resname="l_confirm_organizer" >
+				<source>Confirm organizer</source>
+			</trans-unit>
+			<trans-unit id="l_enter_email" resname="l_enter_email" >
+				<source>Enter email-address:</source>
+			</trans-unit>
+			<trans-unit id="l_captcha_text" resname="l_captcha_text" >
+				<source>Please insert the text you see in the picture:</source>
+			</trans-unit>
+			<trans-unit id="l_delete_event" resname="l_delete_event" >
+				<source>Delete Event</source>
+			</trans-unit>
+			<trans-unit id="l_event_has_been_delete" resname="l_event_has_been_delete" >
+				<source>The event has been deleted</source>
+			</trans-unit>
+			<trans-unit id="l_event_has_been_restored" resname="l_event_has_been_restored" >
+				<source>The event has been restored</source>
+			</trans-unit>
+			<trans-unit id="l_event_has_been_hidden" resname="l_event_has_been_hidden" xml:space="preserve">
+				<source>The event has been hidden and will not be shown in
+				the frontend</source>
+			</trans-unit>
+			<trans-unit id="l_event_has_been_unhidden" resname="l_event_has_been_unhidden" xml:space="preserve">
+				<source>The previouisly hidden event has now been unhidden
+				and will be shown in the frontend</source>
+			</trans-unit>
+			<trans-unit id="l_wrong_split_symbol_msg" resname="l_wrong_split_symbol_msg" xml:space="preserve">
+				<source>Date split symbol is: \'###DATE_SPLIT_SYMBOL###\'
+				!\n</source>
+			</trans-unit>
+			<trans-unit id="l_wrong_date" resname="l_wrong_date" >
+				<source>Wrong date!</source>
+			</trans-unit>
+			<trans-unit id="l_wrong_time" resname="l_wrong_time" >
+				<source>Wrong time!</source>
+			</trans-unit>
+			<trans-unit id="l_is_in_past" resname="l_is_in_past" >
+				<source>is a past date!</source>
+			</trans-unit>
+			<trans-unit id="l_page" resname="l_page" >
+				<source>Page</source>
+			</trans-unit>
+			<trans-unit id="l_page_of" resname="l_page_of" >
+				<source>Page %s of %s</source>
+			</trans-unit>
+			<trans-unit id="l_search_found" resname="l_search_found" >
+				<source>entries found</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_start_thanks" resname="l_monitor_start_thanks" xml:space="preserve">
+				<source>Thank you. An email has been sent to you. Please
+				confirm the monitoring by clicking on the confirm link inside the
+				email.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_stop_thanks" resname="l_monitor_stop_thanks" xml:space="preserve">
+				<source>Thank you. An email has been sent to you. Please
+				confirm the monitoring stop by clicking on the confirm link inside
+				the email.</source>
+			</trans-unit>
+			<trans-unit id="l_monitor_wrong_captcha" resname="l_monitor_wrong_captcha" xml:space="preserve">
+				<source>Sorry, but you didn't type in the correct letters.
+				Please try again.</source>
+			</trans-unit>
+			<trans-unit id="l_not_allowed_edit" resname="l_not_allowed_edit" >
+				<source>You are not allowed to edit this </source>
+			</trans-unit>
+			<trans-unit id="l_not_allowed_create" resname="l_not_allowed_create" >
+				<source>You are not allowed to create a/an </source>
+			</trans-unit>
+			<trans-unit id="l_delete_image" resname="l_delete_image" >
+				<source>Delete image</source>
+			</trans-unit>
+			<trans-unit id="l_image_upload" resname="l_image_upload" >
+				<source>Upload image</source>
+			</trans-unit>
+			<trans-unit id="l_delete_attachment" resname="l_delete_attachment" >
+				<source>Delete attachment</source>
+			</trans-unit>
+			<trans-unit id="l_attachment_upload" resname="l_attachment_upload" >
+				<source>Upload attachment</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_accept" resname="l_meeting_accept" >
+				<source>Accept</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_decline" resname="l_meeting_decline" >
+				<source>Decline</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_accepted" resname="l_meeting_accepted" xml:space="preserve">
+				<source>Your status for &quot;%s&quot; has been
+				successfully changed to &quot;ACCPETED&quot;.</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_declined" resname="l_meeting_declined" xml:space="preserve">
+				<source>Your status for &quot;%s&quot; has been
+				successfully changed to &quot;DECLINED&quot;.</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_update_error" resname="l_meeting_update_error" xml:space="preserve">
+				<source>There were problems updating your participation
+				status to &quot;%s&quot;.</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_error" resname="l_meeting_error" xml:space="preserve">
+				<source>If you see this message, you probably have
+				received an invitation to a meeting and you have clicked on the
+				accept or decline link. But maybe not all of the parameters made it
+				to the url? Please make sure all parameters are there.</source>
+			</trans-unit>
+			<trans-unit id="l_meeting_changestatus" resname="l_meeting_changestatus" >
+				<source> Change meeting status: </source>
+			</trans-unit>
+			<trans-unit id="l_required" resname="l_required" >
+				<source>(*) Required fields</source>
+			</trans-unit>
+			<trans-unit id="l_constrain_start_before_end" resname="l_constrain_start_before_end" >
+				<source>Start has to be before end</source>
+			</trans-unit>
+			<trans-unit id="l_constrain_end_after_start" resname="l_constrain_end_after_start" >
+				<source>End has to be after start</source>
+			</trans-unit>
+			<trans-unit id="l_event_date_time" resname="l_event_date_time" >
+				<source>Date/Time</source>
+			</trans-unit>
+			<trans-unit id="l_event_recurrence" resname="l_event_recurrence" >
+				<source>Recurrence</source>
+			</trans-unit>
+			<trans-unit id="l_event_files" resname="l_event_files" >
+				<source>Files</source>
+			</trans-unit>
+			<trans-unit id="l_event_other" resname="l_event_other" >
+				<source>Other</source>
+			</trans-unit>
+			<trans-unit id="l_options" resname="l_options" >
+				<source>Options</source>
+			</trans-unit>
+			<trans-unit id="l_what" resname="l_what" >
+				<source>What</source>
+			</trans-unit>
+			<trans-unit id="l_when" resname="l_when" >
+				<source>When</source>
+			</trans-unit>
+			<trans-unit id="l_to" resname="l_to" >
+				<source>to</source>
+			</trans-unit>
+			<trans-unit id="l_at" resname="l_at" >
+				<source>at</source>
+			</trans-unit>
+			<trans-unit id="l_where" resname="l_where" >
+				<source>Where</source>
+			</trans-unit>
+			<trans-unit id="l_repeats" resname="l_repeats" >
+				<source>Repeats</source>
+			</trans-unit>
+			<trans-unit id="l_repeat_by" resname="l_repeat_by" >
+				<source>Repeats</source>
+			</trans-unit>
+			<trans-unit id="l_daily" resname="l_daily" >
+				<source>Daily</source>
+			</trans-unit>
+			<trans-unit id="l_weekly" resname="l_weekly" >
+				<source>Weekly</source>
+			</trans-unit>
+			<trans-unit id="l_monthly" resname="l_monthly" >
+				<source>Monthly</source>
+			</trans-unit>
+			<trans-unit id="l_yearly" resname="l_yearly" >
+				<source>Yearly</source>
+			</trans-unit>
+			<trans-unit id="l_every_weekday" resname="l_every_weekday" >
+				<source>Every weekday (Mon-Fri)</source>
+			</trans-unit>
+			<trans-unit id="l_every_mo_we_fr" resname="l_every_mo_we_fr" >
+				<source>Every Mon., Wed., and Fri.</source>
+			</trans-unit>
+			<trans-unit id="l_every_tu_th" resname="l_every_tu_th" >
+				<source>Every Tues., and Thurs.</source>
+			</trans-unit>
+			<trans-unit id="l_weekday" resname="l_weekday" >
+				<source>Weekday</source>
+			</trans-unit>
+			<trans-unit id="l_until" resname="l_until" >
+				<source>Until</source>
+			</trans-unit>
+			<trans-unit id="l_interval" resname="l_interval" >
+				<source>Repeat every</source>
+			</trans-unit>
+			<trans-unit id="l_rdate_type" resname="l_rdate_type" >
+				<source>Repeats per</source>
+			</trans-unit>
+			<trans-unit id="l_event_rdate" resname="l_event_rdate" >
+				<source>on</source>
+			</trans-unit>
+			<trans-unit id="l_ends" resname="l_ends" >
+				<source>Ends</source>
+			</trans-unit>
+			<trans-unit id="l_never" resname="l_never" >
+				<source>Never</source>
+			</trans-unit>
+			<trans-unit id="l_date_time" resname="l_date_time" >
+				<source>Date time</source>
+			</trans-unit>
+			<trans-unit id="l_period" resname="l_period" >
+				<source>Period</source>
+			</trans-unit>
+			<trans-unit id="l_duration" resname="l_duration" >
+				<source>Duration</source>
+			</trans-unit>
+			<trans-unit id="l_no_action" resname="l_no_action" >
+				<source>No action</source>
+			</trans-unit>
+			<trans-unit id="l_needs_action" resname="l_needs_action" >
+				<source>Needs action</source>
+			</trans-unit>
+			<trans-unit id="l_in_progress" resname="l_in_progress" >
+				<source>In progress</source>
+			</trans-unit>
+			<trans-unit id="l_cancelled" resname="l_cancelled" >
+				<source>Cancelled</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_week" resname="l_calendar_week" >
+				<source>calendar week</source>
+			</trans-unit>
+			<trans-unit id="l_remind" resname="l_remind" >
+				<source>Here's a reminder...</source>
+			</trans-unit>
+			<trans-unit id="l_remind_minutes_1" resname="l_remind_minutes_1" >
+				<source>&lt;span&gt; -&gt; And remind </source>
+			</trans-unit>
+			<trans-unit id="l_remind_minutes_2" resname="l_remind_minutes_2" >
+				<source> minutes before start&lt;/span&gt;</source>
+			</trans-unit>
+			<trans-unit id="l_calendar_subscription" resname="l_calendar_subscription" >
+				<source>Manage calendar subscription</source>
+			</trans-unit>
+			<trans-unit id="l_color" resname="l_color" >
+				<source>Color</source>
+			</trans-unit>
+			<trans-unit id="l_public_calendar" resname="l_public_calendar" >
+				<source>Public calendar</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
