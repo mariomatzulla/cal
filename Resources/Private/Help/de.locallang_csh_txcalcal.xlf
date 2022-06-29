@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:24:46Z" product-name="cal" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" xml:space="preserve" approved="yes">
+				<source>Individual calendars for the Calendar Base
+				extension.</source>
+			<target state="final">Kalender für den TYPO3 Kalender</target></trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve" approved="yes">
+				<source>Many calendars can be created, each with unique
+				categories and events.</source>
+			<target state="final">Erstellt Kalender für den TYPO3 Kalender, in
+				welche dann Ereignisse einsortiert werden.</target></trans-unit>
+      <trans-unit id="title.description" resname="title.description" approved="yes">
+        <source>Name of the calendar.</source>
+        <target state="final">Titel dieses Kalenders</target>
+      </trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve" approved="yes">
+				<source>Disables the calendar so that it is not visible in
+				the frontend.</source>
+			<target state="final">Versteckt diesen Kalender</target></trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve" approved="yes">
+				<source>Sets a date at which the calendar will be visible
+				in the frontend.</source>
+			<target state="final">Die "Start"-Zeit definiert, ab wann
+				dieser Datensatz aktiv sein sein soll. Vor diesem Zeitpunkt wird der
+				Kalender nicht verwendet. Siehe auch "verstecken"</target></trans-unit>
+      <trans-unit id="_starttime.seeAlso" resname="_starttime.seeAlso" approved="yes">
+        <source>tx_cal_calendar:hidden</source>
+        <target state="final">tx_cal_calendar:hidden</target>
+      </trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve" approved="yes">
+				<source>Sets a date at which the calendar will no longer
+				be visible in the frontend.</source>
+			<target state="final">Die "End"-Zeit definiert, ab wann dieser
+				Datensatz nicht mehr aktiv sein sein soll. Nach diesem Zeitpunkt
+				wird der Kalender nicht verwendet. Siehe auch "verstecken"</target></trans-unit>
+      <trans-unit id="_endtime.seeAlso" resname="_endtime.seeAlso" approved="yes">
+        <source>tx_cal_calendar:hidden</source>
+        <target state="final">tx_cal_calendar:hidden</target>
+      </trans-unit>
+      <trans-unit id="type.description" resname="type.description" xml:space="preserve" approved="yes">
+				<source>There are three types of calendars within the
+				Calendar Base extension. Each type indicates how Calendar Event
+				records are generated.</source>
+			<target state="final">Der Typ des Kalenders</target></trans-unit>
+      <trans-unit id="type.details" resname="type.details" xml:space="preserve" approved="yes">
+				<source>
+				
+				There are three types of calendars:
+				&lt;b&gt;Standard&lt;/b&gt;: The Standard Calendar (database) is the default record. It depends on manual entry to generate Calendar Event records.
+				&lt;b&gt;Include ICS File&lt;/b&gt;: The Include ICS File Calendar allows you to upload an .ics file for the creation of Calendar Event records. The Include ICS File Calendar's form is identical to the Standard Calendar's form, with the exception that it provides a field for uploading or attaching a previously uploaded file.
+				NOTE: Desktop applications such as Microsoft Outlook and Apple iCal are able to export ICS files, which can then be uploaded for use with Calendar Base.
+				&lt;b&gt;External Calendar&lt;/b&gt;: The External Calendar depends on an ICS feed for the creation of Calendar Event records. The External Calendar's form is identical to the Standard Calendar's form, with the exception that it provides a field for the URL of a web-based ICS calendar feed.
+				NOTE: Google, Yahoo, and others provide online calendars that allow exports of their data. Look for links about &quot;sharing your calendar.&quot; You will need the provided URL - look for their ICS or iCal URLs. They will be files with an .ics extension.
+				
+			</source>
+			<target state="final">Es gibt drei Typen:
+				&lt;b&gt;- Standard Kalender&lt;/b&gt;: Ein normaler Kalender, dessen Einträge
+				in der lokalen Datenbank gespeichert werden.
+				&lt;b&gt;- Einbinden einer ICS-Datei&lt;/b&gt;: Bindet eine ICS-Datei ein, in
+				der die Ereignisse gespeichert sind.
+				&lt;b&gt;- Externer Kalender&lt;/b&gt;: Bindet einen externen Kalender per URL
+				ein, aus welchem die Ereignisse übernommen werden sollen.</target></trans-unit>
+      <trans-unit id="ext_url.description" resname="ext_url.description" approved="yes">
+        <source>URL for an ICS feed.</source>
+        <target state="final">Die URL des externen Kalenders.</target>
+      </trans-unit>
+      <trans-unit id="ics_file.description" resname="ics_file.description" approved="yes">
+        <source>Static ICS file to upload.</source>
+        <target state="final">Die ICS-Datei, in der die Ereignisse gespeichert sind.</target>
+      </trans-unit>
+      <trans-unit id="refresh.description" resname="refresh.description" xml:space="preserve" approved="yes">
+				<source>Time period (in minutes) at which the external
+				calendar should be automatically checked for updates. A time period
+				of 0 means it will never be automatically updated.</source>
+			<target state="final">Zeitspanne (in Minuten), nach der der externe Kalender automatisch auf Aktualisierungen geprüft werden soll. Ein Wert von 0 bedeutet, dass keine automatische Aktualisierung durchgeführt wird.</target></trans-unit>
+      <trans-unit id="owner.description" resname="owner.description" xml:space="preserve" approved="yes">
+				<source>If you leave this field blank, anyone can view the
+				calendar in the frontend. If you select users or groups, the
+				calendar and its events will only be visible to user or group that
+				owns it.</source>
+			<target state="final">Werden hier Website-Benutzer ausgewählt, so ist
+				der Kalender nur für die angemeldeten Benutzer sichtbar. Ist nichts
+				ausgewählt (standard), so ist der Kalender für jedermann sichtbar
+				(öffentlich).</target></trans-unit>
+      <trans-unit id="owner.details" resname="owner.details" xml:space="preserve" approved="yes">
+				<source>This is useful for creating Staff or Members-Only
+				calendar events.</source>
+			<target state="final">Nützlich für die Erstellung von Terminen, die dem Personal oder Mitgliedern vorbehalten sind.</target></trans-unit>
+      <trans-unit id="activate_fnb.description" resname="activate_fnb.description" xml:space="preserve" approved="yes">
+				<source>When used in conjunction with the Owner field,
+				appointments for the owner group will not be shown, but in the Day
+				and Week views the time will be shown as busy.</source>
+			<target state="final">Wird dies in Verbindung mit dem Feld Besitzer verwendet, werden Ereignisse der Besitzergruppe nicht angezeigt. In den Tages- und Wochenansichten wird die Zeit jedoch als belegt angezeigt.</target></trans-unit>
+      <trans-unit id="fnb_user_cnt.description" resname="fnb_user_cnt.description" xml:space="preserve" approved="yes">
+				<source>Limits the generated free and busy views to the
+				users or groups you select. Leaving this field blank will allow the
+				free and busy view to be generated for all calendar users.</source>
+			<target state="final">Beschränkt die erzeugten Ansichten für frei und belegt auf die ausgewählten Benutzer und Gruppen. Ist hier nichts ausgewählt, so wird die Ansicht für frei und belegt für sämtliche Kalenderbenutzer erzeugt.</target></trans-unit>
+    </body>
+  </file>
+</xliff>
