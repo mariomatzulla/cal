@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:09Z" product-name="cal" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" xml:space="preserve" approved="yes">
+				<source>Exception to an event for the Calendar Base
+				extension.</source>
+			<target state="final">Ausnahmen für Ereignisse des TYPO3 Kalenders</target></trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve" approved="yes">
+				<source>Exception events are generally used in conjunction
+				with recurrent events for specific days when you don't want an event
+				to occur.</source>
+			<target state="final">Erstellt Ausnahmeereignisse für den
+				TYPO3 Kalender.</target></trans-unit>
+      <trans-unit id="title.description" resname="title.description" approved="yes">
+        <source>Title of the exception event.</source>
+        <target state="final">Titel dieses Ausnahmeereignis</target>
+      </trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" approved="yes">
+        <source>Exclude this exception event from display.</source>
+        <target state="final">Versteckt dieses Ausnahmeereignis</target>
+      </trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve" approved="yes">
+				<source>The &quot;Start&quot; time determines the date
+				from which the record will be available online.</source>
+			<target state="final">Gibt an, ab welchem Datum dieser Eintrag angezeigt
+				werden soll.</target></trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve" approved="yes">
+				<source>The &quot;End&quot; time determines the date from
+				which the db-record will NOT be available online anymore.</source>
+			<target state="final">Gibt an, ab welchem Datum dieser Eintrag nicht mehr
+				angezeigt werden soll.</target></trans-unit>
+      <trans-unit id="start_date.description" resname="start_date.description" xml:space="preserve" approved="yes">
+				<source>The start date determines the day the exception
+				event starts.</source>
+			<target state="final">Gibt das Anfangsdatum des Ausnahmeereignisses an.</target></trans-unit>
+      <trans-unit id="end_date.description" resname="end_date.description" xml:space="preserve" approved="yes">
+				<source>The end date determines the day the exception
+				event ends.</source>
+			<target state="final">Gibt das Enddatum des Ausnahmeereignisses an.</target></trans-unit>
+      <trans-unit id="start_time.description" resname="start_time.description" xml:space="preserve" approved="yes">
+				<source>The start time determines the time the exception
+				event starts.</source>
+			<target state="final">Gibt die Anfangsuhrzeit des Ausnahmeereignisses an.</target></trans-unit>
+      <trans-unit id="end_time.description" resname="end_time.description" xml:space="preserve" approved="yes">
+				<source>The end time determines the time the exception
+				event ends.</source>
+			<target state="final">Gibt die Enduhrzeit des Ausnahmeereignisses an.</target></trans-unit>
+      <trans-unit id="freq.description" resname="freq.description" approved="yes">
+        <source>Frequency at which the exception event occurs.</source>
+        <target state="final">Gibt die Frequenz des Ausnahmeereignisses an.</target>
+      </trans-unit>
+      <trans-unit id="until.description" resname="until.description" approved="yes">
+        <source>Date the recurrence should end.</source>
+        <target state="final">Gibt an, bis zu welchem Datum das wiederkehrende
+				Ausnahmeereignis gelten soll.</target>
+      </trans-unit>
+      <trans-unit id="_until.seeAlso" resname="_until.seeAlso" approved="yes">
+        <source>tx_cal_exception_event:cnt</source>
+        <target state="final">tx_cal_exception_event:cnt</target>
+      </trans-unit>
+      <trans-unit id="cnt.description" resname="cnt.description" xml:space="preserve" approved="yes">
+				<source>Number of times the exception event should recur
+				before stopping.</source>
+			<target state="final">Gibt an, wie oft das wiederkehrende
+				Ausnahmeereignis stattfinden soll.</target></trans-unit>
+      <trans-unit id="_cnt.seeAlso" resname="_cnt.seeAlso" approved="yes">
+        <source>tx_cal_exception_event:until</source>
+        <target state="final">tx_cal_exception_event:until</target>
+      </trans-unit>
+      <trans-unit id="byday.description" resname="byday.description" approved="yes">
+        <source>Defines the interval by day of the week.</source>
+        <target state="final">Definiert das Intervall nach dem Wochentag. (Mo,Fr.. oder alle)</target>
+      </trans-unit>
+      <trans-unit id="bymonthday.description" resname="bymonthday.description" xml:space="preserve" approved="yes">
+				<source>Defines the interval by day of the month (e.g.
+				20th)</source>
+			<target state="final">Definiert das Intervall nach dem Tag des Monats.
+				(1,2, ..., 31 oder alle)</target></trans-unit>
+      <trans-unit id="bymonth.description" resname="bymonth.description" approved="yes">
+        <source>Defines the interval by month.</source>
+        <target state="final">Definiert das Intervall nach dem Monat des Jahres
+				(1,2 .. 12 oder alle)</target>
+      </trans-unit>
+      <trans-unit id="intrval.description" resname="intrval.description" xml:space="preserve" approved="yes">
+				<source>Defines the interval at which the exception event
+				recurs.</source>
+			<target state="final">Definiert das Intervall dieses Ausnahmeereignisses</target></trans-unit>
+      <trans-unit id="intrval.details" resname="intrval.details" xml:space="preserve" approved="yes">
+				<source>An interval of 2 with a frequency of weekly would
+				create an exception event that recurs every other week.</source>
+			<target state="final">Durch ein Intervall von 2 bei einer Frequenz von wöchentlich würde eine Ausnahme beschrieben, die jede zweite Woche auftritt.</target></trans-unit>
+    </body>
+  </file>
+</xliff>
