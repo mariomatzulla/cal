@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:24:40Z" product-name="cal" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="allowedViews.description" resname="allowedViews.description" xml:space="preserve" approved="yes">
+				<source>Defines which views will be available in the
+				Frontend. The first view listed will be the default view on the
+				page.</source>
+			<target state="final">Legt fest, welche Ansichten im
+				Frontend verfügbar sein werden. Die erste aufgeführte Ansicht ist die Standardansicht auf der
+				Seite.</target></trans-unit>
+      <trans-unit id="calendarName.description" resname="calendarName.description" xml:space="preserve" approved="yes">
+				<source>The name of the calendar. This will be the Header
+				displayed throughout the views.</source>
+			<target state="final">Der Name des Kalenders. Dies wird die Überschrift
+				sein, die in den Ansichten angezeigt wird.</target></trans-unit>
+      <trans-unit id="subscription.description" resname="subscription.description" xml:space="preserve" approved="yes">
+				<source>Allows subscriptions to an event so that
+				subscribers are notified of any event changes. Subscriptions can
+				require a login or be available for all visitors.</source>
+			<target state="final">Ermöglicht Abonnements für ein Ereignis, so dass
+				Abonnenten über Änderungen benachrichtigt werden. Abonnements können
+				einen Login benötigen oder für alle Besucher verfügbar sein.</target></trans-unit>
+      <trans-unit id="subscribeWithCaptcha.description" resname="subscribeWithCaptcha.description" xml:space="preserve" approved="yes">
+				<source>Require anonymous frontend users to fill out a
+				CAPTCHA before subscribing.</source>
+			<target state="final">Anonyme Benutzer müssen vor dem Abonnement ein
+				CAPTCHA ausfüllen.</target></trans-unit>
+      <trans-unit id="weekStartDay.description" resname="weekStartDay.description" approved="yes">
+        <source>Sets the week to start on Sunday or Monday.</source>
+        <target state="final">Legt fest, ob die Woche mit Sonntag oder Montag beginnt.</target>
+      </trans-unit>
+      <trans-unit id="calendarMode.description" resname="calendarMode.description" xml:space="preserve" approved="yes">
+				<source>Determines how calendar selections are
+				interpreted.</source>
+			<target state="final">Bestimmt, wie die Kalenderauswahl
+				interpretiert wird.</target></trans-unit>
+      <trans-unit id="calendarMode.details" resname="calendarMode.details" xml:space="preserve" approved="yes">
+				<source>
+				
+				&lt;b&gt;Show All (don't care about selection below):&lt;/b&gt; All calendars will be shown.
+				&lt;b&gt;Show only selected calendars:&lt;/b&gt; Limits the display to only the selected calendars.
+				&lt;b&gt;Don't show selected calendars:&lt;/b&gt; Shows all calendars except those that have been selected.
+				
+			</source>
+			<target state="final">
+				
+				&lt;b&gt;Alle anzeigen (egal ob Auswahl unten):&lt;/b&gt; Alle Kalender werden angezeigt.
+				&lt;b&gt;Nur ausgewählte Kalender anzeigen:&lt;/b&gt; Begrenzt die Anzeige auf nur die ausgewählten Kalender.
+				&lt;b&gt;Ausgewählte Kalender nicht anzeigen:&lt;/b&gt; Zeigt alle Kalender mit Ausnahme der ausgewählten Kalender.
+				
+			</target></trans-unit>
+      <trans-unit id="calendarSelection.description" resname="calendarSelection.description" approved="yes">
+        <source>The selected calendars.</source>
+        <target state="final">Die ausgewählten Kalender.</target>
+      </trans-unit>
+      <trans-unit id="categoryMode.description" resname="categoryMode.description" xml:space="preserve" approved="yes">
+				<source>Determines how category selections are
+				interpreted.</source>
+			<target state="final">Bestimmt, wie die Kalenderauswahl
+				interpretiert wird.</target></trans-unit>
+      <trans-unit id="categoryMode.details" resname="categoryMode.details" xml:space="preserve" approved="yes">
+				<source>
+				
+				&lt;b&gt;Show All (don't care about selection below):&lt;/b&gt; All categories will be shown.
+				&lt;b&gt;Show only selected categories:&lt;/b&gt; Limits the display to only the selected categories.
+				&lt;b&gt;Don't show selected categories:&lt;/b&gt; Shows all categories except those that have been selected.
+				
+			</source>
+			<target state="final">
+				
+				&lt;b&gt;Alle anzeigen (egal ob Auswahl unten):&lt;/b&gt; Alle Kalender werden angezeigt.
+				&lt;b&gt;Nur ausgewählte Kalender anzeigen:&lt;/b&gt; Begrenzt die Anzeige auf nur die ausgewählten Kalender.
+				&lt;b&gt;Ausgewählte Kalender nicht anzeigen:&lt;/b&gt; Zeigt alle Kalender mit Ausnahme der ausgewählten Kalender.
+				
+			</target></trans-unit>
+      <trans-unit id="categorySelection.description" resname="categorySelection.description" approved="yes">
+        <source>The selected categories.</source>
+        <target state="final">Die ausgewählten Kategorien.</target>
+      </trans-unit>
+      <trans-unit id="yearViewPid.description" resname="yearViewPid.description" xml:space="preserve" approved="yes">
+				<source>Page where year view is configured. If no value is
+				set here or in Typoscript, the current page is used.</source>
+			<target state="final">Seite, auf der die Jahresansicht konfiguriert ist. Wenn kein Wert
+				hier oder in Typoscript hinterlegt ist, wird die aktuelle Seite verwendet.</target></trans-unit>
+      <trans-unit id="monthViewPid.description" resname="monthViewPid.description" xml:space="preserve" approved="yes">
+				<source>Page where month view is configured. If no value
+				is set here or in Typoscript, the current page is used.</source>
+			<target state="final">Seite, auf der die Monatsansicht konfiguriert ist. Wenn kein Wert
+				hier oder in Typoscript hinterlegt ist, wird die aktuelle Seite verwendet.</target></trans-unit>
+      <trans-unit id="monthShowListView.description" resname="monthShowListView.description" xml:space="preserve" approved="yes">
+				<source>Shows a list of events in the current month
+				underneath the normal month view.</source>
+			<target state="final">Zeigt eine Liste der Ereignisse im aktuellen Monat
+				unter der normalen Monatsansicht.</target></trans-unit>
+      <trans-unit id="monthMakeMiniCal.description" resname="monthMakeMiniCal.description" xml:space="preserve" approved="yes">
+				<source>Displays the month view as a mini calendar with
+				links to day and week view but no event display in the month view.</source>
+			<target state="final">Zeigt die Monatsansicht als Minikalender mit
+				Links zur Tages- und Wochenansicht an, aber in der Monatsansicht wird kein Ereignis angezeigt.</target></trans-unit>
+      <trans-unit id="weekViewPid.description" resname="weekViewPid.description" xml:space="preserve" approved="yes">
+				<source>Page where week view is configured. If no value is
+				set here or in Typoscript, the current page is used.</source>
+			<target state="final">Seite, auf der die Wochenansicht konfiguriert ist. Wenn kein Wert
+				hier oder in Typoscript hinterlegt ist, wird die aktuelle Seite verwendet.</target></trans-unit>
+      <trans-unit id="dayViewPid.description" resname="dayViewPid.description" xml:space="preserve" approved="yes">
+				<source>Page where day view is configured. If no value is
+				set here or in Typoscript, the current page is used.</source>
+			<target state="final">Seite, auf der die Tagesansicht konfiguriert ist. Wenn kein Wert
+				hier oder in Typoscript hinterlegt ist, wird die aktuelle Seite verwendet.</target></trans-unit>
+      <trans-unit id="dayStart.description" resname="dayStart.description" approved="yes">
+        <source>Earliest time that day view displays events.</source>
+        <target state="final">Die früheste Uhrzeit ab der Ereignisse in der Tagesansicht angezeigt werden.</target>
+      </trans-unit>
+      <trans-unit id="dayStart.details" resname="dayStart.details" xml:space="preserve" approved="yes">
+				<source>This does not affect the times that events can be
+				created, only their display within day view.</source>
+			<target state="final">Dies hat keinen Einfluss auf die Zeiten in denen Ereignisse erstellt werden können, nur ihre Anzeige innerhalb der Tagesansicht.</target></trans-unit>
+      <trans-unit id="dayEnd.description" resname="dayEnd.description" approved="yes">
+        <source>Latest time that day view displays events.</source>
+        <target state="final">Späteste Uhrzeit an der Ereignisse in der Tagesansicht angezeigt werden sollen.</target>
+      </trans-unit>
+      <trans-unit id="dayEnd.details" resname="dayEnd.details" xml:space="preserve" approved="yes">
+				<source>This does not affect the times that events can be
+				created, only their display within day view.</source>
+			<target state="final">Dies hat keinen Einfluss auf die Zeiten in denen Ereignisse erstellt werden können, nur ihre Anzeige innerhalb der Tagesansicht.</target></trans-unit>
+      <trans-unit id="gridLength.description" resname="gridLength.description" xml:space="preserve" approved="yes">
+				<source>Determins how day view divides the displayed
+				hours.</source>
+			<target state="final">Bestimmt, wie die Tagesansicht die angezeigte
+				Stunden teilt.</target></trans-unit>
+      <trans-unit id="listViewPid.description" resname="listViewPid.description" xml:space="preserve" approved="yes">
+				<source>Page where list view is configured. If no value is
+				set here or in Typoscript, the current page is used.</source>
+			<target state="final">Seite, auf der die Listenansicht konfiguriert ist. Wenn kein Wert
+				hier oder in Typoscript hinterlegt ist, wird die aktuelle Seite verwendet.</target></trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve" approved="yes">
+				<source>The day and time to start displaying events in
+				list view.</source>
+			<target state="final">Tag und Uhrzeit, um mit der Anzeige von Events in der
+				Listenansicht zu beginnen.</target></trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve" approved="yes">
+				<source>The day and time to stop displaying events in list
+				view.</source>
+			<target state="final">Tag und Uhrzeit, um die Anzeige von Events in der Listenansicht zu beenden.</target></trans-unit>
+      <trans-unit id="maxEvents.description" resname="maxEvents.description" xml:space="preserve" approved="yes">
+				<source>The maximum number of events to show in list view,
+				regardless of time settings.</source>
+			<target state="final">Die maximale Anzahl an Ereignissen, die in der Listenansicht angezeigt werden sollen,
+				unabhängig von den Zeiteinstellungen.</target></trans-unit>
+      <trans-unit id="maxRecurringEvents.description" resname="maxRecurringEvents.description" xml:space="preserve" approved="yes">
+				<source>The maximum number of times to show the same
+				recurring event in list view.</source>
+			<target state="final">Maximale Anzahl, um dasselbe
+				wiederkehrende Ereignis in der Listenansicht anzuzeigen.</target></trans-unit>
+      <trans-unit id="maxRecurringEvents.details" resname="maxRecurringEvents.details" xml:space="preserve" approved="yes">
+				<source>This setting can be very useful when you have a
+				frequent recurring event that overpowers everything else in the list
+				view.</source>
+			<target state="final">Diese Einstellung ist hilfreich, wenn viele wiederkehrende Ereignisse die Listenansicht überfluten.</target></trans-unit>
+      <trans-unit id="usePageBrowser.description" resname="usePageBrowser.description" xml:space="preserve" approved="yes">
+				<source>Set whether the page browser is used or events are
+				shown in one, single page list.</source>
+			<target state="final">Legen Sie fest, ob der Seite Browser benutzt wird oder Ereignisse
+				in einer einzigen Seitenliste angezeigt werden.</target></trans-unit>
+      <trans-unit id="recordsPerPage.description" resname="recordsPerPage.description" xml:space="preserve" approved="yes">
+				<source>The number of records to display per page when the
+				page browser is enabled.</source>
+			<target state="final">Die Anzahl der Datensätze pro Seite, wenn der
+				Seiten-Browser aktiviert ist.</target></trans-unit>
+      <trans-unit id="pagesCount.description" resname="pagesCount.description" xml:space="preserve" approved="yes">
+				<source>The maximum number of pages to display using the
+				page browser.</source>
+			<target state="final">Die maximale Anzahl der anzuzeigenden Seiten mit dem
+				Seiten-Browser.</target></trans-unit>
+      <trans-unit id="eventViewPid.description" resname="eventViewPid.description" xml:space="preserve" approved="yes">
+				<source>Page where event view is configured. If no value
+				is set here or in Typoscript, the current page is used.</source>
+			<target state="final">Seite, auf der die Ereignis-Ansicht konfiguriert ist. Wenn kein Wert
+				hier oder in Typoscript hinterlegt ist, wird die aktuelle Seite verwendet.</target></trans-unit>
+      <trans-unit id="isPreview.description" resname="isPreview.description" xml:space="preserve" approved="yes">
+				<source>Enables an abbreviated event preview page before
+				the full event details are shown.</source>
+			<target state="final">Aktiviert eine gekürzte Vorschauseite für Ereignisse bevor
+				die vollständigen Ereignisdetails angezeigt werden.</target></trans-unit>
+      <trans-unit id="showIcsLinks.description" resname="showIcsLinks.description" xml:space="preserve" approved="yes">
+				<source>Displays links to ICS files for calendars,
+				categories, and events.</source>
+			<target state="final">Zeigt Links zu ICS-Dateien für Kalender,
+				Kategorien und Ereignisse.</target></trans-unit>
+      <trans-unit id="showIcsLInks.details" resname="showIcsLInks.details" xml:space="preserve" approved="yes">
+				<source>This option only enables the links. You must still
+				include the ICS static template and configure it according to the
+				manual.</source>
+			<target state="final">Diese Option aktiviert nur die Links. Sie müssen trotzdem
+				die static Templates für ICS gemäß dem Handbuch
+				konfigurieren.</target></trans-unit>
+      <trans-unit id="showLogin.description" resname="showLogin.description" xml:space="preserve" approved="yes">
+				<source>Shows a login box in the calendar sidebar or below
+				the calendar.</source>
+			<target state="final">Zeigt ein Login-Feld in der Kalender-Sidebar oder unter
+				dem Kalender.</target></trans-unit>
+      <trans-unit id="showSearch.description" resname="showSearch.description" xml:space="preserve" approved="yes">
+				<source>Shows a search box in the calendar sidebar or
+				below the calendar.</source>
+			<target state="final">Zeigt ein Suchfeld in der Seitenleiste des Kalenders oder
+				unter dem Kalender.</target></trans-unit>
+      <trans-unit id="showJumps.description" resname="showJumps.description" xml:space="preserve" approved="yes">
+				<source>Shows &quot;jump&quot; dropdowns to quickly navigate to
+				other month, weeks, and years.</source>
+			<target state="final">Zeigt "Sprung"-Dropdowns an, um schnell zu
+				anderen Monaten, Wochen und Jahren zu navigieren.</target></trans-unit>
+      <trans-unit id="showCategorySelection.description" resname="showCategorySelection.description" xml:space="preserve" approved="yes">
+				<source>Adds checkboxes to the legend so that the user can
+				filter which categories appear on the calendar.</source>
+			<target state="final">Fügt Kontrollkästchen zu der Legende hinzu, damit der Benutzer
+				filtern kann, welche Kategorien auf dem Kalender erscheinen.</target></trans-unit>
+      <trans-unit id="showTomorrowEvents.description" resname="showTomorrowEvents.description" approved="yes">
+        <source>Displays events for the next day in the sidebar.</source>
+        <target state="final">Zeigt Ereignisse für den nächsten Tag in der Sidebar an.</target>
+      </trans-unit>
+      <trans-unit id="myTS.description" resname="myTS.description" xml:space="preserve" approved="yes">
+				<source>Custom Typoscript that only applies to this
+				instance of the plugin.</source>
+			<target state="final">Benutzerdefiniertes Typoscript, das nur für diese
+				Instanz des Plugins gilt.</target></trans-unit>
+    </body>
+  </file>
+</xliff>
