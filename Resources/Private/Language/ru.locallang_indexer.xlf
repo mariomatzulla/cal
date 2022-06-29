@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_indexer.xlf" date="2022-04-05T11:47:43Z" product-name="cal" target-language="ru">
+    <header/>
+    <body>
+      <trans-unit id="title">
+        <source>Index generator for calendar base recurring events</source>
+        <target state="needs-translation">Index generator for calendar base recurring events</target>
+      </trans-unit>
+      <trans-unit id="mlang_tabs_tab ">
+        <source>Cal Indexer</source>
+        <target state="needs-translation">Cal Indexer</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tabdescr ">
+        <source>Index recurring events for calendar base</source>
+        <target state="needs-translation">Index recurring events for calendar base</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel ">
+        <source>Index recurring events for calendar base</source>
+        <target state="needs-translation">Index recurring events for calendar base</target>
+      </trans-unit>
+      <trans-unit id="function1">
+        <source>Information</source>
+        <target state="needs-translation">Information</target>
+      </trans-unit>
+      <trans-unit id="function2">
+        <source>Generate</source>
+        <target state="needs-translation">Generate</target>
+      </trans-unit>
+      <trans-unit id="notice_header">
+        <source>Welcome</source>
+        <target state="needs-translation">Welcome</target>
+      </trans-unit>
+      <trans-unit id="notice">
+        <source>&lt;div align=center&gt;&lt;strong&gt;Notice header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed, please read carefully:</source>
+        <target state="needs-translation">&lt;div align=center&gt;&lt;strong&gt;Notice header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed, please read carefully:</target>
+      </trans-unit>
+      <trans-unit id="capabilities_header">
+        <source>Capabilities of this tool</source>
+        <target state="needs-translation">Capabilities of this tool</target>
+      </trans-unit>
+      <trans-unit id="capabilities">
+        <source>This tool will create an index for all recurring tx_cal_event and tx_cal_exception_event instances.</source>
+        <target state="needs-translation">This tool will create an index for all recurring tx_cal_event and tx_cal_exception_event instances.</target>
+      </trans-unit>
+      <trans-unit id="tableHeader1">
+        <source>Page/Folder</source>
+        <target state="needs-translation">Page/Folder</target>
+      </trans-unit>
+      <trans-unit id="tableHeader2">
+        <source>Frontend Page with calendar plugin</source>
+        <target state="needs-translation">Frontend Page with calendar plugin</target>
+      </trans-unit>
+      <trans-unit id="nothingToDo">
+        <source>No event / exception event records found</source>
+        <target state="needs-translation">No event / exception event records found</target>
+      </trans-unit>
+      <trans-unit id="browse">
+        <source>Browse for records</source>
+        <target state="needs-translation">Browse for records</target>
+      </trans-unit>
+      <trans-unit id="submit">
+        <source>Submit</source>
+        <target state="needs-translation">Submit</target>
+      </trans-unit>
+      <trans-unit id="selectPage">
+        <source>Select the page where the typoscript of calendar base can be found. This should be a normal frontend page.</source>
+        <target state="needs-translation">Select the page where the typoscript of calendar base can be found. This should be a normal frontend page.</target>
+      </trans-unit>
+      <trans-unit id="indexStart">
+        <source>Index start (YYYYMMDD or a dynamic value like: -3 month, -2 years)</source>
+        <target state="needs-translation">Index start (YYYYMMDD or a dynamic value like: -3 month, -2 years)</target>
+      </trans-unit>
+      <trans-unit id="indexEnd">
+        <source>Index end (YYYYMMDD or a dynamic value like: +5 month, +4 years)</source>
+        <target state="needs-translation">Index end (YYYYMMDD or a dynamic value like: +5 month, +4 years)</target>
+      </trans-unit>
+      <trans-unit id="startIndexing">
+        <source>Start indexing</source>
+        <target state="needs-translation">Start indexing</target>
+      </trans-unit>
+      <trans-unit id="atLeastOne">
+        <source>You need to assign at least one frontend page to a found storage places in order to start indexing!</source>
+        <target state="needs-translation">You need to assign at least one frontend page to a found storage places in order to start indexing!</target>
+      </trans-unit>
+      <trans-unit id="notAllPagesAssigned">
+        <source>You need to assign a frontend page to all found storage places in order to start indexing!</source>
+        <target state="needs-translation">You need to assign a frontend page to all found storage places in order to start indexing!</target>
+      </trans-unit>
+      <trans-unit id="result">
+        <source>Result: </source>
+        <target state="needs-translation">Result: </target>
+      </trans-unit>
+      <trans-unit id="toBeIndexed">
+        <source> -&gt; Events to be indexed: </source>
+        <target state="needs-translation"> -&gt; Events to be indexed: </target>
+      </trans-unit>
+      <trans-unit id="droppingTable">
+        <source>Removing events with pid %s from index</source>
+        <target state="needs-translation">Removing events with pid %s from index</target>
+      </trans-unit>
+      <trans-unit id="indexing">
+        <source>Indexing</source>
+        <target state="needs-translation">Indexing</target>
+      </trans-unit>
+      <trans-unit id="back">
+        <source>Back</source>
+        <target state="needs-translation">Back</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
