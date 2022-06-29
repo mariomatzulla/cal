@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_indexer.xlf" date="2022-04-05T11:47:43Z" product-name="cal" target-language="zh-TW">
+  <file source-language="en" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_indexer.xlf" date="2022-04-05T11:47:43Z" product-name="cal" target-language="zh-CN">
     <header/>
     <body>
       <trans-unit id="title">
