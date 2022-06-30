@@ -310,7 +310,7 @@ class TceMainProcessdatamap {
     
     if ($table == 'tx_cal_event' || $table == "tx_cal_exeption_event") {
       $event = BackendUtility::getRecord( $table, $id );
-      if (intval( $event ['start_date'] ) == 0) {
+      if (!isset($event ['start_date']) || intval( $event ['start_date'] ) == 0) {
         return;
       }
       
@@ -328,9 +328,9 @@ class TceMainProcessdatamap {
        *
        * @todo Default date calculations do not take any timezone information into account.
        */
-      if ($incomingFieldArray ['freq'] != $event ['freq']) {
+      if (isset($incomingFieldArray ['freq']) && isset($event ['freq']) && $incomingFieldArray ['freq'] != $event ['freq']) {
         $date = self::convertBackendDateToPear( $incomingFieldArray ['start_date'] );
-        $date->addSeconds( $incomingFieldArray ['start_time'] );
+        $date->addSeconds( $incomingFieldArray ['start_time'] ?? 0 );
         $dayArray = self::getWeekdayOccurrence( $date );
         
         /* If we're on the 4th occurrence or later, let's assume we want the last occurrence */

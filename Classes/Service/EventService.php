@@ -1592,7 +1592,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
 
   function getRecurringEventsFromIndex($event, $ex_event_dates = Array()) {
 
-    $maxRecurringEvents = ( int ) $this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'];
+    $maxRecurringEvents = intval($this->conf ['view.'] [$this->conf ['view'] . '.'] ['maxRecurringEvents'] ?? 0);
     $maxRecurringEvents = ! empty( $maxRecurringEvents ) ? $maxRecurringEvents : 99999;
     
     $master_array = Array ();
@@ -1609,7 +1609,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
       if ($startDate->getTime() > $now->getTime() && ! $ex_event_dates [$startDate->format( '%Y%m%d' )]) {
         $master_array [$startDate->format( '%Y%m%d' )] [$event->isAllday() ? '-1' : ($startDate->format( '%H%M' ))] [$event->getUid()] = &$event;
       }
-    } else if (! $ex_event_dates [$startDate->format( '%Y%m%d' )] && (! $event->getStart()->after( $this->endtime )) && (! $event->getEnd()->before( $this->starttime ))) {
+    } else if (! isset($ex_event_dates [$startDate->format( '%Y%m%d' )]) && (! $event->getStart()->after( $this->endtime )) && (! $event->getEnd()->before( $this->starttime ))) {
       $master_array [$startDate->format( '%Y%m%d' )] [$event->isAllday() ? '-1' : ($startDate->format( '%H%M' ))] [$event->getUid()] = &$event;
     }
     
@@ -1639,7 +1639,7 @@ class EventService extends \TYPO3\CMS\Cal\Service\BaseService {
           } else {
             $new_event = new \TYPO3\CMS\Cal\Model\EventRecModel( $event, $nextOccuranceTime, $nextOccuranceEndTime );
           }
-          if (! $ex_event_dates [$new_event->getStart()->format( '%Y%m%d' )]) {
+          if (! isset($ex_event_dates [$new_event->getStart()->format( '%Y%m%d' )])) {
             if ($new_event->isAllday()) {
               $master_array [$nextOccuranceTime->format( '%Y%m%d' )] ['-1'] [$event->getUid()] = $new_event;
             } else {

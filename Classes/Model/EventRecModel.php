@@ -239,7 +239,7 @@ class EventRecModel extends \TYPO3\CMS\Cal\Model\Model {
     $rems = array ();
     $sims = array ();
     $wrapped = array ();
-    $this->getMarker( $page, $sims, $rems, $wrapped, $this->parentEvent->conf ['alternateRenderingView'] ? $this->parentEvent->conf ['alternateRenderingView'] : '' );
+    $this->getMarker( $page, $sims, $rems, $wrapped, $this->parentEvent->conf ['alternateRenderingView'] ?? '' );
     return $this->parentEvent->finish( \TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached( $page, $sims, $rems, $wrapped ) );
   }
 

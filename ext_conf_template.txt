@@ -30,10 +30,10 @@ hideDeviationRecords = 1
 categoryService = tx_cal_category
 
 # cat=basic/enable/310; type=text; label= Recurring Event Start Date:  This is the earliest date recurring events will occur. The date format is YYYYMMDD.
-recurrenceStart = 20200101
+recurrenceStart = 20220101
 
 # cat=basic/enable/320; type=text; label= Recurring Event End Date:  This is the latest date recurring events will occur. The date format is YYYYMMDD.
-recurrenceEnd = 20250101
+recurrenceEnd = 20270101
 
 # cat=basic/enable/150; type=boolean; label=LLL:EXT:cal/Resources/Private/Language/locallang_plugin.xml:extmng.useInternalCaching
 useInternalCaching = 1

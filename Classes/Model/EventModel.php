@@ -326,10 +326,10 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
               $attendeeIndex [$serviceKey . '_' . ($attendeeServices [$serviceKey] [$attendeeKey]->getFeUserId() ? $attendeeServices [$serviceKey] [$attendeeKey]->getFeUserId() : $attendeeServices [$serviceKey] [$attendeeKey]->getEmail())] = &$attendeeServices [$serviceKey] [$attendeeKey];
             }
           }
-          $servKey = 'tx_cal_attendee';
+          $serviceKey = 'tx_cal_attendee';
           $newAttendeeArray = Array (
               
-              $servKey => Array ()
+              $serviceKey => Array ()
           );
           
           $values = $piVars [$key];
@@ -352,21 +352,23 @@ class EventModel extends \TYPO3\CMS\Cal\Model\Model {
           foreach ( $values as $entry ) {
             preg_match( '/(^[emailu]+)_([^*]+)/', $entry, $idname );
             
-            if (is_object( $attendeeIndex [$serviceKey . '_' . $idname [2]] )) {
+            if (isset($idname [2]) && is_object( $attendeeIndex [$serviceKey . '_' . $idname [2]] )) {
               // Attendee has been already assigned -> updating attendance
               $attendeeIndex [$serviceKey . '_' . $idname [2]]->setAttendance( $attendance [$entry] );
               $this->addAttendee( $attendeeIndex [$serviceKey . '_' . $idname [2]] );
             } else {
               $initRow = Array ();
               $attendee = new \TYPO3\CMS\Cal\Model\AttendeeModel( $initRow, 'cal_attendee_model' );
-              if ($idname [1] == 'u') {
-                $attendee->setFeUserId( $idname [2] );
-                $attendee->setAttendance( $attendance [$entry] );
-              } else if ($idname [1] == 'email') {
-                $attendee->setEmail( $idname [2] );
-                $attendee->setAttendance( 'OPT-PARTICIPANT' );
+              if(isset( $idname [1])){
+                if ($idname [1] == 'u') {
+                  $attendee->setFeUserId( $idname [2] );
+                  $attendee->setAttendance( $attendance [$entry] );
+                } else if ($idname [1] == 'email') {
+                  $attendee->setEmail( $idname [2] );
+                  $attendee->setAttendance( 'OPT-PARTICIPANT' );
+                }
+                $this->addAttendee( $attendee );
               }
-              $this->addAttendee( $attendee );
             }
           }
           foreach ( GeneralUtility::trimExplode( ',', $piVars ['attendee_external'] ?? '', 1 ) as $emailAddress ) {

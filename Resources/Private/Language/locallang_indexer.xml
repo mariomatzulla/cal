@@ -9,6 +9,9 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">Cal Indexer</label>
+			<label index="mlang_labels_tabdescr">Index recurring events for calendar base</label>
+			<label index="mlang_labels_tablabel">Index recurring events for calendar base</label>
 			<label index="title">Index generator for calendar base recurring events</label>
 			<label index="function1">Information</label>
 			<label index="function2">Generate</label>

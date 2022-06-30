@@ -29,7 +29,7 @@ class TceFormsGetmainfields {
     if ($table == 'tx_cal_event') {
       
       /* If the event is temporary, make it read only. */
-      if ($row ['isTemp']) {
+      if (isset($row ['isTemp']) && $row ['isTemp']) {
         $GLOBALS ['TCA'] ['tx_cal_event'] ['ctrl'] ['readOnly'] = 1;
       }
       /* If we have posted data and a new record, preset values to what they were on the previous record */
@@ -53,7 +53,7 @@ class TceFormsGetmainfields {
       }
       
       /* If we have a calendar, set the category query to take this calendar into account */
-      if ($row ['calendar_id']) {
+      if (isset($row ['calendar_id'])) {
         $confArr = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class )->get( 'cal' );
         if ($confArr ['categoryService'] == 'tx_cal_category') {
           $GLOBALS ['TCA'] ['tx_cal_event'] ['columns'] ['category_id'] ['config'] ['foreign_table_where'] = 'AND tx_cal_category.calendar_id IN (' . $row ['calendar_id'] . ',0) ORDER BY tx_cal_category.title';

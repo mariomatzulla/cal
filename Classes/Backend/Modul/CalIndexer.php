@@ -89,7 +89,9 @@ class CalIndexer {
   var $pageinfo;
 
   private $content;
-
+  
+  private $id;
+  
   /**
    *
    * @return \TYPO3\CMS\Cal\Backend\Modul\CalIndexer
@@ -117,6 +119,7 @@ class CalIndexer {
     $pageRenderer->loadRequireJsModule( 'TYPO3/CMS/Backend/SplitButtons' );
     
     $this->content = '';
+    
   }
 
   /**
@@ -186,6 +189,8 @@ class CalIndexer {
     $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
     $menu->setIdentifier( 'CalJumpMenu' );
     
+    $selection = $this->getSelection();
+    
     foreach ( $this->MOD_MENU ['function'] as $controller => $title ) {
       
       $item = $menu->makeMenuItem()->setHref( $this->getModuleUrl( $this->moduleName, [ 
@@ -197,12 +202,20 @@ class CalIndexer {
           ]
       ] ) )->setTitle( $title );
       
-      if (intval( $controller ) == intval( $this->request->getQueryParams() ['SET'] ['function'] )) {
+      if (intval( $controller ) == $selection) {
         $item->setActive( true );
       }
       $menu->addMenuItem( $item );
     }
     $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu( $menu );
+  }
+  
+  private function getSelection() {
+    $selection = 1;
+    if(isset($this->request->getQueryParams() ['SET']) && intval( $this->request->getQueryParams() ['SET'] ['function'] ) > 1) {
+      $selection = 2;
+    }
+    return $selection;
   }
   
   // If you chose 'web' as main module, you will need to consider the $this->id parameter which will contain the uid-number of the page clicked in the page tree
@@ -219,7 +232,7 @@ class CalIndexer {
       $this->content = '<form name="tx_cal_form" id="tx_cal_form" method="post" action="">';
       
       // Prepare main content
-      $this->content .= '<h1>' . $this->getLanguageService()->getLL( 'function.' . $this->MOD_SETTINGS ['function'] ) . '</h1>';
+      $this->content .= '<h1>' . $this->getLanguageService()->getLL( 'function.' . $this->getSelection() ) . '</h1>';
       $this->content .= $this->getModuleContent();
       $this->content .= '</form>';
     } else {
@@ -236,7 +249,8 @@ class CalIndexer {
    */
   protected function getModuleContent() {
 
-    switch (intval( $this->request->getQueryParams() ['SET'] ['function'] )) {
+    $content = '';
+    switch ($this->getSelection()) {
       case 2 :
         $postVarArray = GeneralUtility::_POST();
         $pageIds = Array ();
