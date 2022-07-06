@@ -542,33 +542,33 @@
         <source>Exception Events</source>
         <target state="needs-translation">Exception Events</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event" resname="tx_cal_fe_user_event">
+      <trans-unit id="tx_cal_fe_user_event" resname="tx_cal_fe_user_event" approved="yes">
         <source>Frontend User - Event Relation</source>
-        <target state="needs-translation">Frontend User - Event Relation</target>
+        <target state="final">Edustakï¿½yttï¿½jï¿½ - tapahtuma riippuvuus</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.fe_user" resname="tx_cal_fe_user_event.fe_user">
+      <trans-unit id="tx_cal_fe_user_event.fe_user" resname="tx_cal_fe_user_event.fe_user" approved="yes">
         <source>User</source>
-        <target state="needs-translation">User</target>
+        <target state="final">Kï¿½yttï¿½jï¿½</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.event" resname="tx_cal_fe_user_event.event">
+      <trans-unit id="tx_cal_fe_user_event.event" resname="tx_cal_fe_user_event.event" approved="yes">
         <source>Event</source>
-        <target state="needs-translation">Event</target>
+        <target state="final">Tapahtuma</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_group_event" resname="tx_cal_fe_group_event">
+      <trans-unit id="tx_cal_fe_group_event" resname="tx_cal_fe_group_event" approved="yes">
         <source>Frontend Group - Event Relation</source>
-        <target state="needs-translation">Frontend Group - Event Relation</target>
+        <target state="final">Edustakï¿½yttï¿½jï¿½ryhmï¿½- tapahtuma riippuvuus</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_group_event.fe_group" resname="tx_cal_fe_group_event.fe_group">
+      <trans-unit id="tx_cal_fe_group_event.fe_group" resname="tx_cal_fe_group_event.fe_group" approved="yes">
         <source>Group</source>
-        <target state="needs-translation">Group</target>
+        <target state="final">Ryhmï¿½</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_group_event.event" resname="tx_cal_fe_group_event.event">
+      <trans-unit id="tx_cal_fe_group_event.event" resname="tx_cal_fe_group_event.event" approved="yes">
         <source>Event</source>
-        <target state="needs-translation">Event</target>
+        <target state="final">Tapahtuma</target>
       </trans-unit>
-      <trans-unit id="tx_cal_fe_user_event.monitor" resname="tx_cal_fe_user_event.monitor">
+      <trans-unit id="tx_cal_fe_user_event.monitor" resname="tx_cal_fe_user_event.monitor" approved="yes">
         <source>Monitoring Users</source>
-        <target state="needs-translation">Monitoring Users</target>
+        <target state="final">Huomauta muutoksesta</target>
       </trans-unit>
       <trans-unit id="tx_cal_fe_user_event.offset" resname="tx_cal_fe_user_event.offset">
         <source>Notification offset</source>
@@ -720,29 +720,29 @@
         <source>Global categories</source>
         <target state="needs-translation">Global categories</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer" resname="tx_cal_organizer">
+      <trans-unit id="tx_cal_organizer" resname="tx_cal_organizer" approved="yes">
         <source>Calendar Event Organizer</source>
-        <target state="needs-translation">Calendar Event Organizer</target>
+        <target state="final">Kalenterin pitï¿½jï¿½</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.name" resname="tx_cal_organizer.name">
+      <trans-unit id="tx_cal_organizer.name" resname="tx_cal_organizer.name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Nimi</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.description" resname="tx_cal_organizer.description">
+      <trans-unit id="tx_cal_organizer.description" resname="tx_cal_organizer.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Kuvaus</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.street" resname="tx_cal_organizer.street">
+      <trans-unit id="tx_cal_organizer.street" resname="tx_cal_organizer.street" approved="yes">
         <source>Street</source>
-        <target state="needs-translation">Street</target>
+        <target state="final">Katuosoite</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.zip" resname="tx_cal_organizer.zip">
+      <trans-unit id="tx_cal_organizer.zip" resname="tx_cal_organizer.zip" approved="yes">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="final">Postinumero</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.city" resname="tx_cal_organizer.city">
+      <trans-unit id="tx_cal_organizer.city" resname="tx_cal_organizer.city" approved="yes">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="final">Kaupunki</target>
       </trans-unit>
       <trans-unit id="tx_cal_organizer.country" resname="tx_cal_organizer.country">
         <source>Country (static_info_tables needed)</source>
@@ -752,21 +752,21 @@
         <source>State/Province (static_info_tables needed)</source>
         <target state="needs-translation">State/Province (static_info_tables needed)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.phone" resname="tx_cal_organizer.phone">
+      <trans-unit id="tx_cal_organizer.phone" resname="tx_cal_organizer.phone" approved="yes">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="final">Puhelin</target>
       </trans-unit>
       <trans-unit id="tx_cal_organizer.fax" resname="tx_cal_organizer.fax">
         <source>Facsimile</source>
         <target state="needs-translation">Facsimile</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.email" resname="tx_cal_organizer.email">
+      <trans-unit id="tx_cal_organizer.email" resname="tx_cal_organizer.email" approved="yes">
         <source>E-mail</source>
-        <target state="needs-translation">E-mail</target>
+        <target state="final">Sï¿½hkï¿½postiosoite</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.image" resname="tx_cal_organizer.image">
+      <trans-unit id="tx_cal_organizer.image" resname="tx_cal_organizer.image" approved="yes">
         <source>Logo/Image</source>
-        <target state="needs-translation">Logo/Image</target>
+        <target state="final">Logo/Kuva</target>
       </trans-unit>
       <trans-unit id="tx_cal_organizer.imagealttext" resname="tx_cal_organizer.imagealttext">
         <source>alt-text</source>
@@ -776,9 +776,9 @@
         <source>title-text</source>
         <target state="needs-translation">title-text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_organizer.link" resname="tx_cal_organizer.link">
+      <trans-unit id="tx_cal_organizer.link" resname="tx_cal_organizer.link" approved="yes">
         <source>Homepage</source>
-        <target state="needs-translation">Homepage</target>
+        <target state="final">Kotisivu</target>
       </trans-unit>
       <trans-unit id="tx_cal_organizer.isorganizer" resname="tx_cal_organizer.isorganizer">
         <source>Is Cal Organizer</source>
@@ -792,33 +792,33 @@
         <source>edit selected organizer</source>
         <target state="needs-translation">edit selected organizer</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location" resname="tx_cal_location">
+      <trans-unit id="tx_cal_location" resname="tx_cal_location" approved="yes">
         <source>Calendar Event Location</source>
-        <target state="needs-translation">Calendar Event Location</target>
+        <target state="final">Kalenterin sijainti</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.location" resname="tx_cal_location.location">
+      <trans-unit id="tx_cal_location.location" resname="tx_cal_location.location" approved="yes">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="final">Sijainti</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.description" resname="tx_cal_location.description">
+      <trans-unit id="tx_cal_location.description" resname="tx_cal_location.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Kuvaus</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.name" resname="tx_cal_location.name">
+      <trans-unit id="tx_cal_location.name" resname="tx_cal_location.name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Nimi</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.street" resname="tx_cal_location.street">
+      <trans-unit id="tx_cal_location.street" resname="tx_cal_location.street" approved="yes">
         <source>Street</source>
-        <target state="needs-translation">Street</target>
+        <target state="final">Katuosoite</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.zip" resname="tx_cal_location.zip">
+      <trans-unit id="tx_cal_location.zip" resname="tx_cal_location.zip" approved="yes">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="final">Postinumero</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.city" resname="tx_cal_location.city">
+      <trans-unit id="tx_cal_location.city" resname="tx_cal_location.city" approved="yes">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="final">Kaupunki</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.country" resname="tx_cal_location.country">
         <source>Country (static_info_tables needed)</source>
@@ -828,21 +828,21 @@
         <source>State/Province (static_info_tables needed)</source>
         <target state="needs-translation">State/Province (static_info_tables needed)</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.phone" resname="tx_cal_location.phone">
+      <trans-unit id="tx_cal_location.phone" resname="tx_cal_location.phone" approved="yes">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="final">Puhelin</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.fax" resname="tx_cal_location.fax">
         <source>Facsimile</source>
         <target state="needs-translation">Facsimile</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.email" resname="tx_cal_location.email">
+      <trans-unit id="tx_cal_location.email" resname="tx_cal_location.email" approved="yes">
         <source>E-mail</source>
-        <target state="needs-translation">E-mail</target>
+        <target state="final">Sï¿½hkï¿½postiosoite</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.image" resname="tx_cal_location.image">
+      <trans-unit id="tx_cal_location.image" resname="tx_cal_location.image" approved="yes">
         <source>Logo/Image</source>
-        <target state="needs-translation">Logo/Image</target>
+        <target state="final">Logo/Kuva</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.imagealttext" resname="tx_cal_location.imagealttext">
         <source>alt-text</source>
@@ -852,9 +852,9 @@
         <source>title-text</source>
         <target state="needs-translation">title-text</target>
       </trans-unit>
-      <trans-unit id="tx_cal_location.link" resname="tx_cal_location.link">
+      <trans-unit id="tx_cal_location.link" resname="tx_cal_location.link" approved="yes">
         <source>Homepage</source>
-        <target state="needs-translation">Homepage</target>
+        <target state="final">Kotisivu</target>
       </trans-unit>
       <trans-unit id="tx_cal_location.islocation" resname="tx_cal_location.islocation">
         <source>Is Cal Location</source>
@@ -988,9 +988,9 @@
         <source>LocalConf (TS-Style)</source>
         <target state="needs-translation">LocalConf (TS-Style)</target>
       </trans-unit>
-      <trans-unit id="tt_content.list_type" resname="tt_content.list_type">
+      <trans-unit id="tt_content.list_type" resname="tt_content.list_type" approved="yes">
         <source>TYPO3 Calendar</source>
-        <target state="needs-translation">TYPO3 Calendar</target>
+        <target state="final">TYPO3 Kalenteri</target>
       </trans-unit>
       <trans-unit id="frequency.none" resname="frequency.none">
         <source>None</source>
