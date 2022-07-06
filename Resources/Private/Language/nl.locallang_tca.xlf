@@ -3,133 +3,133 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:35:31Z" product-name="cal" target-language="nl">
     <header/>
     <body>
-      <trans-unit id="cal.pi_flexform.sheetGeneral" resname="cal.pi_flexform.sheetGeneral">
+      <trans-unit id="cal.pi_flexform.sheetGeneral" resname="cal.pi_flexform.sheetGeneral" approved="yes">
         <source>General Settings</source>
-        <target state="needs-translation">General Settings</target>
+        <target state="final">Algemene instellingen</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.allowedViews" resname="cal.pi_flexform.allowedViews">
+      <trans-unit id="cal.pi_flexform.allowedViews" resname="cal.pi_flexform.allowedViews" approved="yes">
         <source>Allowed views</source>
-        <target state="needs-translation">Allowed views</target>
+        <target state="final">Toegestane weergaven</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewMonth" resname="cal.pi_flexform.viewMonth">
+      <trans-unit id="cal.pi_flexform.viewMonth" resname="cal.pi_flexform.viewMonth" approved="yes">
         <source>Month</source>
-        <target state="needs-translation">Month</target>
+        <target state="final">Maand</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewYear" resname="cal.pi_flexform.viewYear">
+      <trans-unit id="cal.pi_flexform.viewYear" resname="cal.pi_flexform.viewYear" approved="yes">
         <source>Year</source>
-        <target state="needs-translation">Year</target>
+        <target state="final">Jaar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewList" resname="cal.pi_flexform.viewList">
+      <trans-unit id="cal.pi_flexform.viewList" resname="cal.pi_flexform.viewList" approved="yes">
         <source>List</source>
-        <target state="needs-translation">List</target>
+        <target state="final">Lijst</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.viewWeek" resname="cal.pi_flexform.viewWeek">
         <source>Week</source>
         <target state="needs-translation">Week</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDay" resname="cal.pi_flexform.viewDay">
+      <trans-unit id="cal.pi_flexform.viewDay" resname="cal.pi_flexform.viewDay" approved="yes">
         <source>Day</source>
-        <target state="needs-translation">Day</target>
+        <target state="final">Dag</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewOrganizer" resname="cal.pi_flexform.viewOrganizer">
+      <trans-unit id="cal.pi_flexform.viewOrganizer" resname="cal.pi_flexform.viewOrganizer" approved="yes">
         <source>Organizer</source>
-        <target state="needs-translation">Organizer</target>
+        <target state="final">Organisator</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewLocation" resname="cal.pi_flexform.viewLocation">
+      <trans-unit id="cal.pi_flexform.viewLocation" resname="cal.pi_flexform.viewLocation" approved="yes">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="final">Locatie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSingle" resname="cal.pi_flexform.viewSingle">
+      <trans-unit id="cal.pi_flexform.viewSingle" resname="cal.pi_flexform.viewSingle" approved="yes">
         <source>Single Event</source>
-        <target state="needs-translation">Single Event</target>
+        <target state="final">Enkele gebeurtenis</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.viewIcs" resname="cal.pi_flexform.viewIcs">
         <source>ICS</source>
         <target state="needs-translation">ICS</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewRss" resname="cal.pi_flexform.viewRss">
+      <trans-unit id="cal.pi_flexform.viewRss" resname="cal.pi_flexform.viewRss" approved="yes">
         <source>Rss</source>
-        <target state="needs-translation">Rss</target>
+        <target state="final">RSS</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchEvent" resname="cal.pi_flexform.viewSearchEvent">
+      <trans-unit id="cal.pi_flexform.viewSearchEvent" resname="cal.pi_flexform.viewSearchEvent" approved="yes">
         <source>Search Event</source>
-        <target state="needs-translation">Search Event</target>
+        <target state="final">Zoek gebeurtenis</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchLocation" resname="cal.pi_flexform.viewSearchLocation">
+      <trans-unit id="cal.pi_flexform.viewSearchLocation" resname="cal.pi_flexform.viewSearchLocation" approved="yes">
         <source>Search Location</source>
-        <target state="needs-translation">Search Location</target>
+        <target state="final">Zoek locatie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchOrganizer" resname="cal.pi_flexform.viewSearchOrganizer">
+      <trans-unit id="cal.pi_flexform.viewSearchOrganizer" resname="cal.pi_flexform.viewSearchOrganizer" approved="yes">
         <source>Search Organizer</source>
-        <target state="needs-translation">Search Organizer</target>
+        <target state="final">Zoek organisator</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSearchAll" resname="cal.pi_flexform.viewSearchAll">
+      <trans-unit id="cal.pi_flexform.viewSearchAll" resname="cal.pi_flexform.viewSearchAll" approved="yes">
         <source>Search All</source>
-        <target state="needs-translation">Search All</target>
+        <target state="final">Zoek alles</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateEvent" resname="cal.pi_flexform.viewCreateEvent">
+      <trans-unit id="cal.pi_flexform.viewCreateEvent" resname="cal.pi_flexform.viewCreateEvent" approved="yes">
         <source>Create Event</source>
-        <target state="needs-translation">Create Event</target>
+        <target state="final">Maak gebeurtenis</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditEvent" resname="cal.pi_flexform.viewEditEvent">
+      <trans-unit id="cal.pi_flexform.viewEditEvent" resname="cal.pi_flexform.viewEditEvent" approved="yes">
         <source>Edit Event</source>
-        <target state="needs-translation">Edit Event</target>
+        <target state="final">Bewerk gebeurtenis</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteEvent" resname="cal.pi_flexform.viewDeleteEvent">
+      <trans-unit id="cal.pi_flexform.viewDeleteEvent" resname="cal.pi_flexform.viewDeleteEvent" approved="yes">
         <source>Delete Event</source>
-        <target state="needs-translation">Delete Event</target>
+        <target state="final">Verwijder gebeurtenis</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateCalendar" resname="cal.pi_flexform.viewCreateCalendar">
+      <trans-unit id="cal.pi_flexform.viewCreateCalendar" resname="cal.pi_flexform.viewCreateCalendar" approved="yes">
         <source>Create Calendar</source>
-        <target state="needs-translation">Create Calendar</target>
+        <target state="final">Maak kalender</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditCalendar" resname="cal.pi_flexform.viewEditCalendar">
+      <trans-unit id="cal.pi_flexform.viewEditCalendar" resname="cal.pi_flexform.viewEditCalendar" approved="yes">
         <source>Edit Calendar</source>
-        <target state="needs-translation">Edit Calendar</target>
+        <target state="final">Bewerk kalender</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteCalendar" resname="cal.pi_flexform.viewDeleteCalendar">
+      <trans-unit id="cal.pi_flexform.viewDeleteCalendar" resname="cal.pi_flexform.viewDeleteCalendar" approved="yes">
         <source>Delete Calendar</source>
-        <target state="needs-translation">Delete Calendar</target>
+        <target state="final">Verwijder kalender</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateCategory" resname="cal.pi_flexform.viewCreateCategory">
+      <trans-unit id="cal.pi_flexform.viewCreateCategory" resname="cal.pi_flexform.viewCreateCategory" approved="yes">
         <source>Create Category</source>
-        <target state="needs-translation">Create Category</target>
+        <target state="final">Maak categorie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditCategory" resname="cal.pi_flexform.viewEditCategory">
+      <trans-unit id="cal.pi_flexform.viewEditCategory" resname="cal.pi_flexform.viewEditCategory" approved="yes">
         <source>Edit Category</source>
-        <target state="needs-translation">Edit Category</target>
+        <target state="final">Bewerk categorie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteCategory" resname="cal.pi_flexform.viewDeleteCategory">
+      <trans-unit id="cal.pi_flexform.viewDeleteCategory" resname="cal.pi_flexform.viewDeleteCategory" approved="yes">
         <source>Delete Category</source>
-        <target state="needs-translation">Delete Category</target>
+        <target state="final">Verwijder categorie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateLocation" resname="cal.pi_flexform.viewCreateLocation">
+      <trans-unit id="cal.pi_flexform.viewCreateLocation" resname="cal.pi_flexform.viewCreateLocation" approved="yes">
         <source>Create Location</source>
-        <target state="needs-translation">Create Location</target>
+        <target state="final">Maak locatie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditLocation" resname="cal.pi_flexform.viewEditLocation">
+      <trans-unit id="cal.pi_flexform.viewEditLocation" resname="cal.pi_flexform.viewEditLocation" approved="yes">
         <source>Edit Location</source>
-        <target state="needs-translation">Edit Location</target>
+        <target state="final">Bewerk locatie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteLocation" resname="cal.pi_flexform.viewDeleteLocation">
+      <trans-unit id="cal.pi_flexform.viewDeleteLocation" resname="cal.pi_flexform.viewDeleteLocation" approved="yes">
         <source>Delete Location</source>
-        <target state="needs-translation">Delete Location</target>
+        <target state="final">Verwijder locatie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewCreateOrganizer" resname="cal.pi_flexform.viewCreateOrganizer">
+      <trans-unit id="cal.pi_flexform.viewCreateOrganizer" resname="cal.pi_flexform.viewCreateOrganizer" approved="yes">
         <source>Create Organizer</source>
-        <target state="needs-translation">Create Organizer</target>
+        <target state="final">Maak organisator</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewEditOrganizer" resname="cal.pi_flexform.viewEditOrganizer">
+      <trans-unit id="cal.pi_flexform.viewEditOrganizer" resname="cal.pi_flexform.viewEditOrganizer" approved="yes">
         <source>Edit Organizer</source>
-        <target state="needs-translation">Edit Organizer</target>
+        <target state="final">Bewerk organisator</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewDeleteOrganizer" resname="cal.pi_flexform.viewDeleteOrganizer">
+      <trans-unit id="cal.pi_flexform.viewDeleteOrganizer" resname="cal.pi_flexform.viewDeleteOrganizer" approved="yes">
         <source>Delete Organizer</source>
-        <target state="needs-translation">Delete Organizer</target>
+        <target state="final">Verwijder organisator</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.viewSubscriptionManager" resname="cal.pi_flexform.viewSubscriptionManager">
+      <trans-unit id="cal.pi_flexform.viewSubscriptionManager" resname="cal.pi_flexform.viewSubscriptionManager" approved="yes">
         <source>Subscription Manager</source>
-        <target state="needs-translation">Subscription Manager</target>
+        <target state="final">Abonnementenbeheer</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.viewMeetingManager" resname="cal.pi_flexform.viewMeetingManager">
         <source>Meeting Manager</source>
@@ -151,13 +151,13 @@
         <source>Administration Options</source>
         <target state="needs-translation">Administration Options</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarName" resname="cal.pi_flexform.calendarName">
+      <trans-unit id="cal.pi_flexform.calendarName" resname="cal.pi_flexform.calendarName" approved="yes">
         <source>Calendar name</source>
-        <target state="needs-translation">Calendar name</target>
+        <target state="final">Kalendernaam</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.defaultCalendarUid" resname="cal.pi_flexform.defaultCalendarUid">
+      <trans-unit id="cal.pi_flexform.defaultCalendarUid" resname="cal.pi_flexform.defaultCalendarUid" approved="yes">
         <source>Default calendar</source>
-        <target state="needs-translation">Default calendar</target>
+        <target state="final">Standaardkalender</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.subscrition" resname="cal.pi_flexform.subscrition">
         <source>Subscription</source>
@@ -167,75 +167,73 @@
         <source>Disabled</source>
         <target state="needs-translation">Disabled</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.allowSubscribe" resname="cal.pi_flexform.allowSubscribe">
+      <trans-unit id="cal.pi_flexform.allowSubscribe" resname="cal.pi_flexform.allowSubscribe" approved="yes">
         <source>Allow anyone to subscribe</source>
-        <target state="needs-translation">Allow anyone to subscribe</target>
+        <target state="final">Sta abonneren toe</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.subscribeFeUser" resname="cal.pi_flexform.subscribeFeUser">
+      <trans-unit id="cal.pi_flexform.subscribeFeUser" resname="cal.pi_flexform.subscribeFeUser" approved="yes">
         <source>Only allow frontend users to subscribe</source>
-        <target state="needs-translation">Only allow frontend users to subscribe</target>
+        <target state="final">Sta FE-gebruiker toe te abonneren</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.subscribeWithCaptcha" resname="cal.pi_flexform.subscribeWithCaptcha">
+      <trans-unit id="cal.pi_flexform.subscribeWithCaptcha" resname="cal.pi_flexform.subscribeWithCaptcha" approved="yes">
         <source>Force captcha to subscribe (captcha needed)</source>
-        <target state="needs-translation">Force captcha to subscribe (captcha needed)</target>
+        <target state="final">Captcha afdwingen bij abonneren</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.sheetCategory" resname="cal.pi_flexform.sheetCategory">
         <source>Filters</source>
         <target state="needs-translation">Filters</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.category_selection" resname="cal.pi_flexform.category_selection">
+      <trans-unit id="cal.pi_flexform.category_selection" resname="cal.pi_flexform.category_selection" approved="yes">
         <source>Category selection</source>
-        <target state="needs-translation">Category selection</target>
+        <target state="final">Categorieselectie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendar_selection" resname="cal.pi_flexform.calendar_selection">
+      <trans-unit id="cal.pi_flexform.calendar_selection" resname="cal.pi_flexform.calendar_selection" approved="yes">
         <source>Calendar selection</source>
-        <target state="needs-translation">Calendar selection</target>
+        <target state="final">Kalenderselectie</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.select_deselect_categories" resname="cal.pi_flexform.select_deselect_categories">
+      <trans-unit id="cal.pi_flexform.select_deselect_categories" resname="cal.pi_flexform.select_deselect_categories" approved="yes">
         <source>Category mode</source>
-        <target state="needs-translation">Category mode</target>
+        <target state="final">Categoriemodus</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.itemsHeader" resname="cal.pi_flexform.itemsHeader">
+      <trans-unit id="cal.pi_flexform.itemsHeader" resname="cal.pi_flexform.itemsHeader" approved="yes">
         <source>Special options:</source>
-        <target state="needs-translation">Special options:</target>
+        <target state="final">Speciale opties:</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.category_selection_notCategorized" resname="cal.pi_flexform.category_selection_notCategorized">
+      <trans-unit id="cal.pi_flexform.category_selection_notCategorized" resname="cal.pi_flexform.category_selection_notCategorized" approved="yes">
         <source>[not categorized]</source>
-        <target state="needs-translation">[not categorized]</target>
+        <target state="final">Niet gecategoriseerd</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode" resname="cal.pi_flexform.calendarMode">
+      <trans-unit id="cal.pi_flexform.calendarMode" resname="cal.pi_flexform.calendarMode" approved="yes">
         <source>Calendar selection mode</source>
-        <target state="needs-translation">Calendar selection mode</target>
+        <target state="final">Kalenderselectiemodus</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode.showAll" resname="cal.pi_flexform.calendarMode.showAll" xml:space="preserve">
+      <trans-unit id="cal.pi_flexform.calendarMode.showAll" resname="cal.pi_flexform.calendarMode.showAll" xml:space="preserve" approved="yes">
 				<source>Show all calendars (don't care about selection
 				below)</source>
-			<target state="needs-translation">Show all calendars (don't care about selection
-				below)</target></trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode.showSelected" resname="cal.pi_flexform.calendarMode.showSelected">
+			<target state="final">Toon alles (selectie hieronder negeren)</target></trans-unit>
+      <trans-unit id="cal.pi_flexform.calendarMode.showSelected" resname="cal.pi_flexform.calendarMode.showSelected" approved="yes">
         <source>Show only selected calendars</source>
-        <target state="needs-translation">Show only selected calendars</target>
+        <target state="final">Toon uitsluitend geselecteerde kalenders</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calendarMode.excludeSelected" resname="cal.pi_flexform.calendarMode.excludeSelected">
+      <trans-unit id="cal.pi_flexform.calendarMode.excludeSelected" resname="cal.pi_flexform.calendarMode.excludeSelected" approved="yes">
         <source>Don't show selected calendars</source>
-        <target state="needs-translation">Don't show selected calendars</target>
+        <target state="final">Geselecteerde kalenders niet tonen</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode" resname="cal.pi_flexform.categoryMode">
+      <trans-unit id="cal.pi_flexform.categoryMode" resname="cal.pi_flexform.categoryMode" approved="yes">
         <source>Category selection mode</source>
-        <target state="needs-translation">Category selection mode</target>
+        <target state="final">Categorieselectiemodus</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.showAll" resname="cal.pi_flexform.categoryMode.showAll" xml:space="preserve">
+      <trans-unit id="cal.pi_flexform.categoryMode.showAll" resname="cal.pi_flexform.categoryMode.showAll" xml:space="preserve" approved="yes">
 				<source>Show all categories (don't care about selection
 				below)</source>
-			<target state="needs-translation">Show all categories (don't care about selection
-				below)</target></trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.showSelected" resname="cal.pi_flexform.categoryMode.showSelected">
+			<target state="final">Toon alles (selectie hieronder negeren)</target></trans-unit>
+      <trans-unit id="cal.pi_flexform.categoryMode.showSelected" resname="cal.pi_flexform.categoryMode.showSelected" approved="yes">
         <source>Show only selected categories (exact match)</source>
-        <target state="needs-translation">Show only selected categories (exact match)</target>
+        <target state="final">Toon uitsluitend geselecteerde categorieën</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.categoryMode.excludeSelected" resname="cal.pi_flexform.categoryMode.excludeSelected">
+      <trans-unit id="cal.pi_flexform.categoryMode.excludeSelected" resname="cal.pi_flexform.categoryMode.excludeSelected" approved="yes">
         <source>Don't show selected categories</source>
-        <target state="needs-translation">Don't show selected categories</target>
+        <target state="final">Geselecteerde categorieën niet tonen</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.categoryMode.showSelectedOr" resname="cal.pi_flexform.categoryMode.showSelectedOr">
         <source>Show only selected categories (any)</source>
@@ -245,45 +243,45 @@
         <source>Show selected categories (minimum match)</source>
         <target state="needs-translation">Show selected categories (minimum match)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetYearView" resname="cal.pi_flexform.sheetYearView">
+      <trans-unit id="cal.pi_flexform.sheetYearView" resname="cal.pi_flexform.sheetYearView" approved="yes">
         <source>Year View</source>
-        <target state="needs-translation">Year View</target>
+        <target state="final">Jaarweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.yearViewPid" resname="cal.pi_flexform.yearViewPid">
+      <trans-unit id="cal.pi_flexform.yearViewPid" resname="cal.pi_flexform.yearViewPid" approved="yes">
         <source>Year view page</source>
-        <target state="needs-translation">Year view page</target>
+        <target state="final">Pagina voor jaarweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.yearTemplate" resname="cal.pi_flexform.yearTemplate">
+      <trans-unit id="cal.pi_flexform.yearTemplate" resname="cal.pi_flexform.yearTemplate" approved="yes">
         <source>Year template</source>
-        <target state="needs-translation">Year template</target>
+        <target state="final">Jaarsjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetMonthView" resname="cal.pi_flexform.sheetMonthView">
+      <trans-unit id="cal.pi_flexform.sheetMonthView" resname="cal.pi_flexform.sheetMonthView" approved="yes">
         <source>Month View</source>
-        <target state="needs-translation">Month View</target>
+        <target state="final">Maandweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthViewPid" resname="cal.pi_flexform.monthViewPid">
+      <trans-unit id="cal.pi_flexform.monthViewPid" resname="cal.pi_flexform.monthViewPid" approved="yes">
         <source>Month view page</source>
-        <target state="needs-translation">Month view page</target>
+        <target state="final">Pagina voor maandweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthShowListView" resname="cal.pi_flexform.monthShowListView">
+      <trans-unit id="cal.pi_flexform.monthShowListView" resname="cal.pi_flexform.monthShowListView" approved="yes">
         <source>Show list view (not applicable for mini calendar)</source>
-        <target state="needs-translation">Show list view (not applicable for mini calendar)</target>
+        <target state="final">Lijstweergave tonen</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthTemplate" resname="cal.pi_flexform.monthTemplate">
+      <trans-unit id="cal.pi_flexform.monthTemplate" resname="cal.pi_flexform.monthTemplate" approved="yes">
         <source>Month template</source>
-        <target state="needs-translation">Month template</target>
+        <target state="final">Maandsjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthSmallTemplate" resname="cal.pi_flexform.monthSmallTemplate">
+      <trans-unit id="cal.pi_flexform.monthSmallTemplate" resname="cal.pi_flexform.monthSmallTemplate" approved="yes">
         <source>Month small template</source>
-        <target state="needs-translation">Month small template</target>
+        <target state="final">Maandsjabloon klein</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthMediumTemplate" resname="cal.pi_flexform.monthMediumTemplate">
+      <trans-unit id="cal.pi_flexform.monthMediumTemplate" resname="cal.pi_flexform.monthMediumTemplate" approved="yes">
         <source>Month medium template</source>
-        <target state="needs-translation">Month medium template</target>
+        <target state="final">Maandsjabloon middel</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.monthLargeTemplate" resname="cal.pi_flexform.monthLargeTemplate">
+      <trans-unit id="cal.pi_flexform.monthLargeTemplate" resname="cal.pi_flexform.monthLargeTemplate" approved="yes">
         <source>Month large template</source>
-        <target state="needs-translation">Month large template</target>
+        <target state="final">Maandsjabloon groot</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.monthMakeMiniCal" resname="cal.pi_flexform.monthMakeMiniCal">
         <source>Display as a mini calendar</source>
@@ -293,117 +291,117 @@
         <source>Show events of this month</source>
         <target state="needs-translation">Show events of this month</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetWeekView" resname="cal.pi_flexform.sheetWeekView">
+      <trans-unit id="cal.pi_flexform.sheetWeekView" resname="cal.pi_flexform.sheetWeekView" approved="yes">
         <source>Week View</source>
-        <target state="needs-translation">Week View</target>
+        <target state="final">Weekweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.weekViewPid" resname="cal.pi_flexform.weekViewPid">
+      <trans-unit id="cal.pi_flexform.weekViewPid" resname="cal.pi_flexform.weekViewPid" approved="yes">
         <source>Week view page</source>
-        <target state="needs-translation">Week view page</target>
+        <target state="final">Pagina voor weekweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.weekTemplate" resname="cal.pi_flexform.weekTemplate">
+      <trans-unit id="cal.pi_flexform.weekTemplate" resname="cal.pi_flexform.weekTemplate" approved="yes">
         <source>Week template</source>
-        <target state="needs-translation">Week template</target>
+        <target state="final">Weeksjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.weekStartDay" resname="cal.pi_flexform.weekStartDay">
+      <trans-unit id="cal.pi_flexform.weekStartDay" resname="cal.pi_flexform.weekStartDay" approved="yes">
         <source>Week start day</source>
-        <target state="needs-translation">Week start day</target>
+        <target state="final">Week begint op dag</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetDayView" resname="cal.pi_flexform.sheetDayView">
+      <trans-unit id="cal.pi_flexform.sheetDayView" resname="cal.pi_flexform.sheetDayView" approved="yes">
         <source>Day View</source>
-        <target state="needs-translation">Day View</target>
+        <target state="final">Dagweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayViewPid" resname="cal.pi_flexform.dayViewPid">
+      <trans-unit id="cal.pi_flexform.dayViewPid" resname="cal.pi_flexform.dayViewPid" approved="yes">
         <source>Day view page</source>
-        <target state="needs-translation">Day view page</target>
+        <target state="final">Pagina voor dagweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayTemplate" resname="cal.pi_flexform.dayTemplate">
+      <trans-unit id="cal.pi_flexform.dayTemplate" resname="cal.pi_flexform.dayTemplate" approved="yes">
         <source>Day template</source>
-        <target state="needs-translation">Day template</target>
+        <target state="final">Dagsjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayStart" resname="cal.pi_flexform.dayStart">
+      <trans-unit id="cal.pi_flexform.dayStart" resname="cal.pi_flexform.dayStart" approved="yes">
         <source>Day start time</source>
-        <target state="needs-translation">Day start time</target>
+        <target state="final">Dag begint om (hhmm)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.dayEnd" resname="cal.pi_flexform.dayEnd">
+      <trans-unit id="cal.pi_flexform.dayEnd" resname="cal.pi_flexform.dayEnd" approved="yes">
         <source>Day endtime</source>
-        <target state="needs-translation">Day endtime</target>
+        <target state="final">Dag eindigt om (hhmm)</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.gridLength" resname="cal.pi_flexform.gridLength">
+      <trans-unit id="cal.pi_flexform.gridLength" resname="cal.pi_flexform.gridLength" approved="yes">
         <source>Show divider every x minutes</source>
-        <target state="needs-translation">Show divider every x minutes</target>
+        <target state="final">Toon divider elke x minuten</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetListView" resname="cal.pi_flexform.sheetListView">
+      <trans-unit id="cal.pi_flexform.sheetListView" resname="cal.pi_flexform.sheetListView" approved="yes">
         <source>List View</source>
-        <target state="needs-translation">List View</target>
+        <target state="final">Lijstweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listViewPid" resname="cal.pi_flexform.listViewPid">
+      <trans-unit id="cal.pi_flexform.listViewPid" resname="cal.pi_flexform.listViewPid" approved="yes">
         <source>List view page</source>
-        <target state="needs-translation">List view page</target>
+        <target state="final">Pagina voor lijstweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listTemplate" resname="cal.pi_flexform.listTemplate">
+      <trans-unit id="cal.pi_flexform.listTemplate" resname="cal.pi_flexform.listTemplate" approved="yes">
         <source>List template</source>
-        <target state="needs-translation">List template</target>
+        <target state="final">Lijstsjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.starttime" resname="cal.pi_flexform.starttime">
+      <trans-unit id="cal.pi_flexform.starttime" resname="cal.pi_flexform.starttime" approved="yes">
         <source>Start time</source>
-        <target state="needs-translation">Start time</target>
+        <target state="final">Starttijd</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.endtime" resname="cal.pi_flexform.endtime">
+      <trans-unit id="cal.pi_flexform.endtime" resname="cal.pi_flexform.endtime" approved="yes">
         <source>End time</source>
-        <target state="needs-translation">End time</target>
+        <target state="final">Stoptijd</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.default" resname="cal.pi_flexform.listView.default">
+      <trans-unit id="cal.pi_flexform.listView.default" resname="cal.pi_flexform.listView.default" approved="yes">
         <source>Use Typoscript Default</source>
-        <target state="needs-translation">Use Typoscript Default</target>
+        <target state="final">Gebruik Typoscript default</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.now" resname="cal.pi_flexform.listView.now">
+      <trans-unit id="cal.pi_flexform.listView.now" resname="cal.pi_flexform.listView.now" approved="yes">
         <source>Now</source>
-        <target state="needs-translation">Now</target>
+        <target state="final">Nu</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.yesterday" resname="cal.pi_flexform.listView.yesterday">
+      <trans-unit id="cal.pi_flexform.listView.yesterday" resname="cal.pi_flexform.listView.yesterday" approved="yes">
         <source>Yesterday</source>
-        <target state="needs-translation">Yesterday</target>
+        <target state="final">Gisteren</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.today" resname="cal.pi_flexform.listView.today">
+      <trans-unit id="cal.pi_flexform.listView.today" resname="cal.pi_flexform.listView.today" approved="yes">
         <source>Today</source>
-        <target state="needs-translation">Today</target>
+        <target state="final">Vandaag</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.tomorrow" resname="cal.pi_flexform.listView.tomorrow">
+      <trans-unit id="cal.pi_flexform.listView.tomorrow" resname="cal.pi_flexform.listView.tomorrow" approved="yes">
         <source>Tomorrow</source>
-        <target state="needs-translation">Tomorrow</target>
+        <target state="final">Morgen</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.weekStart" resname="cal.pi_flexform.listView.weekStart">
+      <trans-unit id="cal.pi_flexform.listView.weekStart" resname="cal.pi_flexform.listView.weekStart" approved="yes">
         <source>Beginning Of This Week</source>
-        <target state="needs-translation">Beginning Of This Week</target>
+        <target state="final">Begin van deze week</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.weekEnd" resname="cal.pi_flexform.listView.weekEnd">
+      <trans-unit id="cal.pi_flexform.listView.weekEnd" resname="cal.pi_flexform.listView.weekEnd" approved="yes">
         <source>End Of This Week</source>
-        <target state="needs-translation">End Of This Week</target>
+        <target state="final">Einde van deze week</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.plusOneWeek" resname="cal.pi_flexform.listView.plusOneWeek">
+      <trans-unit id="cal.pi_flexform.listView.plusOneWeek" resname="cal.pi_flexform.listView.plusOneWeek" approved="yes">
         <source>1 Week From Now</source>
-        <target state="needs-translation">1 Week From Now</target>
+        <target state="final">1 week na nu</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.monthStart" resname="cal.pi_flexform.listView.monthStart">
+      <trans-unit id="cal.pi_flexform.listView.monthStart" resname="cal.pi_flexform.listView.monthStart" approved="yes">
         <source>Beginning Of This Month</source>
-        <target state="needs-translation">Beginning Of This Month</target>
+        <target state="final">Begin van deze maand</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.monthEnd" resname="cal.pi_flexform.listView.monthEnd">
+      <trans-unit id="cal.pi_flexform.listView.monthEnd" resname="cal.pi_flexform.listView.monthEnd" approved="yes">
         <source>End Of This Month</source>
-        <target state="needs-translation">End Of This Month</target>
+        <target state="final">Einde van deze maand</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.plusOneMonth" resname="cal.pi_flexform.listView.plusOneMonth">
+      <trans-unit id="cal.pi_flexform.listView.plusOneMonth" resname="cal.pi_flexform.listView.plusOneMonth" approved="yes">
         <source>1 Month From Now</source>
-        <target state="needs-translation">1 Month From Now</target>
+        <target state="final">1 maand na nu</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.yearStart" resname="cal.pi_flexform.listView.yearStart">
+      <trans-unit id="cal.pi_flexform.listView.yearStart" resname="cal.pi_flexform.listView.yearStart" approved="yes">
         <source>Beginning Of This Year</source>
-        <target state="needs-translation">Beginning Of This Year</target>
+        <target state="final">Begin van dit jaar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.yearEnd" resname="cal.pi_flexform.listView.yearEnd">
+      <trans-unit id="cal.pi_flexform.listView.yearEnd" resname="cal.pi_flexform.listView.yearEnd" approved="yes">
         <source>End Of This Year</source>
-        <target state="needs-translation">End Of This Year</target>
+        <target state="final">Einde van dit jaar</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.listView.quarterStart" resname="cal.pi_flexform.listView.quarterStart">
         <source>Beginning Of This Quarter</source>
@@ -413,9 +411,9 @@
         <source>End Of This Quarter</source>
         <target state="needs-translation">End Of This Quarter</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.listView.plusOneYear" resname="cal.pi_flexform.listView.plusOneYear">
+      <trans-unit id="cal.pi_flexform.listView.plusOneYear" resname="cal.pi_flexform.listView.plusOneYear" approved="yes">
         <source>1 Year From Now</source>
-        <target state="needs-translation">1 Year From Now</target>
+        <target state="final">1 jaar na nu</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.listView.usePageBrowser" resname="cal.pi_flexform.listView.usePageBrowser">
         <source>Page browser options</source>
@@ -437,129 +435,129 @@
         <source>Max pages</source>
         <target state="needs-translation">Max pages</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.maxEvents" resname="cal.pi_flexform.maxEvents">
+      <trans-unit id="cal.pi_flexform.maxEvents" resname="cal.pi_flexform.maxEvents" approved="yes">
         <source>Max events</source>
-        <target state="needs-translation">Max events</target>
+        <target state="final">Max. gebeurtenissen</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.maxRecurringEvents" resname="cal.pi_flexform.maxRecurringEvents">
         <source>Max instances of the same recurring event</source>
         <target state="needs-translation">Max instances of the same recurring event</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetEventView" resname="cal.pi_flexform.sheetEventView">
+      <trans-unit id="cal.pi_flexform.sheetEventView" resname="cal.pi_flexform.sheetEventView" approved="yes">
         <source>Event View</source>
-        <target state="needs-translation">Event View</target>
+        <target state="final">Gebeurtenisweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.eventViewPid" resname="cal.pi_flexform.eventViewPid">
+      <trans-unit id="cal.pi_flexform.eventViewPid" resname="cal.pi_flexform.eventViewPid" approved="yes">
         <source>Event view page</source>
-        <target state="needs-translation">Event view page</target>
+        <target state="final">Pagina voor gebeurtenisweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.eventTemplate" resname="cal.pi_flexform.eventTemplate">
+      <trans-unit id="cal.pi_flexform.eventTemplate" resname="cal.pi_flexform.eventTemplate" approved="yes">
         <source>Event template</source>
-        <target state="needs-translation">Event template</target>
+        <target state="final">Gebeurtenissjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.isPreview" resname="cal.pi_flexform.isPreview">
+      <trans-unit id="cal.pi_flexform.isPreview" resname="cal.pi_flexform.isPreview" approved="yes">
         <source>Show preview</source>
-        <target state="needs-translation">Show preview</target>
+        <target state="final">Toon voorvertoning</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.createEventTemplate" resname="cal.pi_flexform.createEventTemplate">
+      <trans-unit id="cal.pi_flexform.createEventTemplate" resname="cal.pi_flexform.createEventTemplate" approved="yes">
         <source>Create event template</source>
-        <target state="needs-translation">Create event template</target>
+        <target state="final">Maak gebeurtenissjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.confirmEventTemplate" resname="cal.pi_flexform.confirmEventTemplate">
+      <trans-unit id="cal.pi_flexform.confirmEventTemplate" resname="cal.pi_flexform.confirmEventTemplate" approved="yes">
         <source>Confirm event template</source>
-        <target state="needs-translation">Confirm event template</target>
+        <target state="final">Bevestig gebeurtenissjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.deleteEventTemplate" resname="cal.pi_flexform.deleteEventTemplate">
+      <trans-unit id="cal.pi_flexform.deleteEventTemplate" resname="cal.pi_flexform.deleteEventTemplate" approved="yes">
         <source>Delete event template</source>
-        <target state="needs-translation">Delete event template</target>
+        <target state="final">Verwijder gebeurtenissjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetLocationView" resname="cal.pi_flexform.sheetLocationView">
+      <trans-unit id="cal.pi_flexform.sheetLocationView" resname="cal.pi_flexform.sheetLocationView" approved="yes">
         <source>Location View</source>
-        <target state="needs-translation">Location View</target>
+        <target state="final">Locatieweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.locationViewPid" resname="cal.pi_flexform.locationViewPid">
+      <trans-unit id="cal.pi_flexform.locationViewPid" resname="cal.pi_flexform.locationViewPid" approved="yes">
         <source>Location view page</source>
-        <target state="needs-translation">Location view page</target>
+        <target state="final">Pagina voor locatieweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.locationTemplate" resname="cal.pi_flexform.locationTemplate">
+      <trans-unit id="cal.pi_flexform.locationTemplate" resname="cal.pi_flexform.locationTemplate" approved="yes">
         <source>Location template</source>
-        <target state="needs-translation">Location template</target>
+        <target state="final">Locatiesjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.createLocationTemplate" resname="cal.pi_flexform.createLocationTemplate">
+      <trans-unit id="cal.pi_flexform.createLocationTemplate" resname="cal.pi_flexform.createLocationTemplate" approved="yes">
         <source>Create location template</source>
-        <target state="needs-translation">Create location template</target>
+        <target state="final">Maak locatiesjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.confirmLocationTemplate" resname="cal.pi_flexform.confirmLocationTemplate">
+      <trans-unit id="cal.pi_flexform.confirmLocationTemplate" resname="cal.pi_flexform.confirmLocationTemplate" approved="yes">
         <source>Confirm location template</source>
-        <target state="needs-translation">Confirm location template</target>
+        <target state="final">Bevestig locatiesjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetOrganizerView" resname="cal.pi_flexform.sheetOrganizerView">
+      <trans-unit id="cal.pi_flexform.sheetOrganizerView" resname="cal.pi_flexform.sheetOrganizerView" approved="yes">
         <source>Organizer View</source>
-        <target state="needs-translation">Organizer View</target>
+        <target state="final">Organisatorweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.organizerViewPid" resname="cal.pi_flexform.organizerViewPid">
+      <trans-unit id="cal.pi_flexform.organizerViewPid" resname="cal.pi_flexform.organizerViewPid" approved="yes">
         <source>Organizer view page</source>
-        <target state="needs-translation">Organizer view page</target>
+        <target state="final">Pagina voor organisatorweergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.organizerTemplate" resname="cal.pi_flexform.organizerTemplate">
+      <trans-unit id="cal.pi_flexform.organizerTemplate" resname="cal.pi_flexform.organizerTemplate" approved="yes">
         <source>Organizer template</source>
-        <target state="needs-translation">Organizer template</target>
+        <target state="final">Organisatorsjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetIcsView" resname="cal.pi_flexform.sheetIcsView">
+      <trans-unit id="cal.pi_flexform.sheetIcsView" resname="cal.pi_flexform.sheetIcsView" approved="yes">
         <source>Ics View</source>
-        <target state="needs-translation">Ics View</target>
+        <target state="final">ICS-weergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.icsViewPid" resname="cal.pi_flexform.icsViewPid">
+      <trans-unit id="cal.pi_flexform.icsViewPid" resname="cal.pi_flexform.icsViewPid" approved="yes">
         <source>Ics view page</source>
-        <target state="needs-translation">Ics view page</target>
+        <target state="final">Pagina voor ICS-weergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.icsTemplate" resname="cal.pi_flexform.icsTemplate">
+      <trans-unit id="cal.pi_flexform.icsTemplate" resname="cal.pi_flexform.icsTemplate" approved="yes">
         <source>Ics template</source>
-        <target state="needs-translation">Ics template</target>
+        <target state="final">ICS-sjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.calUid" resname="cal.pi_flexform.calUid">
+      <trans-unit id="cal.pi_flexform.calUid" resname="cal.pi_flexform.calUid" approved="yes">
         <source>Calendar id</source>
-        <target state="needs-translation">Calendar id</target>
+        <target state="final">Kalender-id</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showIcsLinks" resname="cal.pi_flexform.showIcsLinks">
+      <trans-unit id="cal.pi_flexform.showIcsLinks" resname="cal.pi_flexform.showIcsLinks" approved="yes">
         <source>Show ics links</source>
-        <target state="needs-translation">Show ics links</target>
+        <target state="final">Toon ICS-links</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sheetOtherView" resname="cal.pi_flexform.sheetOtherView">
+      <trans-unit id="cal.pi_flexform.sheetOtherView" resname="cal.pi_flexform.sheetOtherView" approved="yes">
         <source>Other View</source>
-        <target state="needs-translation">Other View</target>
+        <target state="final">Andere weergave</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.sidebarTemplate" resname="cal.pi_flexform.sidebarTemplate">
+      <trans-unit id="cal.pi_flexform.sidebarTemplate" resname="cal.pi_flexform.sidebarTemplate" approved="yes">
         <source>Sidebar template</source>
-        <target state="needs-translation">Sidebar template</target>
+        <target state="final">Sjabloon voor sidebar</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.searchBoxTemplate" resname="cal.pi_flexform.searchBoxTemplate">
+      <trans-unit id="cal.pi_flexform.searchBoxTemplate" resname="cal.pi_flexform.searchBoxTemplate" approved="yes">
         <source>Searchbox template</source>
-        <target state="needs-translation">Searchbox template</target>
+        <target state="final">Zoekbox sjabloon</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showLogin" resname="cal.pi_flexform.showLogin">
+      <trans-unit id="cal.pi_flexform.showLogin" resname="cal.pi_flexform.showLogin" approved="yes">
         <source>Show login</source>
-        <target state="needs-translation">Show login</target>
+        <target state="final">Toon login</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showSearch" resname="cal.pi_flexform.showSearch">
+      <trans-unit id="cal.pi_flexform.showSearch" resname="cal.pi_flexform.showSearch" approved="yes">
         <source>Show search</source>
-        <target state="needs-translation">Show search</target>
+        <target state="final">Toon zoek</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showJumps" resname="cal.pi_flexform.showJumps">
+      <trans-unit id="cal.pi_flexform.showJumps" resname="cal.pi_flexform.showJumps" approved="yes">
         <source>Show jumps</source>
-        <target state="needs-translation">Show jumps</target>
+        <target state="final">Toon jumps</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showCalendarSelection" resname="cal.pi_flexform.showCalendarSelection">
+      <trans-unit id="cal.pi_flexform.showCalendarSelection" resname="cal.pi_flexform.showCalendarSelection" approved="yes">
         <source>Show calendar selector</source>
-        <target state="needs-translation">Show calendar selector</target>
+        <target state="final">Toon kalenderkiezer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showCategorySelection" resname="cal.pi_flexform.showCategorySelection">
+      <trans-unit id="cal.pi_flexform.showCategorySelection" resname="cal.pi_flexform.showCategorySelection" approved="yes">
         <source>Show category selector</source>
-        <target state="needs-translation">Show category selector</target>
+        <target state="final">Toon categoriekiezer</target>
       </trans-unit>
-      <trans-unit id="cal.pi_flexform.showTomorrowEvents" resname="cal.pi_flexform.showTomorrowEvents">
+      <trans-unit id="cal.pi_flexform.showTomorrowEvents" resname="cal.pi_flexform.showTomorrowEvents" approved="yes">
         <source>Show tomorrows events</source>
-        <target state="needs-translation">Show tomorrows events</target>
+        <target state="final">Toon gebeurtenissen van morgen</target>
       </trans-unit>
       <trans-unit id="cal.pi_flexform.sheetTSView" resname="cal.pi_flexform.sheetTSView">
         <source>Typoscript</source>
