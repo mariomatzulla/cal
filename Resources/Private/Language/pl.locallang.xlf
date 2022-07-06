@@ -3,253 +3,253 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:31:50Z" product-name="cal" target-language="pl">
     <header/>
     <body>
-      <trans-unit id="l_day" resname="l_day">
+      <trans-unit id="l_day" resname="l_day" approved="yes">
         <source>Day</source>
-        <target state="needs-translation">Day</target>
+        <target state="final">Dzień</target>
       </trans-unit>
-      <trans-unit id="l_week" resname="l_week">
+      <trans-unit id="l_week" resname="l_week" approved="yes">
         <source>Week</source>
-        <target state="needs-translation">Week</target>
+        <target state="final">Tydzień</target>
       </trans-unit>
-      <trans-unit id="l_month" resname="l_month">
+      <trans-unit id="l_month" resname="l_month" approved="yes">
         <source>Month</source>
-        <target state="needs-translation">Month</target>
+        <target state="final">Miesiąc</target>
       </trans-unit>
-      <trans-unit id="l_year" resname="l_year">
+      <trans-unit id="l_year" resname="l_year" approved="yes">
         <source>Year</source>
-        <target state="needs-translation">Year</target>
+        <target state="final">Rok</target>
       </trans-unit>
       <trans-unit id="l_list" resname="l_list">
         <source>List</source>
         <target state="needs-translation">List</target>
       </trans-unit>
-      <trans-unit id="l_calendar" resname="l_calendar">
+      <trans-unit id="l_calendar" resname="l_calendar" approved="yes">
         <source>Calendar</source>
-        <target state="needs-translation">Calendar</target>
+        <target state="final">Kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_create_calendar" resname="l_create_calendar">
+      <trans-unit id="l_create_calendar" resname="l_create_calendar" approved="yes">
         <source>Create calendar</source>
-        <target state="needs-translation">Create calendar</target>
+        <target state="final">Stwórz kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_administration_view" resname="l_administration_view">
+      <trans-unit id="l_administration_view" resname="l_administration_view" approved="yes">
         <source>Calendar Administration</source>
-        <target state="needs-translation">Calendar Administration</target>
+        <target state="final">Zarządzanie kalendarzem</target>
       </trans-unit>
-      <trans-unit id="l_edit_calendar" resname="l_edit_calendar">
+      <trans-unit id="l_edit_calendar" resname="l_edit_calendar" approved="yes">
         <source>Edit calendar</source>
-        <target state="needs-translation">Edit calendar</target>
+        <target state="final">Edytuj kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_confirm_calendar" resname="l_confirm_calendar">
+      <trans-unit id="l_confirm_calendar" resname="l_confirm_calendar" approved="yes">
         <source>Confirm calendar</source>
-        <target state="needs-translation">Confirm calendar</target>
+        <target state="final">Potwierdź kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_delete_calendar" resname="l_delete_calendar">
+      <trans-unit id="l_delete_calendar" resname="l_delete_calendar" approved="yes">
         <source>Delete calendar</source>
-        <target state="needs-translation">Delete calendar</target>
+        <target state="final">Skasuj kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_create_exception" resname="l_create_exception">
+      <trans-unit id="l_create_exception" resname="l_create_exception" approved="yes">
         <source>Create exception</source>
-        <target state="needs-translation">Create exception</target>
+        <target state="final">Stwórz wyjątek</target>
       </trans-unit>
-      <trans-unit id="l_next_day" resname="l_next_day">
+      <trans-unit id="l_next_day" resname="l_next_day" approved="yes">
         <source>Next Day</source>
-        <target state="needs-translation">Next Day</target>
+        <target state="final">Następny dzień</target>
       </trans-unit>
-      <trans-unit id="l_next_month" resname="l_next_month">
+      <trans-unit id="l_next_month" resname="l_next_month" approved="yes">
         <source>Next Month</source>
-        <target state="needs-translation">Next Month</target>
+        <target state="final">Następny miesiąc</target>
       </trans-unit>
-      <trans-unit id="l_next_week" resname="l_next_week">
+      <trans-unit id="l_next_week" resname="l_next_week" approved="yes">
         <source>Next Week</source>
-        <target state="needs-translation">Next Week</target>
+        <target state="final">Następny tydzień</target>
       </trans-unit>
-      <trans-unit id="l_next_year" resname="l_next_year">
+      <trans-unit id="l_next_year" resname="l_next_year" approved="yes">
         <source>Next Year</source>
-        <target state="needs-translation">Next Year</target>
+        <target state="final">Następny rok</target>
       </trans-unit>
-      <trans-unit id="l_last_day" resname="l_last_day">
+      <trans-unit id="l_last_day" resname="l_last_day" approved="yes">
         <source>Previous Day</source>
-        <target state="needs-translation">Previous Day</target>
+        <target state="final">Poprzedni dzień</target>
       </trans-unit>
-      <trans-unit id="l_last_month" resname="l_last_month">
+      <trans-unit id="l_last_month" resname="l_last_month" approved="yes">
         <source>Previous Month</source>
-        <target state="needs-translation">Previous Month</target>
+        <target state="final">Poprzedni miesiąc</target>
       </trans-unit>
-      <trans-unit id="l_last_week" resname="l_last_week">
+      <trans-unit id="l_last_week" resname="l_last_week" approved="yes">
         <source>Previous Week</source>
-        <target state="needs-translation">Previous Week</target>
+        <target state="final">Poprzedni tydzień</target>
       </trans-unit>
-      <trans-unit id="l_last_year" resname="l_last_year">
+      <trans-unit id="l_last_year" resname="l_last_year" approved="yes">
         <source>Previous Year</source>
-        <target state="needs-translation">Previous Year</target>
+        <target state="final">Poprzedni rok</target>
       </trans-unit>
-      <trans-unit id="l_subscribe" resname="l_subscribe">
+      <trans-unit id="l_subscribe" resname="l_subscribe" approved="yes">
         <source>Subscribe</source>
-        <target state="needs-translation">Subscribe</target>
+        <target state="final">Zapisz się</target>
       </trans-unit>
-      <trans-unit id="l_download" resname="l_download">
+      <trans-unit id="l_download" resname="l_download" approved="yes">
         <source>Download</source>
-        <target state="needs-translation">Download</target>
+        <target state="final">Pobierz</target>
       </trans-unit>
       <trans-unit id="l_powered_by" resname="l_powered_by">
         <source>Powered by</source>
         <target state="needs-translation">Powered by</target>
       </trans-unit>
-      <trans-unit id="l_event" resname="l_event">
+      <trans-unit id="l_event" resname="l_event" approved="yes">
         <source>Event</source>
-        <target state="needs-translation">Event</target>
+        <target state="final">Wydarzenie</target>
       </trans-unit>
       <trans-unit id="l_events" resname="l_events">
         <source>Events</source>
         <target state="needs-translation">Events</target>
       </trans-unit>
-      <trans-unit id="l_no_events" resname="l_no_events">
+      <trans-unit id="l_no_events" resname="l_no_events" approved="yes">
         <source>No events found.</source>
-        <target state="needs-translation">No events found.</target>
+        <target state="final">Brak wydarzeń</target>
       </trans-unit>
-      <trans-unit id="l_event_start" resname="l_event_start">
+      <trans-unit id="l_event_start" resname="l_event_start" approved="yes">
         <source>Start Time</source>
-        <target state="needs-translation">Start Time</target>
+        <target state="final">Data początku</target>
       </trans-unit>
-      <trans-unit id="l_event_end" resname="l_event_end">
+      <trans-unit id="l_event_end" resname="l_event_end" approved="yes">
         <source>End Time</source>
-        <target state="needs-translation">End Time</target>
+        <target state="final">Data końca</target>
       </trans-unit>
-      <trans-unit id="l_this_months" resname="l_this_months">
+      <trans-unit id="l_this_months" resname="l_this_months" approved="yes">
         <source>This Month's Events</source>
-        <target state="needs-translation">This Month's Events</target>
+        <target state="final">Wydarzenia tego miesiąca</target>
       </trans-unit>
-      <trans-unit id="l_date" resname="l_date">
+      <trans-unit id="l_date" resname="l_date" approved="yes">
         <source>Date</source>
-        <target state="needs-translation">Date</target>
+        <target state="final">Data</target>
       </trans-unit>
-      <trans-unit id="l_summary" resname="l_summary">
+      <trans-unit id="l_summary" resname="l_summary" approved="yes">
         <source>Summary</source>
-        <target state="needs-translation">Summary</target>
+        <target state="final">Podsumowanie</target>
       </trans-unit>
-      <trans-unit id="l_all_day" resname="l_all_day">
+      <trans-unit id="l_all_day" resname="l_all_day" approved="yes">
         <source>All day event</source>
-        <target state="needs-translation">All day event</target>
+        <target state="final">Wydarzenia całodzienne</target>
       </trans-unit>
-      <trans-unit id="l_notes" resname="l_notes">
+      <trans-unit id="l_notes" resname="l_notes" approved="yes">
         <source>Notes</source>
-        <target state="needs-translation">Notes</target>
+        <target state="final">Uwagi</target>
       </trans-unit>
-      <trans-unit id="l_this_years" resname="l_this_years">
+      <trans-unit id="l_this_years" resname="l_this_years" approved="yes">
         <source>This Year's Events</source>
-        <target state="needs-translation">This Year's Events</target>
+        <target state="final">Wydarzenia tego roku</target>
       </trans-unit>
-      <trans-unit id="l_today" resname="l_today">
+      <trans-unit id="l_today" resname="l_today" approved="yes">
         <source>Today</source>
-        <target state="needs-translation">Today</target>
+        <target state="final">Dzisiaj</target>
       </trans-unit>
-      <trans-unit id="l_this_week" resname="l_this_week">
+      <trans-unit id="l_this_week" resname="l_this_week" approved="yes">
         <source>This Week</source>
-        <target state="needs-translation">This Week</target>
+        <target state="final">Ten tydzień</target>
       </trans-unit>
-      <trans-unit id="l_this_month" resname="l_this_month">
+      <trans-unit id="l_this_month" resname="l_this_month" approved="yes">
         <source>This Month</source>
-        <target state="needs-translation">This Month</target>
+        <target state="final">Ten miesiąc</target>
       </trans-unit>
-      <trans-unit id="l_jump" resname="l_jump">
+      <trans-unit id="l_jump" resname="l_jump" approved="yes">
         <source>Jump to</source>
-        <target state="needs-translation">Jump to</target>
+        <target state="final">Skocz do</target>
       </trans-unit>
-      <trans-unit id="l_tomorrows" resname="l_tomorrows">
+      <trans-unit id="l_tomorrows" resname="l_tomorrows" approved="yes">
         <source>Tomorrow's Events</source>
-        <target state="needs-translation">Tomorrow's Events</target>
+        <target state="final">Jutrzejsze wydarzenia</target>
       </trans-unit>
-      <trans-unit id="l_goday" resname="l_goday">
+      <trans-unit id="l_goday" resname="l_goday" approved="yes">
         <source>Go to Today</source>
-        <target state="needs-translation">Go to Today</target>
+        <target state="final">Przejdź do dzisiaj</target>
       </trans-unit>
-      <trans-unit id="l_goweek" resname="l_goweek">
+      <trans-unit id="l_goweek" resname="l_goweek" approved="yes">
         <source>Go to This Week</source>
-        <target state="needs-translation">Go to This Week</target>
+        <target state="final">Przejdź do tego tygodnia</target>
       </trans-unit>
-      <trans-unit id="l_gomonth" resname="l_gomonth">
+      <trans-unit id="l_gomonth" resname="l_gomonth" approved="yes">
         <source>Go to This Month</source>
-        <target state="needs-translation">Go to This Month</target>
+        <target state="final">Przejdź do tego miesiąca</target>
       </trans-unit>
-      <trans-unit id="l_goyear" resname="l_goyear">
+      <trans-unit id="l_goyear" resname="l_goyear" approved="yes">
         <source>Go to This Year</source>
-        <target state="needs-translation">Go to This Year</target>
+        <target state="final">Przejdź do tego roku</target>
       </trans-unit>
-      <trans-unit id="l_search" resname="l_search">
+      <trans-unit id="l_search" resname="l_search" approved="yes">
         <source>Search</source>
-        <target state="needs-translation">Search</target>
+        <target state="final">Szukaj</target>
       </trans-unit>
       <trans-unit id="l_search_everything" resname="l_search_everything">
         <source>Search everything</source>
         <target state="needs-translation">Search everything</target>
       </trans-unit>
-      <trans-unit id="l_dosearch" resname="l_dosearch">
+      <trans-unit id="l_dosearch" resname="l_dosearch" approved="yes">
         <source>Search</source>
-        <target state="needs-translation">Search</target>
+        <target state="final">Szukaj</target>
       </trans-unit>
-      <trans-unit id="l_query_for" resname="l_query_for">
+      <trans-unit id="l_query_for" resname="l_query_for" approved="yes">
         <source>Search for</source>
-        <target state="needs-translation">Search for</target>
+        <target state="final">Szukaj</target>
       </trans-unit>
-      <trans-unit id="l_search_string" resname="l_search_string">
+      <trans-unit id="l_search_string" resname="l_search_string" approved="yes">
         <source>Search string</source>
-        <target state="needs-translation">Search string</target>
+        <target state="final">Szuakaj wyrażenia</target>
       </trans-unit>
-      <trans-unit id="l_results" resname="l_results">
+      <trans-unit id="l_results" resname="l_results" approved="yes">
         <source>Search Results</source>
-        <target state="needs-translation">Search Results</target>
+        <target state="final">Wyniki szukania</target>
       </trans-unit>
-      <trans-unit id="l_query" resname="l_query">
+      <trans-unit id="l_query" resname="l_query" approved="yes">
         <source>Query</source>
-        <target state="needs-translation">Query</target>
+        <target state="final">Zapytanie</target>
       </trans-unit>
-      <trans-unit id="l_no_results" resname="l_no_results">
+      <trans-unit id="l_no_results" resname="l_no_results" approved="yes">
         <source>No events found.</source>
-        <target state="needs-translation">No events found.</target>
+        <target state="final">Nie znaleziono wydarzeń</target>
       </trans-unit>
-      <trans-unit id="l_no_location_results" resname="l_no_location_results">
+      <trans-unit id="l_no_location_results" resname="l_no_location_results" approved="yes">
         <source>No locations found.</source>
-        <target state="needs-translation">No locations found.</target>
+        <target state="final">Nie znaleziono lokalizacji</target>
       </trans-unit>
-      <trans-unit id="l_no_organizer_results" resname="l_no_organizer_results">
+      <trans-unit id="l_no_organizer_results" resname="l_no_organizer_results" approved="yes">
         <source>No organizers found.</source>
-        <target state="needs-translation">No organizers found.</target>
+        <target state="final">Nie znaleziono organizatora</target>
       </trans-unit>
-      <trans-unit id="l_goprint" resname="l_goprint">
+      <trans-unit id="l_goprint" resname="l_goprint" approved="yes">
         <source>Printer Friendly</source>
-        <target state="needs-translation">Printer Friendly</target>
+        <target state="final">Do wydruku</target>
       </trans-unit>
-      <trans-unit id="l_time" resname="l_time">
+      <trans-unit id="l_time" resname="l_time" approved="yes">
         <source>Time</source>
-        <target state="needs-translation">Time</target>
+        <target state="final">Czas</target>
       </trans-unit>
-      <trans-unit id="l_teaser" resname="l_teaser">
+      <trans-unit id="l_teaser" resname="l_teaser" approved="yes">
         <source>Teaser</source>
-        <target state="needs-translation">Teaser</target>
+        <target state="final">Zajawka (teaser)</target>
       </trans-unit>
-      <trans-unit id="l_description" resname="l_description">
+      <trans-unit id="l_description" resname="l_description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Opis</target>
       </trans-unit>
       <trans-unit id="l_no_title" resname="l_no_title">
         <source>No title</source>
         <target state="needs-translation">No title</target>
       </trans-unit>
-      <trans-unit id="l_this_site_is" resname="l_this_site_is">
+      <trans-unit id="l_this_site_is" resname="l_this_site_is" approved="yes">
         <source>This site is</source>
-        <target state="needs-translation">This site is</target>
+        <target state="final">Ta strona jest</target>
       </trans-unit>
-      <trans-unit id="l_no_events_day" resname="l_no_events_day">
+      <trans-unit id="l_no_events_day" resname="l_no_events_day" approved="yes">
         <source>No events today.</source>
-        <target state="needs-translation">No events today.</target>
+        <target state="final">Brak wydarzeń w tym dniu.</target>
       </trans-unit>
-      <trans-unit id="l_no_events_week" resname="l_no_events_week">
+      <trans-unit id="l_no_events_week" resname="l_no_events_week" approved="yes">
         <source>No events this week.</source>
-        <target state="needs-translation">No events this week.</target>
+        <target state="final">Brak wydarzeń w tym tygodniu.</target>
       </trans-unit>
-      <trans-unit id="l_no_events_month" resname="l_no_events_month">
+      <trans-unit id="l_no_events_month" resname="l_no_events_month" approved="yes">
         <source>No events this month.</source>
-        <target state="needs-translation">No events this month.</target>
+        <target state="final">Brak wydarzeń w tym miesiącu.</target>
       </trans-unit>
       <trans-unit id="l_rss_day_date" resname="l_rss_day_date">
         <source>g:i A</source>
@@ -263,130 +263,130 @@
         <source>%b %e</source>
         <target state="needs-translation">%b %e</target>
       </trans-unit>
-      <trans-unit id="l_rss_language" resname="l_rss_language">
+      <trans-unit id="l_rss_language" resname="l_rss_language" approved="yes">
         <source>en-us</source>
-        <target state="needs-translation">en-us</target>
+        <target state="final">pl-pl</target>
       </trans-unit>
-      <trans-unit id="l_search_took" resname="l_search_took">
+      <trans-unit id="l_search_took" resname="l_search_took" approved="yes">
         <source>Search took %s seconds</source>
-        <target state="needs-translation">Search took %s seconds</target>
+        <target state="final">Wyszukiwanie zajęło %s sekund</target>
       </trans-unit>
-      <trans-unit id="l_recurring_event" resname="l_recurring_event">
+      <trans-unit id="l_recurring_event" resname="l_recurring_event" approved="yes">
         <source>Recurring event</source>
-        <target state="needs-translation">Recurring event</target>
+        <target state="final">Wydarzenie rekurencyjne</target>
       </trans-unit>
-      <trans-unit id="l_exception" resname="l_exception">
+      <trans-unit id="l_exception" resname="l_exception" approved="yes">
         <source>Exception</source>
-        <target state="needs-translation">Exception</target>
+        <target state="final">Wyjątek</target>
       </trans-unit>
-      <trans-unit id="l_no_query" resname="l_no_query">
+      <trans-unit id="l_no_query" resname="l_no_query" approved="yes">
         <source>No query given</source>
-        <target state="needs-translation">No query given</target>
+        <target state="final">Brak zapytania.</target>
       </trans-unit>
-      <trans-unit id="l_preferences" resname="l_preferences">
+      <trans-unit id="l_preferences" resname="l_preferences" approved="yes">
         <source>Preferences</source>
-        <target state="needs-translation">Preferences</target>
+        <target state="final">Ustawienia</target>
       </trans-unit>
-      <trans-unit id="l_printer" resname="l_printer">
+      <trans-unit id="l_printer" resname="l_printer" approved="yes">
         <source>Printer</source>
-        <target state="needs-translation">Printer</target>
+        <target state="final">Drukarka</target>
       </trans-unit>
-      <trans-unit id="l_select_lang" resname="l_select_lang">
+      <trans-unit id="l_select_lang" resname="l_select_lang" approved="yes">
         <source>Select your default language:</source>
-        <target state="needs-translation">Select your default language:</target>
+        <target state="final">Wybierz domyśly język:</target>
       </trans-unit>
-      <trans-unit id="l_select_cal" resname="l_select_cal">
+      <trans-unit id="l_select_cal" resname="l_select_cal" approved="yes">
         <source>Select your default calendar:</source>
-        <target state="needs-translation">Select your default calendar:</target>
+        <target state="final">Wybierz domyślny kalendarz:</target>
       </trans-unit>
-      <trans-unit id="l_select_view" resname="l_select_view">
+      <trans-unit id="l_select_view" resname="l_select_view" approved="yes">
         <source>Select your default view:</source>
-        <target state="needs-translation">Select your default view:</target>
+        <target state="final">Wybierz domyślny widok:</target>
       </trans-unit>
-      <trans-unit id="l_select_time" resname="l_select_time">
+      <trans-unit id="l_select_time" resname="l_select_time" approved="yes">
         <source>Select your default start time:</source>
-        <target state="needs-translation">Select your default start time:</target>
+        <target state="final">Wybierz domyślny czas początkowy</target>
       </trans-unit>
-      <trans-unit id="l_select_day" resname="l_select_day">
+      <trans-unit id="l_select_day" resname="l_select_day" approved="yes">
         <source>Select your default start day of week:</source>
-        <target state="needs-translation">Select your default start day of week:</target>
+        <target state="final">Wybierz domyślny pierwszy dzień tygodnia:</target>
       </trans-unit>
-      <trans-unit id="l_select_style" resname="l_select_style">
+      <trans-unit id="l_select_style" resname="l_select_style" approved="yes">
         <source>Select your default style:</source>
-        <target state="needs-translation">Select your default style:</target>
+        <target state="final">Wybierz domyślny styl:</target>
       </trans-unit>
-      <trans-unit id="l_set_prefs" resname="l_set_prefs">
+      <trans-unit id="l_set_prefs" resname="l_set_prefs" approved="yes">
         <source>Set preferences</source>
-        <target state="needs-translation">Set preferences</target>
+        <target state="final">Ustawienia</target>
       </trans-unit>
-      <trans-unit id="l_completed_date" resname="l_completed_date">
+      <trans-unit id="l_completed_date" resname="l_completed_date" approved="yes">
         <source>Completed on</source>
-        <target state="needs-translation">Completed on</target>
+        <target state="final">Ukończone</target>
       </trans-unit>
-      <trans-unit id="l_completed" resname="l_completed">
+      <trans-unit id="l_completed" resname="l_completed" approved="yes">
         <source>Completed</source>
-        <target state="needs-translation">Completed</target>
+        <target state="final">Ukończone</target>
       </trans-unit>
-      <trans-unit id="l_created" resname="l_created">
+      <trans-unit id="l_created" resname="l_created" approved="yes">
         <source>Created</source>
-        <target state="needs-translation">Created</target>
+        <target state="final">Stworzone</target>
       </trans-unit>
-      <trans-unit id="l_create" resname="l_create">
+      <trans-unit id="l_create" resname="l_create" approved="yes">
         <source>Create</source>
-        <target state="needs-translation">Create</target>
+        <target state="final">Stwórz</target>
       </trans-unit>
-      <trans-unit id="l_due" resname="l_due">
+      <trans-unit id="l_due" resname="l_due" approved="yes">
         <source>Due</source>
-        <target state="needs-translation">Due</target>
+        <target state="final">Przynależny:</target>
       </trans-unit>
-      <trans-unit id="l_priority" resname="l_priority">
+      <trans-unit id="l_priority" resname="l_priority" approved="yes">
         <source>Priority</source>
-        <target state="needs-translation">Priority</target>
+        <target state="final">Priorytet:</target>
       </trans-unit>
-      <trans-unit id="l_priority_high" resname="l_priority_high">
+      <trans-unit id="l_priority_high" resname="l_priority_high" approved="yes">
         <source>High</source>
-        <target state="needs-translation">High</target>
+        <target state="final">Wysoki</target>
       </trans-unit>
-      <trans-unit id="l_priority_low" resname="l_priority_low">
+      <trans-unit id="l_priority_low" resname="l_priority_low" approved="yes">
         <source>Low</source>
-        <target state="needs-translation">Low</target>
+        <target state="final">Niski</target>
       </trans-unit>
-      <trans-unit id="l_priority_medium" resname="l_priority_medium">
+      <trans-unit id="l_priority_medium" resname="l_priority_medium" approved="yes">
         <source>Medium</source>
-        <target state="needs-translation">Medium</target>
+        <target state="final">Średni</target>
       </trans-unit>
-      <trans-unit id="l_priority_none" resname="l_priority_none">
+      <trans-unit id="l_priority_none" resname="l_priority_none" approved="yes">
         <source>None</source>
-        <target state="needs-translation">None</target>
+        <target state="final">Żaden</target>
       </trans-unit>
       <trans-unit id="l_status" resname="l_status">
         <source>Status</source>
         <target state="needs-translation">Status</target>
       </trans-unit>
-      <trans-unit id="l_todo" resname="l_todo">
+      <trans-unit id="l_todo" resname="l_todo" approved="yes">
         <source>To do items</source>
-        <target state="needs-translation">To do items</target>
+        <target state="final">Rzeczy do zrobienia</target>
       </trans-unit>
-      <trans-unit id="l_unfinished" resname="l_unfinished">
+      <trans-unit id="l_unfinished" resname="l_unfinished" approved="yes">
         <source>Unfinished</source>
-        <target state="needs-translation">Unfinished</target>
+        <target state="final">Nieskończone</target>
       </trans-unit>
-      <trans-unit id="l_prefs_set" resname="l_prefs_set">
+      <trans-unit id="l_prefs_set" resname="l_prefs_set" approved="yes">
         <source>Your preferences have been set.</source>
-        <target state="needs-translation">Your preferences have been set.</target>
+        <target state="final">Twoje ustawienia zostały zapisane.</target>
       </trans-unit>
-      <trans-unit id="l_prefs_unset" resname="l_prefs_unset" xml:space="preserve">
+      <trans-unit id="l_prefs_unset" resname="l_prefs_unset" xml:space="preserve" approved="yes">
 				<source>Preferences unset. Changes will take place next
 				page load.</source>
-			<target state="needs-translation">Preferences unset. Changes will take place next
-				page load.</target></trans-unit>
-      <trans-unit id="l_unset_prefs" resname="l_unset_prefs">
+			<target state="final">Ustawienia nie zapisane. Zmiany zostaną
+				wprowadzone przy następnym przeładowaniu strony.</target></trans-unit>
+      <trans-unit id="l_unset_prefs" resname="l_unset_prefs" approved="yes">
         <source>Unset preferences:</source>
-        <target state="needs-translation">Unset preferences:</target>
+        <target state="final">Brak ustawień dla:</target>
       </trans-unit>
-      <trans-unit id="l_organizer" resname="l_organizer">
+      <trans-unit id="l_organizer" resname="l_organizer" approved="yes">
         <source>Organizer</source>
-        <target state="needs-translation">Organizer</target>
+        <target state="final">Organizator</target>
       </trans-unit>
       <trans-unit id="l_edit_organizer" resname="l_edit_organizer">
         <source>Edit Organizer</source>
@@ -400,13 +400,13 @@
         <source>Organizers</source>
         <target state="needs-translation">Organizers</target>
       </trans-unit>
-      <trans-unit id="l_attendee" resname="l_attendee">
+      <trans-unit id="l_attendee" resname="l_attendee" approved="yes">
         <source>Attendee</source>
-        <target state="needs-translation">Attendee</target>
+        <target state="final">Uczestnicy</target>
       </trans-unit>
-      <trans-unit id="l_location" resname="l_location">
+      <trans-unit id="l_location" resname="l_location" approved="yes">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="final">Miejsce</target>
       </trans-unit>
       <trans-unit id="l_edit_location" resname="l_edit_location">
         <source>Edit Location</source>
@@ -420,356 +420,358 @@
         <source>Locations</source>
         <target state="needs-translation">Locations</target>
       </trans-unit>
-      <trans-unit id="l_admin_header" resname="l_admin_header">
+      <trans-unit id="l_admin_header" resname="l_admin_header" approved="yes">
         <source>Calendar Administration</source>
-        <target state="needs-translation">Calendar Administration</target>
+        <target state="final">Zarządzanie kalendarzem</target>
       </trans-unit>
-      <trans-unit id="l_username" resname="l_username">
+      <trans-unit id="l_username" resname="l_username" approved="yes">
         <source>Username</source>
-        <target state="needs-translation">Username</target>
+        <target state="final">Nazwa użytkownika</target>
       </trans-unit>
-      <trans-unit id="l_password" resname="l_password">
+      <trans-unit id="l_password" resname="l_password" approved="yes">
         <source>Password</source>
-        <target state="needs-translation">Password</target>
+        <target state="final">Hasło</target>
       </trans-unit>
       <trans-unit id="l_login" resname="l_login">
         <source>Login</source>
         <target state="needs-translation">Login</target>
       </trans-unit>
-      <trans-unit id="l_invalid_login" resname="l_invalid_login">
+      <trans-unit id="l_invalid_login" resname="l_invalid_login" approved="yes">
         <source>Wrong username or password.</source>
-        <target state="needs-translation">Wrong username or password.</target>
+        <target state="final">Złe hasło lub użytkownik.</target>
       </trans-unit>
-      <trans-unit id="l_addupdate_cal" resname="l_addupdate_cal">
+      <trans-unit id="l_addupdate_cal" resname="l_addupdate_cal" approved="yes">
         <source>Add or Update a Calendar</source>
-        <target state="needs-translation">Add or Update a Calendar</target>
+        <target state="final">Dodaj lub uaktualnij kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_addupdate_desc" resname="l_addupdate_desc" xml:space="preserve">
+      <trans-unit id="l_addupdate_desc" resname="l_addupdate_desc" xml:space="preserve" approved="yes">
 				<source>Add a calendar by uploading a new file. Update a
 				calendar by uploading a file of the same name.</source>
-			<target state="needs-translation">Add a calendar by uploading a new file. Update a
-				calendar by uploading a file of the same name.</target></trans-unit>
-      <trans-unit id="l_delete_cal" resname="l_delete_cal">
+			<target state="final">Dodaj kalendarz przez załadowanie nowego pliku.
+				Uaktualnij kalendarz przez załadowanie pliku z taką samą nazwą.</target></trans-unit>
+      <trans-unit id="l_delete_cal" resname="l_delete_cal" approved="yes">
         <source>Delete a Calendar</source>
-        <target state="needs-translation">Delete a Calendar</target>
+        <target state="final">Usuń kalendarz</target>
       </trans-unit>
-      <trans-unit id="l_logout" resname="l_logout">
+      <trans-unit id="l_logout" resname="l_logout" approved="yes">
         <source>Logout</source>
-        <target state="needs-translation">Logout</target>
+        <target state="final">Wyloguj</target>
       </trans-unit>
-      <trans-unit id="l_cal_file" resname="l_cal_file">
+      <trans-unit id="l_cal_file" resname="l_cal_file" approved="yes">
         <source>Calendar File</source>
-        <target state="needs-translation">Calendar File</target>
+        <target state="final">Plik kalendarza</target>
       </trans-unit>
-      <trans-unit id="l_php_error" resname="l_php_error">
+      <trans-unit id="l_php_error" resname="l_php_error" approved="yes">
         <source>PHP Error</source>
-        <target state="needs-translation">PHP Error</target>
+        <target state="final">Błąd PHP</target>
       </trans-unit>
-      <trans-unit id="l_upload_error_type" resname="l_upload_error_type">
+      <trans-unit id="l_upload_error_type" resname="l_upload_error_type" approved="yes">
         <source>Only .ics files may be uploaded.</source>
-        <target state="needs-translation">Only .ics files may be uploaded.</target>
+        <target state="final">Załadowane mogą być tylko pliki .ics</target>
       </trans-unit>
-      <trans-unit id="l_copy_error" resname="l_copy_error">
+      <trans-unit id="l_copy_error" resname="l_copy_error" approved="yes">
         <source>Failed to copy file</source>
-        <target state="needs-translation">Failed to copy file</target>
+        <target state="final">Kopiowanie pliku nie powiodło się.</target>
       </trans-unit>
       <trans-unit id="l_delete_confirm" resname="l_delete_confirm">
         <source>Do you really want to delete?</source>
         <target state="needs-translation">Do you really want to delete?</target>
       </trans-unit>
-      <trans-unit id="l_delete_error" resname="l_delete_error">
+      <trans-unit id="l_delete_error" resname="l_delete_error" approved="yes">
         <source>Failed to delete file</source>
-        <target state="needs-translation">Failed to delete file</target>
+        <target state="final">Kasowanie pliku nie powiodło się.</target>
       </trans-unit>
-      <trans-unit id="l_delete_success" resname="l_delete_success">
+      <trans-unit id="l_delete_success" resname="l_delete_success" approved="yes">
         <source>was deleted successfully.</source>
-        <target state="needs-translation">was deleted successfully.</target>
+        <target state="final">został skasowany.</target>
       </trans-unit>
-      <trans-unit id="l_action_success" resname="l_action_success">
+      <trans-unit id="l_action_success" resname="l_action_success" approved="yes">
         <source>Your action was successful.</source>
-        <target state="needs-translation">Your action was successful.</target>
+        <target state="final">Akcja zakończona powodzeniem.</target>
       </trans-unit>
-      <trans-unit id="l_submit" resname="l_submit">
+      <trans-unit id="l_submit" resname="l_submit" approved="yes">
         <source>Submit</source>
-        <target state="needs-translation">Submit</target>
+        <target state="final">Wyślij</target>
       </trans-unit>
-      <trans-unit id="l_edit" resname="l_edit">
+      <trans-unit id="l_edit" resname="l_edit" approved="yes">
         <source>Edit</source>
-        <target state="needs-translation">Edit</target>
+        <target state="final">Edytuj</target>
       </trans-unit>
-      <trans-unit id="l_delete" resname="l_delete">
+      <trans-unit id="l_delete" resname="l_delete" approved="yes">
         <source>Delete</source>
-        <target state="needs-translation">Delete</target>
+        <target state="final">Usuń</target>
       </trans-unit>
-      <trans-unit id="l_refresh" resname="l_refresh">
+      <trans-unit id="l_refresh" resname="l_refresh" approved="yes">
         <source>Refresh</source>
-        <target state="needs-translation">Refresh</target>
+        <target state="final">Odśwież</target>
       </trans-unit>
-      <trans-unit id="l_all_cal_comb_lang" resname="l_all_cal_comb_lang">
+      <trans-unit id="l_all_cal_comb_lang" resname="l_all_cal_comb_lang" approved="yes">
         <source>All Combined</source>
-        <target state="needs-translation">All Combined</target>
+        <target state="final">Wszystkie razem</target>
       </trans-unit>
-      <trans-unit id="l_legend" resname="l_legend">
+      <trans-unit id="l_legend" resname="l_legend" approved="yes">
         <source>Legend</source>
-        <target state="needs-translation">Legend</target>
+        <target state="final">Legenda</target>
       </trans-unit>
-      <trans-unit id="l_admin_subhead" resname="l_admin_subhead">
+      <trans-unit id="l_admin_subhead" resname="l_admin_subhead" approved="yes">
         <source>Manage your calendars from this page</source>
-        <target state="needs-translation">Manage your calendars from this page</target>
+        <target state="final">Zarządzaj swomi kalendarzami z tej stron</target>
       </trans-unit>
-      <trans-unit id="l_prefs_subhead" resname="l_prefs_subhead">
+      <trans-unit id="l_prefs_subhead" resname="l_prefs_subhead" approved="yes">
         <source>Sets a cookie for visiting this site</source>
-        <target state="needs-translation">Sets a cookie for visiting this site</target>
+        <target state="final">Ustaw ciasteczko, żeby zaznaczyć, że odwiedziłeś
+				tą stronę</target>
       </trans-unit>
-      <trans-unit id="l_rss_info" resname="l_rss_info">
+      <trans-unit id="l_rss_info" resname="l_rss_info" approved="yes">
         <source>RSS Information</source>
-        <target state="needs-translation">RSS Information</target>
+        <target state="final">Kanał RSS</target>
       </trans-unit>
-      <trans-unit id="l_rss_subhead" resname="l_rss_subhead">
+      <trans-unit id="l_rss_subhead" resname="l_rss_subhead" approved="yes">
         <source>Basic RSS feeds available for each calendar</source>
-        <target state="needs-translation">Basic RSS feeds available for each calendar</target>
+        <target state="final">Podstawowy kanał RSS dostępny dla każdego z
+				kalendarzy</target>
       </trans-unit>
-      <trans-unit id="l_rss_notenabled" resname="l_rss_notenabled">
+      <trans-unit id="l_rss_notenabled" resname="l_rss_notenabled" approved="yes">
         <source>RSS is not enabled on this site</source>
-        <target state="needs-translation">RSS is not enabled on this site</target>
+        <target state="final">RSS nie jest włączone na tej stronie</target>
       </trans-unit>
-      <trans-unit id="l_back" resname="l_back">
+      <trans-unit id="l_back" resname="l_back" approved="yes">
         <source>Back</source>
-        <target state="needs-translation">Back</target>
+        <target state="final">Wstecz</target>
       </trans-unit>
-      <trans-unit id="l_next" resname="l_next">
+      <trans-unit id="l_next" resname="l_next" approved="yes">
         <source>Next</source>
-        <target state="needs-translation">Next</target>
+        <target state="final">Następny</target>
       </trans-unit>
-      <trans-unit id="l_prev" resname="l_prev">
+      <trans-unit id="l_prev" resname="l_prev" approved="yes">
         <source>Prev</source>
-        <target state="needs-translation">Prev</target>
+        <target state="final">Poprzedni</target>
       </trans-unit>
-      <trans-unit id="l_day_view" resname="l_day_view">
+      <trans-unit id="l_day_view" resname="l_day_view" approved="yes">
         <source>Day View</source>
-        <target state="needs-translation">Day View</target>
+        <target state="final">Widok dnia</target>
       </trans-unit>
-      <trans-unit id="l_week_view" resname="l_week_view">
+      <trans-unit id="l_week_view" resname="l_week_view" approved="yes">
         <source>Week View</source>
-        <target state="needs-translation">Week View</target>
+        <target state="final">Widok tygodnia</target>
       </trans-unit>
-      <trans-unit id="l_month_view" resname="l_month_view">
+      <trans-unit id="l_month_view" resname="l_month_view" approved="yes">
         <source>Month View</source>
-        <target state="needs-translation">Month View</target>
+        <target state="final">Widok miesiąca</target>
       </trans-unit>
-      <trans-unit id="l_year_view" resname="l_year_view">
+      <trans-unit id="l_year_view" resname="l_year_view" approved="yes">
         <source>Year View</source>
-        <target state="needs-translation">Year View</target>
+        <target state="final">Widok roku</target>
       </trans-unit>
-      <trans-unit id="l_event_view" resname="l_event_view">
+      <trans-unit id="l_event_view" resname="l_event_view" approved="yes">
         <source>Event View</source>
-        <target state="needs-translation">Event View</target>
+        <target state="final">Widok wydarzenia</target>
       </trans-unit>
-      <trans-unit id="l_search_view" resname="l_search_view">
+      <trans-unit id="l_search_view" resname="l_search_view" approved="yes">
         <source>Search</source>
-        <target state="needs-translation">Search</target>
+        <target state="final">Szukaj</target>
       </trans-unit>
       <trans-unit id="l_ics_view" resname="l_ics_view">
         <source>ICS</source>
         <target state="needs-translation">ICS</target>
       </trans-unit>
-      <trans-unit id="l_icslist_title" resname="l_icslist_title">
+      <trans-unit id="l_icslist_title" resname="l_icslist_title" approved="yes">
         <source>List of available ics-files to download</source>
-        <target state="needs-translation">List of available ics-files to download</target>
+        <target state="final">Lista dostępnych do pobrania plików ICS</target>
       </trans-unit>
-      <trans-unit id="l_list_view" resname="l_list_view">
+      <trans-unit id="l_list_view" resname="l_list_view" approved="yes">
         <source>List View</source>
-        <target state="needs-translation">List View</target>
+        <target state="final">Widok listy</target>
       </trans-unit>
-      <trans-unit id="format_recur_lang_delimiter" resname="format_recur_lang_delimiter">
+      <trans-unit id="format_recur_lang_delimiter" resname="format_recur_lang_delimiter" approved="yes">
         <source>, </source>
-        <target state="needs-translation">, </target>
+        <target state="final">,</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_yearly_single" resname="l_format_recur_lang_yearly_single">
+      <trans-unit id="l_format_recur_lang_yearly_single" resname="l_format_recur_lang_yearly_single" approved="yes">
         <source>year</source>
-        <target state="needs-translation">year</target>
+        <target state="final">rok</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_yearly_multiple" resname="l_format_recur_lang_yearly_multiple">
+      <trans-unit id="l_format_recur_lang_yearly_multiple" resname="l_format_recur_lang_yearly_multiple" approved="yes">
         <source>years</source>
-        <target state="needs-translation">years</target>
+        <target state="final">lata</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_monthly_single" resname="l_format_recur_lang_monthly_single">
+      <trans-unit id="l_format_recur_lang_monthly_single" resname="l_format_recur_lang_monthly_single" approved="yes">
         <source>month</source>
-        <target state="needs-translation">month</target>
+        <target state="final">miesiąc</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_monthly_multiple" resname="l_format_recur_lang_monthly_multiple">
+      <trans-unit id="l_format_recur_lang_monthly_multiple" resname="l_format_recur_lang_monthly_multiple" approved="yes">
         <source>months</source>
-        <target state="needs-translation">months</target>
+        <target state="final">miesiące</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_weekly_single" resname="l_format_recur_lang_weekly_single">
+      <trans-unit id="l_format_recur_lang_weekly_single" resname="l_format_recur_lang_weekly_single" approved="yes">
         <source>week</source>
-        <target state="needs-translation">week</target>
+        <target state="final">tydzień</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_weekly_multiple" resname="l_format_recur_lang_weekly_multiple">
+      <trans-unit id="l_format_recur_lang_weekly_multiple" resname="l_format_recur_lang_weekly_multiple" approved="yes">
         <source>weeks</source>
-        <target state="needs-translation">weeks</target>
+        <target state="final">tygodnie</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_daily_single" resname="l_format_recur_lang_daily_single">
+      <trans-unit id="l_format_recur_lang_daily_single" resname="l_format_recur_lang_daily_single" approved="yes">
         <source>day</source>
-        <target state="needs-translation">day</target>
+        <target state="final">dzień</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_daily_multiple" resname="l_format_recur_lang_daily_multiple">
+      <trans-unit id="l_format_recur_lang_daily_multiple" resname="l_format_recur_lang_daily_multiple" approved="yes">
         <source>days</source>
-        <target state="needs-translation">days</target>
+        <target state="final">dni</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_hourly_single" resname="l_format_recur_lang_hourly_single">
+      <trans-unit id="l_format_recur_lang_hourly_single" resname="l_format_recur_lang_hourly_single" approved="yes">
         <source>hour</source>
-        <target state="needs-translation">hour</target>
+        <target state="final">godzina</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_hourly_multiple" resname="l_format_recur_lang_hourly_multiple">
+      <trans-unit id="l_format_recur_lang_hourly_multiple" resname="l_format_recur_lang_hourly_multiple" approved="yes">
         <source>hours</source>
-        <target state="needs-translation">hours</target>
+        <target state="final">godziny</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_minutely_single" resname="l_format_recur_lang_minutely_single">
+      <trans-unit id="l_format_recur_lang_minutely_single" resname="l_format_recur_lang_minutely_single" approved="yes">
         <source>minute</source>
-        <target state="needs-translation">minute</target>
+        <target state="final">minuta</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_minutely_multiple" resname="l_format_recur_lang_minutely_multiple">
+      <trans-unit id="l_format_recur_lang_minutely_multiple" resname="l_format_recur_lang_minutely_multiple" approved="yes">
         <source>minutes</source>
-        <target state="needs-translation">minutes</target>
+        <target state="final">minuty</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_secondly_single" resname="l_format_recur_lang_secondly_single">
+      <trans-unit id="l_format_recur_lang_secondly_single" resname="l_format_recur_lang_secondly_single" approved="yes">
         <source>second</source>
-        <target state="needs-translation">second</target>
+        <target state="final">sekunda</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_secondly_multiple" resname="l_format_recur_lang_secondly_multiple">
+      <trans-unit id="l_format_recur_lang_secondly_multiple" resname="l_format_recur_lang_secondly_multiple" approved="yes">
         <source>seconds</source>
-        <target state="needs-translation">seconds</target>
+        <target state="final">sekundy</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_start" resname="l_format_recur_lang_start">
+      <trans-unit id="l_format_recur_lang_start" resname="l_format_recur_lang_start" approved="yes">
         <source>Every %int% %freq% %for%</source>
-        <target state="needs-translation">Every %int% %freq% %for%</target>
+        <target state="final">Każdy %int% %freq% %for%</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_until" resname="l_format_recur_lang_until">
+      <trans-unit id="l_format_recur_lang_until" resname="l_format_recur_lang_until" approved="yes">
         <source>until %date%</source>
-        <target state="needs-translation">until %date%</target>
+        <target state="final">do %date%</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_count" resname="l_format_recur_lang_count">
+      <trans-unit id="l_format_recur_lang_count" resname="l_format_recur_lang_count" approved="yes">
         <source>for a count of %int%</source>
-        <target state="needs-translation">for a count of %int%</target>
+        <target state="final">liczba powtórzeń %int%</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_bymonth" resname="l_format_recur_lang_bymonth">
+      <trans-unit id="l_format_recur_lang_bymonth" resname="l_format_recur_lang_bymonth" approved="yes">
         <source>In months: %list%</source>
-        <target state="needs-translation">In months: %list%</target>
+        <target state="final">W miesiącach: %list</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_bymonthday" resname="l_format_recur_lang_bymonthday">
+      <trans-unit id="l_format_recur_lang_bymonthday" resname="l_format_recur_lang_bymonthday" approved="yes">
         <source>On dates: %list%</source>
-        <target state="needs-translation">On dates: %list%</target>
+        <target state="final">W datach: %list%</target>
       </trans-unit>
-      <trans-unit id="l_format_recur_lang_byday" resname="l_format_recur_lang_byday">
+      <trans-unit id="l_format_recur_lang_byday" resname="l_format_recur_lang_byday" approved="yes">
         <source>On days: %list%</source>
-        <target state="needs-translation">On days: %list%</target>
+        <target state="final">W dniach: %list%</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_all" resname="l_daysofweek_all">
+      <trans-unit id="l_daysofweek_all" resname="l_daysofweek_all" approved="yes">
         <source>All Days</source>
-        <target state="needs-translation">All Days</target>
+        <target state="final">Wszystkie dni</target>
       </trans-unit>
-      <trans-unit id="l_monthsofyear_all" resname="l_monthsofyear_all">
+      <trans-unit id="l_monthsofyear_all" resname="l_monthsofyear_all" approved="yes">
         <source>All Months</source>
-        <target state="needs-translation">All Months</target>
+        <target state="final">Wszystkie miesiące</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_sunday" resname="l_daysofweek_lang_sunday">
+      <trans-unit id="l_daysofweek_lang_sunday" resname="l_daysofweek_lang_sunday" approved="yes">
         <source>Sunday</source>
-        <target state="needs-translation">Sunday</target>
+        <target state="final">Niedziela</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_monday" resname="l_daysofweek_lang_monday">
+      <trans-unit id="l_daysofweek_lang_monday" resname="l_daysofweek_lang_monday" approved="yes">
         <source>Monday</source>
-        <target state="needs-translation">Monday</target>
+        <target state="final">Poniedziałek</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_tuesday" resname="l_daysofweek_lang_tuesday">
+      <trans-unit id="l_daysofweek_lang_tuesday" resname="l_daysofweek_lang_tuesday" approved="yes">
         <source>Tuesday</source>
-        <target state="needs-translation">Tuesday</target>
+        <target state="final">Wtorek</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_wednesday" resname="l_daysofweek_lang_wednesday">
+      <trans-unit id="l_daysofweek_lang_wednesday" resname="l_daysofweek_lang_wednesday" approved="yes">
         <source>Wednesday</source>
-        <target state="needs-translation">Wednesday</target>
+        <target state="final">Środa</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_thursday" resname="l_daysofweek_lang_thursday">
+      <trans-unit id="l_daysofweek_lang_thursday" resname="l_daysofweek_lang_thursday" approved="yes">
         <source>Thursday</source>
-        <target state="needs-translation">Thursday</target>
+        <target state="final">Czwartek</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_friday" resname="l_daysofweek_lang_friday">
+      <trans-unit id="l_daysofweek_lang_friday" resname="l_daysofweek_lang_friday" approved="yes">
         <source>Friday</source>
-        <target state="needs-translation">Friday</target>
+        <target state="final">Piątek</target>
       </trans-unit>
-      <trans-unit id="l_daysofweek_lang_saturday" resname="l_daysofweek_lang_saturday">
+      <trans-unit id="l_daysofweek_lang_saturday" resname="l_daysofweek_lang_saturday" approved="yes">
         <source>Saturday</source>
-        <target state="needs-translation">Saturday</target>
+        <target state="final">Sobota</target>
       </trans-unit>
-      <trans-unit id="l_error_title" resname="l_error_title">
+      <trans-unit id="l_error_title" resname="l_error_title" approved="yes">
         <source>Error!</source>
-        <target state="needs-translation">Error!</target>
+        <target state="final">Błąd!</target>
       </trans-unit>
-      <trans-unit id="l_error_window" resname="l_error_window">
+      <trans-unit id="l_error_window" resname="l_error_window" approved="yes">
         <source>There was an error!</source>
-        <target state="needs-translation">There was an error!</target>
+        <target state="final">Pojawił się bład!</target>
       </trans-unit>
-      <trans-unit id="l_error_calendar" resname="l_error_calendar" xml:space="preserve">
+      <trans-unit id="l_error_calendar" resname="l_error_calendar" xml:space="preserve" approved="yes">
 				<source>The calendar &quot;%s&quot; was being processed
 				when this error occurred.</source>
-			<target state="needs-translation">The calendar "%s" was being processed
-				when this error occurred.</target></trans-unit>
-      <trans-unit id="l_error_path" resname="l_error_path">
+			<target state="final">Kalendarz "%s" był przetwarzany, kiedy
+				pojawił się następujący błąd.</target></trans-unit>
+      <trans-unit id="l_error_path" resname="l_error_path" approved="yes">
         <source>Unable to open the path: &quot;%s&quot;</source>
-        <target state="needs-translation">Unable to open the path: "%s"</target>
+        <target state="final">Nie można otworzyć ścieżki: "%s"</target>
       </trans-unit>
-      <trans-unit id="l_error_back" resname="l_error_back">
+      <trans-unit id="l_error_back" resname="l_error_back" approved="yes">
         <source>Please use the &quot;Back&quot; button to return.</source>
-        <target state="needs-translation">Please use the "Back" button to return.</target>
+        <target state="final">Proszę użyć przycisku "Wstecz", żeby
+				powrócić.</target>
       </trans-unit>
-      <trans-unit id="l_error_remotecal" resname="l_error_remotecal" xml:space="preserve">
+      <trans-unit id="l_error_remotecal" resname="l_error_remotecal" xml:space="preserve" approved="yes">
 				<source>This server blocks remote calendars which have not
 				been approved.</source>
-			<target state="needs-translation">This server blocks remote calendars which have not
-				been approved.</target></trans-unit>
-      <trans-unit id="l_error_restrictedcal" resname="l_error_restrictedcal" xml:space="preserve">
+			<target state="final">Serwer blokuje zdalne kalendarze, które nie
+				zostały zaakceptowane.</target></trans-unit>
+      <trans-unit id="l_error_restrictedcal" resname="l_error_restrictedcal" xml:space="preserve" approved="yes">
 				<source>You have tried to access a calendar that is
 				restricted on this server.</source>
-			<target state="needs-translation">You have tried to access a calendar that is
-				restricted on this server.</target></trans-unit>
-      <trans-unit id="l_error_invalidcal" resname="l_error_invalidcal" xml:space="preserve">
+			<target state="final">Próbujesz uzyskać dostęp do kalendarza, który jest
+				chroniony na tym serwerze.</target></trans-unit>
+      <trans-unit id="l_error_invalidcal" resname="l_error_invalidcal" xml:space="preserve" approved="yes">
 				<source>Invalid calendar file. Please try a different
 				calendar.</source>
-			<target state="needs-translation">Invalid calendar file. Please try a different
-				calendar.</target></trans-unit>
-      <trans-unit id="l_error_cantopen" resname="l_error_cantopen">
+			<target state="final">Blędny plik kalendarza. Wybierz inny kalendarz.</target></trans-unit>
+      <trans-unit id="l_error_cantopen" resname="l_error_cantopen" approved="yes">
         <source>Unable to open calendar.</source>
-        <target state="needs-translation">Unable to open calendar.</target>
+        <target state="final">Nie mozna otworzyć kalendarza.</target>
       </trans-unit>
-      <trans-unit id="l_error_cache" resname="l_error_cache" xml:space="preserve">
+      <trans-unit id="l_error_cache" resname="l_error_cache" xml:space="preserve" approved="yes">
 				<source>Unable to write to cache directory. Please check
 				your config.</source>
-			<target state="needs-translation">Unable to write to cache directory. Please check
-				your config.</target></trans-unit>
-      <trans-unit id="l_error_noCategory" resname="l_error_noCategory" xml:space="preserve">
+			<target state="final">Nie można zapisywać do katalogu 'cache'. Sprawdź
+				swoją konfigurację.</target></trans-unit>
+      <trans-unit id="l_error_noCategory" resname="l_error_noCategory" xml:space="preserve" approved="yes">
 				<source>You can not create an event without a category.
 				Please create a category first</source>
-			<target state="needs-translation">You can not create an event without a category.
-				Please create a category first</target></trans-unit>
+			<target state="final">Nie możesz stworzyć zdarzenia bez kategorii.
+				Stwórz najpierw kategorię.</target></trans-unit>
       <trans-unit id="l_monitor_event_not_logged_in" resname="l_monitor_event_not_logged_in">
         <source>&lt;br /&gt;&lt;br /&gt;</source>
         <target state="needs-translation">&lt;br /&gt;&lt;br /&gt;</target>
       </trans-unit>
-      <trans-unit id="l_monitor_event_logged_in_nomonitoring" resname="l_monitor_event_logged_in_nomonitoring">
+      <trans-unit id="l_monitor_event_logged_in_nomonitoring" resname="l_monitor_event_logged_in_nomonitoring" approved="yes">
         <source>Subscribe to this event?</source>
-        <target state="needs-translation">Subscribe to this event?</target>
+        <target state="final">Zapisać na to wydarzenie?</target>
       </trans-unit>
-      <trans-unit id="l_monitor_event_logged_in_monitoring" resname="l_monitor_event_logged_in_monitoring">
+      <trans-unit id="l_monitor_event_logged_in_monitoring" resname="l_monitor_event_logged_in_monitoring" approved="yes">
         <source>Unsubscribe?</source>
-        <target state="needs-translation">Unsubscribe?</target>
+        <target state="final">Wypisać?</target>
       </trans-unit>
-      <trans-unit id="l_monitor_login_in_for_monitoring" resname="l_monitor_login_in_for_monitoring">
+      <trans-unit id="l_monitor_login_in_for_monitoring" resname="l_monitor_login_in_for_monitoring" approved="yes">
         <source>Please log in to manage your subscriptions.</source>
-        <target state="needs-translation">Please log in to manage your subscriptions.</target>
+        <target state="final">Zaloguj się, żeby zarządzać subskrypcjami.</target>
       </trans-unit>
-      <trans-unit id="l_manage_subscription" resname="l_manage_subscription">
+      <trans-unit id="l_manage_subscription" resname="l_manage_subscription" approved="yes">
         <source>Manage your subscriptions</source>
-        <target state="needs-translation">Manage your subscriptions</target>
+        <target state="final">Zarządzaj subskrypcjami</target>
       </trans-unit>
       <trans-unit id="l_monitor_event_unsubscribe_successful" resname="l_monitor_event_unsubscribe_successful" xml:space="preserve">
 				<source>You have been unsubscribed from the event
@@ -805,9 +807,9 @@
 				exist anymore.</source>
 			<target state="needs-translation">The event you are trying to subscribe does not
 				exist anymore.</target></trans-unit>
-      <trans-unit id="l_fe_user" resname="l_fe_user">
+      <trans-unit id="l_fe_user" resname="l_fe_user" approved="yes">
         <source>User</source>
-        <target state="needs-translation">User</target>
+        <target state="final">Użytkownik</target>
       </trans-unit>
       <trans-unit id="l_calendar_title" resname="l_calendar_title">
         <source>Title</source>
@@ -853,13 +855,13 @@
         <source>Refresh interval in minutes</source>
         <target state="needs-translation">Refresh interval in minutes</target>
       </trans-unit>
-      <trans-unit id="l_category" resname="l_category">
+      <trans-unit id="l_category" resname="l_category" approved="yes">
         <source>Category</source>
-        <target state="needs-translation">Category</target>
+        <target state="final">Kategoria</target>
       </trans-unit>
-      <trans-unit id="l_global_category" resname="l_global_category">
+      <trans-unit id="l_global_category" resname="l_global_category" approved="yes">
         <source>General Category</source>
-        <target state="needs-translation">General Category</target>
+        <target state="final">Ogólna kategoria</target>
       </trans-unit>
       <trans-unit id="l_delete_category" resname="l_delete_category">
         <source>Delete Category</source>
@@ -869,21 +871,21 @@
         <source>Confirm Category</source>
         <target state="needs-translation">Confirm Category</target>
       </trans-unit>
-      <trans-unit id="l_category_selector" resname="l_category_selector">
+      <trans-unit id="l_category_selector" resname="l_category_selector" approved="yes">
         <source>Select category</source>
-        <target state="needs-translation">Select category</target>
+        <target state="final">Wybierz kategorię</target>
       </trans-unit>
       <trans-unit id="l_category_title" resname="l_category_title">
         <source>Title</source>
         <target state="needs-translation">Title</target>
       </trans-unit>
-      <trans-unit id="l_category_headerstyle" resname="l_category_headerstyle">
+      <trans-unit id="l_category_headerstyle" resname="l_category_headerstyle" approved="yes">
         <source>Header Style</source>
-        <target state="needs-translation">Header Style</target>
+        <target state="final">Styl nagłówka</target>
       </trans-unit>
-      <trans-unit id="l_category_bodystyle" resname="l_category_bodystyle">
+      <trans-unit id="l_category_bodystyle" resname="l_category_bodystyle" approved="yes">
         <source>Body Style</source>
-        <target state="needs-translation">Body Style</target>
+        <target state="final">Styl body</target>
       </trans-unit>
       <trans-unit id="l_category_calendar" resname="l_category_calendar">
         <source>Calendar</source>
@@ -901,161 +903,163 @@
         <source>General</source>
         <target state="needs-translation">General</target>
       </trans-unit>
-      <trans-unit id="l_event_category" resname="l_event_category">
+      <trans-unit id="l_event_category" resname="l_event_category" approved="yes">
         <source>Category</source>
-        <target state="needs-translation">Category</target>
+        <target state="final">Kategoria</target>
       </trans-unit>
-      <trans-unit id="l_event_category_selected" resname="l_event_category_selected">
+      <trans-unit id="l_event_category_selected" resname="l_event_category_selected" approved="yes">
         <source>Selected Category</source>
-        <target state="needs-translation">Selected Category</target>
+        <target state="final">Wybierz kategorię</target>
       </trans-unit>
-      <trans-unit id="l_event_user" resname="l_event_user">
+      <trans-unit id="l_event_user" resname="l_event_user" approved="yes">
         <source>Creator, creator group</source>
-        <target state="needs-translation">Creator, creator group</target>
+        <target state="final">Twórca, grupa twórcy</target>
       </trans-unit>
-      <trans-unit id="l_event_user_selected" resname="l_event_user_selected">
+      <trans-unit id="l_event_user_selected" resname="l_event_user_selected" approved="yes">
         <source>Selected creator, creator group</source>
-        <target state="needs-translation">Selected creator, creator group</target>
+        <target state="final">Wybrani twórcy, grupa twórcy</target>
       </trans-unit>
-      <trans-unit id="l_event_title" resname="l_event_title">
+      <trans-unit id="l_event_title" resname="l_event_title" approved="yes">
         <source>Title</source>
-        <target state="needs-translation">Title</target>
+        <target state="final">Tytuł</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_startdate" resname="l_event_edit_startdate">
+      <trans-unit id="l_event_edit_startdate" resname="l_event_edit_startdate" approved="yes">
         <source>Start date</source>
-        <target state="needs-translation">Start date</target>
+        <target state="final">Data początku</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_enddate" resname="l_event_edit_enddate">
+      <trans-unit id="l_event_edit_enddate" resname="l_event_edit_enddate" approved="yes">
         <source>End date</source>
-        <target state="needs-translation">End date</target>
+        <target state="final">Data końca</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_starttime" resname="l_event_edit_starttime">
+      <trans-unit id="l_event_edit_starttime" resname="l_event_edit_starttime" approved="yes">
         <source>Start time</source>
-        <target state="needs-translation">Start time</target>
+        <target state="final">Czas początku</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_endtime" resname="l_event_edit_endtime">
+      <trans-unit id="l_event_edit_endtime" resname="l_event_edit_endtime" approved="yes">
         <source>End time</source>
-        <target state="needs-translation">End time</target>
+        <target state="final">Czas końca</target>
       </trans-unit>
-      <trans-unit id="l_event_startdate" resname="l_event_startdate">
+      <trans-unit id="l_event_startdate" resname="l_event_startdate" approved="yes">
         <source>Start date</source>
-        <target state="needs-translation">Start date</target>
+        <target state="final">Data początku</target>
       </trans-unit>
-      <trans-unit id="l_event_enddate" resname="l_event_enddate">
+      <trans-unit id="l_event_enddate" resname="l_event_enddate" approved="yes">
         <source>End date</source>
-        <target state="needs-translation">End date</target>
+        <target state="final">Data końca</target>
       </trans-unit>
-      <trans-unit id="l_event_starttime" resname="l_event_starttime">
+      <trans-unit id="l_event_starttime" resname="l_event_starttime" approved="yes">
         <source>Start time</source>
-        <target state="needs-translation">Start time</target>
+        <target state="final">Czas początku</target>
       </trans-unit>
-      <trans-unit id="l_event_endtime" resname="l_event_endtime">
+      <trans-unit id="l_event_endtime" resname="l_event_endtime" approved="yes">
         <source>End time</source>
-        <target state="needs-translation">End time</target>
+        <target state="final">Czas końca</target>
       </trans-unit>
-      <trans-unit id="l_event_allday" resname="l_event_allday">
+      <trans-unit id="l_event_allday" resname="l_event_allday" approved="yes">
         <source>Allday</source>
-        <target state="needs-translation">Allday</target>
+        <target state="final">Data</target>
       </trans-unit>
-      <trans-unit id="l_event_organizer" resname="l_event_organizer">
+      <trans-unit id="l_event_organizer" resname="l_event_organizer" approved="yes">
         <source>Organizer</source>
-        <target state="needs-translation">Organizer</target>
+        <target state="final">Organizator</target>
       </trans-unit>
-      <trans-unit id="l_event_location" resname="l_event_location">
+      <trans-unit id="l_event_location" resname="l_event_location" approved="yes">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="final">Lokalizacja</target>
       </trans-unit>
-      <trans-unit id="l_event_teaser" resname="l_event_teaser">
+      <trans-unit id="l_event_teaser" resname="l_event_teaser" approved="yes">
         <source>Teaser</source>
-        <target state="needs-translation">Teaser</target>
+        <target state="final">Zajawka</target>
       </trans-unit>
-      <trans-unit id="l_event_description" resname="l_event_description">
+      <trans-unit id="l_event_description" resname="l_event_description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Opis</target>
       </trans-unit>
-      <trans-unit id="l_event_cal_organizer" resname="l_event_cal_organizer">
+      <trans-unit id="l_event_cal_organizer" resname="l_event_cal_organizer" approved="yes">
         <source>Cal Organizer</source>
-        <target state="needs-translation">Cal Organizer</target>
+        <target state="final">Organizator (cal)</target>
       </trans-unit>
-      <trans-unit id="l_event_cal_location" resname="l_event_cal_location">
+      <trans-unit id="l_event_cal_location" resname="l_event_cal_location" approved="yes">
         <source>Cal Location</source>
-        <target state="needs-translation">Cal Location</target>
+        <target state="final">Lokalizacja (cal)</target>
       </trans-unit>
-      <trans-unit id="l_event_frequency" resname="l_event_frequency">
+      <trans-unit id="l_event_frequency" resname="l_event_frequency" approved="yes">
         <source>Frequency</source>
-        <target state="needs-translation">Frequency</target>
+        <target state="final">Częstotliwość</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_byday" resname="l_event_edit_byday">
+      <trans-unit id="l_event_edit_byday" resname="l_event_edit_byday" approved="yes">
         <source>By Day</source>
-        <target state="needs-translation">By Day</target>
+        <target state="final">Określona dniem tygodnia (kombinacja
+				"mo","tu","we","th","fr","sa"
+				und "su", or "all")</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_bymonthday" resname="l_event_edit_bymonthday">
+      <trans-unit id="l_event_edit_bymonthday" resname="l_event_edit_bymonthday" approved="yes">
         <source>By Monthday (e.g.: 1,2,30 or all)</source>
-        <target state="needs-translation">By Monthday (e.g.: 1,2,30 or all)</target>
+        <target state="final">Określona dniem miesiąca (np.: 1,2,30 lub all)</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_bymonth" resname="l_event_edit_bymonth">
+      <trans-unit id="l_event_edit_bymonth" resname="l_event_edit_bymonth" approved="yes">
         <source>By Month (e.g.: 1,2,3,4,12 or all)</source>
-        <target state="needs-translation">By Month (e.g.: 1,2,3,4,12 or all)</target>
+        <target state="final">Określona miesiącem (np.: 1,2,3,4,12 lub all)</target>
       </trans-unit>
-      <trans-unit id="l_event_edit_until" resname="l_event_edit_until">
+      <trans-unit id="l_event_edit_until" resname="l_event_edit_until" approved="yes">
         <source>Until Date</source>
-        <target state="needs-translation">Until Date</target>
+        <target state="final">Do daty</target>
       </trans-unit>
-      <trans-unit id="l_event_byday" resname="l_event_byday">
+      <trans-unit id="l_event_byday" resname="l_event_byday" approved="yes">
         <source>By Day</source>
-        <target state="needs-translation">By Day</target>
+        <target state="final">Dzień tygodnia</target>
       </trans-unit>
-      <trans-unit id="l_event_bymonthday" resname="l_event_bymonthday">
+      <trans-unit id="l_event_bymonthday" resname="l_event_bymonthday" approved="yes">
         <source>By Monthday</source>
-        <target state="needs-translation">By Monthday</target>
+        <target state="final">Dzień miesiąca</target>
       </trans-unit>
-      <trans-unit id="l_event_bymonth" resname="l_event_bymonth">
+      <trans-unit id="l_event_bymonth" resname="l_event_bymonth" approved="yes">
         <source>By Month</source>
-        <target state="needs-translation">By Month</target>
+        <target state="final">Miesiąc</target>
       </trans-unit>
-      <trans-unit id="l_event_until" resname="l_event_until">
+      <trans-unit id="l_event_until" resname="l_event_until" approved="yes">
         <source>Until Date</source>
-        <target state="needs-translation">Until Date</target>
+        <target state="final">Do daty</target>
       </trans-unit>
-      <trans-unit id="l_event_count" resname="l_event_count">
+      <trans-unit id="l_event_count" resname="l_event_count" approved="yes">
         <source>Count</source>
-        <target state="needs-translation">Count</target>
+        <target state="final">Licznik</target>
       </trans-unit>
-      <trans-unit id="l_event_interval" resname="l_event_interval">
+      <trans-unit id="l_event_interval" resname="l_event_interval" approved="yes">
         <source>Interval</source>
-        <target state="needs-translation">Interval</target>
+        <target state="final">Interwał</target>
       </trans-unit>
-      <trans-unit id="l_event_exception" resname="l_event_exception">
+      <trans-unit id="l_event_exception" resname="l_event_exception" approved="yes">
         <source>Exception</source>
-        <target state="needs-translation">Exception</target>
+        <target state="final">Wyjątek</target>
       </trans-unit>
-      <trans-unit id="l_event_exception_selected" resname="l_event_exception_selected">
+      <trans-unit id="l_event_exception_selected" resname="l_event_exception_selected" approved="yes">
         <source>Selected exception</source>
-        <target state="needs-translation">Selected exception</target>
+        <target state="final">Wybrane wyjątki</target>
       </trans-unit>
-      <trans-unit id="l_event_fe_cruser" resname="l_event_fe_cruser">
+      <trans-unit id="l_event_fe_cruser" resname="l_event_fe_cruser" approved="yes">
         <source>Creator</source>
-        <target state="needs-translation">Creator</target>
+        <target state="final">Twórca</target>
       </trans-unit>
-      <trans-unit id="l_event_fe_crgroup" resname="l_event_fe_crgroup">
+      <trans-unit id="l_event_fe_crgroup" resname="l_event_fe_crgroup" approved="yes">
         <source>Creator Group</source>
-        <target state="needs-translation">Creator Group</target>
+        <target state="final">Grupa twórcy</target>
       </trans-unit>
-      <trans-unit id="l_event_notify" resname="l_event_notify">
+      <trans-unit id="l_event_notify" resname="l_event_notify" approved="yes">
         <source>Notify and remind</source>
-        <target state="needs-translation">Notify and remind</target>
+        <target state="final">Powiadom przy zmianie</target>
       </trans-unit>
       <trans-unit id="l_event_shared" resname="l_event_shared">
         <source>Share with</source>
         <target state="needs-translation">Share with</target>
       </trans-unit>
-      <trans-unit id="l_event_icslink" resname="l_event_icslink">
+      <trans-unit id="l_event_icslink" resname="l_event_icslink" approved="yes">
         <source>Get this event as *.ics calendar entry</source>
-        <target state="needs-translation">Get this event as *.ics calendar entry</target>
+        <target state="final">Pobierz to wydarzenie jako wpis typu *ics</target>
       </trans-unit>
-      <trans-unit id="l_event_image" resname="l_event_image">
+      <trans-unit id="l_event_image" resname="l_event_image" approved="yes">
         <source>Image</source>
-        <target state="needs-translation">Image</target>
+        <target state="final">Obrazek</target>
       </trans-unit>
       <trans-unit id="l_event_image_caption" resname="l_event_image_caption">
         <source>Caption</source>
@@ -1069,9 +1073,9 @@
         <source>Alt text</source>
         <target state="needs-translation">Alt text</target>
       </trans-unit>
-      <trans-unit id="l_event_attachment" resname="l_event_attachment">
+      <trans-unit id="l_event_attachment" resname="l_event_attachment" approved="yes">
         <source>Attachment</source>
-        <target state="needs-translation">Attachment</target>
+        <target state="final">Załącznik</target>
       </trans-unit>
       <trans-unit id="l_event_type" resname="l_event_type">
         <source>Type</source>
@@ -1157,41 +1161,41 @@
         <source>Check availability</source>
         <target state="needs-translation">Check availability</target>
       </trans-unit>
-      <trans-unit id="l_location_name" resname="l_location_name">
+      <trans-unit id="l_location_name" resname="l_location_name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Nazwa</target>
       </trans-unit>
-      <trans-unit id="l_location_description" resname="l_location_description">
+      <trans-unit id="l_location_description" resname="l_location_description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Opis</target>
       </trans-unit>
-      <trans-unit id="l_location_street" resname="l_location_street">
+      <trans-unit id="l_location_street" resname="l_location_street" approved="yes">
         <source>Street</source>
-        <target state="needs-translation">Street</target>
+        <target state="final">Ulica</target>
       </trans-unit>
-      <trans-unit id="l_location_zip" resname="l_location_zip">
+      <trans-unit id="l_location_zip" resname="l_location_zip" approved="yes">
         <source>Zip-code</source>
-        <target state="needs-translation">Zip-code</target>
+        <target state="final">Kod</target>
       </trans-unit>
-      <trans-unit id="l_location_city" resname="l_location_city">
+      <trans-unit id="l_location_city" resname="l_location_city" approved="yes">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="final">Miejscowość</target>
       </trans-unit>
-      <trans-unit id="l_location_countryzone" resname="l_location_countryzone">
+      <trans-unit id="l_location_countryzone" resname="l_location_countryzone" approved="yes">
         <source>State/Province</source>
-        <target state="needs-translation">State/Province</target>
+        <target state="final">Województwo</target>
       </trans-unit>
-      <trans-unit id="l_location_country" resname="l_location_country">
+      <trans-unit id="l_location_country" resname="l_location_country" approved="yes">
         <source>Country</source>
-        <target state="needs-translation">Country</target>
+        <target state="final">Kraj</target>
       </trans-unit>
-      <trans-unit id="l_location_phone" resname="l_location_phone">
+      <trans-unit id="l_location_phone" resname="l_location_phone" approved="yes">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="final">Telefon</target>
       </trans-unit>
-      <trans-unit id="l_location_mobilephone" resname="l_location_mobilephone">
+      <trans-unit id="l_location_mobilephone" resname="l_location_mobilephone" approved="yes">
         <source>Mobile Phone</source>
-        <target state="needs-translation">Mobile Phone</target>
+        <target state="final">Tel. komórkowy</target>
       </trans-unit>
       <trans-unit id="l_location_fax" resname="l_location_fax">
         <source>Fax</source>
@@ -1201,53 +1205,53 @@
         <source>Email</source>
         <target state="needs-translation">Email</target>
       </trans-unit>
-      <trans-unit id="l_location_link" resname="l_location_link">
+      <trans-unit id="l_location_link" resname="l_location_link" approved="yes">
         <source>Link</source>
-        <target state="needs-translation">Link</target>
+        <target state="final">Odsyłacz</target>
       </trans-unit>
-      <trans-unit id="l_location_image" resname="l_location_image">
+      <trans-unit id="l_location_image" resname="l_location_image" approved="yes">
         <source>Image</source>
-        <target state="needs-translation">Image</target>
+        <target state="final">Obrazek</target>
       </trans-unit>
       <trans-unit id="l_location_relatedevents" resname="l_location_relatedevents">
         <source>Related event(s)</source>
         <target state="needs-translation">Related event(s)</target>
       </trans-unit>
-      <trans-unit id="l_organizer_name" resname="l_organizer_name">
+      <trans-unit id="l_organizer_name" resname="l_organizer_name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Nazwa</target>
       </trans-unit>
-      <trans-unit id="l_organizer_description" resname="l_organizer_description">
+      <trans-unit id="l_organizer_description" resname="l_organizer_description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Opis</target>
       </trans-unit>
-      <trans-unit id="l_organizer_street" resname="l_organizer_street">
+      <trans-unit id="l_organizer_street" resname="l_organizer_street" approved="yes">
         <source>Street</source>
-        <target state="needs-translation">Street</target>
+        <target state="final">Ulica</target>
       </trans-unit>
-      <trans-unit id="l_organizer_zip" resname="l_organizer_zip">
+      <trans-unit id="l_organizer_zip" resname="l_organizer_zip" approved="yes">
         <source>Zip-code</source>
-        <target state="needs-translation">Zip-code</target>
+        <target state="final">Kod</target>
       </trans-unit>
-      <trans-unit id="l_organizer_city" resname="l_organizer_city">
+      <trans-unit id="l_organizer_city" resname="l_organizer_city" approved="yes">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="final">Miejscowość</target>
       </trans-unit>
-      <trans-unit id="l_organizer_countryzone" resname="l_organizer_countryzone">
+      <trans-unit id="l_organizer_countryzone" resname="l_organizer_countryzone" approved="yes">
         <source>State/Province</source>
-        <target state="needs-translation">State/Province</target>
+        <target state="final">Województwo</target>
       </trans-unit>
-      <trans-unit id="l_organizer_country" resname="l_organizer_country">
+      <trans-unit id="l_organizer_country" resname="l_organizer_country" approved="yes">
         <source>Country</source>
-        <target state="needs-translation">Country</target>
+        <target state="final">Kraj</target>
       </trans-unit>
-      <trans-unit id="l_organizer_phone" resname="l_organizer_phone">
+      <trans-unit id="l_organizer_phone" resname="l_organizer_phone" approved="yes">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="final">Telefon</target>
       </trans-unit>
-      <trans-unit id="l_organizer_mobilephone" resname="l_organizer_mobilephone">
+      <trans-unit id="l_organizer_mobilephone" resname="l_organizer_mobilephone" approved="yes">
         <source>Mobile Phone</source>
-        <target state="needs-translation">Mobile Phone</target>
+        <target state="final">Tel. komórkowy</target>
       </trans-unit>
       <trans-unit id="l_organizer_fax" resname="l_organizer_fax">
         <source>Fax</source>
@@ -1257,49 +1261,49 @@
         <source>Email</source>
         <target state="needs-translation">Email</target>
       </trans-unit>
-      <trans-unit id="l_organizer_link" resname="l_organizer_link">
+      <trans-unit id="l_organizer_link" resname="l_organizer_link" approved="yes">
         <source>Link</source>
-        <target state="needs-translation">Link</target>
+        <target state="final">Odsyłacz</target>
       </trans-unit>
-      <trans-unit id="l_organizer_image" resname="l_organizer_image">
+      <trans-unit id="l_organizer_image" resname="l_organizer_image" approved="yes">
         <source>Image</source>
-        <target state="needs-translation">Image</target>
+        <target state="final">Obrazek</target>
       </trans-unit>
       <trans-unit id="l_organizer_relatedevents" resname="l_organizer_relatedevents">
         <source>Related event(s)</source>
         <target state="needs-translation">Related event(s)</target>
       </trans-unit>
-      <trans-unit id="l_select" resname="l_select">
+      <trans-unit id="l_select" resname="l_select" approved="yes">
         <source>Please choose one</source>
-        <target state="needs-translation">Please choose one</target>
+        <target state="final">Wybierz jeden</target>
       </trans-unit>
-      <trans-unit id="l_none" resname="l_none">
+      <trans-unit id="l_none" resname="l_none" approved="yes">
         <source>None</source>
-        <target state="needs-translation">None</target>
+        <target state="final">Żaden</target>
       </trans-unit>
-      <trans-unit id="l_hidden" resname="l_hidden">
+      <trans-unit id="l_hidden" resname="l_hidden" approved="yes">
         <source>Hide</source>
-        <target state="needs-translation">Hide</target>
+        <target state="final">Ukryj</target>
       </trans-unit>
-      <trans-unit id="l_cancel" resname="l_cancel">
+      <trans-unit id="l_cancel" resname="l_cancel" approved="yes">
         <source>Cancel</source>
-        <target state="needs-translation">Cancel</target>
+        <target state="final">Anuluj</target>
       </trans-unit>
-      <trans-unit id="l_save" resname="l_save">
+      <trans-unit id="l_save" resname="l_save" approved="yes">
         <source>Save</source>
-        <target state="needs-translation">Save</target>
+        <target state="final">Zapisz</target>
       </trans-unit>
-      <trans-unit id="l_true" resname="l_true">
+      <trans-unit id="l_true" resname="l_true" approved="yes">
         <source>True</source>
-        <target state="needs-translation">True</target>
+        <target state="final">Prawda</target>
       </trans-unit>
-      <trans-unit id="l_false" resname="l_false">
+      <trans-unit id="l_false" resname="l_false" approved="yes">
         <source>False</source>
-        <target state="needs-translation">False</target>
+        <target state="final">Fałsz</target>
       </trans-unit>
-      <trans-unit id="l_more" resname="l_more">
+      <trans-unit id="l_more" resname="l_more" approved="yes">
         <source>[more]</source>
-        <target state="needs-translation">[more]</target>
+        <target state="final">[więcej]</target>
       </trans-unit>
       <trans-unit id="l_event_more" resname="l_event_more">
         <source>[more]</source>
@@ -1321,41 +1325,41 @@
         <source>Global</source>
         <target state="needs-translation">Global</target>
       </trans-unit>
-      <trans-unit id="l_edit_event" resname="l_edit_event">
+      <trans-unit id="l_edit_event" resname="l_edit_event" approved="yes">
         <source>Edit event</source>
-        <target state="needs-translation">Edit event</target>
+        <target state="final">Edytuj wydarzenie</target>
       </trans-unit>
-      <trans-unit id="l_create_event" resname="l_create_event">
+      <trans-unit id="l_create_event" resname="l_create_event" approved="yes">
         <source>Create event</source>
-        <target state="needs-translation">Create event</target>
+        <target state="final">Stwórz wydarzenie</target>
       </trans-unit>
       <trans-unit id="l_new_event" resname="l_new_event">
         <source>New event</source>
         <target state="needs-translation">New event</target>
       </trans-unit>
-      <trans-unit id="l_create_location" resname="l_create_location">
+      <trans-unit id="l_create_location" resname="l_create_location" approved="yes">
         <source>Create location</source>
-        <target state="needs-translation">Create location</target>
+        <target state="final">Stwórz lokalizację</target>
       </trans-unit>
-      <trans-unit id="l_create_organizer" resname="l_create_organizer">
+      <trans-unit id="l_create_organizer" resname="l_create_organizer" approved="yes">
         <source>Create organizer</source>
-        <target state="needs-translation">Create organizer</target>
+        <target state="final">Stwórz organizatora</target>
       </trans-unit>
-      <trans-unit id="l_create_category" resname="l_create_category">
+      <trans-unit id="l_create_category" resname="l_create_category" approved="yes">
         <source>Create category</source>
-        <target state="needs-translation">Create category</target>
+        <target state="final">Stwórz kategorię</target>
       </trans-unit>
-      <trans-unit id="l_calendar_icslink" resname="l_calendar_icslink">
+      <trans-unit id="l_calendar_icslink" resname="l_calendar_icslink" approved="yes">
         <source>Download *.ics file</source>
-        <target state="needs-translation">Download *.ics file</target>
+        <target state="final">Pobierz plik *.ics</target>
       </trans-unit>
-      <trans-unit id="l_edit_event_atleastone_category" resname="l_edit_event_atleastone_category">
+      <trans-unit id="l_edit_event_atleastone_category" resname="l_edit_event_atleastone_category" approved="yes">
         <source>You have to select at least one category</source>
-        <target state="needs-translation">You have to select at least one category</target>
+        <target state="final">Musisz wybrać przynajmnije jedną kategorię</target>
       </trans-unit>
-      <trans-unit id="l_confirm_event" resname="l_confirm_event">
+      <trans-unit id="l_confirm_event" resname="l_confirm_event" approved="yes">
         <source>Confirm event</source>
-        <target state="needs-translation">Confirm event</target>
+        <target state="final">Potwierdź zmianę wydarzenia</target>
       </trans-unit>
       <trans-unit id="l_confirm_location" resname="l_confirm_location">
         <source>Confirm location</source>
@@ -1365,84 +1369,84 @@
         <source>Confirm organizer</source>
         <target state="needs-translation">Confirm organizer</target>
       </trans-unit>
-      <trans-unit id="l_enter_email" resname="l_enter_email">
+      <trans-unit id="l_enter_email" resname="l_enter_email" approved="yes">
         <source>Enter email-address:</source>
-        <target state="needs-translation">Enter email-address:</target>
+        <target state="final">Wpisz adres email:</target>
       </trans-unit>
-      <trans-unit id="l_captcha_text" resname="l_captcha_text">
+      <trans-unit id="l_captcha_text" resname="l_captcha_text" approved="yes">
         <source>Please insert the text you see in the picture:</source>
-        <target state="needs-translation">Please insert the text you see in the picture:</target>
+        <target state="final">Wpisz tekst który widzisz na obrazku:</target>
       </trans-unit>
-      <trans-unit id="l_delete_event" resname="l_delete_event">
+      <trans-unit id="l_delete_event" resname="l_delete_event" approved="yes">
         <source>Delete Event</source>
-        <target state="needs-translation">Delete Event</target>
+        <target state="final">Skasuj wydarzenie</target>
       </trans-unit>
-      <trans-unit id="l_event_has_been_delete" resname="l_event_has_been_delete">
+      <trans-unit id="l_event_has_been_delete" resname="l_event_has_been_delete" approved="yes">
         <source>The event has been deleted</source>
-        <target state="needs-translation">The event has been deleted</target>
+        <target state="final">Wydarzenie zostało skasowane</target>
       </trans-unit>
-      <trans-unit id="l_event_has_been_restored" resname="l_event_has_been_restored">
+      <trans-unit id="l_event_has_been_restored" resname="l_event_has_been_restored" approved="yes">
         <source>The event has been restored</source>
-        <target state="needs-translation">The event has been restored</target>
+        <target state="final">Wydarzenie zostało odtworzone</target>
       </trans-unit>
-      <trans-unit id="l_event_has_been_hidden" resname="l_event_has_been_hidden" xml:space="preserve">
+      <trans-unit id="l_event_has_been_hidden" resname="l_event_has_been_hidden" xml:space="preserve" approved="yes">
 				<source>The event has been hidden and will not be shown in
 				the frontend</source>
-			<target state="needs-translation">The event has been hidden and will not be shown in
-				the frontend</target></trans-unit>
-      <trans-unit id="l_event_has_been_unhidden" resname="l_event_has_been_unhidden" xml:space="preserve">
+			<target state="final">To wydarzenie zostało ukryte i nie będzie
+				pokazywane na witrynie</target></trans-unit>
+      <trans-unit id="l_event_has_been_unhidden" resname="l_event_has_been_unhidden" xml:space="preserve" approved="yes">
 				<source>The previouisly hidden event has now been unhidden
 				and will be shown in the frontend</source>
-			<target state="needs-translation">The previouisly hidden event has now been unhidden
-				and will be shown in the frontend</target></trans-unit>
-      <trans-unit id="l_wrong_split_symbol_msg" resname="l_wrong_split_symbol_msg" xml:space="preserve">
+			<target state="final">Poprzednio ukryte wydarzenia zostały teraz
+				odsłonięte i będą pokazywane na witrynie</target></trans-unit>
+      <trans-unit id="l_wrong_split_symbol_msg" resname="l_wrong_split_symbol_msg" xml:space="preserve" approved="yes">
 				<source>Date split symbol is: \'###DATE_SPLIT_SYMBOL###\'
 				!\n</source>
-			<target state="needs-translation">Date split symbol is: \'###DATE_SPLIT_SYMBOL###\'
-				!\n</target></trans-unit>
-      <trans-unit id="l_wrong_date" resname="l_wrong_date">
+			<target state="final">Rozdzielnikiem daty jest:
+				\'###DATE_SPLIT_SYMBOL###\' !\n</target></trans-unit>
+      <trans-unit id="l_wrong_date" resname="l_wrong_date" approved="yes">
         <source>Wrong date!</source>
-        <target state="needs-translation">Wrong date!</target>
+        <target state="final">Błędna data!\n</target>
       </trans-unit>
-      <trans-unit id="l_wrong_time" resname="l_wrong_time">
+      <trans-unit id="l_wrong_time" resname="l_wrong_time" approved="yes">
         <source>Wrong time!</source>
-        <target state="needs-translation">Wrong time!</target>
+        <target state="final">Błędny czas!\n</target>
       </trans-unit>
-      <trans-unit id="l_is_in_past" resname="l_is_in_past">
+      <trans-unit id="l_is_in_past" resname="l_is_in_past" approved="yes">
         <source>is a past date!</source>
-        <target state="needs-translation">is a past date!</target>
+        <target state="final">jest czasem w przeszłości!\n</target>
       </trans-unit>
-      <trans-unit id="l_page" resname="l_page">
+      <trans-unit id="l_page" resname="l_page" approved="yes">
         <source>Page</source>
-        <target state="needs-translation">Page</target>
+        <target state="final">Strona</target>
       </trans-unit>
-      <trans-unit id="l_page_of" resname="l_page_of">
+      <trans-unit id="l_page_of" resname="l_page_of" approved="yes">
         <source>Page %s of %s</source>
-        <target state="needs-translation">Page %s of %s</target>
+        <target state="final">Strona %s z %</target>
       </trans-unit>
-      <trans-unit id="l_search_found" resname="l_search_found">
+      <trans-unit id="l_search_found" resname="l_search_found" approved="yes">
         <source>entries found</source>
-        <target state="needs-translation">entries found</target>
+        <target state="final">wpisów znalezionych</target>
       </trans-unit>
-      <trans-unit id="l_monitor_start_thanks" resname="l_monitor_start_thanks" xml:space="preserve">
+      <trans-unit id="l_monitor_start_thanks" resname="l_monitor_start_thanks" xml:space="preserve" approved="yes">
 				<source>Thank you. An email has been sent to you. Please
 				confirm the monitoring by clicking on the confirm link inside the
 				email.</source>
-			<target state="needs-translation">Thank you. An email has been sent to you. Please
-				confirm the monitoring by clicking on the confirm link inside the
-				email.</target></trans-unit>
-      <trans-unit id="l_monitor_stop_thanks" resname="l_monitor_stop_thanks" xml:space="preserve">
+			<target state="final">Dziękujemy. Został do Ciebie wysłany email.
+				Potwierdź, że chcesz monitorować wydarzenie przez kliknięcie w
+				odsyłacz, który znajduje się w tym emailu.</target></trans-unit>
+      <trans-unit id="l_monitor_stop_thanks" resname="l_monitor_stop_thanks" xml:space="preserve" approved="yes">
 				<source>Thank you. An email has been sent to you. Please
 				confirm the monitoring stop by clicking on the confirm link inside
 				the email.</source>
-			<target state="needs-translation">Thank you. An email has been sent to you. Please
-				confirm the monitoring stop by clicking on the confirm link inside
-				the email.</target></trans-unit>
-      <trans-unit id="l_monitor_wrong_captcha" resname="l_monitor_wrong_captcha" xml:space="preserve">
+			<target state="final">Dziękujemy. Został do Ciebie wysłany email.
+				Potwierdź, że chcesz przestać monitorować wydarzenie przez
+				kliknięcie w odsyłacz, który znajduje się w tym emailu.</target></trans-unit>
+      <trans-unit id="l_monitor_wrong_captcha" resname="l_monitor_wrong_captcha" xml:space="preserve" approved="yes">
 				<source>Sorry, but you didn't type in the correct letters.
 				Please try again.</source>
-			<target state="needs-translation">Sorry, but you didn't type in the correct letters.
-				Please try again.</target></trans-unit>
+			<target state="final">Niestety, ale wpisałeś niepoprawne litery z
+				obrazka.</target></trans-unit>
       <trans-unit id="l_not_allowed_edit" resname="l_not_allowed_edit">
         <source>You are not allowed to edit this </source>
         <target state="needs-translation">You are not allowed to edit this </target>
