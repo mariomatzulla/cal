@@ -3,15 +3,15 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:35:25Z" product-name="cal" target-language="pl">
     <header/>
     <body>
-      <trans-unit id="pi1_title" resname="pi1_title">
+      <trans-unit id="pi1_title" resname="pi1_title" approved="yes">
         <source>Calendar</source>
-        <target state="needs-translation">Calendar</target>
+        <target state="final">Kalendarz</target>
       </trans-unit>
-      <trans-unit id="pi1_plus_wiz_description" resname="pi1_plus_wiz_description" xml:space="preserve">
+      <trans-unit id="pi1_plus_wiz_description" resname="pi1_plus_wiz_description" xml:space="preserve" approved="yes">
 				<source>A Calendar designed to fit the needs of a
 				community, FE and BE entries</source>
-			<target state="needs-translation">A Calendar designed to fit the needs of a
-				community, FE and BE entries</target></trans-unit>
+			<target state="final">Kalendarz z możliwością dodawania wpisów w FE i
+				BE.</target></trans-unit>
       <trans-unit id="extmng.useInternalCaching" resname="extmng.useInternalCaching" xml:space="preserve">
 				<source>Internal caching: If enabled cal caches some
 				processing intensive information (archive period count,
