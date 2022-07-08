@@ -28,21 +28,21 @@
 				responsible for organizing the event.</source>
 			<target state="needs-translation">Name of the individual, group, or company
 				responsible for organizing the event.</target></trans-unit>
-      <trans-unit id="description.description" resname="description.description">
+      <trans-unit id="description.description" resname="description.description" approved="yes">
         <source>The description of the organizer.</source>
-        <target state="needs-translation">The description of the organizer.</target>
+        <target state="final">Une description du lieu.</target>
       </trans-unit>
-      <trans-unit id="street.description" resname="street.description">
+      <trans-unit id="street.description" resname="street.description" approved="yes">
         <source>The street address of the organizer.</source>
-        <target state="needs-translation">The street address of the organizer.</target>
+        <target state="final">L'adresse postale.</target>
       </trans-unit>
-      <trans-unit id="zip.description" resname="zip.description">
+      <trans-unit id="zip.description" resname="zip.description" approved="yes">
         <source>The ZIP code or postal code of the organizer.</source>
-        <target state="needs-translation">The ZIP code or postal code of the organizer.</target>
+        <target state="final">Un code postal pour le lieu.</target>
       </trans-unit>
-      <trans-unit id="city.description" resname="city.description">
+      <trans-unit id="city.description" resname="city.description" approved="yes">
         <source>The city of the organizer.</source>
-        <target state="needs-translation">The city of the organizer.</target>
+        <target state="final">Une localité.</target>
       </trans-unit>
       <trans-unit id="country.description" resname="country.description">
         <source>The country of the organizer.</source>
