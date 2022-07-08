@@ -13,9 +13,9 @@
 				categories and events.</source>
 			<target state="needs-translation">Many calendars can be created, each with unique
 				categories and events.</target></trans-unit>
-      <trans-unit id="title.description" resname="title.description">
+      <trans-unit id="title.description" resname="title.description" approved="yes">
         <source>Name of the calendar.</source>
-        <target state="needs-translation">Name of the calendar.</target>
+        <target state="final">Titre de l'agenda.</target>
       </trans-unit>
       <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve">
 				<source>Disables the calendar so that it is not visible in
@@ -27,18 +27,18 @@
 				in the frontend.</source>
 			<target state="needs-translation">Sets a date at which the calendar will be visible
 				in the frontend.</target></trans-unit>
-      <trans-unit id="_starttime.seeAlso" resname="_starttime.seeAlso">
+      <trans-unit id="_starttime.seeAlso" resname="_starttime.seeAlso" approved="yes">
         <source>tx_cal_calendar:hidden</source>
-        <target state="needs-translation">tx_cal_calendar:hidden</target>
+        <target state="final">tx_cal_calendar:caché</target>
       </trans-unit>
       <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve">
 				<source>Sets a date at which the calendar will no longer
 				be visible in the frontend.</source>
 			<target state="needs-translation">Sets a date at which the calendar will no longer
 				be visible in the frontend.</target></trans-unit>
-      <trans-unit id="_endtime.seeAlso" resname="_endtime.seeAlso">
+      <trans-unit id="_endtime.seeAlso" resname="_endtime.seeAlso" approved="yes">
         <source>tx_cal_calendar:hidden</source>
-        <target state="needs-translation">tx_cal_calendar:hidden</target>
+        <target state="final">tx_cal_calendar:caché</target>
       </trans-unit>
       <trans-unit id="type.description" resname="type.description" xml:space="preserve">
 				<source>There are three types of calendars within the
@@ -72,9 +72,9 @@
         <source>URL for an ICS feed.</source>
         <target state="needs-translation">URL for an ICS feed.</target>
       </trans-unit>
-      <trans-unit id="ics_file.description" resname="ics_file.description">
+      <trans-unit id="ics_file.description" resname="ics_file.description" approved="yes">
         <source>Static ICS file to upload.</source>
-        <target state="needs-translation">Static ICS file to upload.</target>
+        <target state="final">Fichier ICS statique à télécharger.</target>
       </trans-unit>
       <trans-unit id="refresh.description" resname="refresh.description" xml:space="preserve">
 				<source>Time period (in minutes) at which the external
