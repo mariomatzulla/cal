@@ -11,9 +11,9 @@
         <source>Categories that events can be assigned to.</source>
         <target state="needs-translation">Categories that events can be assigned to.</target>
       </trans-unit>
-      <trans-unit id="title.description" resname="title.description">
+      <trans-unit id="title.description" resname="title.description" approved="yes">
         <source>Category name.</source>
-        <target state="needs-translation">Category name.</target>
+        <target state="final">Nom de la catégorie</target>
       </trans-unit>
       <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve">
 				<source>Disables the category so that it is not visible in
