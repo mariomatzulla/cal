@@ -51,9 +51,9 @@
 				&lt;b&gt;Don't show selected calendars:&lt;/b&gt; Shows all calendars except those that have been selected.
 				
 			</target></trans-unit>
-      <trans-unit id="calendarSelection.description" resname="calendarSelection.description">
+      <trans-unit id="calendarSelection.description" resname="calendarSelection.description" approved="yes">
         <source>The selected calendars.</source>
-        <target state="needs-translation">The selected calendars.</target>
+        <target state="final">Les calendriers sélectionnés.</target>
       </trans-unit>
       <trans-unit id="categoryMode.description" resname="categoryMode.description" xml:space="preserve">
 				<source>Determines how category selections are
@@ -75,9 +75,9 @@
 				&lt;b&gt;Don't show selected categories:&lt;/b&gt; Shows all categories except those that have been selected.
 				
 			</target></trans-unit>
-      <trans-unit id="categorySelection.description" resname="categorySelection.description">
+      <trans-unit id="categorySelection.description" resname="categorySelection.description" approved="yes">
         <source>The selected categories.</source>
-        <target state="needs-translation">The selected categories.</target>
+        <target state="final">Les catégories sélectionnées.</target>
       </trans-unit>
       <trans-unit id="yearViewPid.description" resname="yearViewPid.description" xml:space="preserve">
 				<source>Page where year view is configured. If no value is
