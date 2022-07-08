@@ -3,9 +3,9 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:01Z" product-name="cal" target-language="fr">
     <header/>
     <body>
-      <trans-unit id=".description" resname=".description">
+      <trans-unit id=".description" resname=".description" approved="yes">
         <source>Event for the Calendar Base extension.</source>
-        <target state="needs-translation">Event for the Calendar Base extension.</target>
+        <target state="final">Evènement pour l'extension CAL de TYPO3</target>
       </trans-unit>
       <trans-unit id=".details" resname=".details" xml:space="preserve">
 				<source>Create events to be displayed on the calendar.
@@ -57,18 +57,18 @@
         <source>tx_cal_event:starttime, tx_cal_event:hidden</source>
         <target state="needs-translation">tx_cal_event:starttime, tx_cal_event:hidden</target>
       </trans-unit>
-      <trans-unit id="start_date.description" resname="start_date.description">
+      <trans-unit id="start_date.description" resname="start_date.description" approved="yes">
         <source>Date the event starts.</source>
-        <target state="needs-translation">Date the event starts.</target>
+        <target state="final">Date de début de l'évènement.</target>
       </trans-unit>
       <trans-unit id="start_date.details" resname="start_date.details" xml:space="preserve">
 				<source>For recurring events, this field should be the
 				start date for the first instance of the recurring event.</source>
 			<target state="needs-translation">For recurring events, this field should be the
 				start date for the first instance of the recurring event.</target></trans-unit>
-      <trans-unit id="end_date.description" resname="end_date.description">
+      <trans-unit id="end_date.description" resname="end_date.description" approved="yes">
         <source>Date the event ends.</source>
-        <target state="needs-translation">Date the event ends.</target>
+        <target state="final">Date de fin de l'évènement.</target>
       </trans-unit>
       <trans-unit id="end_date.details" resname="end_date.details" xml:space="preserve">
 				<source>For recurring events, this field should be the end
@@ -77,31 +77,31 @@
 			<target state="needs-translation">For recurring events, this field should be the end
 				date for the first instance of the recurring event, not the last day
 				that the event recurs on.</target></trans-unit>
-      <trans-unit id="start_time.description" resname="start_time.description">
+      <trans-unit id="start_time.description" resname="start_time.description" approved="yes">
         <source>Time the event starts.</source>
-        <target state="needs-translation">Time the event starts.</target>
+        <target state="final">Heure de début de l'évènement.</target>
       </trans-unit>
       <trans-unit id="start_time.details" resname="start_time.details" xml:space="preserve">
 				<source>For recurring events, this field should be the
 				start time for the first instance of the recurring event.</source>
 			<target state="needs-translation">For recurring events, this field should be the
 				start time for the first instance of the recurring event.</target></trans-unit>
-      <trans-unit id="end_time.description" resname="end_time.description">
+      <trans-unit id="end_time.description" resname="end_time.description" approved="yes">
         <source>Time the event ends.</source>
-        <target state="needs-translation">Time the event ends.</target>
+        <target state="final">Heure de fin de l'évènement.</target>
       </trans-unit>
       <trans-unit id="end_time.details" resname="end_time.details" xml:space="preserve">
 				<source>For recurring events, this field should be the end
 				time for the first instance of the recurring event.</source>
 			<target state="needs-translation">For recurring events, this field should be the end
 				time for the first instance of the recurring event.</target></trans-unit>
-      <trans-unit id="title.description" resname="title.description">
+      <trans-unit id="title.description" resname="title.description" approved="yes">
         <source>Title of the event.</source>
-        <target state="needs-translation">Title of the event.</target>
+        <target state="final">Titre de l'évènement.</target>
       </trans-unit>
-      <trans-unit id="calendar_id.description" resname="calendar_id.description">
+      <trans-unit id="calendar_id.description" resname="calendar_id.description" approved="yes">
         <source>Calendar that the event belongs to.</source>
-        <target state="needs-translation">Calendar that the event belongs to.</target>
+        <target state="final">Evènement lié à ce calendrier.</target>
       </trans-unit>
       <trans-unit id="calendar_id.details" resname="calendar_id.details" xml:space="preserve">
 				<source>If you have created multiple Calendar records, you
@@ -138,9 +138,9 @@
         <source>Record for the organizer of the event.</source>
         <target state="needs-translation">Record for the organizer of the event.</target>
       </trans-unit>
-      <trans-unit id="organizer_pid.description" resname="organizer_pid.description">
+      <trans-unit id="organizer_pid.description" resname="organizer_pid.description" approved="yes">
         <source>TYPO3 page with organizer information.</source>
-        <target state="needs-translation">TYPO3 page with organizer information.</target>
+        <target state="final">Page TYPO3 comprenant les informations de l'organisateur.</target>
       </trans-unit>
       <trans-unit id="organizer_pid.details" resname="organizer_pid.details" xml:space="preserve">
 				<source>If you have a page with more information about the
@@ -162,9 +162,9 @@
 				about the organizer, you can link to it here. This link will
 				override the Cal organizer field and create a link from the
 				organizer field.</target></trans-unit>
-      <trans-unit id="location.description" resname="location.description">
+      <trans-unit id="location.description" resname="location.description" approved="yes">
         <source>Location of the event.</source>
-        <target state="needs-translation">Location of the event.</target>
+        <target state="final">Emplacement de l'évènement.</target>
       </trans-unit>
       <trans-unit id="location.details" resname="location.details" xml:space="preserve">
 				<source>This is the title of the location that will be
@@ -175,9 +175,9 @@
         <source>Record for the location of the event.</source>
         <target state="needs-translation">Record for the location of the event.</target>
       </trans-unit>
-      <trans-unit id="location_pid.description" resname="location_pid.description">
+      <trans-unit id="location_pid.description" resname="location_pid.description" approved="yes">
         <source>TYPO3 page with location information.</source>
-        <target state="needs-translation">TYPO3 page with location information.</target>
+        <target state="final">Page TYPO3 avec les informations d'emplacement.</target>
       </trans-unit>
       <trans-unit id="location_pid.details" resname="location_pid.details" xml:space="preserve">
 				<source>If you have a page that has a map, directions, or
@@ -297,9 +297,9 @@
         <source>Frontend group who created the event.</source>
         <target state="needs-translation">Frontend group who created the event.</target>
       </trans-unit>
-      <trans-unit id="type.description" resname="type.description">
+      <trans-unit id="type.description" resname="type.description" approved="yes">
         <source>Type of the event.</source>
-        <target state="needs-translation">Type of the event.</target>
+        <target state="final">Type d'évènement.</target>
       </trans-unit>
       <trans-unit id="type.details" resname="type.details" xml:space="preserve">
 				<source>The default is Event with Description. You can
