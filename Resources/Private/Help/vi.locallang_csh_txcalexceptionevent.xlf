@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:09Z" product-name="cal" target-language="vi">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" xml:space="preserve">
+				<source>Exception to an event for the Calendar Base
+				extension.</source>
+			<target state="needs-translation">Exception to an event for the Calendar Base
+				extension.</target></trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve">
+				<source>Exception events are generally used in conjunction
+				with recurrent events for specific days when you don't want an event
+				to occur.</source>
+			<target state="needs-translation">Exception events are generally used in conjunction
+				with recurrent events for specific days when you don't want an event
+				to occur.</target></trans-unit>
+      <trans-unit id="title.description" resname="title.description">
+        <source>Title of the exception event.</source>
+        <target state="needs-translation">Title of the exception event.</target>
+      </trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description">
+        <source>Exclude this exception event from display.</source>
+        <target state="needs-translation">Exclude this exception event from display.</target>
+      </trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve">
+				<source>The &quot;Start&quot; time determines the date
+				from which the record will be available online.</source>
+			<target state="needs-translation">The "Start" time determines the date
+				from which the record will be available online.</target></trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve">
+				<source>The &quot;End&quot; time determines the date from
+				which the db-record will NOT be available online anymore.</source>
+			<target state="needs-translation">The "End" time determines the date from
+				which the db-record will NOT be available online anymore.</target></trans-unit>
+      <trans-unit id="start_date.description" resname="start_date.description" xml:space="preserve">
+				<source>The start date determines the day the exception
+				event starts.</source>
+			<target state="needs-translation">The start date determines the day the exception
+				event starts.</target></trans-unit>
+      <trans-unit id="end_date.description" resname="end_date.description" xml:space="preserve">
+				<source>The end date determines the day the exception
+				event ends.</source>
+			<target state="needs-translation">The end date determines the day the exception
+				event ends.</target></trans-unit>
+      <trans-unit id="start_time.description" resname="start_time.description" xml:space="preserve">
+				<source>The start time determines the time the exception
+				event starts.</source>
+			<target state="needs-translation">The start time determines the time the exception
+				event starts.</target></trans-unit>
+      <trans-unit id="end_time.description" resname="end_time.description" xml:space="preserve">
+				<source>The end time determines the time the exception
+				event ends.</source>
+			<target state="needs-translation">The end time determines the time the exception
+				event ends.</target></trans-unit>
+      <trans-unit id="freq.description" resname="freq.description">
+        <source>Frequency at which the exception event occurs.</source>
+        <target state="needs-translation">Frequency at which the exception event occurs.</target>
+      </trans-unit>
+      <trans-unit id="until.description" resname="until.description">
+        <source>Date the recurrence should end.</source>
+        <target state="needs-translation">Date the recurrence should end.</target>
+      </trans-unit>
+      <trans-unit id="_until.seeAlso" resname="_until.seeAlso">
+        <source>tx_cal_exception_event:cnt</source>
+        <target state="needs-translation">tx_cal_exception_event:cnt</target>
+      </trans-unit>
+      <trans-unit id="cnt.description" resname="cnt.description" xml:space="preserve">
+				<source>Number of times the exception event should recur
+				before stopping.</source>
+			<target state="needs-translation">Number of times the exception event should recur
+				before stopping.</target></trans-unit>
+      <trans-unit id="_cnt.seeAlso" resname="_cnt.seeAlso">
+        <source>tx_cal_exception_event:until</source>
+        <target state="needs-translation">tx_cal_exception_event:until</target>
+      </trans-unit>
+      <trans-unit id="byday.description" resname="byday.description">
+        <source>Defines the interval by day of the week.</source>
+        <target state="needs-translation">Defines the interval by day of the week.</target>
+      </trans-unit>
+      <trans-unit id="bymonthday.description" resname="bymonthday.description" xml:space="preserve">
+				<source>Defines the interval by day of the month (e.g.
+				20th)</source>
+			<target state="needs-translation">Defines the interval by day of the month (e.g.
+				20th)</target></trans-unit>
+      <trans-unit id="bymonth.description" resname="bymonth.description">
+        <source>Defines the interval by month.</source>
+        <target state="needs-translation">Defines the interval by month.</target>
+      </trans-unit>
+      <trans-unit id="intrval.description" resname="intrval.description" xml:space="preserve">
+				<source>Defines the interval at which the exception event
+				recurs.</source>
+			<target state="needs-translation">Defines the interval at which the exception event
+				recurs.</target></trans-unit>
+      <trans-unit id="intrval.details" resname="intrval.details" xml:space="preserve">
+				<source>An interval of 2 with a frequency of weekly would
+				create an exception event that recurs every other week.</source>
+			<target state="needs-translation">An interval of 2 with a frequency of weekly would
+				create an exception event that recurs every other week.</target></trans-unit>
+    </body>
+  </file>
+</xliff>

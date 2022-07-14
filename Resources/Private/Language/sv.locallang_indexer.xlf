@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:35:17Z" product-name="cal" target-language="sv-SE">
+    <header/>
+    <body>
+      <trans-unit id="title" resname="title">
+        <source>Index generator for calendar base recurring events</source>
+        <target state="needs-translation">Index generator for calendar base recurring events</target>
+      </trans-unit>
+      <trans-unit id="function1" resname="function1">
+        <source>Information</source>
+        <target state="needs-translation">Information</target>
+      </trans-unit>
+      <trans-unit id="function2" resname="function2">
+        <source>Generate</source>
+        <target state="needs-translation">Generate</target>
+      </trans-unit>
+      <trans-unit id="notice_header" resname="notice_header">
+        <source>Welcome</source>
+        <target state="needs-translation">Welcome</target>
+      </trans-unit>
+      <trans-unit id="notice" resname="notice" xml:space="preserve">
+				<source>&lt;div align=center&gt;&lt;strong&gt;Notice
+				header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed,
+				please read carefully:</source>
+			<target state="needs-translation">&lt;div align=center&gt;&lt;strong&gt;Notice
+				header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed,
+				please read carefully:</target></trans-unit>
+      <trans-unit id="capabilities_header" resname="capabilities_header">
+        <source>Capabilities of this tool</source>
+        <target state="needs-translation">Capabilities of this tool</target>
+      </trans-unit>
+      <trans-unit id="capabilities" resname="capabilities" xml:space="preserve">
+				<source>This tool will create an index for all recurring
+				tx_cal_event and tx_cal_exception_event instances.</source>
+			<target state="needs-translation">This tool will create an index for all recurring
+				tx_cal_event and tx_cal_exception_event instances.</target></trans-unit>
+      <trans-unit id="tableHeader1" resname="tableHeader1">
+        <source>Page/Folder</source>
+        <target state="needs-translation">Page/Folder</target>
+      </trans-unit>
+      <trans-unit id="tableHeader2" resname="tableHeader2">
+        <source>Frontend Page with calendar plugin</source>
+        <target state="needs-translation">Frontend Page with calendar plugin</target>
+      </trans-unit>
+      <trans-unit id="nothingToDo" resname="nothingToDo">
+        <source>No event / exception event records found</source>
+        <target state="needs-translation">No event / exception event records found</target>
+      </trans-unit>
+      <trans-unit id="browse" resname="browse">
+        <source>Browse for records</source>
+        <target state="needs-translation">Browse for records</target>
+      </trans-unit>
+      <trans-unit id="submit" resname="submit">
+        <source>Submit</source>
+        <target state="needs-translation">Submit</target>
+      </trans-unit>
+      <trans-unit id="selectPage" resname="selectPage" xml:space="preserve">
+				<source>Select the page where the typoscript of calendar
+				base can be found. This should be a normal frontend page.</source>
+			<target state="needs-translation">Select the page where the typoscript of calendar
+				base can be found. This should be a normal frontend page.</target></trans-unit>
+      <trans-unit id="indexStart" resname="indexStart" xml:space="preserve">
+				<source>Index start (YYYYMMDD or a dynamic value like: -3
+				month, -2 years)</source>
+			<target state="needs-translation">Index start (YYYYMMDD or a dynamic value like: -3
+				month, -2 years)</target></trans-unit>
+      <trans-unit id="indexEnd" resname="indexEnd" xml:space="preserve">
+				<source>Index end (YYYYMMDD or a dynamic value like: +5
+				month, +4 years)</source>
+			<target state="needs-translation">Index end (YYYYMMDD or a dynamic value like: +5
+				month, +4 years)</target></trans-unit>
+      <trans-unit id="startIndexing" resname="startIndexing">
+        <source>Start indexing</source>
+        <target state="needs-translation">Start indexing</target>
+      </trans-unit>
+      <trans-unit id="atLeastOne" resname="atLeastOne" xml:space="preserve">
+				<source>You need to assign at least one frontend page to a
+				found storage places in order to start indexing!</source>
+			<target state="needs-translation">You need to assign at least one frontend page to a
+				found storage places in order to start indexing!</target></trans-unit>
+      <trans-unit id="notAllPagesAssigned" resname="notAllPagesAssigned" xml:space="preserve">
+				<source>You need to assign a frontend page to all found
+				storage places in order to start indexing!</source>
+			<target state="needs-translation">You need to assign a frontend page to all found
+				storage places in order to start indexing!</target></trans-unit>
+      <trans-unit id="result" resname="result">
+        <source>Result: </source>
+        <target state="needs-translation">Result: </target>
+      </trans-unit>
+      <trans-unit id="toBeIndexed" resname="toBeIndexed">
+        <source> -&gt; Events to be indexed: </source>
+        <target state="needs-translation"> -&gt; Events to be indexed: </target>
+      </trans-unit>
+      <trans-unit id="droppingTable" resname="droppingTable">
+        <source>Removing events with pid %s from index</source>
+        <target state="needs-translation">Removing events with pid %s from index</target>
+      </trans-unit>
+      <trans-unit id="indexing" resname="indexing">
+        <source>Indexing</source>
+        <target state="needs-translation">Indexing</target>
+      </trans-unit>
+      <trans-unit id="back" resname="back">
+        <source>Back</source>
+        <target state="needs-translation">Back</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

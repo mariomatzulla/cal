@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:56Z" product-name="cal" target-language="el">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description">
+        <source>Locations for Calendar Base event records.</source>
+        <target state="needs-translation">Locations for Calendar Base event records.</target>
+      </trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve">
+				<source>The Location record facilitates the easy addition
+				of repetitious locations, addresses, and even maps for your events.</source>
+			<target state="needs-translation">The Location record facilitates the easy addition
+				of repetitious locations, addresses, and even maps for your events.</target></trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve">
+				<source>Use this to temporarily exclude this location from
+				display.</source>
+			<target state="needs-translation">Use this to temporarily exclude this location from
+				display.</target></trans-unit>
+      <trans-unit id="name.description" resname="name.description" xml:space="preserve">
+				<source>The name of this location such as Office or
+				Church.</source>
+			<target state="needs-translation">The name of this location such as Office or
+				Church.</target></trans-unit>
+      <trans-unit id="description.description" resname="description.description">
+        <source>A description of the location.</source>
+        <target state="needs-translation">A description of the location.</target>
+      </trans-unit>
+      <trans-unit id="street.description" resname="street.description">
+        <source>The street address.</source>
+        <target state="needs-translation">The street address.</target>
+      </trans-unit>
+      <trans-unit id="zip.description" resname="zip.description">
+        <source>The ZIP code or postal code of the location.</source>
+        <target state="needs-translation">The ZIP code or postal code of the location.</target>
+      </trans-unit>
+      <trans-unit id="city.description" resname="city.description">
+        <source>The location's city.</source>
+        <target state="needs-translation">The location's city.</target>
+      </trans-unit>
+      <trans-unit id="country.description" resname="country.description">
+        <source>The country of the location.</source>
+        <target state="needs-translation">The country of the location.</target>
+      </trans-unit>
+      <trans-unit id="country_zone.description" resname="country_zone.description" xml:space="preserve">
+				<source>The state of the location. The drop-down menu will
+				not be available until you have included the country information and
+				saved the form.</source>
+			<target state="needs-translation">The state of the location. The drop-down menu will
+				not be available until you have included the country information and
+				saved the form.</target></trans-unit>
+      <trans-unit id="phone.description" resname="phone.description">
+        <source>The location's contact phone number.</source>
+        <target state="needs-translation">The location's contact phone number.</target>
+      </trans-unit>
+      <trans-unit id="email.description" resname="email.description">
+        <source>The location's contact email address.</source>
+        <target state="needs-translation">The location's contact email address.</target>
+      </trans-unit>
+      <trans-unit id="image.description" resname="image.description">
+        <source>A picture of the location or its logo.</source>
+        <target state="needs-translation">A picture of the location or its logo.</target>
+      </trans-unit>
+      <trans-unit id="link.description" resname="link.description">
+        <source>An alternative website for the location.</source>
+        <target state="needs-translation">An alternative website for the location.</target>
+      </trans-unit>
+      <trans-unit id="imagealttext.description" resname="imagealttext.description" xml:space="preserve">
+				<source>Alternate text shown if images are not found or
+				not supported.</source>
+			<target state="needs-translation">Alternate text shown if images are not found or
+				not supported.</target></trans-unit>
+      <trans-unit id="imagealttext.details" resname="imagealttext.details" xml:space="preserve">
+				<source>If you have multiple images, alt text entries must
+				be listed on separate lines.</source>
+			<target state="needs-translation">If you have multiple images, alt text entries must
+				be listed on separate lines.</target></trans-unit>
+      <trans-unit id="imagetitletext.description" resname="imagetitletext.description">
+        <source>Tooltip or hover text.</source>
+        <target state="needs-translation">Tooltip or hover text.</target>
+      </trans-unit>
+      <trans-unit id="imagetitletext.details" resname="imagetitletext.details" xml:space="preserve">
+				<source>If you have multiple images, title text entries
+				must be listed on separate lines.</source>
+			<target state="needs-translation">If you have multiple images, title text entries
+				must be listed on separate lines.</target></trans-unit>
+      <trans-unit id="imagecaption.description" resname="imagecaption.description">
+        <source>Adds a caption beneath each image.</source>
+        <target state="needs-translation">Adds a caption beneath each image.</target>
+      </trans-unit>
+      <trans-unit id="imagecaption.details" resname="imagecaption.details" xml:space="preserve">
+				<source>If you have multiple images, captions must be
+				listed on separate lines.</source>
+			<target state="needs-translation">If you have multiple images, captions must be
+				listed on separate lines.</target></trans-unit>
+      <trans-unit id="tx_wecmap_geocode.description" resname="tx_wecmap_geocode.description">
+        <source>Latitute and longitude of the location.</source>
+        <target state="needs-translation">Latitute and longitude of the location.</target>
+      </trans-unit>
+      <trans-unit id="tx_wecmap_map.description" resname="tx_wecmap_map.description">
+        <source>Map of the location.</source>
+        <target state="needs-translation">Map of the location.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:16Z" product-name="cal" target-language="es-ES">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" xml:space="preserve">
+				<source>An exception event group is a collection of
+				multiple exception events that can be applied to an event at one
+				time.</source>
+			<target state="needs-translation">An exception event group is a collection of
+				multiple exception events that can be applied to an event at one
+				time.</target></trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve">
+				<source>Exception event groups provide the ability to
+				group common exceptions, such as holidays, into one record and apply
+				that single record to an event. As an example, this allows you to
+				close the office for all holidays by adding one exception group to
+				the recurring event for office hours.</source>
+			<target state="needs-translation">Exception event groups provide the ability to
+				group common exceptions, such as holidays, into one record and apply
+				that single record to an event. As an example, this allows you to
+				close the office for all holidays by adding one exception group to
+				the recurring event for office hours.</target></trans-unit>
+      <trans-unit id="title.description" resname="title.description">
+        <source>Title of the exception event group.</source>
+        <target state="needs-translation">Title of the exception event group.</target>
+      </trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve">
+				<source>Use this to temporarily exclude this exception
+				event from display.</source>
+			<target state="needs-translation">Use this to temporarily exclude this exception
+				event from display.</target></trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve">
+				<source>The &quot;Start&quot; time determines the date
+				from which the record will be available online.</source>
+			<target state="needs-translation">The "Start" time determines the date
+				from which the record will be available online.</target></trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve">
+				<source>The &quot;End&quot; time determines the date from
+				which the db-record will NOT be available online anymore.</source>
+			<target state="needs-translation">The "End" time determines the date from
+				which the db-record will NOT be available online anymore.</target></trans-unit>
+      <trans-unit id="exception_event_cnt.description" resname="exception_event_cnt.description">
+        <source>Assigns exception event records to this group.</source>
+        <target state="needs-translation">Assigns exception event records to this group.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

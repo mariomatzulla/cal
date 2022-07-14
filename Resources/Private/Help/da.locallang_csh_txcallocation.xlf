@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:56Z" product-name="cal" target-language="da">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" approved="yes">
+        <source>Locations for Calendar Base event records.</source>
+        <target state="final">Placering af Calender Base begivenheder.</target>
+      </trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve" approved="yes">
+				<source>The Location record facilitates the easy addition
+				of repetitious locations, addresses, and even maps for your events.</source>
+			<target state="final">Placering-elementet gør det muligt at genbruge placeringer,
+	 	 	 	 adresser og kort over din begivenheder.</target></trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve" approved="yes">
+				<source>Use this to temporarily exclude this location from
+				display.</source>
+			<target state="final">Brug denne til midlertidigt at udelukke placering fra
+				visning.</target></trans-unit>
+      <trans-unit id="name.description" resname="name.description" xml:space="preserve" approved="yes">
+				<source>The name of this location such as Office or
+				Church.</source>
+			<target state="final">Navnet på placeringen, eksempelvis Butik eller
+				Værksted.</target></trans-unit>
+      <trans-unit id="description.description" resname="description.description" approved="yes">
+        <source>A description of the location.</source>
+        <target state="final">En beskrivelse af placering.</target>
+      </trans-unit>
+      <trans-unit id="street.description" resname="street.description" approved="yes">
+        <source>The street address.</source>
+        <target state="final">Gadenavn.</target>
+      </trans-unit>
+      <trans-unit id="zip.description" resname="zip.description" approved="yes">
+        <source>The ZIP code or postal code of the location.</source>
+        <target state="final">Postnummer på placering.</target>
+      </trans-unit>
+      <trans-unit id="city.description" resname="city.description" approved="yes">
+        <source>The location's city.</source>
+        <target state="final">Placeringens by.</target>
+      </trans-unit>
+      <trans-unit id="country.description" resname="country.description" approved="yes">
+        <source>The country of the location.</source>
+        <target state="final">Placeringens land.</target>
+      </trans-unit>
+      <trans-unit id="country_zone.description" resname="country_zone.description" xml:space="preserve" approved="yes">
+				<source>The state of the location. The drop-down menu will
+				not be available until you have included the country information and
+				saved the form.</source>
+			<target state="final">Placeringens regionen. Drop-down menuen vil
+				ikke være tilgængelig før du har inkluderet lande-information og
+				gemt formularen.</target></trans-unit>
+      <trans-unit id="phone.description" resname="phone.description" approved="yes">
+        <source>The location's contact phone number.</source>
+        <target state="final">Placeringens kontakt-telefonnummer.</target>
+      </trans-unit>
+      <trans-unit id="email.description" resname="email.description" approved="yes">
+        <source>The location's contact email address.</source>
+        <target state="final">Placeringens kontakt e-mailadresse.</target>
+      </trans-unit>
+      <trans-unit id="image.description" resname="image.description" approved="yes">
+        <source>A picture of the location or its logo.</source>
+        <target state="final">Et billede af placeringen eller dets logo.</target>
+      </trans-unit>
+      <trans-unit id="link.description" resname="link.description" approved="yes">
+        <source>An alternative website for the location.</source>
+        <target state="final">En alternativ hjemmeside for placeringen.</target>
+      </trans-unit>
+      <trans-unit id="imagealttext.description" resname="imagealttext.description" xml:space="preserve" approved="yes">
+				<source>Alternate text shown if images are not found or
+				not supported.</source>
+			<target state="final">Alternativ tekst vises, hvis billedet ikke findes eller
+				ikke understøttes.</target></trans-unit>
+      <trans-unit id="imagealttext.details" resname="imagealttext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, alt text entries must
+				be listed on separate lines.</source>
+			<target state="final">Hvis du har flere billeder, skal alt tekst indtastninger
+				skrives på selvstændige linjer.</target></trans-unit>
+      <trans-unit id="imagetitletext.description" resname="imagetitletext.description" approved="yes">
+        <source>Tooltip or hover text.</source>
+        <target state="final">Værktøjstip eller hover tekst.</target>
+      </trans-unit>
+      <trans-unit id="imagetitletext.details" resname="imagetitletext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, title text entries
+				must be listed on separate lines.</source>
+			<target state="final">Hvis du har flere billeder, skal titel tekst indtastninger
+				skrives på selvstændige linjer.</target></trans-unit>
+      <trans-unit id="imagecaption.description" resname="imagecaption.description" approved="yes">
+        <source>Adds a caption beneath each image.</source>
+        <target state="final">Tilføj en billedtekst under hvert billede.</target>
+      </trans-unit>
+      <trans-unit id="imagecaption.details" resname="imagecaption.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, captions must be
+				listed on separate lines.</source>
+			<target state="final">Hvis du har flere billeder, skal billedtekst indtastninger
+				skrives på selvstændige linjer.</target></trans-unit>
+      <trans-unit id="tx_wecmap_geocode.description" resname="tx_wecmap_geocode.description" approved="yes">
+        <source>Latitute and longitude of the location.</source>
+        <target state="final">Breddegrad og længdegrad på placeringen.</target>
+      </trans-unit>
+      <trans-unit id="tx_wecmap_map.description" resname="tx_wecmap_map.description" approved="yes">
+        <source>Map of the location.</source>
+        <target state="final">Kort over placeringen.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:26:03Z" product-name="cal" target-language="fr">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description">
+        <source>Organizers for Calendar Base event records.</source>
+        <target state="needs-translation">Organizers for Calendar Base event records.</target>
+      </trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve">
+				<source>If your events regularly use a particular
+				organizer, or if you want to provide the organizer's information for
+				registration or for other reasons, you may create a Calendar Event
+				Organizer record that includes more information than the Event
+				Record contains in the Organizer Tab.</source>
+			<target state="needs-translation">If your events regularly use a particular
+				organizer, or if you want to provide the organizer's information for
+				registration or for other reasons, you may create a Calendar Event
+				Organizer record that includes more information than the Event
+				Record contains in the Organizer Tab.</target></trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve">
+				<source>Use this to temporarily exclude this organizer
+				from display.</source>
+			<target state="needs-translation">Use this to temporarily exclude this organizer
+				from display.</target></trans-unit>
+      <trans-unit id="name.description" resname="name.description" xml:space="preserve">
+				<source>Name of the individual, group, or company
+				responsible for organizing the event.</source>
+			<target state="needs-translation">Name of the individual, group, or company
+				responsible for organizing the event.</target></trans-unit>
+      <trans-unit id="description.description" resname="description.description" approved="yes">
+        <source>The description of the organizer.</source>
+        <target state="final">Description de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="street.description" resname="street.description" approved="yes">
+        <source>The street address of the organizer.</source>
+        <target state="final">La rue de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="zip.description" resname="zip.description" approved="yes">
+        <source>The ZIP code or postal code of the organizer.</source>
+        <target state="final">Le code postal de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="city.description" resname="city.description" approved="yes">
+        <source>The city of the organizer.</source>
+        <target state="final">La ville de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="country.description" resname="country.description" approved="yes">
+        <source>The country of the organizer.</source>
+        <target state="final">Le pays de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="country_zone.description" resname="country_zone.description" xml:space="preserve">
+				<source>The state of the organizer. The drop-down menu
+				will not be available until you have included the country
+				information and saved the form.</source>
+			<target state="needs-translation">The state of the organizer. The drop-down menu
+				will not be available until you have included the country
+				information and saved the form.</target></trans-unit>
+      <trans-unit id="phone.description" resname="phone.description" approved="yes">
+        <source>The phone number of the organizer.</source>
+        <target state="final">Le numéro de téléphone de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="email.description" resname="email.description" approved="yes">
+        <source>The email address of the organizer.</source>
+        <target state="final">L'adresse e-mail de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="image.description" resname="image.description" approved="yes">
+        <source>A logo or photo of the organizer or their company.</source>
+        <target state="final">Un logo ou une photo de l'organisateur ou de son entreprise.</target>
+      </trans-unit>
+      <trans-unit id="link.description" resname="link.description" approved="yes">
+        <source>The website of the organizer.</source>
+        <target state="final">Le site web de l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="link.details" resname="link.details" xml:space="preserve" approved="yes">
+				<source>This link can be used to provide more information
+				about the organizer.</source>
+			<target state="final">Ce lien peut être utilisé pour fournir plus d'information sur l'organisateur.</target></trans-unit>
+      <trans-unit id="imagealttext.description" resname="imagealttext.description" xml:space="preserve" approved="yes">
+				<source>Alternate text shown if images are not found or
+				not supported.</source>
+			<target state="final">Alternate text shown if images are not found or not supported.</target></trans-unit>
+      <trans-unit id="imagealttext.details" resname="imagealttext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, alt text entries must
+				be listed on separate lines.</source>
+			<target state="final">If you have multiple images, alt text entries must be listed on separate lines.</target></trans-unit>
+      <trans-unit id="imagetitletext.description" resname="imagetitletext.description">
+        <source>Tooltip or hover text.</source>
+        <target state="needs-translation">Tooltip or hover text.</target>
+      </trans-unit>
+      <trans-unit id="imagetitletext.details" resname="imagetitletext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, title text entries
+				must be listed on separate lines.</source>
+			<target state="final">If you have multiple images, title text entries must be listed on separate lines.</target></trans-unit>
+      <trans-unit id="imagecaption.description" resname="imagecaption.description">
+        <source>Adds a caption beneath each image.</source>
+        <target state="needs-translation">Adds a caption beneath each image.</target>
+      </trans-unit>
+      <trans-unit id="imagecaption.details" resname="imagecaption.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, captions must be
+				listed on separate lines.</source>
+			<target state="final">If you have multiple images, captions must be listed on separate lines.</target></trans-unit>
+    </body>
+  </file>
+</xliff>

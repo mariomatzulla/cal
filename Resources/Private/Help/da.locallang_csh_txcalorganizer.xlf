@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:26:03Z" product-name="cal" target-language="da">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" approved="yes">
+        <source>Organizers for Calendar Base event records.</source>
+        <target state="final">Organisatorer for Calender Base.</target>
+      </trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve" approved="yes">
+				<source>If your events regularly use a particular
+				organizer, or if you want to provide the organizer's information for
+				registration or for other reasons, you may create a Calendar Event
+				Organizer record that includes more information than the Event
+				Record contains in the Organizer Tab.</source>
+			<target state="final">Hvis dine begivenheder ofte anvender en bestemt
+				organisator, eller hvis du ønsker at stille info til rådighed om organisatoren
+				af andre årsager, kan du oprette et Organisatorelement
+				som inkluderer mere information end begivenheder
+				i sig selv indeholder.</target></trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve" approved="yes">
+				<source>Use this to temporarily exclude this organizer
+				from display.</source>
+			<target state="final">Brug denne til midlertidigt at udelukke denne organisator
+				fra visning.</target></trans-unit>
+      <trans-unit id="name.description" resname="name.description" xml:space="preserve" approved="yes">
+				<source>Name of the individual, group, or company
+				responsible for organizing the event.</source>
+			<target state="final">Navn på person, gruppe eller firma
+				som er ansvarlig for begivenheden.</target></trans-unit>
+      <trans-unit id="description.description" resname="description.description" approved="yes">
+        <source>The description of the organizer.</source>
+        <target state="final">Beskrivelse af organisator.</target>
+      </trans-unit>
+      <trans-unit id="street.description" resname="street.description" approved="yes">
+        <source>The street address of the organizer.</source>
+        <target state="final">Gadenavn på organisator.</target>
+      </trans-unit>
+      <trans-unit id="zip.description" resname="zip.description" approved="yes">
+        <source>The ZIP code or postal code of the organizer.</source>
+        <target state="final">Postnummer på organisator.</target>
+      </trans-unit>
+      <trans-unit id="city.description" resname="city.description" approved="yes">
+        <source>The city of the organizer.</source>
+        <target state="final">By, hvor organisator befinder sig.</target>
+      </trans-unit>
+      <trans-unit id="country.description" resname="country.description" approved="yes">
+        <source>The country of the organizer.</source>
+        <target state="final">Landet hvor organisator befinder sig.</target>
+      </trans-unit>
+      <trans-unit id="country_zone.description" resname="country_zone.description" xml:space="preserve" approved="yes">
+				<source>The state of the organizer. The drop-down menu
+				will not be available until you have included the country
+				information and saved the form.</source>
+			<target state="final">Organisatorens region. Drop-down menuen
+				vil ikke være tilgængelig før du har valgt lande-
+				information og gemt formularen.</target></trans-unit>
+      <trans-unit id="phone.description" resname="phone.description" approved="yes">
+        <source>The phone number of the organizer.</source>
+        <target state="final">Organisatorens telefonnummer.</target>
+      </trans-unit>
+      <trans-unit id="email.description" resname="email.description" approved="yes">
+        <source>The email address of the organizer.</source>
+        <target state="final">Organisatorens e-mail adresse.</target>
+      </trans-unit>
+      <trans-unit id="image.description" resname="image.description" approved="yes">
+        <source>A logo or photo of the organizer or their company.</source>
+        <target state="final">Et logo eller foto af organisator eller deres firma.</target>
+      </trans-unit>
+      <trans-unit id="link.description" resname="link.description" approved="yes">
+        <source>The website of the organizer.</source>
+        <target state="final">Organisatorens hjemmeside.</target>
+      </trans-unit>
+      <trans-unit id="link.details" resname="link.details" xml:space="preserve" approved="yes">
+				<source>This link can be used to provide more information
+				about the organizer.</source>
+			<target state="final">Linket kan bruges til at give yderligere information
+				om organisatoren.</target></trans-unit>
+      <trans-unit id="imagealttext.description" resname="imagealttext.description" xml:space="preserve" approved="yes">
+				<source>Alternate text shown if images are not found or
+				not supported.</source>
+			<target state="final">Alternativ tekst, der vises hvis et billede ikke findes
+				eller ikke understøttes.</target></trans-unit>
+      <trans-unit id="imagealttext.details" resname="imagealttext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, alt text entries must
+				be listed on separate lines.</source>
+			<target state="final">Hvis du har flere billeder, skal alt-tekster indtastes
+				på selvstændige linjer.</target></trans-unit>
+      <trans-unit id="imagetitletext.description" resname="imagetitletext.description" approved="yes">
+        <source>Tooltip or hover text.</source>
+        <target state="final">Værktøjstip eller hover tekst.</target>
+      </trans-unit>
+      <trans-unit id="imagetitletext.details" resname="imagetitletext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, title text entries
+				must be listed on separate lines.</source>
+			<target state="final">Hvis du har flere billeder, skal titel-tekster indtastes
+				på selvstændige linjer.</target></trans-unit>
+      <trans-unit id="imagecaption.description" resname="imagecaption.description" approved="yes">
+        <source>Adds a caption beneath each image.</source>
+        <target state="final">Tilføj en billedtekst under hvert billede.</target>
+      </trans-unit>
+      <trans-unit id="imagecaption.details" resname="imagecaption.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, captions must be
+				listed on separate lines.</source>
+			<target state="final">Hvis du har flere billeder, skal billed-tekster indtastes
+				på selvstændige linjer.</target></trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:31:50Z" product-name="cal" target-language="da">
+    <header/>
+    <body>
+      <trans-unit id="l_day" resname="l_day" approved="yes">
+        <source>Day</source>
+        <target state="final">Dag</target>
+      </trans-unit>
+      <trans-unit id="l_week" resname="l_week" approved="yes">
+        <source>Week</source>
+        <target state="final">Uge</target>
+      </trans-unit>
+      <trans-unit id="l_month" resname="l_month" approved="yes">
+        <source>Month</source>
+        <target state="final">Måned</target>
+      </trans-unit>
+      <trans-unit id="l_year" resname="l_year" approved="yes">
+        <source>Year</source>
+        <target state="final">År</target>
+      </trans-unit>
+      <trans-unit id="l_list" resname="l_list" approved="yes">
+        <source>List</source>
+        <target state="final">Liste</target>
+      </trans-unit>
+      <trans-unit id="l_calendar" resname="l_calendar" approved="yes">
+        <source>Calendar</source>
+        <target state="final">Kalender</target>
+      </trans-unit>
+      <trans-unit id="l_create_calendar" resname="l_create_calendar" approved="yes">
+        <source>Create calendar</source>
+        <target state="final">Opret kalender</target>
+      </trans-unit>
+      <trans-unit id="l_administration_view" resname="l_administration_view" approved="yes">
+        <source>Calendar Administration</source>
+        <target state="final">Kalenderadministration</target>
+      </trans-unit>
+      <trans-unit id="l_edit_calendar" resname="l_edit_calendar" approved="yes">
+        <source>Edit calendar</source>
+        <target state="final">Rediger kalender</target>
+      </trans-unit>
+      <trans-unit id="l_confirm_calendar" resname="l_confirm_calendar" approved="yes">
+        <source>Confirm calendar</source>
+        <target state="final">Godkend kalender</target>
+      </trans-unit>
+      <trans-unit id="l_delete_calendar" resname="l_delete_calendar" approved="yes">
+        <source>Delete calendar</source>
+        <target state="final">Slet kalender</target>
+      </trans-unit>
+      <trans-unit id="l_create_exception" resname="l_create_exception" approved="yes">
+        <source>Create exception</source>
+        <target state="final">Opret undtagelse</target>
+      </trans-unit>
+      <trans-unit id="l_next_day" resname="l_next_day" approved="yes">
+        <source>Next Day</source>
+        <target state="final">Næste dag</target>
+      </trans-unit>
+      <trans-unit id="l_next_month" resname="l_next_month" approved="yes">
+        <source>Next Month</source>
+        <target state="final">Næste måned</target>
+      </trans-unit>
+      <trans-unit id="l_next_week" resname="l_next_week" approved="yes">
+        <source>Next Week</source>
+        <target state="final">Næste uge</target>
+      </trans-unit>
+      <trans-unit id="l_next_year" resname="l_next_year" approved="yes">
+        <source>Next Year</source>
+        <target state="final">Næste år</target>
+      </trans-unit>
+      <trans-unit id="l_last_day" resname="l_last_day" approved="yes">
+        <source>Previous Day</source>
+        <target state="final">Forrige dag</target>
+      </trans-unit>
+      <trans-unit id="l_last_month" resname="l_last_month" approved="yes">
+        <source>Previous Month</source>
+        <target state="final">Forrige måned</target>
+      </trans-unit>
+      <trans-unit id="l_last_week" resname="l_last_week" approved="yes">
+        <source>Previous Week</source>
+        <target state="final">Forrige uge</target>
+      </trans-unit>
+      <trans-unit id="l_last_year" resname="l_last_year" approved="yes">
+        <source>Previous Year</source>
+        <target state="final">Forrige år</target>
+      </trans-unit>
+      <trans-unit id="l_subscribe" resname="l_subscribe" approved="yes">
+        <source>Subscribe</source>
+        <target state="final">Tilmeld</target>
+      </trans-unit>
+      <trans-unit id="l_download" resname="l_download" approved="yes">
+        <source>Download</source>
+        <target state="final">Hent</target>
+      </trans-unit>
+      <trans-unit id="l_powered_by" resname="l_powered_by" approved="yes">
+        <source>Powered by</source>
+        <target state="final">Baseret på</target>
+      </trans-unit>
+      <trans-unit id="l_event" resname="l_event" approved="yes">
+        <source>Event</source>
+        <target state="final">Begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_events" resname="l_events" approved="yes">
+        <source>Events</source>
+        <target state="final">Begivenheder</target>
+      </trans-unit>
+      <trans-unit id="l_no_events" resname="l_no_events" approved="yes">
+        <source>No events found.</source>
+        <target state="final">Ingen begivenheder fundet.</target>
+      </trans-unit>
+      <trans-unit id="l_event_start" resname="l_event_start" approved="yes">
+        <source>Start Time</source>
+        <target state="final">Starttid</target>
+      </trans-unit>
+      <trans-unit id="l_event_end" resname="l_event_end" approved="yes">
+        <source>End Time</source>
+        <target state="final">Sluttid</target>
+      </trans-unit>
+      <trans-unit id="l_this_months" resname="l_this_months" approved="yes">
+        <source>This Month's Events</source>
+        <target state="final">Denne måneds begivenheder</target>
+      </trans-unit>
+      <trans-unit id="l_date" resname="l_date" approved="yes">
+        <source>Date</source>
+        <target state="final">Dato</target>
+      </trans-unit>
+      <trans-unit id="l_summary" resname="l_summary" approved="yes">
+        <source>Summary</source>
+        <target state="final">Resumé</target>
+      </trans-unit>
+      <trans-unit id="l_all_day" resname="l_all_day" approved="yes">
+        <source>All day event</source>
+        <target state="final">Heldagsbegivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_notes" resname="l_notes" approved="yes">
+        <source>Notes</source>
+        <target state="final">Noter</target>
+      </trans-unit>
+      <trans-unit id="l_this_years" resname="l_this_years" approved="yes">
+        <source>This Year's Events</source>
+        <target state="final">Dette års begivenheder</target>
+      </trans-unit>
+      <trans-unit id="l_today" resname="l_today" approved="yes">
+        <source>Today</source>
+        <target state="final">I dag</target>
+      </trans-unit>
+      <trans-unit id="l_this_week" resname="l_this_week" approved="yes">
+        <source>This Week</source>
+        <target state="final">Denne uge</target>
+      </trans-unit>
+      <trans-unit id="l_this_month" resname="l_this_month" approved="yes">
+        <source>This Month</source>
+        <target state="final">Denne måned</target>
+      </trans-unit>
+      <trans-unit id="l_jump" resname="l_jump" approved="yes">
+        <source>Jump to</source>
+        <target state="final">Spring til</target>
+      </trans-unit>
+      <trans-unit id="l_tomorrows" resname="l_tomorrows" approved="yes">
+        <source>Tomorrow's Events</source>
+        <target state="final">Morgendagens begivenheder</target>
+      </trans-unit>
+      <trans-unit id="l_goday" resname="l_goday" approved="yes">
+        <source>Go to Today</source>
+        <target state="final">Gå til I dag</target>
+      </trans-unit>
+      <trans-unit id="l_goweek" resname="l_goweek" approved="yes">
+        <source>Go to This Week</source>
+        <target state="final">Gå til Denne uge</target>
+      </trans-unit>
+      <trans-unit id="l_gomonth" resname="l_gomonth" approved="yes">
+        <source>Go to This Month</source>
+        <target state="final">Gå til Denne måned</target>
+      </trans-unit>
+      <trans-unit id="l_goyear" resname="l_goyear" approved="yes">
+        <source>Go to This Year</source>
+        <target state="final">Gå til Dette år</target>
+      </trans-unit>
+      <trans-unit id="l_search" resname="l_search" approved="yes">
+        <source>Search</source>
+        <target state="final">Søg</target>
+      </trans-unit>
+      <trans-unit id="l_search_everything" resname="l_search_everything" approved="yes">
+        <source>Search everything</source>
+        <target state="final">Søg i alt</target>
+      </trans-unit>
+      <trans-unit id="l_dosearch" resname="l_dosearch" approved="yes">
+        <source>Search</source>
+        <target state="final">Søg</target>
+      </trans-unit>
+      <trans-unit id="l_query_for" resname="l_query_for" approved="yes">
+        <source>Search for</source>
+        <target state="final">Søg efter</target>
+      </trans-unit>
+      <trans-unit id="l_search_string" resname="l_search_string" approved="yes">
+        <source>Search string</source>
+        <target state="final">Søgestreng</target>
+      </trans-unit>
+      <trans-unit id="l_results" resname="l_results" approved="yes">
+        <source>Search Results</source>
+        <target state="final">Søgeresultater</target>
+      </trans-unit>
+      <trans-unit id="l_query" resname="l_query" approved="yes">
+        <source>Query</source>
+        <target state="final">Forespørgsel</target>
+      </trans-unit>
+      <trans-unit id="l_no_results" resname="l_no_results" approved="yes">
+        <source>No events found.</source>
+        <target state="final">Ingen begivenheder fundet.</target>
+      </trans-unit>
+      <trans-unit id="l_no_location_results" resname="l_no_location_results" approved="yes">
+        <source>No locations found.</source>
+        <target state="final">Ingen steder fundet.</target>
+      </trans-unit>
+      <trans-unit id="l_no_organizer_results" resname="l_no_organizer_results" approved="yes">
+        <source>No organizers found.</source>
+        <target state="final">Ingen arrangører fundet.</target>
+      </trans-unit>
+      <trans-unit id="l_goprint" resname="l_goprint" approved="yes">
+        <source>Printer Friendly</source>
+        <target state="final">Printervenlig</target>
+      </trans-unit>
+      <trans-unit id="l_time" resname="l_time" approved="yes">
+        <source>Time</source>
+        <target state="final">Tid</target>
+      </trans-unit>
+      <trans-unit id="l_teaser" resname="l_teaser" approved="yes">
+        <source>Teaser</source>
+        <target state="final">Koncentrat</target>
+      </trans-unit>
+      <trans-unit id="l_description" resname="l_description" approved="yes">
+        <source>Description</source>
+        <target state="final">Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="l_no_title" resname="l_no_title" approved="yes">
+        <source>No title</source>
+        <target state="final">Ingen titel</target>
+      </trans-unit>
+      <trans-unit id="l_this_site_is" resname="l_this_site_is" approved="yes">
+        <source>This site is</source>
+        <target state="final">Denne side er</target>
+      </trans-unit>
+      <trans-unit id="l_no_events_day" resname="l_no_events_day" approved="yes">
+        <source>No events today.</source>
+        <target state="final">Ingen begivenheder i dag.</target>
+      </trans-unit>
+      <trans-unit id="l_no_events_week" resname="l_no_events_week" approved="yes">
+        <source>No events this week.</source>
+        <target state="final">Ingen begivenheder i denne uge.</target>
+      </trans-unit>
+      <trans-unit id="l_no_events_month" resname="l_no_events_month" approved="yes">
+        <source>No events this month.</source>
+        <target state="final">Ingen begivenheder i denne måned.</target>
+      </trans-unit>
+      <trans-unit id="l_rss_day_date" resname="l_rss_day_date" approved="yes">
+        <source>g:i A</source>
+        <target state="final">H:i</target>
+      </trans-unit>
+      <trans-unit id="l_rss_week_date" resname="l_rss_week_date" approved="yes">
+        <source>%b %e</source>
+        <target state="final">%b %e</target>
+      </trans-unit>
+      <trans-unit id="l_rss_month_date" resname="l_rss_month_date" approved="yes">
+        <source>%b %e</source>
+        <target state="final">%b %e</target>
+      </trans-unit>
+      <trans-unit id="l_rss_language" resname="l_rss_language" approved="yes">
+        <source>en-us</source>
+        <target state="final">dk-da</target>
+      </trans-unit>
+      <trans-unit id="l_search_took" resname="l_search_took" approved="yes">
+        <source>Search took %s seconds</source>
+        <target state="final">Søgningen tog %s sekunder</target>
+      </trans-unit>
+      <trans-unit id="l_recurring_event" resname="l_recurring_event" approved="yes">
+        <source>Recurring event</source>
+        <target state="final">Gentagende begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_exception" resname="l_exception" approved="yes">
+        <source>Exception</source>
+        <target state="final">Undtagelse</target>
+      </trans-unit>
+      <trans-unit id="l_no_query" resname="l_no_query" approved="yes">
+        <source>No query given</source>
+        <target state="final">Ingen forespørgsel</target>
+      </trans-unit>
+      <trans-unit id="l_preferences" resname="l_preferences" approved="yes">
+        <source>Preferences</source>
+        <target state="final">Præferencer</target>
+      </trans-unit>
+      <trans-unit id="l_printer" resname="l_printer" approved="yes">
+        <source>Printer</source>
+        <target state="final">Printer</target>
+      </trans-unit>
+      <trans-unit id="l_select_lang" resname="l_select_lang" approved="yes">
+        <source>Select your default language:</source>
+        <target state="final">Vælg dit standardsprog:</target>
+      </trans-unit>
+      <trans-unit id="l_select_cal" resname="l_select_cal" approved="yes">
+        <source>Select your default calendar:</source>
+        <target state="final">Vælg din standardkalender:</target>
+      </trans-unit>
+      <trans-unit id="l_select_view" resname="l_select_view" approved="yes">
+        <source>Select your default view:</source>
+        <target state="final">Vælg din standardvisning:</target>
+      </trans-unit>
+      <trans-unit id="l_select_time" resname="l_select_time" approved="yes">
+        <source>Select your default start time:</source>
+        <target state="final">Vælg din standardstarttid:</target>
+      </trans-unit>
+      <trans-unit id="l_select_day" resname="l_select_day" approved="yes">
+        <source>Select your default start day of week:</source>
+        <target state="final">Vælg din standard-ugestartsdag:</target>
+      </trans-unit>
+      <trans-unit id="l_select_style" resname="l_select_style" approved="yes">
+        <source>Select your default style:</source>
+        <target state="final">Vælg din standardstil:</target>
+      </trans-unit>
+      <trans-unit id="l_set_prefs" resname="l_set_prefs" approved="yes">
+        <source>Set preferences</source>
+        <target state="final">Indstil præferencer</target>
+      </trans-unit>
+      <trans-unit id="l_completed_date" resname="l_completed_date" approved="yes">
+        <source>Completed on</source>
+        <target state="final">Færdiggjort den</target>
+      </trans-unit>
+      <trans-unit id="l_completed" resname="l_completed" approved="yes">
+        <source>Completed</source>
+        <target state="final">Færdiggjort</target>
+      </trans-unit>
+      <trans-unit id="l_created" resname="l_created" approved="yes">
+        <source>Created</source>
+        <target state="final">Oprettet</target>
+      </trans-unit>
+      <trans-unit id="l_create" resname="l_create" approved="yes">
+        <source>Create</source>
+        <target state="final">Opret</target>
+      </trans-unit>
+      <trans-unit id="l_due" resname="l_due" approved="yes">
+        <source>Due</source>
+        <target state="final">Forfalden</target>
+      </trans-unit>
+      <trans-unit id="l_priority" resname="l_priority" approved="yes">
+        <source>Priority</source>
+        <target state="final">Prioritet</target>
+      </trans-unit>
+      <trans-unit id="l_priority_high" resname="l_priority_high" approved="yes">
+        <source>High</source>
+        <target state="final">Høj</target>
+      </trans-unit>
+      <trans-unit id="l_priority_low" resname="l_priority_low" approved="yes">
+        <source>Low</source>
+        <target state="final">Lav</target>
+      </trans-unit>
+      <trans-unit id="l_priority_medium" resname="l_priority_medium" approved="yes">
+        <source>Medium</source>
+        <target state="final">Middel</target>
+      </trans-unit>
+      <trans-unit id="l_priority_none" resname="l_priority_none" approved="yes">
+        <source>None</source>
+        <target state="final">Ingen</target>
+      </trans-unit>
+      <trans-unit id="l_status" resname="l_status" approved="yes">
+        <source>Status</source>
+        <target state="final">Status</target>
+      </trans-unit>
+      <trans-unit id="l_todo" resname="l_todo" approved="yes">
+        <source>To do items</source>
+        <target state="final">Arbejdsopgaver</target>
+      </trans-unit>
+      <trans-unit id="l_unfinished" resname="l_unfinished" approved="yes">
+        <source>Unfinished</source>
+        <target state="final">Uafsluttet</target>
+      </trans-unit>
+      <trans-unit id="l_prefs_set" resname="l_prefs_set" approved="yes">
+        <source>Your preferences have been set.</source>
+        <target state="final">Dine præferencer er gemt.</target>
+      </trans-unit>
+      <trans-unit id="l_prefs_unset" resname="l_prefs_unset" xml:space="preserve" approved="yes">
+				<source>Preferences unset. Changes will take place next
+				page load.</source>
+			<target state="final">Præferencer normaliseret. Ændringer træder i kraft ved
+				næste indlæsning af siden.</target></trans-unit>
+      <trans-unit id="l_unset_prefs" resname="l_unset_prefs" approved="yes">
+        <source>Unset preferences:</source>
+        <target state="final">Normaliser præferencer:</target>
+      </trans-unit>
+      <trans-unit id="l_organizer" resname="l_organizer" approved="yes">
+        <source>Organizer</source>
+        <target state="final">Arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_edit_organizer" resname="l_edit_organizer" approved="yes">
+        <source>Edit Organizer</source>
+        <target state="final">Rediger arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_delete_organizer" resname="l_delete_organizer" approved="yes">
+        <source>Delete Organizer</source>
+        <target state="final">Slet arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_organizers" resname="l_organizers" approved="yes">
+        <source>Organizers</source>
+        <target state="final">Arrangører</target>
+      </trans-unit>
+      <trans-unit id="l_attendee" resname="l_attendee" approved="yes">
+        <source>Attendee</source>
+        <target state="final">Deltager</target>
+      </trans-unit>
+      <trans-unit id="l_location" resname="l_location" approved="yes">
+        <source>Location</source>
+        <target state="final">Sted</target>
+      </trans-unit>
+      <trans-unit id="l_edit_location" resname="l_edit_location" approved="yes">
+        <source>Edit Location</source>
+        <target state="final">Rediger sted</target>
+      </trans-unit>
+      <trans-unit id="l_delete_location" resname="l_delete_location" approved="yes">
+        <source>Delete Location</source>
+        <target state="final">Slet sted</target>
+      </trans-unit>
+      <trans-unit id="l_locations" resname="l_locations" approved="yes">
+        <source>Locations</source>
+        <target state="final">Steder</target>
+      </trans-unit>
+      <trans-unit id="l_admin_header" resname="l_admin_header" approved="yes">
+        <source>Calendar Administration</source>
+        <target state="final">Kalenderadministration</target>
+      </trans-unit>
+      <trans-unit id="l_username" resname="l_username" approved="yes">
+        <source>Username</source>
+        <target state="final">Brugernavn</target>
+      </trans-unit>
+      <trans-unit id="l_password" resname="l_password" approved="yes">
+        <source>Password</source>
+        <target state="final">Kodeord</target>
+      </trans-unit>
+      <trans-unit id="l_login" resname="l_login" approved="yes">
+        <source>Login</source>
+        <target state="final">Log ind</target>
+      </trans-unit>
+      <trans-unit id="l_invalid_login" resname="l_invalid_login" approved="yes">
+        <source>Wrong username or password.</source>
+        <target state="final">Forkert brugernavn eller kodeord.</target>
+      </trans-unit>
+      <trans-unit id="l_addupdate_cal" resname="l_addupdate_cal" approved="yes">
+        <source>Add or Update a Calendar</source>
+        <target state="final">Tilføj eller opdater kalender</target>
+      </trans-unit>
+      <trans-unit id="l_addupdate_desc" resname="l_addupdate_desc" xml:space="preserve" approved="yes">
+				<source>Add a calendar by uploading a new file. Update a
+				calendar by uploading a file of the same name.</source>
+			<target state="final">Tilføj en kalender ved at uploade en ny
+				fil med det samme navn.</target></trans-unit>
+      <trans-unit id="l_delete_cal" resname="l_delete_cal" approved="yes">
+        <source>Delete a Calendar</source>
+        <target state="final">Slet en kalender</target>
+      </trans-unit>
+      <trans-unit id="l_logout" resname="l_logout" approved="yes">
+        <source>Logout</source>
+        <target state="final">Log ud</target>
+      </trans-unit>
+      <trans-unit id="l_cal_file" resname="l_cal_file" approved="yes">
+        <source>Calendar File</source>
+        <target state="final">Kalenderfil</target>
+      </trans-unit>
+      <trans-unit id="l_php_error" resname="l_php_error" approved="yes">
+        <source>PHP Error</source>
+        <target state="final">PHP-fejl</target>
+      </trans-unit>
+      <trans-unit id="l_upload_error_type" resname="l_upload_error_type" approved="yes">
+        <source>Only .ics files may be uploaded.</source>
+        <target state="final">Kun .ics filer kan uploades.</target>
+      </trans-unit>
+      <trans-unit id="l_copy_error" resname="l_copy_error" approved="yes">
+        <source>Failed to copy file</source>
+        <target state="final">Kopiering af fil mislykkedes</target>
+      </trans-unit>
+      <trans-unit id="l_delete_confirm" resname="l_delete_confirm" approved="yes">
+        <source>Do you really want to delete?</source>
+        <target state="final">Vil du virkelig slette?</target>
+      </trans-unit>
+      <trans-unit id="l_delete_error" resname="l_delete_error" approved="yes">
+        <source>Failed to delete file</source>
+        <target state="final">Sletning af fil mislykkedes</target>
+      </trans-unit>
+      <trans-unit id="l_delete_success" resname="l_delete_success" approved="yes">
+        <source>was deleted successfully.</source>
+        <target state="final">blev slettet vellykket.</target>
+      </trans-unit>
+      <trans-unit id="l_action_success" resname="l_action_success" approved="yes">
+        <source>Your action was successful.</source>
+        <target state="final">Din handling var vellykket.</target>
+      </trans-unit>
+      <trans-unit id="l_submit" resname="l_submit" approved="yes">
+        <source>Submit</source>
+        <target state="final">Tilføj</target>
+      </trans-unit>
+      <trans-unit id="l_edit" resname="l_edit" approved="yes">
+        <source>Edit</source>
+        <target state="final">Rediger</target>
+      </trans-unit>
+      <trans-unit id="l_delete" resname="l_delete" approved="yes">
+        <source>Delete</source>
+        <target state="final">Slet</target>
+      </trans-unit>
+      <trans-unit id="l_refresh" resname="l_refresh" approved="yes">
+        <source>Refresh</source>
+        <target state="final">Genindlæs</target>
+      </trans-unit>
+      <trans-unit id="l_all_cal_comb_lang" resname="l_all_cal_comb_lang" approved="yes">
+        <source>All Combined</source>
+        <target state="final">Kombiner alle</target>
+      </trans-unit>
+      <trans-unit id="l_legend" resname="l_legend" approved="yes">
+        <source>Legend</source>
+        <target state="final">Legende</target>
+      </trans-unit>
+      <trans-unit id="l_admin_subhead" resname="l_admin_subhead" approved="yes">
+        <source>Manage your calendars from this page</source>
+        <target state="final">Håndter dine kalendere fra denne side</target>
+      </trans-unit>
+      <trans-unit id="l_prefs_subhead" resname="l_prefs_subhead" approved="yes">
+        <source>Sets a cookie for visiting this site</source>
+        <target state="final">Sætter en cookie ved besøg på denne side</target>
+      </trans-unit>
+      <trans-unit id="l_rss_info" resname="l_rss_info" approved="yes">
+        <source>RSS Information</source>
+        <target state="final">RSS-information</target>
+      </trans-unit>
+      <trans-unit id="l_rss_subhead" resname="l_rss_subhead" approved="yes">
+        <source>Basic RSS feeds available for each calendar</source>
+        <target state="final">Grundlæggende RSS feeds tilgængelig for hver kalender</target>
+      </trans-unit>
+      <trans-unit id="l_rss_notenabled" resname="l_rss_notenabled" approved="yes">
+        <source>RSS is not enabled on this site</source>
+        <target state="final">RSS er ikke aktiveret på denne side</target>
+      </trans-unit>
+      <trans-unit id="l_back" resname="l_back" approved="yes">
+        <source>Back</source>
+        <target state="final">Tilbage</target>
+      </trans-unit>
+      <trans-unit id="l_next" resname="l_next" approved="yes">
+        <source>Next</source>
+        <target state="final">Næste</target>
+      </trans-unit>
+      <trans-unit id="l_prev" resname="l_prev" approved="yes">
+        <source>Prev</source>
+        <target state="final">Foregående</target>
+      </trans-unit>
+      <trans-unit id="l_day_view" resname="l_day_view" approved="yes">
+        <source>Day View</source>
+        <target state="final">Dag-visning</target>
+      </trans-unit>
+      <trans-unit id="l_week_view" resname="l_week_view" approved="yes">
+        <source>Week View</source>
+        <target state="final">Uge-visning</target>
+      </trans-unit>
+      <trans-unit id="l_month_view" resname="l_month_view" approved="yes">
+        <source>Month View</source>
+        <target state="final">Måned-visning</target>
+      </trans-unit>
+      <trans-unit id="l_year_view" resname="l_year_view" approved="yes">
+        <source>Year View</source>
+        <target state="final">År-visning</target>
+      </trans-unit>
+      <trans-unit id="l_event_view" resname="l_event_view" approved="yes">
+        <source>Event View</source>
+        <target state="final">Begivenhed-visning</target>
+      </trans-unit>
+      <trans-unit id="l_search_view" resname="l_search_view" approved="yes">
+        <source>Search</source>
+        <target state="final">Søg</target>
+      </trans-unit>
+      <trans-unit id="l_ics_view" resname="l_ics_view" approved="yes">
+        <source>ICS</source>
+        <target state="final">ICS</target>
+      </trans-unit>
+      <trans-unit id="l_icslist_title" resname="l_icslist_title" approved="yes">
+        <source>List of available ics-files to download</source>
+        <target state="final">Liste af ics-filer der kan downloades</target>
+      </trans-unit>
+      <trans-unit id="l_list_view" resname="l_list_view" approved="yes">
+        <source>List View</source>
+        <target state="final">Listevisning</target>
+      </trans-unit>
+      <trans-unit id="format_recur_lang_delimiter" resname="format_recur_lang_delimiter" approved="yes">
+        <source>, </source>
+        <target state="final">, </target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_yearly_single" resname="l_format_recur_lang_yearly_single" approved="yes">
+        <source>year</source>
+        <target state="final">år</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_yearly_multiple" resname="l_format_recur_lang_yearly_multiple" approved="yes">
+        <source>years</source>
+        <target state="final">år</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_monthly_single" resname="l_format_recur_lang_monthly_single" approved="yes">
+        <source>month</source>
+        <target state="final">måned</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_monthly_multiple" resname="l_format_recur_lang_monthly_multiple" approved="yes">
+        <source>months</source>
+        <target state="final">måneder</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_weekly_single" resname="l_format_recur_lang_weekly_single" approved="yes">
+        <source>week</source>
+        <target state="final">uge</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_weekly_multiple" resname="l_format_recur_lang_weekly_multiple" approved="yes">
+        <source>weeks</source>
+        <target state="final">uger</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_daily_single" resname="l_format_recur_lang_daily_single" approved="yes">
+        <source>day</source>
+        <target state="final">dag</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_daily_multiple" resname="l_format_recur_lang_daily_multiple" approved="yes">
+        <source>days</source>
+        <target state="final">dage</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_hourly_single" resname="l_format_recur_lang_hourly_single" approved="yes">
+        <source>hour</source>
+        <target state="final">time</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_hourly_multiple" resname="l_format_recur_lang_hourly_multiple" approved="yes">
+        <source>hours</source>
+        <target state="final">timer</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_minutely_single" resname="l_format_recur_lang_minutely_single" approved="yes">
+        <source>minute</source>
+        <target state="final">minut</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_minutely_multiple" resname="l_format_recur_lang_minutely_multiple" approved="yes">
+        <source>minutes</source>
+        <target state="final">minutter</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_secondly_single" resname="l_format_recur_lang_secondly_single" approved="yes">
+        <source>second</source>
+        <target state="final">sekund</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_secondly_multiple" resname="l_format_recur_lang_secondly_multiple" approved="yes">
+        <source>seconds</source>
+        <target state="final">sekunder</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_start" resname="l_format_recur_lang_start" approved="yes">
+        <source>Every %int% %freq% %for%</source>
+        <target state="final">Hver %int% %freq% %for%</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_until" resname="l_format_recur_lang_until" approved="yes">
+        <source>until %date%</source>
+        <target state="final">indtil %date%</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_count" resname="l_format_recur_lang_count" approved="yes">
+        <source>for a count of %int%</source>
+        <target state="final">for %int% gange</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_bymonth" resname="l_format_recur_lang_bymonth" approved="yes">
+        <source>In months: %list%</source>
+        <target state="final">I månederne: %list%</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_bymonthday" resname="l_format_recur_lang_bymonthday" approved="yes">
+        <source>On dates: %list%</source>
+        <target state="final">På datoerne: %list%</target>
+      </trans-unit>
+      <trans-unit id="l_format_recur_lang_byday" resname="l_format_recur_lang_byday" approved="yes">
+        <source>On days: %list%</source>
+        <target state="final">På dagene: %list%</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_all" resname="l_daysofweek_all" approved="yes">
+        <source>All Days</source>
+        <target state="final">Alle dage</target>
+      </trans-unit>
+      <trans-unit id="l_monthsofyear_all" resname="l_monthsofyear_all" approved="yes">
+        <source>All Months</source>
+        <target state="final">Alle måneder</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_sunday" resname="l_daysofweek_lang_sunday" approved="yes">
+        <source>Sunday</source>
+        <target state="final">Søndag</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_monday" resname="l_daysofweek_lang_monday" approved="yes">
+        <source>Monday</source>
+        <target state="final">Mandag</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_tuesday" resname="l_daysofweek_lang_tuesday" approved="yes">
+        <source>Tuesday</source>
+        <target state="final">Tirsdag</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_wednesday" resname="l_daysofweek_lang_wednesday" approved="yes">
+        <source>Wednesday</source>
+        <target state="final">Onsdag</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_thursday" resname="l_daysofweek_lang_thursday" approved="yes">
+        <source>Thursday</source>
+        <target state="final">Torsdag</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_friday" resname="l_daysofweek_lang_friday" approved="yes">
+        <source>Friday</source>
+        <target state="final">Fredag</target>
+      </trans-unit>
+      <trans-unit id="l_daysofweek_lang_saturday" resname="l_daysofweek_lang_saturday" approved="yes">
+        <source>Saturday</source>
+        <target state="final">Lørdag</target>
+      </trans-unit>
+      <trans-unit id="l_error_title" resname="l_error_title" approved="yes">
+        <source>Error!</source>
+        <target state="final">Fejl!</target>
+      </trans-unit>
+      <trans-unit id="l_error_window" resname="l_error_window" approved="yes">
+        <source>There was an error!</source>
+        <target state="final">Der opstod en fejl!</target>
+      </trans-unit>
+      <trans-unit id="l_error_calendar" resname="l_error_calendar" xml:space="preserve" approved="yes">
+				<source>The calendar &quot;%s&quot; was being processed
+				when this error occurred.</source>
+			<target state="final">Der opstod en fejl under behandlingen
+				af kalenderen "%s".</target></trans-unit>
+      <trans-unit id="l_error_path" resname="l_error_path" approved="yes">
+        <source>Unable to open the path: &quot;%s&quot;</source>
+        <target state="final">Var ikke i stand til at åbne stien: "%s"</target>
+      </trans-unit>
+      <trans-unit id="l_error_back" resname="l_error_back" approved="yes">
+        <source>Please use the &quot;Back&quot; button to return.</source>
+        <target state="final">Brug venligst "Tilbage" knappen for at komme retur.</target>
+      </trans-unit>
+      <trans-unit id="l_error_remotecal" resname="l_error_remotecal" xml:space="preserve" approved="yes">
+				<source>This server blocks remote calendars which have not
+				been approved.</source>
+			<target state="final">Denne server tillader ikke fjern-
+				kalendere der ikke er blevet godkendt.</target></trans-unit>
+      <trans-unit id="l_error_restrictedcal" resname="l_error_restrictedcal" xml:space="preserve" approved="yes">
+				<source>You have tried to access a calendar that is
+				restricted on this server.</source>
+			<target state="final">Du forsøgte at tilgå en kalender med
+				begrænset tilgang på denne server.</target></trans-unit>
+      <trans-unit id="l_error_invalidcal" resname="l_error_invalidcal" xml:space="preserve" approved="yes">
+				<source>Invalid calendar file. Please try a different
+				calendar.</source>
+			<target state="final">Ugyldig kalenderfil. Prøv en
+				anden kalender.</target></trans-unit>
+      <trans-unit id="l_error_cantopen" resname="l_error_cantopen" approved="yes">
+        <source>Unable to open calendar.</source>
+        <target state="final">Kunne ikke åbne kalenderen.</target>
+      </trans-unit>
+      <trans-unit id="l_error_cache" resname="l_error_cache" xml:space="preserve" approved="yes">
+				<source>Unable to write to cache directory. Please check
+				your config.</source>
+			<target state="final">Kunne ikke skrive til cachemappen.
+				Tjek venligst dine indstillinger.</target></trans-unit>
+      <trans-unit id="l_error_noCategory" resname="l_error_noCategory" xml:space="preserve" approved="yes">
+				<source>You can not create an event without a category.
+				Please create a category first</source>
+			<target state="final">Du kan ikke oprette en begivenhed uden
+				en katagori. Opret venligst først en katagori</target></trans-unit>
+      <trans-unit id="l_monitor_event_not_logged_in" resname="l_monitor_event_not_logged_in" approved="yes">
+        <source>&lt;br /&gt;&lt;br /&gt;</source>
+        <target state="final">&lt;br /&gt;&lt;br /&gt;</target>
+      </trans-unit>
+      <trans-unit id="l_monitor_event_logged_in_nomonitoring" resname="l_monitor_event_logged_in_nomonitoring" approved="yes">
+        <source>Subscribe to this event?</source>
+        <target state="final">Modtag påmindelser og opdateringer om begivenheden?</target>
+      </trans-unit>
+      <trans-unit id="l_monitor_event_logged_in_monitoring" resname="l_monitor_event_logged_in_monitoring" approved="yes">
+        <source>Unsubscribe?</source>
+        <target state="final">Slet din tilmelding om påmindelser og opdateringer?</target>
+      </trans-unit>
+      <trans-unit id="l_monitor_login_in_for_monitoring" resname="l_monitor_login_in_for_monitoring" approved="yes">
+        <source>Please log in to manage your subscriptions.</source>
+        <target state="final">Venligst login for at administrere dine tilmeldinger om påmindelser og opdateringer.</target>
+      </trans-unit>
+      <trans-unit id="l_manage_subscription" resname="l_manage_subscription" approved="yes">
+        <source>Manage your subscriptions</source>
+        <target state="final">Adminstrer dine tilmeldinger om påmindelser og opdateringer</target>
+      </trans-unit>
+      <trans-unit id="l_monitor_event_unsubscribe_successful" resname="l_monitor_event_unsubscribe_successful" xml:space="preserve" approved="yes">
+				<source>You have been unsubscribed from the event
+				&quot;%s&quot;. You will no longer receive notifications about this
+				event.</source>
+			<target state="final">Tilmelding til "%s" er nu blevet slettet.
+				Du vil ikke længere modtage påmindelser
+				og opdateringer om denne begivenhed.</target></trans-unit>
+      <trans-unit id="l_monitor_event_unsubscribe_error" resname="l_monitor_event_unsubscribe_error" xml:space="preserve" approved="yes">
+				<source>There were problems unsubscribing you from the
+				event &quot;%s&quot;.</source>
+			<target state="final">Der var problemer i forbindelse sletningen
+				af din tilmelding på begivenheden "%s".</target></trans-unit>
+      <trans-unit id="l_monitor_event_unsubscribe_noevent" resname="l_monitor_event_unsubscribe_noevent" xml:space="preserve" approved="yes">
+				<source>The event you are trying to unsubscribe does not
+				exist anymore.</source>
+			<target state="final">Den begivenhed du forsøger at
+				afmelde abonnement på, eksisterer ikke mere.</target></trans-unit>
+      <trans-unit id="l_monitor_event_subscribe_successful" resname="l_monitor_event_subscribe_successful" xml:space="preserve" approved="yes">
+				<source>You have been subscribed to the event
+				&quot;%s&quot;. You will receive notifications when the event
+				approaches or if any important details are changed.</source>
+			<target state="final">Du er nu tilmeldt begivenheden "%s".
+				Du vil modtage besked når begivenheden nærmer
+				sig eller hvis der sker vigtige ændringer vedr. begivenheden.</target></trans-unit>
+      <trans-unit id="l_monitor_event_subscribe_error" resname="l_monitor_event_subscribe_error" xml:space="preserve" approved="yes">
+				<source>There were problems subscribing you to the event
+				&quot;%s&quot;.</source>
+			<target state="final">Der var problemer i forbindelse med
+				tilmeldingen til begivenheden "%s".</target></trans-unit>
+      <trans-unit id="l_monitor_event_subscribe_noevent" resname="l_monitor_event_subscribe_noevent" xml:space="preserve" approved="yes">
+				<source>The event you are trying to subscribe does not
+				exist anymore.</source>
+			<target state="final">Den begivenhed du forsøger
+				at abonnere på, eksisterer ikke mere.</target></trans-unit>
+      <trans-unit id="l_fe_user" resname="l_fe_user" approved="yes">
+        <source>User</source>
+        <target state="final">Bruger</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_title" resname="l_calendar_title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_owner" resname="l_calendar_owner" approved="yes">
+        <source>Owner</source>
+        <target state="final">Ejer</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_activate_freeandbusy" resname="l_calendar_activate_freeandbusy" approved="yes">
+        <source>Enable Free- and Busy view</source>
+        <target state="final">Tilslut fri- og optaget-visning</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_freeandbusyuser" resname="l_calendar_freeandbusyuser" approved="yes">
+        <source>Free- and Busy user</source>
+        <target state="final">Fri- og optaget bruger</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_type" resname="l_calendar_type" approved="yes">
+        <source>Type</source>
+        <target state="final">Type</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_type0" resname="l_calendar_type0" approved="yes">
+        <source>Normal</source>
+        <target state="final">Normal</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_exturl" resname="l_calendar_exturl" approved="yes">
+        <source>External URL</source>
+        <target state="final">Ekstern URL</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_icsfile" resname="l_calendar_icsfile" approved="yes">
+        <source>Local ICS file</source>
+        <target state="final">Lokal ICS fil</target>
+      </trans-unit>
+      <trans-unit id="l_ics_file_upload" resname="l_ics_file_upload" approved="yes">
+        <source>Upload ICS file</source>
+        <target state="final">Upload ICS fil</target>
+      </trans-unit>
+      <trans-unit id="l_delete_icsfile" resname="l_delete_icsfile" approved="yes">
+        <source>Delete current ICS file</source>
+        <target state="final">Slet nuværende ICS fil</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_refresh" resname="l_calendar_refresh" approved="yes">
+        <source>Refresh interval in minutes</source>
+        <target state="final">Genindlæsningsinterval i minutter</target>
+      </trans-unit>
+      <trans-unit id="l_category" resname="l_category" approved="yes">
+        <source>Category</source>
+        <target state="final">Katagori</target>
+      </trans-unit>
+      <trans-unit id="l_global_category" resname="l_global_category" approved="yes">
+        <source>General Category</source>
+        <target state="final">Generel katagori</target>
+      </trans-unit>
+      <trans-unit id="l_delete_category" resname="l_delete_category" approved="yes">
+        <source>Delete Category</source>
+        <target state="final">Slet katagori</target>
+      </trans-unit>
+      <trans-unit id="l_confirm_category" resname="l_confirm_category" approved="yes">
+        <source>Confirm Category</source>
+        <target state="final">Godkend katagori</target>
+      </trans-unit>
+      <trans-unit id="l_category_selector" resname="l_category_selector" approved="yes">
+        <source>Select category</source>
+        <target state="final">Vælg katagori</target>
+      </trans-unit>
+      <trans-unit id="l_category_title" resname="l_category_title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="l_category_headerstyle" resname="l_category_headerstyle" approved="yes">
+        <source>Header Style</source>
+        <target state="final">Overskriftens udseende</target>
+      </trans-unit>
+      <trans-unit id="l_category_bodystyle" resname="l_category_bodystyle" approved="yes">
+        <source>Body Style</source>
+        <target state="final">Brødtekstens udseende</target>
+      </trans-unit>
+      <trans-unit id="l_category_calendar" resname="l_category_calendar" approved="yes">
+        <source>Calendar</source>
+        <target state="final">Kalender</target>
+      </trans-unit>
+      <trans-unit id="l_category_parent_category" resname="l_category_parent_category" approved="yes">
+        <source>Parent Category</source>
+        <target state="final">Ovenstående kategori</target>
+      </trans-unit>
+      <trans-unit id="l_category_shared_user_allowed" resname="l_category_shared_user_allowed" approved="yes">
+        <source>Shared User Allowed</source>
+        <target state="final">Delt bruger tilladt</target>
+      </trans-unit>
+      <trans-unit id="l_event_general" resname="l_event_general" approved="yes">
+        <source>General</source>
+        <target state="final">Generel</target>
+      </trans-unit>
+      <trans-unit id="l_event_category" resname="l_event_category" approved="yes">
+        <source>Category</source>
+        <target state="final">Katagori</target>
+      </trans-unit>
+      <trans-unit id="l_event_category_selected" resname="l_event_category_selected" approved="yes">
+        <source>Selected Category</source>
+        <target state="final">Vælg katagori</target>
+      </trans-unit>
+      <trans-unit id="l_event_user" resname="l_event_user" approved="yes">
+        <source>Creator, creator group</source>
+        <target state="final">Opretter, oprettergruppe</target>
+      </trans-unit>
+      <trans-unit id="l_event_user_selected" resname="l_event_user_selected" approved="yes">
+        <source>Selected creator, creator group</source>
+        <target state="final">Valgte opretter, oprettergruppe</target>
+      </trans-unit>
+      <trans-unit id="l_event_title" resname="l_event_title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_startdate" resname="l_event_edit_startdate" approved="yes">
+        <source>Start date</source>
+        <target state="final">Startdato</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_enddate" resname="l_event_edit_enddate" approved="yes">
+        <source>End date</source>
+        <target state="final">Slutdato</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_starttime" resname="l_event_edit_starttime" approved="yes">
+        <source>Start time</source>
+        <target state="final">Starttid</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_endtime" resname="l_event_edit_endtime" approved="yes">
+        <source>End time</source>
+        <target state="final">Sluttid</target>
+      </trans-unit>
+      <trans-unit id="l_event_startdate" resname="l_event_startdate" approved="yes">
+        <source>Start date</source>
+        <target state="final">Startdato</target>
+      </trans-unit>
+      <trans-unit id="l_event_enddate" resname="l_event_enddate" approved="yes">
+        <source>End date</source>
+        <target state="final">Slutdato</target>
+      </trans-unit>
+      <trans-unit id="l_event_starttime" resname="l_event_starttime" approved="yes">
+        <source>Start time</source>
+        <target state="final">Starttid</target>
+      </trans-unit>
+      <trans-unit id="l_event_endtime" resname="l_event_endtime" approved="yes">
+        <source>End time</source>
+        <target state="final">Sluttid</target>
+      </trans-unit>
+      <trans-unit id="l_event_allday" resname="l_event_allday" approved="yes">
+        <source>Allday</source>
+        <target state="final">Hele dagen</target>
+      </trans-unit>
+      <trans-unit id="l_event_organizer" resname="l_event_organizer" approved="yes">
+        <source>Organizer</source>
+        <target state="final">Arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_event_location" resname="l_event_location" approved="yes">
+        <source>Location</source>
+        <target state="final">Sted</target>
+      </trans-unit>
+      <trans-unit id="l_event_teaser" resname="l_event_teaser" approved="yes">
+        <source>Teaser</source>
+        <target state="final">Koncentrat</target>
+      </trans-unit>
+      <trans-unit id="l_event_description" resname="l_event_description" approved="yes">
+        <source>Description</source>
+        <target state="final">Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="l_event_cal_organizer" resname="l_event_cal_organizer" approved="yes">
+        <source>Cal Organizer</source>
+        <target state="final">Cal arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_event_cal_location" resname="l_event_cal_location" approved="yes">
+        <source>Cal Location</source>
+        <target state="final">Cal sted</target>
+      </trans-unit>
+      <trans-unit id="l_event_frequency" resname="l_event_frequency" approved="yes">
+        <source>Frequency</source>
+        <target state="final">Frekvens</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_byday" resname="l_event_edit_byday" approved="yes">
+        <source>By Day</source>
+        <target state="final">Pr Dag</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_bymonthday" resname="l_event_edit_bymonthday" approved="yes">
+        <source>By Monthday (e.g.: 1,2,30 or all)</source>
+        <target state="final">Pr Månedsdag (etc.:1,2,30 eller alle)</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_bymonth" resname="l_event_edit_bymonth" approved="yes">
+        <source>By Month (e.g.: 1,2,3,4,12 or all)</source>
+        <target state="final">Pr Måned (etc.: 1,2,3,4,12 eller alle)</target>
+      </trans-unit>
+      <trans-unit id="l_event_edit_until" resname="l_event_edit_until" approved="yes">
+        <source>Until Date</source>
+        <target state="final">Indtil dato</target>
+      </trans-unit>
+      <trans-unit id="l_event_byday" resname="l_event_byday" approved="yes">
+        <source>By Day</source>
+        <target state="final">Pr dag</target>
+      </trans-unit>
+      <trans-unit id="l_event_bymonthday" resname="l_event_bymonthday" approved="yes">
+        <source>By Monthday</source>
+        <target state="final">Pr månedsdag</target>
+      </trans-unit>
+      <trans-unit id="l_event_bymonth" resname="l_event_bymonth" approved="yes">
+        <source>By Month</source>
+        <target state="final">Pr måned</target>
+      </trans-unit>
+      <trans-unit id="l_event_until" resname="l_event_until" approved="yes">
+        <source>Until Date</source>
+        <target state="final">Indtil dato</target>
+      </trans-unit>
+      <trans-unit id="l_event_count" resname="l_event_count" approved="yes">
+        <source>Count</source>
+        <target state="final">Tælling</target>
+      </trans-unit>
+      <trans-unit id="l_event_interval" resname="l_event_interval" approved="yes">
+        <source>Interval</source>
+        <target state="final">Interval</target>
+      </trans-unit>
+      <trans-unit id="l_event_exception" resname="l_event_exception" approved="yes">
+        <source>Exception</source>
+        <target state="final">Undtagelse</target>
+      </trans-unit>
+      <trans-unit id="l_event_exception_selected" resname="l_event_exception_selected" approved="yes">
+        <source>Selected exception</source>
+        <target state="final">Valgte undtagelse</target>
+      </trans-unit>
+      <trans-unit id="l_event_fe_cruser" resname="l_event_fe_cruser" approved="yes">
+        <source>Creator</source>
+        <target state="final">Opretter</target>
+      </trans-unit>
+      <trans-unit id="l_event_fe_crgroup" resname="l_event_fe_crgroup" approved="yes">
+        <source>Creator Group</source>
+        <target state="final">Oprettergruppe</target>
+      </trans-unit>
+      <trans-unit id="l_event_notify" resname="l_event_notify" approved="yes">
+        <source>Notify and remind</source>
+        <target state="final">Underret og påmind</target>
+      </trans-unit>
+      <trans-unit id="l_event_shared" resname="l_event_shared" approved="yes">
+        <source>Share with</source>
+        <target state="final">Del med</target>
+      </trans-unit>
+      <trans-unit id="l_event_icslink" resname="l_event_icslink" approved="yes">
+        <source>Get this event as *.ics calendar entry</source>
+        <target state="final">Få denne begivenhed som *.ics kalender</target>
+      </trans-unit>
+      <trans-unit id="l_event_image" resname="l_event_image" approved="yes">
+        <source>Image</source>
+        <target state="final">Billede</target>
+      </trans-unit>
+      <trans-unit id="l_event_image_caption" resname="l_event_image_caption" approved="yes">
+        <source>Caption</source>
+        <target state="final">Billedetekst</target>
+      </trans-unit>
+      <trans-unit id="l_event_image_title" resname="l_event_image_title" approved="yes">
+        <source>Title text</source>
+        <target state="final">Titeltekst</target>
+      </trans-unit>
+      <trans-unit id="l_event_image_alt" resname="l_event_image_alt" approved="yes">
+        <source>Alt text</source>
+        <target state="final">Alternativ tekst</target>
+      </trans-unit>
+      <trans-unit id="l_event_attachment" resname="l_event_attachment" approved="yes">
+        <source>Attachment</source>
+        <target state="final">Vedhæftning</target>
+      </trans-unit>
+      <trans-unit id="l_event_type" resname="l_event_type" approved="yes">
+        <source>Type</source>
+        <target state="final">Type</target>
+      </trans-unit>
+      <trans-unit id="l_event_type_0" resname="l_event_type_0" approved="yes">
+        <source>Event</source>
+        <target state="final">Begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_event_type_1" resname="l_event_type_1" approved="yes">
+        <source>Internal link</source>
+        <target state="final">Internt link</target>
+      </trans-unit>
+      <trans-unit id="l_event_type_2" resname="l_event_type_2" approved="yes">
+        <source>External link</source>
+        <target state="final">Eksternt link</target>
+      </trans-unit>
+      <trans-unit id="l_event_type_3" resname="l_event_type_3" approved="yes">
+        <source>Meeting</source>
+        <target state="final">Møde</target>
+      </trans-unit>
+      <trans-unit id="l_event_type_4" resname="l_event_type_4" approved="yes">
+        <source>Todo</source>
+        <target state="final">Todo</target>
+      </trans-unit>
+      <trans-unit id="l_event_attendee_0" resname="l_event_attendee_0" approved="yes">
+        <source>Status: Unknown</source>
+        <target state="final">Status: Ukendt</target>
+      </trans-unit>
+      <trans-unit id="l_event_attendee_CHAIR" resname="l_event_attendee_CHAIR" approved="yes">
+        <source>Status: Chairman</source>
+        <target state="final">Status: Formand</target>
+      </trans-unit>
+      <trans-unit id="l_event_attendee_OPT-PARTICIPANT" resname="l_event_attendee_OPT-PARTICIPANT" approved="yes">
+        <source>Status: Optional</source>
+        <target state="final">Status: Valgfri</target>
+      </trans-unit>
+      <trans-unit id="l_event_attendee_REQ-PARTICIPANT" resname="l_event_attendee_REQ-PARTICIPANT" approved="yes">
+        <source>Status: Required</source>
+        <target state="final">Status: Påkrævet</target>
+      </trans-unit>
+      <trans-unit id="l_event_exturl" resname="l_event_exturl" approved="yes">
+        <source>Link</source>
+        <target state="final">Link</target>
+      </trans-unit>
+      <trans-unit id="l_category_relatedevents" resname="l_category_relatedevents" approved="yes">
+        <source>Related event(s)</source>
+        <target state="final">Relateret begivenhed(er)</target>
+      </trans-unit>
+      <trans-unit id="l_todo_enddate" resname="l_todo_enddate" approved="yes">
+        <source>Due date</source>
+        <target state="final">Forfalden dato</target>
+      </trans-unit>
+      <trans-unit id="l_todo_endtime" resname="l_todo_endtime" approved="yes">
+        <source>Due time</source>
+        <target state="final">Forfalden tidspunkt</target>
+      </trans-unit>
+      <trans-unit id="l_todo_status" resname="l_todo_status" approved="yes">
+        <source>Status</source>
+        <target state="final">Status</target>
+      </trans-unit>
+      <trans-unit id="l_todo_priority" resname="l_todo_priority" approved="yes">
+        <source>Priority</source>
+        <target state="final">Prioritet</target>
+      </trans-unit>
+      <trans-unit id="l_todo_completed" resname="l_todo_completed" approved="yes">
+        <source>Completed</source>
+        <target state="final">Gennemført</target>
+      </trans-unit>
+      <trans-unit id="l_sendout_invitation" resname="l_sendout_invitation" approved="yes">
+        <source>Send out invitation</source>
+        <target state="final">Udsend invitation</target>
+      </trans-unit>
+      <trans-unit id="l_attendee_external" resname="l_attendee_external" approved="yes">
+        <source>Guests</source>
+        <target state="final">Gæster</target>
+      </trans-unit>
+      <trans-unit id="l_guest_info" resname="l_guest_info" approved="yes">
+        <source>Insert comma separated email addresses</source>
+        <target state="final">Indsæt komma separerede e-mail adresser</target>
+      </trans-unit>
+      <trans-unit id="l_availability" resname="l_availability" approved="yes">
+        <source>Check availability</source>
+        <target state="final">Tjek</target>
+      </trans-unit>
+      <trans-unit id="l_location_name" resname="l_location_name" approved="yes">
+        <source>Name</source>
+        <target state="final">Navn</target>
+      </trans-unit>
+      <trans-unit id="l_location_description" resname="l_location_description" approved="yes">
+        <source>Description</source>
+        <target state="final">Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="l_location_street" resname="l_location_street" approved="yes">
+        <source>Street</source>
+        <target state="final">Gade</target>
+      </trans-unit>
+      <trans-unit id="l_location_zip" resname="l_location_zip" approved="yes">
+        <source>Zip-code</source>
+        <target state="final">Postnummer</target>
+      </trans-unit>
+      <trans-unit id="l_location_city" resname="l_location_city" approved="yes">
+        <source>City</source>
+        <target state="final">By</target>
+      </trans-unit>
+      <trans-unit id="l_location_countryzone" resname="l_location_countryzone" approved="yes">
+        <source>State/Province</source>
+        <target state="final">Stat/Provins</target>
+      </trans-unit>
+      <trans-unit id="l_location_country" resname="l_location_country" approved="yes">
+        <source>Country</source>
+        <target state="final">Land</target>
+      </trans-unit>
+      <trans-unit id="l_location_phone" resname="l_location_phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">Telefon</target>
+      </trans-unit>
+      <trans-unit id="l_location_mobilephone" resname="l_location_mobilephone" approved="yes">
+        <source>Mobile Phone</source>
+        <target state="final">Mobiltelefon</target>
+      </trans-unit>
+      <trans-unit id="l_location_fax" resname="l_location_fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
+      </trans-unit>
+      <trans-unit id="l_location_email" resname="l_location_email" approved="yes">
+        <source>Email</source>
+        <target state="final">E-mail</target>
+      </trans-unit>
+      <trans-unit id="l_location_link" resname="l_location_link" approved="yes">
+        <source>Link</source>
+        <target state="final">Link</target>
+      </trans-unit>
+      <trans-unit id="l_location_image" resname="l_location_image" approved="yes">
+        <source>Image</source>
+        <target state="final">Billede</target>
+      </trans-unit>
+      <trans-unit id="l_location_relatedevents" resname="l_location_relatedevents" approved="yes">
+        <source>Related event(s)</source>
+        <target state="final">Relaterede begivenhed(er)</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_name" resname="l_organizer_name" approved="yes">
+        <source>Name</source>
+        <target state="final">Navn</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_description" resname="l_organizer_description" approved="yes">
+        <source>Description</source>
+        <target state="final">Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_street" resname="l_organizer_street" approved="yes">
+        <source>Street</source>
+        <target state="final">Gade</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_zip" resname="l_organizer_zip" approved="yes">
+        <source>Zip-code</source>
+        <target state="final">Postnummer</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_city" resname="l_organizer_city" approved="yes">
+        <source>City</source>
+        <target state="final">By</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_countryzone" resname="l_organizer_countryzone" approved="yes">
+        <source>State/Province</source>
+        <target state="final">Stat/Provins</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_country" resname="l_organizer_country" approved="yes">
+        <source>Country</source>
+        <target state="final">Land</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_phone" resname="l_organizer_phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">Telefon</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_mobilephone" resname="l_organizer_mobilephone" approved="yes">
+        <source>Mobile Phone</source>
+        <target state="final">Mobiltelefon</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_fax" resname="l_organizer_fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_email" resname="l_organizer_email" approved="yes">
+        <source>Email</source>
+        <target state="final">E-mail</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_link" resname="l_organizer_link" approved="yes">
+        <source>Link</source>
+        <target state="final">Link</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_image" resname="l_organizer_image" approved="yes">
+        <source>Image</source>
+        <target state="final">Billede</target>
+      </trans-unit>
+      <trans-unit id="l_organizer_relatedevents" resname="l_organizer_relatedevents" approved="yes">
+        <source>Related event(s)</source>
+        <target state="final">Relaterede begivenhed(er)</target>
+      </trans-unit>
+      <trans-unit id="l_select" resname="l_select" approved="yes">
+        <source>Please choose one</source>
+        <target state="final">Vælg venligst én</target>
+      </trans-unit>
+      <trans-unit id="l_none" resname="l_none" approved="yes">
+        <source>None</source>
+        <target state="final">Ingen</target>
+      </trans-unit>
+      <trans-unit id="l_hidden" resname="l_hidden" approved="yes">
+        <source>Hide</source>
+        <target state="final">Skjul</target>
+      </trans-unit>
+      <trans-unit id="l_cancel" resname="l_cancel" approved="yes">
+        <source>Cancel</source>
+        <target state="final">Fortryd</target>
+      </trans-unit>
+      <trans-unit id="l_save" resname="l_save" approved="yes">
+        <source>Save</source>
+        <target state="final">Gem</target>
+      </trans-unit>
+      <trans-unit id="l_true" resname="l_true" approved="yes">
+        <source>True</source>
+        <target state="final">Sandt</target>
+      </trans-unit>
+      <trans-unit id="l_false" resname="l_false" approved="yes">
+        <source>False</source>
+        <target state="final">Falsk</target>
+      </trans-unit>
+      <trans-unit id="l_more" resname="l_more" approved="yes">
+        <source>[more]</source>
+        <target state="final">[mere]</target>
+      </trans-unit>
+      <trans-unit id="l_event_more" resname="l_event_more" approved="yes">
+        <source>[more]</source>
+        <target state="final">[mere]</target>
+      </trans-unit>
+      <trans-unit id="l_all_category" resname="l_all_category" approved="yes">
+        <source>All</source>
+        <target state="final">Alle</target>
+      </trans-unit>
+      <trans-unit id="l_all_location" resname="l_all_location" approved="yes">
+        <source>All</source>
+        <target state="final">Alle</target>
+      </trans-unit>
+      <trans-unit id="l_all_organizer" resname="l_all_organizer" approved="yes">
+        <source>All</source>
+        <target state="final">Alle</target>
+      </trans-unit>
+      <trans-unit id="l_global" resname="l_global" approved="yes">
+        <source>Global</source>
+        <target state="final">Global</target>
+      </trans-unit>
+      <trans-unit id="l_edit_event" resname="l_edit_event" approved="yes">
+        <source>Edit event</source>
+        <target state="final">Rediger begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_create_event" resname="l_create_event" approved="yes">
+        <source>Create event</source>
+        <target state="final">Opret begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_new_event" resname="l_new_event" approved="yes">
+        <source>New event</source>
+        <target state="final">Ny begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_create_location" resname="l_create_location" approved="yes">
+        <source>Create location</source>
+        <target state="final">Opret sted</target>
+      </trans-unit>
+      <trans-unit id="l_create_organizer" resname="l_create_organizer" approved="yes">
+        <source>Create organizer</source>
+        <target state="final">Opret arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_create_category" resname="l_create_category" approved="yes">
+        <source>Create category</source>
+        <target state="final">Opret katagori</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_icslink" resname="l_calendar_icslink" approved="yes">
+        <source>Download *.ics file</source>
+        <target state="final">Hent *.ics fil</target>
+      </trans-unit>
+      <trans-unit id="l_edit_event_atleastone_category" resname="l_edit_event_atleastone_category" approved="yes">
+        <source>You have to select at least one category</source>
+        <target state="final">Du skal mindst vælge én katagori</target>
+      </trans-unit>
+      <trans-unit id="l_confirm_event" resname="l_confirm_event" approved="yes">
+        <source>Confirm event</source>
+        <target state="final">Godkend begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_confirm_location" resname="l_confirm_location" approved="yes">
+        <source>Confirm location</source>
+        <target state="final">Godkend sted</target>
+      </trans-unit>
+      <trans-unit id="l_confirm_organizer" resname="l_confirm_organizer" approved="yes">
+        <source>Confirm organizer</source>
+        <target state="final">Godkend arrangør</target>
+      </trans-unit>
+      <trans-unit id="l_enter_email" resname="l_enter_email" approved="yes">
+        <source>Enter email-address:</source>
+        <target state="final">Indtast emailadresse:</target>
+      </trans-unit>
+      <trans-unit id="l_captcha_text" resname="l_captcha_text" approved="yes">
+        <source>Please insert the text you see in the picture:</source>
+        <target state="final">Indtast venligst teksten du ser på billedet:</target>
+      </trans-unit>
+      <trans-unit id="l_delete_event" resname="l_delete_event" approved="yes">
+        <source>Delete Event</source>
+        <target state="final">Slet begivenhed</target>
+      </trans-unit>
+      <trans-unit id="l_event_has_been_delete" resname="l_event_has_been_delete" approved="yes">
+        <source>The event has been deleted</source>
+        <target state="final">Begivenheden er blevet slettet</target>
+      </trans-unit>
+      <trans-unit id="l_event_has_been_restored" resname="l_event_has_been_restored" approved="yes">
+        <source>The event has been restored</source>
+        <target state="final">Begivenheden er blevet genskabt</target>
+      </trans-unit>
+      <trans-unit id="l_event_has_been_hidden" resname="l_event_has_been_hidden" xml:space="preserve" approved="yes">
+				<source>The event has been hidden and will not be shown in
+				the frontend</source>
+			<target state="final">Begivenheden er blevet skjult og
+				vil ikke blive vist på hjemmesiden</target></trans-unit>
+      <trans-unit id="l_event_has_been_unhidden" resname="l_event_has_been_unhidden" xml:space="preserve" approved="yes">
+				<source>The previouisly hidden event has now been unhidden
+				and will be shown in the frontend</source>
+			<target state="final">Den tidligere skjulte begivenhed er nu
+				synliggjort, og vil nu blive vist på hjemmesiden</target></trans-unit>
+      <trans-unit id="l_wrong_split_symbol_msg" resname="l_wrong_split_symbol_msg" xml:space="preserve" approved="yes">
+				<source>Date split symbol is: \'###DATE_SPLIT_SYMBOL###\'
+				!\n</source>
+			<target state="final">Datosplit symbolet er: \'###DATE_SPLIT_SYMBOL###\'
+				!\n</target></trans-unit>
+      <trans-unit id="l_wrong_date" resname="l_wrong_date" approved="yes">
+        <source>Wrong date!</source>
+        <target state="final">Forkert dato!</target>
+      </trans-unit>
+      <trans-unit id="l_wrong_time" resname="l_wrong_time" approved="yes">
+        <source>Wrong time!</source>
+        <target state="final">Forkert tid!</target>
+      </trans-unit>
+      <trans-unit id="l_is_in_past" resname="l_is_in_past" approved="yes">
+        <source>is a past date!</source>
+        <target state="final">er en fortidig dato!</target>
+      </trans-unit>
+      <trans-unit id="l_page" resname="l_page" approved="yes">
+        <source>Page</source>
+        <target state="final">Side</target>
+      </trans-unit>
+      <trans-unit id="l_page_of" resname="l_page_of" approved="yes">
+        <source>Page %s of %s</source>
+        <target state="final">Side %s af %s</target>
+      </trans-unit>
+      <trans-unit id="l_search_found" resname="l_search_found" approved="yes">
+        <source>entries found</source>
+        <target state="final">resultater fundet</target>
+      </trans-unit>
+      <trans-unit id="l_monitor_start_thanks" resname="l_monitor_start_thanks" xml:space="preserve" approved="yes">
+				<source>Thank you. An email has been sent to you. Please
+				confirm the monitoring by clicking on the confirm link inside the
+				email.</source>
+			<target state="final">Tak. En email er blevet sendt til dig. Godkend
+				 venligst tilmeldingen om påmindelse og
+				 opdateringer ved at klikke på bekræftelseslinket i emailen.</target></trans-unit>
+      <trans-unit id="l_monitor_stop_thanks" resname="l_monitor_stop_thanks" xml:space="preserve" approved="yes">
+				<source>Thank you. An email has been sent to you. Please
+				confirm the monitoring stop by clicking on the confirm link inside
+				the email.</source>
+			<target state="final">Tak. En email er blevet sendt til dig. Godkend
+				venligst sletningen af din tilmelding om
+				påmindelse og opdateringer ved at klikke på bekræftelseslinket i e-mailen.</target></trans-unit>
+      <trans-unit id="l_monitor_wrong_captcha" resname="l_monitor_wrong_captcha" xml:space="preserve" approved="yes">
+				<source>Sorry, but you didn't type in the correct letters.
+				Please try again.</source>
+			<target state="final">Beklager, men du indtastede ikke de korrekte
+				bogstaver. Forsøg venligst igen.</target></trans-unit>
+      <trans-unit id="l_not_allowed_edit" resname="l_not_allowed_edit" approved="yes">
+        <source>You are not allowed to edit this </source>
+        <target state="final">Du har ikke ret til at redigere dette </target>
+      </trans-unit>
+      <trans-unit id="l_not_allowed_create" resname="l_not_allowed_create" approved="yes">
+        <source>You are not allowed to create a/an </source>
+        <target state="final">Du har ikke ret til at oprette en/et </target>
+      </trans-unit>
+      <trans-unit id="l_delete_image" resname="l_delete_image" approved="yes">
+        <source>Delete image</source>
+        <target state="final">Slet billede</target>
+      </trans-unit>
+      <trans-unit id="l_image_upload" resname="l_image_upload" approved="yes">
+        <source>Upload image</source>
+        <target state="final">Upload billede</target>
+      </trans-unit>
+      <trans-unit id="l_delete_attachment" resname="l_delete_attachment" approved="yes">
+        <source>Delete attachment</source>
+        <target state="final">Slet vedhæftning</target>
+      </trans-unit>
+      <trans-unit id="l_attachment_upload" resname="l_attachment_upload" approved="yes">
+        <source>Upload attachment</source>
+        <target state="final">Upload vedhæftning</target>
+      </trans-unit>
+      <trans-unit id="l_meeting_accept" resname="l_meeting_accept" approved="yes">
+        <source>Accept</source>
+        <target state="final">Accepter</target>
+      </trans-unit>
+      <trans-unit id="l_meeting_decline" resname="l_meeting_decline" approved="yes">
+        <source>Decline</source>
+        <target state="final">Afslå</target>
+      </trans-unit>
+      <trans-unit id="l_meeting_accepted" resname="l_meeting_accepted" xml:space="preserve" approved="yes">
+				<source>Your status for &quot;%s&quot; has been
+				successfully changed to &quot;ACCPETED&quot;.</source>
+			<target state="final">Din status for "%s" er blevet ændret til "ACCEPTERET".</target></trans-unit>
+      <trans-unit id="l_meeting_declined" resname="l_meeting_declined" xml:space="preserve" approved="yes">
+				<source>Your status for &quot;%s&quot; has been
+				successfully changed to &quot;DECLINED&quot;.</source>
+			<target state="final">Din status for "%s" er blevet ændret til "AFSLÅET".</target></trans-unit>
+      <trans-unit id="l_meeting_update_error" resname="l_meeting_update_error" xml:space="preserve" approved="yes">
+				<source>There were problems updating your participation
+				status to &quot;%s&quot;.</source>
+			<target state="final">Der var problemer med at opdatere
+				din deltagelsesstatus for "%s".</target></trans-unit>
+      <trans-unit id="l_meeting_error" resname="l_meeting_error" xml:space="preserve" approved="yes">
+				<source>If you see this message, you probably have
+				received an invitation to a meeting and you have clicked on the
+				accept or decline link. But maybe not all of the parameters made it
+				to the url? Please make sure all parameters are there.</source>
+			<target state="final">Hvis du ser denne meddelelse, har du sikkert
+				modtaget en invitation til et møde og
+				enten klikket på accepter- eller afslå-linket. Men måske
+				kom ikke alle parametrene med da du klikkede? 
+				Sørg venligst for at alle parametrene er med - f.eks. ved at kopiere hele linket om sætte det ind i din browser.</target></trans-unit>
+      <trans-unit id="l_meeting_changestatus" resname="l_meeting_changestatus" approved="yes">
+        <source> Change meeting status: </source>
+        <target state="final"> Ændre møde status: </target>
+      </trans-unit>
+      <trans-unit id="l_required" resname="l_required" approved="yes">
+        <source>(*) Required fields</source>
+        <target state="final">(*) Påkrævede felter</target>
+      </trans-unit>
+      <trans-unit id="l_constrain_start_before_end" resname="l_constrain_start_before_end" approved="yes">
+        <source>Start has to be before end</source>
+        <target state="final">Start skal være før slut</target>
+      </trans-unit>
+      <trans-unit id="l_constrain_end_after_start" resname="l_constrain_end_after_start" approved="yes">
+        <source>End has to be after start</source>
+        <target state="final">Slut skal være efter start</target>
+      </trans-unit>
+      <trans-unit id="l_event_date_time" resname="l_event_date_time" approved="yes">
+        <source>Date/Time</source>
+        <target state="final">Dato/tid</target>
+      </trans-unit>
+      <trans-unit id="l_event_recurrence" resname="l_event_recurrence" approved="yes">
+        <source>Recurrence</source>
+        <target state="final">Gentagelse</target>
+      </trans-unit>
+      <trans-unit id="l_event_files" resname="l_event_files" approved="yes">
+        <source>Files</source>
+        <target state="final">Filer</target>
+      </trans-unit>
+      <trans-unit id="l_event_other" resname="l_event_other" approved="yes">
+        <source>Other</source>
+        <target state="final">Andre</target>
+      </trans-unit>
+      <trans-unit id="l_options" resname="l_options" approved="yes">
+        <source>Options</source>
+        <target state="final">Valgmuligheder</target>
+      </trans-unit>
+      <trans-unit id="l_what" resname="l_what" approved="yes">
+        <source>What</source>
+        <target state="final">Hvad</target>
+      </trans-unit>
+      <trans-unit id="l_when" resname="l_when" approved="yes">
+        <source>When</source>
+        <target state="final">Hvornår</target>
+      </trans-unit>
+      <trans-unit id="l_to" resname="l_to" approved="yes">
+        <source>to</source>
+        <target state="final">til</target>
+      </trans-unit>
+      <trans-unit id="l_at" resname="l_at" approved="yes">
+        <source>at</source>
+        <target state="final">på</target>
+      </trans-unit>
+      <trans-unit id="l_where" resname="l_where" approved="yes">
+        <source>Where</source>
+        <target state="final">Hvor</target>
+      </trans-unit>
+      <trans-unit id="l_repeats" resname="l_repeats" approved="yes">
+        <source>Repeats</source>
+        <target state="final">Gentagelser</target>
+      </trans-unit>
+      <trans-unit id="l_repeat_by" resname="l_repeat_by" approved="yes">
+        <source>Repeats</source>
+        <target state="final">Gentagelser</target>
+      </trans-unit>
+      <trans-unit id="l_daily" resname="l_daily" approved="yes">
+        <source>Daily</source>
+        <target state="final">Dagligt</target>
+      </trans-unit>
+      <trans-unit id="l_weekly" resname="l_weekly" approved="yes">
+        <source>Weekly</source>
+        <target state="final">Ugenligt</target>
+      </trans-unit>
+      <trans-unit id="l_monthly" resname="l_monthly" approved="yes">
+        <source>Monthly</source>
+        <target state="final">Månedligt</target>
+      </trans-unit>
+      <trans-unit id="l_yearly" resname="l_yearly" approved="yes">
+        <source>Yearly</source>
+        <target state="final">Årligt</target>
+      </trans-unit>
+      <trans-unit id="l_every_weekday" resname="l_every_weekday" approved="yes">
+        <source>Every weekday (Mon-Fri)</source>
+        <target state="final">Alle ugedage (man-fre)</target>
+      </trans-unit>
+      <trans-unit id="l_every_mo_we_fr" resname="l_every_mo_we_fr" approved="yes">
+        <source>Every Mon., Wed., and Fri.</source>
+        <target state="final">Alle mandage, onsdage og fredage.</target>
+      </trans-unit>
+      <trans-unit id="l_every_tu_th" resname="l_every_tu_th" approved="yes">
+        <source>Every Tues., and Thurs.</source>
+        <target state="final">Alle Tirsdage og Torsdage.</target>
+      </trans-unit>
+      <trans-unit id="l_weekday" resname="l_weekday" approved="yes">
+        <source>Weekday</source>
+        <target state="final">Ugedag</target>
+      </trans-unit>
+      <trans-unit id="l_until" resname="l_until" approved="yes">
+        <source>Until</source>
+        <target state="final">Indtil</target>
+      </trans-unit>
+      <trans-unit id="l_interval" resname="l_interval" approved="yes">
+        <source>Repeat every</source>
+        <target state="final">Gentag hver</target>
+      </trans-unit>
+      <trans-unit id="l_rdate_type" resname="l_rdate_type" approved="yes">
+        <source>Repeats per</source>
+        <target state="final">Gentager pr</target>
+      </trans-unit>
+      <trans-unit id="l_event_rdate" resname="l_event_rdate" approved="yes">
+        <source>on</source>
+        <target state="final">på</target>
+      </trans-unit>
+      <trans-unit id="l_ends" resname="l_ends" approved="yes">
+        <source>Ends</source>
+        <target state="final">Slutter</target>
+      </trans-unit>
+      <trans-unit id="l_never" resname="l_never" approved="yes">
+        <source>Never</source>
+        <target state="final">Aldrig</target>
+      </trans-unit>
+      <trans-unit id="l_date_time" resname="l_date_time" approved="yes">
+        <source>Date time</source>
+        <target state="final">Datotid</target>
+      </trans-unit>
+      <trans-unit id="l_period" resname="l_period" approved="yes">
+        <source>Period</source>
+        <target state="final">Periode</target>
+      </trans-unit>
+      <trans-unit id="l_duration" resname="l_duration" approved="yes">
+        <source>Duration</source>
+        <target state="final">Varighed</target>
+      </trans-unit>
+      <trans-unit id="l_no_action" resname="l_no_action" approved="yes">
+        <source>No action</source>
+        <target state="final">Ingen handling</target>
+      </trans-unit>
+      <trans-unit id="l_needs_action" resname="l_needs_action" approved="yes">
+        <source>Needs action</source>
+        <target state="final">Handling krævet</target>
+      </trans-unit>
+      <trans-unit id="l_in_progress" resname="l_in_progress" approved="yes">
+        <source>In progress</source>
+        <target state="final">I gang</target>
+      </trans-unit>
+      <trans-unit id="l_cancelled" resname="l_cancelled" approved="yes">
+        <source>Cancelled</source>
+        <target state="final">Annulleret</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_week" resname="l_calendar_week" approved="yes">
+        <source>calendar week</source>
+        <target state="final">kalender uge</target>
+      </trans-unit>
+      <trans-unit id="l_remind" resname="l_remind" approved="yes">
+        <source>Here's a reminder...</source>
+        <target state="final">Her er en påmindelse...</target>
+      </trans-unit>
+      <trans-unit id="l_remind_minutes_1" resname="l_remind_minutes_1" approved="yes">
+        <source>&lt;span&gt; -&gt; And remind </source>
+        <target state="final">&lt;span&gt; -&gt; Og påmind </target>
+      </trans-unit>
+      <trans-unit id="l_remind_minutes_2" resname="l_remind_minutes_2" approved="yes">
+        <source> minutes before start&lt;/span&gt;</source>
+        <target state="final">minutter før start&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit id="l_calendar_subscription" resname="l_calendar_subscription" approved="yes">
+        <source>Manage calendar subscription</source>
+        <target state="final">Håndter kalender abonnenter</target>
+      </trans-unit>
+      <trans-unit id="l_color" resname="l_color" approved="yes">
+        <source>Color</source>
+        <target state="final">Farve</target>
+      </trans-unit>
+      <trans-unit id="l_public_calendar" resname="l_public_calendar" approved="yes">
+        <source>Public calendar</source>
+        <target state="final">Offentlig kalender</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

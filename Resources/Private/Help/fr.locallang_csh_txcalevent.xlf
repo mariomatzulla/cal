@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:25:01Z" product-name="cal" target-language="fr">
+    <header/>
+    <body>
+      <trans-unit id=".description" resname=".description" approved="yes">
+        <source>Event for the Calendar Base extension.</source>
+        <target state="final">Evènement pour l'extension CAL de TYPO3</target>
+      </trans-unit>
+      <trans-unit id=".details" resname=".details" xml:space="preserve" approved="yes">
+				<source>Create events to be displayed on the calendar.
+				Events have a description, location, organizer, and many other
+				fields. Events can occur over a specific time period, last an entire
+				day, or recur at a specified interval.</source>
+			<target state="final">Create events to be displayed on the calendar. Events have a description, location, organizer, and many other fields. Events can occur over a specific time period, last an entire day, or recur at a specified interval.</target></trans-unit>
+      <trans-unit id="hidden.description" resname="hidden.description" xml:space="preserve" approved="yes">
+				<source>Disables the event so that it is not visible in
+				the frontend.</source>
+			<target state="final">Disables the event so that it is not visible in the frontend.</target></trans-unit>
+      <trans-unit id="_hidden.seeAlso" resname="_hidden.seeAlso">
+        <source>tx_cal_event:endtime, tx_cal_event:starttime</source>
+        <target state="needs-translation">tx_cal_event:endtime, tx_cal_event:starttime</target>
+      </trans-unit>
+      <trans-unit id="starttime.description" resname="starttime.description" xml:space="preserve" approved="yes">
+				<source>Sets a date at which the event will be visible in
+				the frontend.</source>
+			<target state="final">Sets a date at which the event will be visible in the frontend.</target></trans-unit>
+      <trans-unit id="starttime.details" resname="starttime.details" xml:space="preserve" approved="yes">
+				<source>This field has nothing to do with the actual start
+				time of the event and is only used to determine at what time the
+				event should be made visible.</source>
+			<target state="final">This field has nothing to do with the actual start time of the event and is only used to determine at what time the event should be made visible.</target></trans-unit>
+      <trans-unit id="_starttime.seeAlso" resname="_starttime.seeAlso">
+        <source>tx_cal_event:endtime, tx_cal_event:hidden</source>
+        <target state="needs-translation">tx_cal_event:endtime, tx_cal_event:hidden</target>
+      </trans-unit>
+      <trans-unit id="endtime.description" resname="endtime.description" xml:space="preserve" approved="yes">
+				<source>Sets a date at which the category will no longer
+				be visible in the frontend.</source>
+			<target state="final">Sets a date at which the category will no longer be visible in the frontend.</target></trans-unit>
+      <trans-unit id="endtime.details" resname="endtime.details" xml:space="preserve" approved="yes">
+				<source>This field has nothing to do with the actual end
+				time of the event and is only used to determine at what time the
+				event should be hidden.</source>
+			<target state="final">This field has nothing to do with the actual end time of the event and is only used to determine at what time the event should be hidden.</target></trans-unit>
+      <trans-unit id="_endtime.seeAlso" resname="_endtime.seeAlso">
+        <source>tx_cal_event:starttime, tx_cal_event:hidden</source>
+        <target state="needs-translation">tx_cal_event:starttime, tx_cal_event:hidden</target>
+      </trans-unit>
+      <trans-unit id="start_date.description" resname="start_date.description" approved="yes">
+        <source>Date the event starts.</source>
+        <target state="final">Date à laquelle l'évènement commence.</target>
+      </trans-unit>
+      <trans-unit id="start_date.details" resname="start_date.details" xml:space="preserve" approved="yes">
+				<source>For recurring events, this field should be the
+				start date for the first instance of the recurring event.</source>
+			<target state="final">For recurring events, this field should be the start date for the first instance of the recurring event.</target></trans-unit>
+      <trans-unit id="end_date.description" resname="end_date.description" approved="yes">
+        <source>Date the event ends.</source>
+        <target state="final">Date à laquelle l'évènement se termine.</target>
+      </trans-unit>
+      <trans-unit id="end_date.details" resname="end_date.details" xml:space="preserve" approved="yes">
+				<source>For recurring events, this field should be the end
+				date for the first instance of the recurring event, not the last day
+				that the event recurs on.</source>
+			<target state="final">For recurring events, this field should be the end date for the first instance of the recurring event, not the last day that the event recurs on.</target></trans-unit>
+      <trans-unit id="start_time.description" resname="start_time.description" approved="yes">
+        <source>Time the event starts.</source>
+        <target state="final">Heure à laquelle l'évènement commence.</target>
+      </trans-unit>
+      <trans-unit id="start_time.details" resname="start_time.details" xml:space="preserve" approved="yes">
+				<source>For recurring events, this field should be the
+				start time for the first instance of the recurring event.</source>
+			<target state="final">For recurring events, this field should be the start time for the first instance of the recurring event.</target></trans-unit>
+      <trans-unit id="end_time.description" resname="end_time.description" approved="yes">
+        <source>Time the event ends.</source>
+        <target state="final">Heure à laquelle l'évènement se termine.</target>
+      </trans-unit>
+      <trans-unit id="end_time.details" resname="end_time.details" xml:space="preserve" approved="yes">
+				<source>For recurring events, this field should be the end
+				time for the first instance of the recurring event.</source>
+			<target state="final">For recurring events, this field should be the end time for the first instance of the recurring event.</target></trans-unit>
+      <trans-unit id="title.description" resname="title.description" approved="yes">
+        <source>Title of the event.</source>
+        <target state="final">Titre de l'évènement.</target>
+      </trans-unit>
+      <trans-unit id="calendar_id.description" resname="calendar_id.description" approved="yes">
+        <source>Calendar that the event belongs to.</source>
+        <target state="final">Evènement lié à ce calendrier.</target>
+      </trans-unit>
+      <trans-unit id="calendar_id.details" resname="calendar_id.details" xml:space="preserve" approved="yes">
+				<source>If you have created multiple Calendar records, you
+				can choose which one you want to associate the event with. The
+				options you've set for the Calendar record will determine which
+				Frontend users will have access to this event.</source>
+			<target state="final">If you have created multiple Calendar records, you can choose which one you want to associate the event with. The options you've set for the Calendar record will determine which Frontend users will have access to this event.</target></trans-unit>
+      <trans-unit id="category_id.description" resname="category_id.description">
+        <source>Category that the event belongs to.</source>
+        <target state="needs-translation">Category that the event belongs to.</target>
+      </trans-unit>
+      <trans-unit id="category_id.details" resname="category_id.details" xml:space="preserve" approved="yes">
+				<source>Choose which Categories, if any, you would like to
+				associate the Event record with. The options you've set for the
+				Category and its associated Calendar record will determine which
+				Frontend users will have access to this event.</source>
+			<target state="final">Choose which Categories, if any, you would like to associate the Event record with. The options you've set for the Category and its associated Calendar record will determine which Frontend users will have access to this event.</target></trans-unit>
+      <trans-unit id="organizer.description" resname="organizer.description" approved="yes">
+        <source>Organizer of the event.</source>
+        <target state="final">Organisateur de l'évènement.</target>
+      </trans-unit>
+      <trans-unit id="organizer.details" resname="organizer.details" xml:space="preserve" approved="yes">
+				<source>This is the title of the organizer that will be
+				displayed if you do not choose an organizer record.</source>
+			<target state="final">This is the title of the organizer that will be displayed if you do not choose an organizer record.</target></trans-unit>
+      <trans-unit id="organizer_id.description" resname="organizer_id.description">
+        <source>Record for the organizer of the event.</source>
+        <target state="needs-translation">Record for the organizer of the event.</target>
+      </trans-unit>
+      <trans-unit id="organizer_pid.description" resname="organizer_pid.description" approved="yes">
+        <source>TYPO3 page with organizer information.</source>
+        <target state="final">Page TYPO3 avec l'information sur l'organisateur.</target>
+      </trans-unit>
+      <trans-unit id="organizer_pid.details" resname="organizer_pid.details" xml:space="preserve" approved="yes">
+				<source>If you have a page with more information about the
+				organizer, you can link to it here. This link will override the Cal
+				organizer field and create a link from the organizer field.</source>
+			<target state="final">If you have a page with more information about the organizer, you can link to it here. This link will override the Cal organizer field and create a link from the organizer field.</target></trans-unit>
+      <trans-unit id="organizer_link.description" resname="organizer_link.description" approved="yes">
+        <source>URL with organizer information</source>
+        <target state="final">URL avec l'information sur l'organisateur</target>
+      </trans-unit>
+      <trans-unit id="organizer_link.details" resname="organizer_link.details" xml:space="preserve" approved="yes">
+				<source>If you have an external URL with more information
+				about the organizer, you can link to it here. This link will
+				override the Cal organizer field and create a link from the
+				organizer field.</source>
+			<target state="final">If you have an external URL with more information about the organizer, you can link to it here. This link will override the Cal organizer field and create a link from the organizer field.</target></trans-unit>
+      <trans-unit id="location.description" resname="location.description" approved="yes">
+        <source>Location of the event.</source>
+        <target state="final">Emplacement de l'évènement.</target>
+      </trans-unit>
+      <trans-unit id="location.details" resname="location.details" xml:space="preserve" approved="yes">
+				<source>This is the title of the location that will be
+				displayed if you do not choose a location record.</source>
+			<target state="final">This is the title of the location that will be displayed if you do not choose a location record.</target></trans-unit>
+      <trans-unit id="location_id.description" resname="location_id.description">
+        <source>Record for the location of the event.</source>
+        <target state="needs-translation">Record for the location of the event.</target>
+      </trans-unit>
+      <trans-unit id="location_pid.description" resname="location_pid.description" approved="yes">
+        <source>TYPO3 page with location information.</source>
+        <target state="final">Page TYPO3 avec les informations d'emplacement.</target>
+      </trans-unit>
+      <trans-unit id="location_pid.details" resname="location_pid.details" xml:space="preserve" approved="yes">
+				<source>If you have a page that has a map, directions, or
+				other information on it about the location, you can link to it here.
+				This link will override the Cal Location field and create a link
+				from the Location field.</source>
+			<target state="final">If you have a page that has a map, directions, or other information on it about the location, you can link to it here. This link will override the Cal Location field and create a link from the Location field.</target></trans-unit>
+      <trans-unit id="location_link.description" resname="location_link.description">
+        <source>URL with location information</source>
+        <target state="needs-translation">URL with location information</target>
+      </trans-unit>
+      <trans-unit id="location_link.details" resname="location_link.details" xml:space="preserve" approved="yes">
+				<source>If you have an external URL that has a map,
+				directions, or other information on it about the location, you can
+				link to it here. This link will override the Cal Location field and
+				create a link from the Location field.</source>
+			<target state="final">If you have an external URL that has a map, directions, or other information on it about the location, you can link to it here. This link will override the Cal Location field and create a link from the Location field.</target></trans-unit>
+      <trans-unit id="teaser.description" resname="teaser.description" xml:space="preserve" approved="yes">
+				<source>A shortened or plain text version of the event's
+				description.</source>
+			<target state="final">A shortened or plain text version of the event's description.</target></trans-unit>
+      <trans-unit id="description.description" resname="description.description">
+        <source>Description of the event.</source>
+        <target state="needs-translation">Description of the event.</target>
+      </trans-unit>
+      <trans-unit id="freq.description" resname="freq.description">
+        <source>Frequency at which the event occurs.</source>
+        <target state="needs-translation">Frequency at which the event occurs.</target>
+      </trans-unit>
+      <trans-unit id="until.description" resname="until.description">
+        <source>Date the recurrence should end.</source>
+        <target state="needs-translation">Date the recurrence should end.</target>
+      </trans-unit>
+      <trans-unit id="_until.seeAlso" resname="_until.seeAlso">
+        <source>tx_cal_event:cnt</source>
+        <target state="needs-translation">tx_cal_event:cnt</target>
+      </trans-unit>
+      <trans-unit id="cnt.description" resname="cnt.description" xml:space="preserve" approved="yes">
+				<source>Number of times the event should recur before
+				stopping. Note: the actual event is the first occurence.</source>
+			<target state="final">Number of times the event should recur before stopping. Note: the actual event is the first occurence.</target></trans-unit>
+      <trans-unit id="_cnt.seeAlso" resname="_cnt.seeAlso">
+        <source>tx_cal_event:until</source>
+        <target state="needs-translation">tx_cal_event:until</target>
+      </trans-unit>
+      <trans-unit id="byday.description" resname="byday.description" approved="yes">
+        <source>Defines the interval by day of the week.</source>
+        <target state="final">Définit l'intervalle par jour de la semaine.</target>
+      </trans-unit>
+      <trans-unit id="bymonthday.description" resname="bymonthday.description" xml:space="preserve" approved="yes">
+				<source>Defines the interval by day of the month (e.g.
+				20th)</source>
+			<target state="final">Définit l'intervalle par jour du mois (exemple : 20ème)</target></trans-unit>
+      <trans-unit id="bymonth.description" resname="bymonth.description" approved="yes">
+        <source>Defines the interval by month.</source>
+        <target state="final">Définit l'intervalle par mois.</target>
+      </trans-unit>
+      <trans-unit id="intrval.description" resname="intrval.description" approved="yes">
+        <source>Defines the interval at which the event recurs.</source>
+        <target state="final">Définit l'intervalle à chaque fois que l'évènement se produit.</target>
+      </trans-unit>
+      <trans-unit id="intrval.details" resname="intrval.details" xml:space="preserve" approved="yes">
+				<source>An interval of 2 with a frequency of weekly would
+				create an event that recurs every other week.</source>
+			<target state="final">An interval of 2 with a frequency of weekly would create an event that recurs every other week.</target></trans-unit>
+      <trans-unit id="rdate_type.description" resname="rdate_type.description" xml:space="preserve" approved="yes">
+				<source>List of specific recurrence dates in addition to
+				the regular frequency recurrences.</source>
+			<target state="final">List of specific recurrence dates in addition to the regular frequency recurrences.</target></trans-unit>
+      <trans-unit id="rdate_type.details" resname="rdate_type.details" xml:space="preserve" approved="yes">
+				<source>Recurrences can be specified by date, date/time,
+				or an overall period that changes both the start time and the
+				duration of the event.</source>
+			<target state="final">Recurrences can be specified by date, date/time, or an overall period that changes both the start time and the duration of the event.</target></trans-unit>
+      <trans-unit id="monitor_cnt.description" resname="monitor_cnt.description" xml:space="preserve" approved="yes">
+				<source>Frontend users and unregisterd users who are
+				monitoring any changes in this event.</source>
+			<target state="final">Frontend users and unregisterd users who are monitoring any changes in this event.</target></trans-unit>
+      <trans-unit id="monitor_cnt.details" resname="monitor_cnt.details" xml:space="preserve" approved="yes">
+				<source>Users listed here will receive email notifications
+				about event creation, modification, or delete.</source>
+			<target state="final">Users listed here will receive email notifications about event creation, modification, or delete.</target></trans-unit>
+      <trans-unit id="exception_cnt.description" resname="exception_cnt.description" xml:space="preserve" approved="yes">
+				<source>Exceptions to describe when this event should not
+				occur.</source>
+			<target state="final">Exceptions to describe when this event should not occur.</target></trans-unit>
+      <trans-unit id="exception_cnt.details" resname="exception_cnt.details" xml:space="preserve" approved="yes">
+				<source>Exception Events are generally used in conjunction
+				with Recurring Events. Exception Events are days on which you don't
+				want a recurring event scheduled. For instance, skipping a weekly
+				meeting Christmas day.</source>
+			<target state="final">Exception Events are generally used in conjunction with Recurring Events. Exception Events are days on which you don't want a recurring event scheduled. For instance, skipping a weekly meeting Christmas day.</target></trans-unit>
+      <trans-unit id="fe_cruser_id.description" resname="fe_cruser_id.description">
+        <source>Frontend user who created the event.</source>
+        <target state="needs-translation">Frontend user who created the event.</target>
+      </trans-unit>
+      <trans-unit id="fe_crgroup_id.description" resname="fe_crgroup_id.description">
+        <source>Frontend group who created the event.</source>
+        <target state="needs-translation">Frontend group who created the event.</target>
+      </trans-unit>
+      <trans-unit id="type.description" resname="type.description" approved="yes">
+        <source>Type of the event.</source>
+        <target state="final">Type de l'évènement</target>
+      </trans-unit>
+      <trans-unit id="type.details" resname="type.details" xml:space="preserve" approved="yes">
+				<source>The default is Event with Description. You can
+				also select Shortcut to Page or Link to External URL to direct to
+				another page when they click on the Event link in the calendar.</source>
+			<target state="final">The default is Event with Description. You can also select Shortcut to Page or Link to External URL to direct to another page when they click on the Event link in the calendar.</target></trans-unit>
+      <trans-unit id="page.description" resname="page.description">
+        <source>Internal page on your site to link to.</source>
+        <target state="needs-translation">Internal page on your site to link to.</target>
+      </trans-unit>
+      <trans-unit id="ext_url.description" resname="ext_url.description">
+        <source>External url to link to.</source>
+        <target state="needs-translation">External url to link to.</target>
+      </trans-unit>
+      <trans-unit id="isTemp.description" resname="isTemp.description">
+        <source>IsTemp</source>
+        <target state="needs-translation">IsTemp</target>
+      </trans-unit>
+      <trans-unit id="image.description" resname="image.description">
+        <source>Upload or select previously uploaded images.</source>
+        <target state="needs-translation">Upload or select previously uploaded images.</target>
+      </trans-unit>
+      <trans-unit id="imagealttext.description" resname="imagealttext.description" xml:space="preserve" approved="yes">
+				<source>Alternate text shown if images are not found or
+				not supported.</source>
+			<target state="final">Alternate text shown if images are not found or not supported.</target></trans-unit>
+      <trans-unit id="imagealttext.details" resname="imagealttext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, alt text entries must
+				be listed on separate lines.</source>
+			<target state="final">If you have multiple images, alt text entries must be listed on separate lines.</target></trans-unit>
+      <trans-unit id="imagetitletext.description" resname="imagetitletext.description">
+        <source>Tooltip or hover text.</source>
+        <target state="needs-translation">Tooltip or hover text.</target>
+      </trans-unit>
+      <trans-unit id="imagetitletext.details" resname="imagetitletext.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, title text entries
+				must be listed on separate lines.</source>
+			<target state="final">If you have multiple images, title text entries must be listed on separate lines.</target></trans-unit>
+      <trans-unit id="imagecaption.description" resname="imagecaption.description">
+        <source>Adds a caption beneath each image.</source>
+        <target state="needs-translation">Adds a caption beneath each image.</target>
+      </trans-unit>
+      <trans-unit id="imagecaption.details" resname="imagecaption.details" xml:space="preserve" approved="yes">
+				<source>If you have multiple images, captions must be
+				listed on separate lines.</source>
+			<target state="final">If you have multiple images, captions must be listed on separate lines.</target></trans-unit>
+      <trans-unit id="attachment.description" resname="attachment.description" xml:space="preserve" approved="yes">
+				<source>If you want to add a downloadable file, you may
+				upload a file or select a previously uploaded file.</source>
+			<target state="final">If you want to add a downloadable file, you may upload a file or select a previously uploaded file.</target></trans-unit>
+      <trans-unit id="attachmentcaption.description" resname="attachmentcaption.description">
+        <source>Adds a caption beneath the files.</source>
+        <target state="needs-translation">Adds a caption beneath the files.</target>
+      </trans-unit>
+      <trans-unit id="shared_user_cnt.description" resname="shared_user_cnt.description" xml:space="preserve" approved="yes">
+				<source>Frontend users and groups who are allowed to edit
+				this event (in addition to the owner).</source>
+			<target state="final">Frontend users and groups who are allowed to edit this event (in addition to the owner).</target></trans-unit>
+      <trans-unit id="shared_user_cnt.details" resname="shared_user_cnt.details" xml:space="preserve" approved="yes">
+				<source>This option can be viewed and edited in the
+				backend, but the shared user only has access through frontend
+				editing.</source>
+			<target state="final">This option can be viewed and edited in the backend, but the shared user only has access through frontend editing.</target></trans-unit>
+      <trans-unit id="attendee.description" resname="attendee.description" xml:space="preserve" approved="yes">
+				<source>Current event attendees and their reservation
+				status.</source>
+			<target state="final">Current event attendees and their reservation status.</target></trans-unit>
+      <trans-unit id="send_invitation.description" resname="send_invitation.description" xml:space="preserve" approved="yes">
+				<source>Check this to send out event invitations to all
+				attendees.</source>
+			<target state="final">Check this to send out event invitations to all attendees.</target></trans-unit>
+    </body>
+  </file>
+</xliff>
