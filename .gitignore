@@ -1,1 +1,19 @@
+# Composer / local test instance
+/.Build/
+/composer.lock
+
+# Tools
+/.php-cs-fixer.cache
+/.phpstan.cache/
+
+# IDE / OS
 /.project
+/.buildpath
+/.settings/
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+
+# Local notes
+/REVIEW_TYPO3_14.md

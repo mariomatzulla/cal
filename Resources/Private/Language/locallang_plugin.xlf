@@ -1,15 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="messages" date="2022-06-29T05:35:25Z" product-name="cal">
-		<header/>
-		<body>
-			<trans-unit id="pi1_title" resname="pi1_title" >
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2025-01-16T11:47:18Z" product-name="cal">
+        <header/>
+        <body>
+			<trans-unit id="pi1_title" xml:space="preserve" >
 				<source>Calendar</source>
 			</trans-unit>
-			<trans-unit id="pi1_plus_wiz_description" resname="pi1_plus_wiz_description" xml:space="preserve">
+			<trans-unit id="plugin.cal_views.title" xml:space="preserve" >
+				<source>Calendar Plugin</source>
+			</trans-unit>
+			<trans-unit id="plugin.cal_views.description" xml:space="preserve">
 				<source>A Calendar designed to fit the needs of a
 				community, FE and BE entries</source>
 			</trans-unit>
+			
+			
+			
 			<trans-unit id="extmng.useInternalCaching" resname="extmng.useInternalCaching" xml:space="preserve">
 				<source>Internal caching: If enabled cal caches some
 				processing intensive information (archive period count,

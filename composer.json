@@ -1,0 +1,75 @@
+{
+	"name": "mariomatzulla/cal",
+	"description": "A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard and ships a CalDAV server.",
+	"type": "typo3-cms-extension",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Mario Matzulla",
+			"email": "mario@matzullas.de",
+			"homepage": "https://www.matzullas.de/",
+			"role": "Developer"
+		},
+		{
+			"name": "Jan Helke",
+			"email": "cal@typo3.helke.de",
+			"homepage": "https://helke.de",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": "^8.2",
+		"typo3/cms-backend": "^14.0",
+		"typo3/cms-core": "^14.0",
+		"typo3/cms-extbase": "^14.0",
+		"typo3/cms-fluid": "^14.0",
+		"typo3/cms-frontend": "^14.0",
+		"sabre/dav": "^4.6",
+		"sabre/vobject": "^4.5"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.64",
+		"phpstan/phpstan": "^2.1",
+		"ssch/typo3-rector": "^3.0",
+		"typo3/coding-standards": "^0.8",
+		"typo3/testing-framework": "^9.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"MarioMatzulla\\Cal\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"MarioMatzulla\\Cal\\Tests\\": "Tests/"
+		}
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin",
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"sort-packages": true
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "cal",
+			"web-dir": ".Build/public"
+		}
+	},
+	"scripts": {
+		"cs:check": "php-cs-fixer fix --dry-run --diff",
+		"cs:fix": "php-cs-fixer fix",
+		"stan": "phpstan analyse"
+	},
+	"support": {
+		"email": "mario@matzullas.de",
+		"issues": "https://github.com/mariomatzulla/cal/issues",
+		"source": "https://github.com/mariomatzulla/cal"
+	},
+	"suggest": {
+		"typo3/cms-scheduler": "Regular import of external calendars"
+	}
+}

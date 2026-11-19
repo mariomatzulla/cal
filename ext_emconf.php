@@ -1,42 +1,23 @@
 <?php
 
-/**
- * *************************************************************
- * Extension Manager/Repository config file for ext "cal".
- *
- * Auto generated 01-05-2013 10:23
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- * *************************************************************
- */
-if(!isset($_EXTKEY)) {
-  $_EXTKEY = 'cal';
-}
-$EM_CONF [$_EXTKEY] = array (
-    
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Calendar Base',
-    'description' => 'A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard',
+    'description' => 'A calendar combining all the functions of the existing calendar extensions plus adding some new features. It is based on the ical standard and ships a CalDAV server.',
     'category' => 'plugin',
-    'shy' => 0,
-    'version' => '1.12.0-dev',
-    'loadOrder' => '',
-    'state' => 'stable',
-    'uploadfolder' => 0,
-    'createDirs' => 'uploads/tx_cal/pics,uploads/tx_cal/ics,uploads/tx_cal/media',
-    'clearCacheOnLoad' => 0,
-    'author' => 'Mario Matzulla, Jeff Segars, Franz Koch, Thomas Kowtsch',
-    'author_email' => 'mario@matzullas.de, jeff@webempoweredchurch.org, franz.koch@elements-net.de, typo3@thomas-kowtsch.de',
-    'author_company' => '',
-    'constraints' => array (
-        
-        'depends' => array (
-            
-            'typo3' => '11.5.1-',
-            'typo3db_legacy' => '1.1.5-'
-        )
-    )
-);
-
-?>
+    'version' => '4.0.0',
+    'state' => 'beta',
+    'author' => 'Jan Helke, Mario Matzulla',
+    'author_email' => 'cal@typo3.helke.de, mario@matzullas.de',
+    'constraints' => [
+        'depends' => [
+            'php' => '8.2.0-8.5.99',
+            'typo3' => '14.0.0-14.3.99',
+        ],
+        'conflicts' => [
+            'caldav' => '',
+        ],
+        'suggests' => [
+            'scheduler' => '14.0.0-14.3.99',
+        ],
+    ],
+];

@@ -1,0 +1,22 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Link to the enlarged image, opened in a lightbox.
+  The markup works with all lightbox scripts of EXT:ns_all_lightbox (Lightbox2, Fancybox,
+  Darkbox, Swipebox, Featherlight) - only the attributes of the active one are used.
+  Without a lightbox script the link simply opens the image.
+
+  Arguments: image (FileReference), group (images opened together), title, content (thumbnail)
+</f:comment>
+<f:variable name="url" value="{f:uri.image(image: image, maxWidth: settings.view.lightbox.maxWidth, maxHeight: settings.view.lightbox.maxHeight)}" />
+<a href="{url}"
+   class="cal-lightbox fancybox swipebox gallery"
+   rel="lightbox[{group}]"
+   data-lightbox="{group}"
+   data-title="{title}"
+   title="{title}"
+   data-fancybox-group="{group}"
+   data-darkbox="{url}"
+   data-darkbox-group="{group}"
+   data-darkbox-description="{title}"
+   data-featherlight="{url}">{content -> f:format.raw()}</a>
+</html>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_db.xlf" product-name="cal">
+		<header/>
+		<body>
+			<trans-unit id="tx_cal_event.isTemp" resname="tx_cal_event.isTemp" approved="yes">
+				<source>Imported from external calendar (temp)</source>
+				<target>Aus externem Kalender importiert (temp)</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp.description" resname="tx_cal_event.isTemp.description" approved="yes">
+				<source>This event is managed by the external calendar import and is replaced on the next import.</source>
+				<target>Dieser Termin wird vom Import des externen Kalenders verwaltet und beim nächsten Import ersetzt.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp.info" resname="tx_cal_event.isTemp.info" approved="yes">
+				<source>This event was imported from an external calendar and cannot be changed. Change it in the external calendar instead.</source>
+				<target>Dieser Termin wurde aus einem externen Kalender importiert und kann nicht geändert werden. Bitte im externen Kalender ändern.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp.locked" resname="tx_cal_event.isTemp.locked" approved="yes">
+				<source>Imported events of external calendars cannot be changed, moved or deleted in the backend.</source>
+				<target>Importierte Termine externer Kalender können im Backend nicht geändert, verschoben oder gelöscht werden.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.import.imported" resname="tx_cal_calendar.import.imported" approved="yes">
+				<source>External calendar imported: %d events.</source>
+				<target>Externer Kalender importiert: %d Termine.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.import.removed" resname="tx_cal_calendar.import.removed" approved="yes">
+				<source>%d imported events of this calendar have been removed.</source>
+				<target>%d importierte Termine dieses Kalenders wurden entfernt.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.import.error" resname="tx_cal_calendar.import.error" approved="yes">
+				<source>The external calendar could not be imported: %s</source>
+				<target>Der externe Kalender konnte nicht importiert werden: %s</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.created" resname="tx_cal_calendar.scheduler.created" approved="yes">
+				<source>Scheduler task #%d created: the calendar is synchronized every %d minutes.</source>
+				<target>Scheduler-Task #%d angelegt: Der Kalender wird alle %d Minuten abgeglichen.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.removed" resname="tx_cal_calendar.scheduler.removed" approved="yes">
+				<source>Scheduler task #%d has been removed.</source>
+				<target>Scheduler-Task #%d wurde entfernt.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.error" resname="tx_cal_calendar.scheduler.error" approved="yes">
+				<source>The scheduler task could not be updated: %s</source>
+				<target>Der Scheduler-Task konnte nicht aktualisiert werden: %s</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.schemaMissing" resname="tx_cal_calendar.scheduler.schemaMissing" approved="yes">
+				<source>The scheduler task could not be created: the database is not up to date. Please run "Analyze Database Structure".</source>
+				<target>Der Scheduler-Task konnte nicht angelegt werden: Die Datenbank ist nicht aktuell. Bitte „Analyze Database Structure“ ausführen.</target>
+			</trans-unit>
+			<trans-unit id="tx_scheduler_task.tx_cal_calendar" resname="tx_scheduler_task.tx_cal_calendar" approved="yes">
+				<source>External calendar</source>
+				<target>Externer Kalender</target>
+			</trans-unit>
+			<trans-unit id="tx_scheduler_task.importExternalCalendar" resname="tx_scheduler_task.importExternalCalendar" approved="yes">
+				<source>Calendar Base: Import external calendar</source>
+				<target>Calendar Base: Externen Kalender importieren</target>
+			</trans-unit>
+			<trans-unit id="tx_scheduler_task.importExternalCalendar.description" resname="tx_scheduler_task.importExternalCalendar.description" approved="yes">
+				<source>Imports the events of an external calendar (ICS URL). Created automatically when an external calendar with a refresh interval is saved.</source>
+				<target>Importiert die Termine eines externen Kalenders (ICS-URL). Wird automatisch angelegt, wenn ein externer Kalender mit Refresh-Intervall gespeichert wird.</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color" resname="sys_category.tx_cal_color" approved="yes">
+				<source>Color in the calendar</source>
+				<target>Farbe im Kalender</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.description" resname="sys_category.tx_cal_color.description" approved="yes">
+				<source>Color of the events of this category in the calendar views. Empty: no own color (default color).</source>
+				<target>Farbe der Termine dieser Kategorie in den Kalenderansichten. Leer: keine eigene Farbe (Standardfarbe).</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.blue" resname="sys_category.tx_cal_color.blue" approved="yes">
+				<source>Light blue (default)</source>
+				<target>Hellblau (Standard)</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.green" resname="sys_category.tx_cal_color.green" approved="yes">
+				<source>Green</source>
+				<target>Grün</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.orange" resname="sys_category.tx_cal_color.orange" approved="yes">
+				<source>Orange</source>
+				<target>Orange</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.red" resname="sys_category.tx_cal_color.red" approved="yes">
+				<source>Red</source>
+				<target>Rot</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.pink" resname="sys_category.tx_cal_color.pink" approved="yes">
+				<source>Pink</source>
+				<target>Pink</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.yellow" resname="sys_category.tx_cal_color.yellow" approved="yes">
+				<source>Yellow</source>
+				<target>Gelb</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.brown" resname="sys_category.tx_cal_color.brown" approved="yes">
+				<source>Brown</source>
+				<target>Braun</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.grey" resname="sys_category.tx_cal_color.grey" approved="yes">
+				<source>Grey</source>
+				<target>Grau</target>
+			</trans-unit>
+			<trans-unit id="sys_category.palette.tx_cal_color" resname="sys_category.palette.tx_cal_color" approved="yes">
+				<source>Calendar (cal)</source>
+				<target>Kalender (cal)</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color_priority" resname="sys_category.tx_cal_color_priority" approved="yes">
+				<source>Color priority</source>
+				<target>Farb-Priorität</target>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color_priority.description" resname="sys_category.tx_cal_color_priority.description" approved="yes">
+				<source>If an event has several categories with a color, the highest priority wins. With the same priority the sub category wins.</source>
+				<target>Hat ein Termin mehrere Kategorien mit Farbe, gewinnt die höchste Priorität. Bei gleicher Priorität gewinnt die Unterkategorie.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.index.error" resname="tx_cal_event.index.error" approved="yes">
+				<source>The recurrence index of the event could not be generated: %s</source>
+				<target>Der Wiederholungsindex des Termins konnte nicht erzeugt werden: %s</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

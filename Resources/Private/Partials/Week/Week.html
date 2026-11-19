@@ -1,0 +1,109 @@
+<div class="header-buttons" >
+  <f:render partial="Header/Header" arguments="{_all}"/>
+  <div class="today-button">
+    <f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: today.year, week: today.weekOfYear }" title="{f:translate(key:'l_today')}"><f:translate key="l_today"/></f:link.action>
+  </div>
+</div>
+
+<br style="clear: both;"/>
+<div class="view-header">
+  <div class="previous-button">
+  <f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: prevWeek.year, week: prevWeek.weekOfYear }" title="{f:translate(key:'l_last_week')}">&nbsp;</f:link.action>
+  </div>
+  <div class="next-button">
+  <f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: nextWeek.year, week: nextWeek.weekOfYear }" title="{f:translate(key:'l_next_week')}">&nbsp;</f:link.action>
+  </div>
+  <h1><f:format.date pattern='{settings.view.week.displayDate.startFormat}' locale="{settings.dateConfig.locale}">{starttime}</f:format.date> - <f:format.date pattern='{settings.view.week.displayDate.endFormat}' locale="{settings.dateConfig.locale}">{endtime}</f:format.date></h1>
+</div>
+<mmcal:week dateObject="{getdate}" events="{events}" >
+<div class="weekview">
+  <div class="gridcontainer">
+      <table class="gridcontainertop">
+        <tbody>
+          <tr class="daynames">
+            <td rowspan="3"></td>
+            <f:for each="{days}" as="day">
+            <th scope="col" title="<f:format.date pattern="EEEE" locale="{settings.dateConfig.locale}">{day.time}</f:format.date>">
+              <span class="dayname">
+                <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: day.year, month: day.month, day: day.day }" title="{f:translate(key:'l_day')}">
+                  <f:format.date pattern="{settings.view.week.dateFormatWeekList}" locale="{settings.dateConfig.locale}">{day.time}</f:format.date>
+                </f:link.action>
+              </span>
+            </th>
+            </f:for>
+            <th rowspan="3" class="dummy">&nbsp;</th>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <table class="allday">
+                <tbody>
+                  <f:for each="{rowspanArray}" as="key">
+                  <tr class="alldays">
+                    <f:for each="{days}" as="day" iteration="iterator">
+                    <f:if condition="{theMatrixAllday.{iterator.index}.{key}}">
+                    <!-- currentDay class -->
+                      <f:then>
+                        <f:variable name="event" value="{theMatrixAllday.{iterator.index}.{key}}" />
+                        <f:if condition="{event}!='TRUE'">
+                          <td class="weekday{day.weekdayNumber}" colspan="{event.matrixValue}"><f:render partial="Event/Week" arguments="{event: event}"/></td>
+                        </f:if>
+                      </f:then>
+                      <f:else>
+                        <td class="weekday{day.weekdayNumber}">&nbsp;</td>
+                      </f:else>
+                    </f:if>
+                    </f:for>
+                  </tr>
+                  </f:for>
+                </tbody>
+              </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+	
+	<div class="scrolltime">
+		<table class="timetable" style="height:{timetableHeight}px">
+		  <tbody>
+			<tr height="1">
+			  <td class="width"></td>
+			  <td colspan="7">
+				<div class="wrapper" style="height:{timetableHeight}px; margin-bottom: -{timetableHeight}px">
+				  <div class="hours">
+					<f:for each="{hourCells}" as="hourCell">
+					<div class="cell">
+					  <div class="line"></div>
+					</div>
+					</f:for>
+				  </div>
+				</div>
+			  </td>
+			</tr>
+			<tr>
+			  <td class="times">
+				<f:for each="{timeCells}" as="timeCell">
+				<div>
+					<div class="timeborder" id="time_{timeCell.value}"><f:format.date pattern="{settings.view.week.timeFormatWeek}" locale="{settings.dateConfig.locale}">{timeCell.time}</f:format.date></div>
+				</div>
+				</f:for>
+			  </td>
+			  <f:for each="{eventColumns}" as="eventColumn" iteration="iterator">
+                <td class="event-column ###DAY_CLASSES###">
+                  <div class="wrapper">
+                    <f:for each="{eventColumn}" as="eventValues">
+                      <f:render partial="Event/Week" arguments="{event: eventValues.event, left: eventValues.left, width: eventValues.width, top: eventValues.top, length: eventValues.length}"/>
+                    </f:for>
+                  </div>
+                </td>
+              </f:for>
+			</tr>
+		  </tbody>
+		</table>
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+	var now = new Date();
+	document.getElementById('time_'+now.getHours()).scrollIntoView(true);
+</script>
+</mmcal:week>

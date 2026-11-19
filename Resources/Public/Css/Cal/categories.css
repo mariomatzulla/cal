@@ -1,0 +1,56 @@
+/**
+ * Calendar Base (cal) – category / calendar colors
+ *
+ * The class comes from the field "headerstyle" of the calendar (e.g. "blue_catheader")
+ * and is rendered as "<style>", "<style>_allday" and "<style>_text".
+ * Each class only sets the two color tokens, the components use them (events.css).
+ *
+ * Own colors can be added the same way:
+ *   .tx-cal-controller :is(.mint_catheader, .mint_catheader_allday, .mint_catheader_text) {
+ *     --cal-event-color: #3eb489; --cal-event-border-color: #1d7a5c;
+ *   }
+ */
+.tx-cal-controller {
+	:is(.default_catheader, .default_catheader_allday, .default_catheader_text,
+		.blue_catheader, .blue_catheader_allday, .blue_catheader_text) {
+		--cal-event-color: #668cd9;
+		--cal-event-border-color: #2952a3;
+	}
+
+	:is(.green_catheader, .green_catheader_allday, .green_catheader_text) {
+		--cal-event-color: #4cb052;
+		--cal-event-border-color: #0d7813;
+	}
+
+	:is(.orange_catheader, .orange_catheader_allday, .orange_catheader_text) {
+		--cal-event-color: #f2a640;
+		--cal-event-border-color: #be6d00;
+	}
+
+	:is(.pink_catheader, .pink_catheader_allday, .pink_catheader_text) {
+		--cal-event-color: #e67399;
+		--cal-event-border-color: #b1365f;
+	}
+
+	:is(.red_catheader, .red_catheader_allday, .red_catheader_text) {
+		--cal-event-color: #d96666;
+		--cal-event-border-color: #a32929;
+	}
+
+	:is(.yellow_catheader, .yellow_catheader_allday, .yellow_catheader_text) {
+		--cal-event-color: #e0c240;
+		--cal-event-border-color: #ab8b00;
+	}
+
+	:is(.brown_catheader, .brown_catheader_allday, .brown_catheader_text) {
+		--cal-event-color: #b08b59;
+		--cal-event-border-color: #8c6d3f;
+	}
+
+	/* grey and the "free & busy" view share the same colors */
+	:is(.grey_catheader, .grey_catheader_allday, .grey_catheader_text,
+		.fnb_header, .fnb_header_allday, .fnb_header_text) {
+		--cal-event-color: #8997a5;
+		--cal-event-border-color: #4e5d6c;
+	}
+}

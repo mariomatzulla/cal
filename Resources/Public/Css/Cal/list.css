@@ -1,0 +1,344 @@
+/**
+ * Calendar Base (cal) – list view
+ *
+ * Default template (Partials/List): .event-cards > article.event-card
+ *   image with date badge, title, time / location / categories, teaser, "read more"
+ * Article variant (e.g. fileadmin/templates/cal/list/ereignisse_wohnroth.html):
+ *   .list-view__events > article.vevent (date, title, categories, description, thumbnails)
+ * Year grouped variant (e.g. fileadmin/templates/cal/list/grillhuette_wohnroth.html):
+ *   .list-year > h2 + dl > .vevent (dt + dd)
+ */
+.tx-cal-controller {
+	.list-view {
+		container-type: inline-size;
+
+		.found {
+			margin-block: 0 var(--cal-space-md);
+			color: var(--cal-color-text-muted);
+		}
+	}
+
+	/* --- Default: event cards -------------------------------------------- */
+	.event-cards {
+		display: grid;
+		gap: var(--cal-space-xl);
+	}
+
+	.event-cards > .event-card {
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		align-items: center;
+		overflow: hidden;
+		background-color: var(--cal-color-surface);
+		box-shadow: var(--cal-card-shadow);
+		color: var(--cal-color-text);
+		transition: box-shadow 0.2s;
+
+		&:hover,
+		&:focus-within {
+			box-shadow: var(--cal-card-shadow-hover);
+		}
+
+	}
+
+	/* The image column fills the height of the card; the image keeps at least the ratio 3:2 */
+	.event-card__media {
+		position: relative;
+		align-self: stretch;
+		background-color: var(--cal-event-color);
+	}
+
+	.event-card__image {
+		display: block;
+		inline-size: 100%;
+		block-size: 100%;
+		aspect-ratio: var(--cal-card-image-ratio);
+		object-fit: cover;
+	}
+
+	/* With the option "show all images" the first image opens the lightbox */
+	.event-card__media > a {
+		display: block;
+		block-size: 100%;
+	}
+
+	/* Further images as small thumbnails below "read more" (option showAllImages) */
+	.event-card__thumbnails {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--cal-space-xs);
+		margin: var(--cal-space-md) 0 0;
+		padding: 0;
+		list-style: none;
+
+		a {
+			display: block;
+			overflow: hidden;
+			border-radius: var(--cal-radius-sm);
+			box-shadow: var(--cal-shadow-card-soft);
+		}
+
+		img {
+			display: block;
+			inline-size: var(--cal-list-thumbnail-width);
+			block-size: auto;
+			aspect-ratio: 3 / 2;
+			object-fit: cover;
+			transition: scale 0.2s;
+		}
+
+		a:is(:hover, :focus-visible) img {
+			scale: 1.08;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.event-card__thumbnails img {
+			transition: none;
+		}
+	}
+
+	/* No image: a narrow column with the date sheet only */
+	.event-cards > .event-card--no-image {
+		grid-template-columns: auto minmax(0, 1fr);
+
+		.event-card__media {
+			display: grid;
+			place-items: center;
+			padding: var(--cal-space-lg) 0 var(--cal-space-lg) var(--cal-card-padding);
+			background: none;
+		}
+
+		.event-card__date {
+			position: static;
+			min-inline-size: 5rem;
+		}
+	}
+
+	.event-card__date {
+		position: absolute;
+		inset-block-start: var(--cal-space-lg);
+		inset-inline-start: var(--cal-space-lg);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-inline-size: 4.5rem;
+		padding: var(--cal-space-sm) var(--cal-space-md) var(--cal-space-xs);
+		border-block-start: var(--cal-border-width-event) solid var(--cal-event-color);
+		background-color: var(--cal-card-color-badge);
+		color: #fff;
+		line-height: 1.15;
+		text-transform: uppercase;
+	}
+
+	.event-card__day {
+		font-size: 1.75rem;
+		font-weight: 600;
+	}
+
+	.event-card__month {
+		font-size: 0.875rem;
+	}
+
+	.event-card__year {
+		font-size: 0.7rem;
+		opacity: 0.75;
+	}
+
+	.event-card__body {
+		padding: var(--cal-space-lg) var(--cal-card-padding);
+	}
+
+	.event-card__title {
+		margin-block: 0 var(--cal-space-sm);
+		font-size: 1.375rem;
+		font-weight: 500;
+		color: var(--cal-card-color-title);
+
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:is(:hover, :focus-visible) {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.event-card__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--cal-space-2xs) var(--cal-space-lg);
+		margin: 0 0 var(--cal-space-sm);
+		padding: 0;
+		list-style: none;
+		color: var(--cal-color-text-muted);
+		font-size: 0.9em;
+
+		li {
+			display: inline-flex;
+			align-items: center;
+			gap: var(--cal-space-xs);
+		}
+
+		.cal-icon {
+			flex: none;
+			color: var(--cal-card-color-icon);
+		}
+	}
+
+	.event-card__teaser {
+		margin-block: 0 var(--cal-space-sm);
+
+		/* Headings from the rich text editor are shown like normal text in the card */
+		:is(h1, h2, h3, h4, h5, h6) {
+			margin-block: 0 var(--cal-space-sm);
+			font-size: inherit;
+			font-weight: 600;
+			line-height: inherit;
+		}
+
+		> :last-child {
+			margin-block-end: 0;
+		}
+	}
+
+	.event-card__more {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--cal-space-xs);
+		color: var(--cal-color-link);
+		font-size: 0.9em;
+		font-weight: 500;
+		text-decoration: none;
+
+		&:is(:hover, :focus-visible) {
+			color: var(--cal-color-link-hover);
+		}
+
+		.cal-icon {
+			transition: translate 0.2s;
+		}
+
+		&:is(:hover, :focus-visible) .cal-icon {
+			translate: 0.25em 0;
+		}
+	}
+
+	/* Narrow screens: image above the text */
+	@container (inline-size < 48rem) {
+		.event-cards > .event-card {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.event-cards > .event-card--no-image {
+			grid-template-columns: auto minmax(0, 1fr);
+
+			.event-card__media {
+				padding-inline-start: var(--cal-space-md);
+			}
+		}
+
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.event-cards > .event-card,
+		.event-card__more .cal-icon {
+			transition: none;
+		}
+	}
+
+	/* --- Article variant: one article per event --------------------------- */
+	.list-view__events {
+		.vevent {
+			padding-block: var(--cal-space-md) var(--cal-space-lg);
+			border-block-end: var(--cal-border-width) solid var(--cal-color-border);
+			color: var(--cal-color-text);
+			user-select: auto;
+			cursor: auto;
+		}
+
+		.dtstart-container {
+			margin: 0;
+			font-size: 1.4em;
+		}
+
+		.summary {
+			margin-block: 0 var(--cal-space-2xs);
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+
+		.categories {
+			margin-block: 0 var(--cal-space-sm);
+			color: var(--cal-color-text-muted);
+			font-size: 0.8em;
+		}
+
+		.description {
+			padding-inline: var(--cal-space-sm);
+			text-align: justify;
+			hyphens: auto;
+
+			> :last-child {
+				margin-block-end: 0;
+			}
+		}
+
+		.images {
+			margin-block-start: var(--cal-space-lg);
+		}
+	}
+
+	/* --- Year grouped variant -------------------------------------------- */
+	.list-year {
+		margin-block-end: var(--cal-space-lg);
+
+		.list-year__title {
+			margin-block: 0 var(--cal-space-xs);
+			padding-block-end: var(--cal-space-2xs);
+			border-block-end: var(--cal-border-width) solid var(--cal-color-border);
+			font-size: 1.1em;
+		}
+
+		/* The entries share the columns of the year (subgrid), so all titles start at the same position */
+		.list-year__events {
+			display: grid;
+			grid-template-columns: max-content 1fr;
+			margin: 0;
+		}
+
+		.vevent {
+			display: grid;
+			grid-column: 1 / -1;
+			grid-template-columns: subgrid;
+			gap: var(--cal-space-2xs) var(--cal-space-md);
+			padding: var(--cal-space-xs) var(--cal-space-sm);
+			color: var(--cal-color-text);
+			user-select: auto;
+			cursor: auto;
+
+			&.even {
+				background-color: var(--cal-color-list-row-even);
+			}
+
+			dt,
+			dd {
+				margin: 0;
+				font: inherit;
+				white-space: normal;
+			}
+		}
+
+		.dtstart-container {
+			font-variant-numeric: tabular-nums;
+		}
+
+		/* Narrow screens: date above the title */
+		@container (inline-size < 30em) {
+			.list-year__events {
+				grid-template-columns: 1fr;
+			}
+		}
+	}
+}

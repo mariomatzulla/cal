@@ -1,0 +1,36 @@
+<f:if condition="{event.allday}">
+  <f:then>
+  <div class="vevent">
+    <div class="{event.headerstyle}_allday" style="{event.colorStyle}">
+      <f:link.action action="event" arguments="{view: 'event',type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
+        <span class="summary">{event.title}</span>
+        {event.freq}
+      </f:link.action>
+    </div>
+  </div>
+  </f:then>
+  <f:else>
+  <div style="top: {top}px; left: {left}%; width: {width}%; {event.colorStyle}" class="vevent {event.headerstyle}">
+    <f:link.action action="event" arguments="{view: 'event',type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
+    <dl style="height: {length}px;">
+        <span class="popup">
+          <span title="{f:format.date(date:event.start, format:'dmY\THis')}" class="dtstart"></span>
+        </span>
+        <dd>
+          <span class="summary">{event.title}</span>
+          <f:if condition="{event.locationObject}">
+            <f:then>
+              {event.locationObject.name}
+            </f:then>
+            <f:else>
+              <f:if condition="{event.location} != ''">
+                {event.location}
+              </f:if>
+            </f:else>
+          </f:if>
+        </dd>
+      </dl>
+      </f:link.action>
+  </div>
+  </f:else>
+</f:if>

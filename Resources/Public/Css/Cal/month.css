@@ -1,0 +1,122 @@
+/**
+ * Calendar Base (cal) – month tables
+ * .month-large: month view, .month-medium: months of the year view
+ */
+.tx-cal-controller {
+	:is(.month-medium, .month-large) {
+		border-collapse: collapse;
+
+		th {
+			background-color: var(--cal-color-accent-surface);
+			text-align: center;
+			font-weight: normal;
+			font-size: small;
+
+			a:is(:link, :visited) {
+				font-weight: bold;
+				color: var(--cal-color-text);
+			}
+		}
+
+		.dayNum {
+			border-block-end: none;
+			background-color: var(--cal-color-day-number-surface);
+			text-align: end;
+			font-size: xx-small;
+			line-height: 12px;
+		}
+
+		/* Saturday and Sunday */
+		:is(.weekday0, .weekday6) {
+			background-color: var(--cal-color-weekend-surface);
+		}
+
+		.currentDay {
+			background-color: var(--cal-color-today-surface);
+		}
+	}
+
+	.month-weeknums {
+		background-color: var(--cal-color-accent-surface);
+	}
+
+	.month-weekdays {
+		border-block-end: var(--cal-border-width) solid var(--cal-color-border);
+		background-color: var(--cal-color-weekday-surface);
+	}
+
+	/* --- Large month (month view) ------------------------------------------ */
+	.month-large {
+		clear: both;
+		inline-size: 100%;
+		table-layout: fixed;
+		background-color: var(--cal-color-surface);
+
+		td {
+			border-inline: var(--cal-border-width) solid var(--cal-color-border);
+			vertical-align: top;
+		}
+
+		tr.days td,
+		tbody tr:last-child td {
+			border: var(--cal-border-width) solid var(--cal-color-border);
+		}
+
+		.month-weeknums {
+			inline-size: 2em;
+		}
+
+		.weeknum {
+			inline-size: 22px;
+		}
+
+		:is(td.weekday, .weekday0, .weekday1, .weekday2, .weekday3, .weekday4, .weekday5, .weekday6, .weekday7, .currentDay) {
+			font-size: 0.8em;
+		}
+
+		/* The height of a cell is divided between the events of the week */
+		:is(.eventCountIs1, .emptyWeek .empty) {
+			block-size: var(--cal-month-large-cell-height);
+		}
+
+		.eventCountIs2 {
+			block-size: calc(var(--cal-month-large-cell-height) / 2);
+		}
+
+		.eventCountIs3 {
+			block-size: calc(var(--cal-month-large-cell-height) / 3);
+		}
+
+		.eventCountIs4 {
+			block-size: calc(var(--cal-month-large-cell-height) / 4);
+		}
+
+		.daylink {
+			font-weight: bold;
+		}
+
+		.day {
+			min-block-size: 2em;
+			vertical-align: top;
+			text-align: start;
+		}
+	}
+
+	/* --- Medium month (year view) ------------------------------------------- */
+	.month-medium {
+		inline-size: 80%;
+		margin: 1em auto 2em;
+		border-spacing: 0;
+
+		:is(th, td) {
+			block-size: 2em;
+			inline-size: 5%;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		td {
+			border: var(--cal-border-width) solid var(--cal-color-border-strong);
+		}
+	}
+}

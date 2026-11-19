@@ -314,6 +314,18 @@
 			<trans-unit id="cal.pi_flexform.listView.plusOneYear" resname="cal.pi_flexform.listView.plusOneYear" >
 				<source>1 Year From Now</source>
 			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages" resname="cal.pi_flexform.listView.showAllImages">
+				<source>Images of an event</source>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages.description" resname="cal.pi_flexform.listView.showAllImages.description">
+				<source>Show the further images as thumbnails (with lightbox) below the "read more" link</source>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages.show" resname="cal.pi_flexform.listView.showAllImages.show">
+				<source>Show all images</source>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages.firstOnly" resname="cal.pi_flexform.listView.showAllImages.firstOnly">
+				<source>Only the first image</source>
+			</trans-unit>
 			<trans-unit id="cal.pi_flexform.listView.usePageBrowser" resname="cal.pi_flexform.listView.usePageBrowser" >
 				<source>Page browser options</source>
 			</trans-unit>
@@ -426,7 +438,7 @@
 				<source>Typoscript</source>
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.tsconfig" resname="cal.pi_flexform.tsconfig" >
-				<source>plugin.tx_cal_controller:</source>
+				<source>Typoscript of plugin.tx_cal_controller:</source>
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.calendarDistance" resname="cal.pi_flexform.calendarDistance" xml:space="preserve">
 				<source>Distance (Km) for events in a nearby calendar

@@ -1,0 +1,3 @@
+# Static template for sites without site sets.
+# The TypoScript is maintained in the site set (Configuration/Sets/Cal).
+@import 'EXT:cal/Configuration/Sets/Cal/setup.typoscript'

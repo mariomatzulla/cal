@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang.xlf" product-name="cal">
+		<header/>
+		<body>
+			<trans-unit id="l_list_found" resname="l_list_found" approved="yes">
+				<source>%d entries found</source>
+				<target>%d Einträge gefunden</target>
+			</trans-unit>
+			<trans-unit id="l_category" resname="l_category" approved="yes">
+				<source>Category</source>
+				<target>Kategorie</target>
+			</trans-unit>
+			<trans-unit id="l_list_read_more" resname="l_list_read_more" approved="yes">
+				<source>Read more</source>
+				<target>Weiterlesen</target>
+			</trans-unit>
+			<trans-unit id="l_all_day" resname="l_all_day" approved="yes">
+				<source>All day event</source>
+				<target>Ganztägig</target>
+			</trans-unit>
+			<trans-unit id="l_event_images" resname="l_event_images" approved="yes">
+				<source>Image(s)</source>
+				<target>Bilder</target>
+			</trans-unit>
+			<trans-unit id="l_event_attachments" resname="l_event_attachments" approved="yes">
+				<source>Attachment(s)</source>
+				<target>Anhänge</target>
+			</trans-unit>
+			<trans-unit id="l_event_ics_download" resname="l_event_ics_download" approved="yes">
+				<source>Add to calendar (.ics)</source>
+				<target>In Kalender übernehmen (.ics)</target>
+			</trans-unit>
+			<trans-unit id="l_no_results" resname="l_no_results" approved="yes">
+				<source>No events found.</source>
+				<target>Keine Termine gefunden.</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_missingFields" resname="backend_module_indexer_missingFields" approved="yes">
+				<source>Not all fields have been filled. Please try again.</source>
+				<target>Es wurden nicht alle Felder ausgefüllt. Bitte erneut versuchen.</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_errorTitle" resname="backend_module_indexer_errorTitle" approved="yes">
+				<source>Error</source>
+				<target>Fehler</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_successTitle" resname="backend_module_indexer_successTitle" approved="yes">
+				<source>Index rebuilt</source>
+				<target>Index neu aufgebaut</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_successMessage" resname="backend_module_indexer_successMessage" approved="yes">
+				<source>The index of the recurring events has been rebuilt.</source>
+				<target>Der Index der wiederkehrenden Termine wurde neu aufgebaut.</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_range" resname="backend_module_indexer_range" approved="yes">
+				<source>Index range: %s – %s</source>
+				<target>Indexzeitraum: %s – %s</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_pageResult" resname="backend_module_indexer_pageResult" approved="yes">
+				<source>%d recurring events indexed:</source>
+				<target>%d wiederkehrende Termine indiziert:</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_successTitle" resname="backend_module_ics_generator_successTitle" approved="yes">
+				<source>ICS generated</source>
+				<target>ICS erzeugt</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_successMessage" resname="backend_module_ics_generator_successMessage" approved="yes">
+				<source>The ICS data of the events has been generated.</source>
+				<target>Die ICS-Daten der Termine wurden erzeugt.</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_header" resname="backend_module_indexer_header" approved="yes">
+				<source>Cal Indexer</source>
+				<target>Cal Indexer</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_nothingToDo" resname="backend_module_indexer_nothingToDo" approved="yes">
+				<source>No event / exception event records found</source>
+				<target>Keine wiederkehrenden Termine gefunden</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_function1" resname="backend_module_indexer_function1" approved="yes">
+				<source>Information</source>
+				<target>Information</target>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_function2" resname="backend_module_indexer_function2" approved="yes">
+				<source>Generate</source>
+				<target>Index erzeugen</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_header" resname="backend_module_ics_generator_header" approved="yes">
+				<source>Cal ICS Generator</source>
+				<target>Cal ICS-Generator</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

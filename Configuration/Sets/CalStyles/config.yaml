@@ -1,0 +1,4 @@
+name: mariomatzulla/cal-styles
+label: 'Calendar Base (cal): default styles'
+dependencies:
+  - mariomatzulla/cal

@@ -1,0 +1,3 @@
+# Static template "Calendar Base (cal): default styles" for sites without site sets.
+# The TypoScript is maintained in the site set (Configuration/Sets/CalStyles).
+@import 'EXT:cal/Configuration/Sets/CalStyles/setup.typoscript'

@@ -1,0 +1,107 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  One event of the list view as card: image with date badge (without image only the date sheet), title, time / location / categories,
+  teaser (or the shortened description) and "read more" link. The card uses the colors of the event category (--cal-event-color).
+</f:comment>
+<f:variable name="locale" value="{settings.dateConfig.locale}" />
+<f:variable name="card" value="{settings.view.list.event.card}" />
+<f:variable name="timeFormat" value="{settings.view.list.event.timeFormat}" />
+<f:variable name="startDay" value="{f:format.date(date: event.start, format: 'Ymd')}" />
+<f:variable name="endDay" value="{f:format.date(date: event.end, format: 'Ymd')}" />
+<f:variable name="linkArguments" value="{view: 'event', type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" />
+
+<article class="event-card {event.headerstyle}{f:if(condition: event.image, else: ' event-card--no-image')}" style="{event.colorStyle}">
+  <div class="event-card__media">
+    <f:for each="{event.image}" as="image" iteration="imageIterator">
+      <f:if condition="{imageIterator.isFirst}">
+        <f:if condition="{card.showAllImages}">
+          <f:then>
+            <f:render partial="Lightbox/Link" arguments="{image: image, group: 'cal-event-{event.uid}', title: image.originalResource.title, settings: settings}" contentAs="content">
+              <f:image image="{image}" width="{card.imageWidth}" height="{card.imageHeight}" alt="{image.alternative}" loading="lazy" class="event-card__image" />
+            </f:render>
+          </f:then>
+          <f:else>
+            <f:image image="{image}" width="{card.imageWidth}" height="{card.imageHeight}" alt="{image.alternative}" loading="lazy" class="event-card__image" />
+          </f:else>
+        </f:if>
+      </f:if>
+    </f:for>
+    <time class="event-card__date" datetime="{f:format.date(date: event.start, format: 'Y-m-d')}">
+      <span class="event-card__day"><f:format.date pattern="dd" locale="{locale}">{event.start}</f:format.date></span>
+      <span class="event-card__month"><f:format.date pattern="LLL" locale="{locale}">{event.start}</f:format.date></span>
+      <span class="event-card__year"><f:format.date pattern="yyyy" locale="{locale}">{event.start}</f:format.date></span>
+    </time>
+  </div>
+
+  <div class="event-card__body">
+    <h3 class="event-card__title summary">
+      <f:if condition="{eventLink.enabled}">
+        <f:then><f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{linkArguments}">{event.title}</f:link.action></f:then>
+        <f:else>{event.title}</f:else>
+      </f:if>
+    </h3>
+
+    <ul class="event-card__meta">
+      <li>
+        <f:render partial="Icon/Icon" arguments="{name: 'clock'}" />
+        <f:format.date pattern="{card.weekdayFormat}" locale="{locale}">{event.start}</f:format.date> ·
+        <f:if condition="{event.allday}">
+          <f:then>
+            <f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_all_day" /><f:if condition="{endDay} > {startDay}"> – <f:format.date pattern="{card.dateFormat}" locale="{locale}">{event.end}</f:format.date></f:if>
+          </f:then>
+          <f:else>
+            <f:format.date pattern="{timeFormat}" locale="{locale}">{event.start}</f:format.date>
+            <f:if condition="{endDay} > {startDay}">
+              <f:then>– <f:format.date pattern="{card.dateFormat}" locale="{locale}">{event.end}</f:format.date> <f:format.date pattern="{timeFormat}" locale="{locale}">{event.end}</f:format.date></f:then>
+              <f:else><f:if condition="{f:format.date(date: event.end, format: 'Hi')} != {f:format.date(date: event.start, format: 'Hi')}">– <f:format.date pattern="{timeFormat}" locale="{locale}">{event.end}</f:format.date></f:if></f:else>
+            </f:if>
+          </f:else>
+        </f:if>
+      </li>
+      <f:if condition="{event.locationObject.name} || {event.location}">
+        <li>
+          <f:render partial="Icon/Icon" arguments="{name: 'location'}" />
+          <f:if condition="{event.locationObject.name}"><f:then>{event.locationObject.name}</f:then><f:else>{event.location}</f:else></f:if>
+        </li>
+      </f:if>
+      <f:if condition="{event.categories}">
+        <li>
+          <f:render partial="Icon/Icon" arguments="{name: 'tag'}" />
+          <f:for each="{event.categories}" as="category" iteration="categoryIterator">{category.title}<f:if condition="!{categoryIterator.isLast}">, </f:if></f:for>
+        </li>
+      </f:if>
+    </ul>
+
+    <f:if condition="{event.teaser}">
+      <f:then>
+        <div class="event-card__teaser"><f:format.html>{event.teaser}</f:format.html></div>
+      </f:then>
+      <f:else if="{event.description}">
+        <p class="event-card__teaser"><f:format.crop maxCharacters="{card.descriptionLength}" append="..." respectWordBoundaries="1">{event.description -> f:format.stripTags() -> f:format.htmlentitiesDecode()}</f:format.crop></p>
+      </f:else>
+    </f:if>
+
+    <f:if condition="{eventLink.enabled}">
+      <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{linkArguments}" class="event-card__more">
+        <f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_list_read_more" />
+        <f:render partial="Icon/Icon" arguments="{name: 'arrow'}" />
+        <span class="visually-hidden">: {event.title}</span>
+      </f:link.action>
+    </f:if>
+
+    <f:if condition="{card.showAllImages} && {event.image.1}">
+      <ul class="event-card__thumbnails">
+        <f:for each="{event.image}" as="image" iteration="imageIterator">
+          <f:if condition="!{imageIterator.isFirst}">
+            <li>
+              <f:render partial="Lightbox/Link" arguments="{image: image, group: 'cal-event-{event.uid}', title: image.originalResource.title, settings: settings}" contentAs="content">
+                <f:image image="{image}" width="{card.thumbnailWidth}" height="{card.thumbnailHeight}" alt="{image.alternative}" loading="lazy" />
+              </f:render>
+            </li>
+          </f:if>
+        </f:for>
+      </ul>
+    </f:if>
+  </div>
+</article>
+</html>

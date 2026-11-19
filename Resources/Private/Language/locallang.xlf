@@ -153,6 +153,15 @@
 			<trans-unit id="l_query" resname="l_query" >
 				<source>Query</source>
 			</trans-unit>
+			<trans-unit id="l_list_found" resname="l_list_found">
+				<source>%d entries found</source>
+			</trans-unit>
+			<trans-unit id="l_list_read_more" resname="l_list_read_more">
+				<source>Read more</source>
+			</trans-unit>
+			<trans-unit id="l_event_ics_download" resname="l_event_ics_download">
+				<source>Add to calendar (.ics)</source>
+			</trans-unit>
 			<trans-unit id="l_no_results" resname="l_no_results" >
 				<source>No events found.</source>
 			</trans-unit>
@@ -796,6 +805,9 @@
 			<trans-unit id="l_event_image" resname="l_event_image" >
 				<source>Image</source>
 			</trans-unit>
+			<trans-unit id="l_event_images" resname="l_event_images" >
+				<source>Image(s)</source>
+			</trans-unit>
 			<trans-unit id="l_event_image_caption" resname="l_event_image_caption" >
 				<source>Caption</source>
 			</trans-unit>
@@ -807,6 +819,9 @@
 			</trans-unit>
 			<trans-unit id="l_event_attachment" resname="l_event_attachment" >
 				<source>Attachment</source>
+			</trans-unit>
+			<trans-unit id="l_event_attachments" resname="l_event_attachments" >
+				<source>Attachment(s)</source>
 			</trans-unit>
 			<trans-unit id="l_event_type" resname="l_event_type" >
 				<source>Type</source>
@@ -1259,6 +1274,179 @@
 			</trans-unit>
 			<trans-unit id="l_public_calendar" resname="l_public_calendar" >
 				<source>Public calendar</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_header" resname="backend_module_indexer_header" >
+				<source>Cal Indexer</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_title" resname="backend_module_indexer_title" >
+				<source>Index generator for calendar base recurring events</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_function1" resname="backend_module_indexer_function1" >
+				<source>Information</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_function2" resname="backend_module_indexer_function2" >
+				<source>Generate</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_notice_header" resname="backend_module_indexer_notice_header" >
+				<source>Welcome</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_notice" resname="backend_module_indexer_notice" xml:space="preserve">
+				<source>&lt;div align=center&gt;&lt;strong&gt;Notice
+				header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed,
+				please read carefully:</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_capabilities_header" resname="backend_module_indexer_capabilities_header" >
+				<source>Capabilities of this tool</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_capabilities" resname="backend_module_indexer_capabilities" xml:space="preserve">
+				<source>This tool will create an index for all recurring
+				tx_cal_domain_model_event and tx_cal_domain_model_exception_event instances.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_tableHeader1" resname="backend_module_indexer_tableHeader1" >
+				<source>Page/Folder</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_tableHeader2" resname="backend_module_indexer_tableHeader2" >
+				<source>Frontend Page with calendar plugin</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_nothingToDo" resname="backend_module_indexer_nothingToDo" >
+				<source>No event / exception event records found</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_browse" resname="backend_module_indexer_browse" >
+				<source>Browse for records</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_submit" resname="backend_module_indexer_submit" >
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_selectPage" resname="backend_module_indexer_selectPage" xml:space="preserve">
+				<source>Select the page where the typoscript of calendar
+				base can be found. This should be a normal frontend page.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_indexStart" resname="backend_module_indexer_indexStart" xml:space="preserve">
+				<source>Index start (YYYYMMDD or a dynamic value like: -3
+				month, -2 years)</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_indexEnd" resname="backend_module_indexer_indexEnd" xml:space="preserve">
+				<source>Index end (YYYYMMDD or a dynamic value like: +5
+				month, +4 years)</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_startIndexing" resname="backend_module_indexer_startIndexing" >
+				<source>Start indexing</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_atLeastOne" resname="backend_module_indexer_atLeastOne" xml:space="preserve">
+				<source>You need to assign at least one frontend page to a
+				found storage places in order to start indexing!</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_notAllPagesAssigned" resname="backend_module_indexer_notAllPagesAssigned" xml:space="preserve">
+				<source>You need to assign a frontend page to all found
+				storage places in order to start indexing!</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_result" resname="backend_module_indexer_result" >
+				<source>Result: </source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_toBeIndexed" resname="backend_module_indexer_toBeIndexed" >
+				<source> -&gt; Events to be indexed: </source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_droppingTable" resname="backend_module_indexer_droppingTable" >
+				<source>Removing events with pid %s from index</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_indexing" resname="backend_module_indexer_indexing" >
+				<source>Indexing</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_back" resname="backend_module_indexer_back" >
+				<source>Back</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_header" resname="backend_module_ics_generator_title" >
+				<source>Cal ICS Generator</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_function1" resname="backend_module_ics_generator_function1" >
+				<source>Information</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_function2" resname="backend_module_ics_generator_function2" >
+				<source>Generate</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_function3" resname="backend_module_ics_generator_function3" >
+				<source>Check</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_notice_header" resname="backend_module_ics_generator_notice_header" >
+				<source>Welcome</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_notice" resname="backend_module_ics_generator_notice" >
+				<source>&lt;div align=center&gt;&lt;strong&gt;Notice header&lt;/strong&gt;&lt;/div&gt;&lt;BR&gt;Before you proceed, please read carefully:</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_capabilities_header" resname="backend_module_ics_generator_capabilities_header" >
+				<source>Capabilities of this tool</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_capabilities" resname="backend_module_ics_generator_capabilities" >
+				<source>This tool will create update all recurring tx_cal_event and tx_cal_exception_event instances with the current ics data.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_tableHeader1" resname="backend_module_ics_generator_tableHeader1" >
+				<source>Page/Folder containing events/exception events</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_tableHeader2" resname="backend_module_ics_generator_tableHeader2" >
+				<source>Frontend Page with calendar plugin</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_browse" resname="backend_module_ics_generator_browse" >
+				<source>Browse for records</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_submit" resname="backend_module_ics_generator_submit" >
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_selectPage" resname="backend_module_ics_generator_selectPage" >
+				<source>Select the page where the typoscript of calendar base can be found. This should be a normal frontend page.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_indexStart" resname="backend_module_ics_generator_indexStart" >
+				<source>Enter the start time the index should start generating (YYYYMMDD)</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_indexEnd" resname="backend_module_ics_generator_indexEnd" >
+				<source>Enter the index ending time (YYYYMMDD)</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_startIndexing" resname="backend_module_ics_generator_startIndexing" >
+				<source>Click on submit to start indexing</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_notAllPagesAssigned" resname="backend_module_ics_generator_notAllPagesAssigned" >
+				<source>You need to assign a frontend page to all found storage places in order to start indexing!</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_result" resname="backend_module_ics_generator_result" >
+				<source>Result: </source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_no_problems" resname="backend_module_ics_generator_noProblems" >
+				<source>No problems found</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_toBeIndexed" resname="backend_module_ics_generator_toBeIndexed" >
+				<source> -&gt; Events to be indexed: </source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_found" resname="backend_module_ics_generator_found" >
+				<source>Found </source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_toBeProcessed" resname="backend_module_ics_generator_toBeProcessed" >
+				<source> to be processed.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_generateIcs" resname="backend_module_ics_generator_generateIcs" >
+				<source>Generating ICS contents</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_missingFields" resname="backend_module_indexer_missingFields">
+				<source>Not all fields have been filled. Please try again.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_errorTitle" resname="backend_module_indexer_errorTitle">
+				<source>Error</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_successTitle" resname="backend_module_indexer_successTitle">
+				<source>Index rebuilt</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_successMessage" resname="backend_module_indexer_successMessage">
+				<source>The index of the recurring events has been rebuilt.</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_range" resname="backend_module_indexer_range">
+				<source>Index range: %s – %s</source>
+			</trans-unit>
+			<trans-unit id="backend_module_indexer_pageResult" resname="backend_module_indexer_pageResult">
+				<source>%d recurring events indexed:</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_successTitle" resname="backend_module_ics_generator_successTitle">
+				<source>ICS generated</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_successMessage" resname="backend_module_ics_generator_successMessage">
+				<source>The ICS data of the events has been generated.</source>
 			</trans-unit>
 		</body>
 	</file>

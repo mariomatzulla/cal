@@ -1,0 +1,25 @@
+<div class="vevent {f:if(condition:event.allday,then:'allday {event.headerstyle}_allday')}" id="cal_event_{event.uid}" style="{event.colorStyle}">
+    <f:link.action action="event" arguments="{view: 'event',type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
+    <span class="{event.headerstyle}_text" style="{event.colorStyle}">
+      <span class="popup">
+        <span title="{f:format.date(date:event.startdate, format:'dmY')}T{f:format.date(date:event.starttime, format:'His')}" class="dtstart"></span>
+      </span>
+      <f:if condition="{event.allday}">
+        <f:then>
+          <span class="summary">{event.title}
+            <f:if condition="{event.freq} != 'none'">
+              <span class="recurring"></span>
+            </f:if>
+          </span>
+        </f:then>
+        <f:else>
+          <span class="summary">{f:format.date(date:event.starttime, format:'H:i')} {event.title}
+            <f:if condition="{event.freq} != 'none'">
+              <span class="recurring"></span>
+            </f:if>
+            </span>
+        </f:else>
+      </f:if>
+    </span>
+    </f:link.action>
+</div>

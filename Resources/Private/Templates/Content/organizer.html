@@ -1,0 +1,69 @@
+<f:layout name="Default" />
+<f:section name="Header"></f:section>
+<f:section name="content">
+  <div class="organizer">
+    <main class="profile-card">
+      <article>
+        <div class="profile-header">
+          <f:for each="{organizer.image}" as="image" iteration="itemIteration">
+            <figure class="image">
+              <f:image src="{image.uid}" alt="{image.originalResource.title}" width="{settings.view.location.location.image.width}"
+                treatIdAsReference="1" />
+            </figure>
+          </f:for>
+          <div>
+            <h1 style="margin: 0 0 0.2rem 0;">{organizer.name}</h1>
+          </div>
+        </div>
+        <p class="bio">
+          <f:format.html>{organizer.description}</f:format.html>
+        </p>
+
+
+
+        <div class="meta-info">
+          <div>
+            <h3>
+              <f:translate key="l_organizer_address" />
+            </h3>
+            <address class="address">
+              <f:if condition="{organizer.street}">{organizer.street}<br>
+              </f:if>
+              <f:if condition="{organizer.zip}">{organizer.zip}</f:if>
+              <f:if condition="{organizer.city}">{organizer.city}</f:if>
+              <f:if condition="{organizer.countryzone}">, {organizer.countryzone}</f:if>
+              <f:if condition="{organizer.country}"> {organizer.country}</f:if>
+            </address>
+          </div>
+          <div class="contact-info">
+            <p>
+              <f:if condition="{organizer.phone}">
+                <strong><f:translate key="l_organizer_phone" />:</strong>  {organizer.phone}<br>
+              </f:if>
+              <f:if condition="{organizer.mobilephone}">
+                <strong><f:translate key="l_organizer_mobilephone" />:</strong> {organizer.mobilephone}<br>
+              </f:if>
+              <f:if condition="{organizer.fax}">
+                <strong><f:translate key="l_organizer_fax" />:</strong> {organizer.fax}<br>
+              </f:if>
+              <f:if condition="{organizer.email}">
+                <strong><f:translate key="l_organizer_email" />:</strong> {organizer.email}<br>
+              </f:if>
+            </p>
+            <p class="social-links">
+              <f:if condition="{organizer.link}">
+                <strong><f:translate key="l_organizer_link" />:</strong> {organizer.link}<br>
+              </f:if>
+            </p>
+          </div>
+        </div>
+      </article>
+    </main>
+    <div id="calendar-event-backlink">
+      <f:cObject typoscriptObjectPath="plugin.tx_cal.settings.view.backLink">
+        <f:translate key="l_back" />
+      </f:cObject>
+    </div>
+  </div>
+</div>
+</f:section>

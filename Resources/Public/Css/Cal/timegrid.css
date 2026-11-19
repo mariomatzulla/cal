@@ -1,0 +1,130 @@
+/**
+ * Calendar Base (cal) – time grid of the day and week view
+ */
+.tx-cal-controller {
+	:is(.dayview, .weekview) {
+		clear: both;
+		border-inline-start: 5px solid var(--cal-color-accent-surface);
+	}
+
+	.gridcontainer {
+		position: relative;
+		block-size: var(--cal-grid-height);
+		overflow-y: visible;
+		border-block-start: var(--cal-border-width-frame) solid var(--cal-color-accent-surface);
+		background: var(--cal-color-surface-muted);
+		user-select: none;
+	}
+
+	/* Day names and all-day events */
+	.gridcontainertop {
+		inline-size: 100%;
+		table-layout: fixed;
+		overflow: hidden;
+		border-block-end: var(--cal-border-width-frame) solid var(--cal-color-accent-surface);
+		background-color: var(--cal-color-accent-surface);
+		font-size: var(--cal-font-size-xs);
+		line-height: 14px;
+
+		.allday {
+			inline-size: 100%;
+			table-layout: fixed;
+		}
+
+		td {
+			block-size: 20px;
+			vertical-align: top;
+			background-color: var(--cal-color-surface);
+		}
+
+		.daynames {
+			th {
+				text-align: center;
+			}
+
+			th.dummy {
+				inline-size: 15px;
+			}
+
+			td {
+				inline-size: var(--cal-time-column-width);
+				background-color: var(--cal-color-accent-surface);
+			}
+		}
+	}
+
+	/* Scrollable hours */
+	.scrolltime {
+		position: relative;
+		block-size: var(--cal-grid-scroll-height);
+		padding: 0;
+		overflow: hidden scroll;
+		border-block: var(--cal-border-width) solid var(--cal-color-accent-surface);
+		border-inline-start: 0;
+		font-size: var(--cal-font-size-xs);
+		line-height: normal;
+
+		.timetable {
+			inline-size: 100%;
+			margin-block-start: -1px;
+			table-layout: fixed;
+			border-block-end: var(--cal-border-width) solid var(--cal-color-line-accent);
+			background-color: var(--cal-color-surface);
+
+			.width {
+				inline-size: var(--cal-time-column-width);
+			}
+
+			.wrapper {
+				position: relative;
+				inset-block-start: 3px;
+				margin-inline-start: 1px;
+
+				.hours {
+					position: absolute;
+					inline-size: 100%;
+
+					.cell {
+						block-size: var(--cal-hour-height);
+					}
+
+					/* full hour solid, half hour dotted */
+					.line {
+						block-size: calc(var(--cal-hour-height) / 2 - 1px);
+						margin-block-end: calc(var(--cal-hour-height) / 2 - 1px);
+						border-block-start: var(--cal-border-width) solid var(--cal-color-line);
+						border-block-end: var(--cal-border-width) dotted var(--cal-color-line);
+						font-size: 1px;
+					}
+				}
+			}
+
+			.times {
+				padding-block-start: 1px;
+				background-color: var(--cal-color-time-surface);
+				color: var(--cal-color-text-muted);
+				text-align: end;
+				vertical-align: top;
+
+				div {
+					block-size: var(--cal-hour-height);
+				}
+
+				div.timeborder {
+					block-size: calc(var(--cal-hour-height) - 1px);
+				}
+			}
+
+			.event-column {
+				border-inline-start: var(--cal-border-width) solid var(--cal-color-line);
+				vertical-align: top;
+
+				.wrapper {
+					position: relative;
+					margin-inline-end: 10px;
+					cursor: default;
+				}
+			}
+		}
+	}
+}

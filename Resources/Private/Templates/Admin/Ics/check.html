@@ -1,0 +1,29 @@
+<f:layout name="Backend" />
+<f:section name="content">
+  <h1>
+    <f:translate key="backend_module_ics_generator_header" />
+  </h1>
+  <f:flashMessages />
+  <h3>
+    <f:translate key="backend_module_ics_generator_function3" />
+  </h3>
+  <f:if condition="{result}">
+    <f:then>
+    <p>
+      <f:for each="{result}" as="row">
+      [UID: {row.uid}; PID: {row.pid}] {row.title} -> {row.caldav_data}<br />
+      </f:for>
+      </p>
+    </f:then>
+    <f:else>
+    <p><f:translate key="backend_module_ics_generator_no_problems" /></p>
+    </f:else>
+  </f:if>
+  <f:link.action action="index" class="btn btn-primary">
+    <f:translate key="backend_module_ics_generator_function1" />
+  </f:link.action>
+  <f:link.action action="generate" class="btn btn-primary">
+    <f:translate key="backend_module_ics_generator_function2" />
+  </f:link.action>
+</f:section>
+</html>

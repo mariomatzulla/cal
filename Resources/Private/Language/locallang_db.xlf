@@ -184,13 +184,13 @@
 				<source>Saturday</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.bymonthday" resname="tx_cal_event.bymonthday" >
-				<source>By Monthday (e.g.: 1,2,30 or all)</source>
+				<source>By Monthday (e.g.: 1,2,30)</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.bymonthday_short" resname="tx_cal_event.bymonthday_short" >
 				<source>By Day of the Month</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.bymonth" resname="tx_cal_event.bymonth" >
-				<source>By Month (e.g.: 1,2,3,4,12 or all)</source>
+				<source>By Month (e.g.: 1,2,3,4,12)</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.bymonth_short" resname="tx_cal_event.bymonth_short" >
 				<source>By Month</source>
@@ -440,6 +440,9 @@
 			<trans-unit id="tx_cal_calendar.title" resname="tx_cal_calendar.title" >
 				<source>Calendar Title</source>
 			</trans-unit>
+			<trans-unit id="tx_cal_calendar.timezone" resname="tx_cal_calendar.timezone" >
+				<source>Timezone</source>
+			</trans-unit>
 			<trans-unit id="tx_cal_calendar.type" resname="tx_cal_calendar.type" >
 				<source>Calendar Type</source>
 			</trans-unit>
@@ -455,11 +458,14 @@
 			<trans-unit id="tx_cal_calendar.ext_url" resname="tx_cal_calendar.ext_url" >
 				<source>External Calendar URL</source>
 			</trans-unit>
+			<trans-unit id="tx_cal_calendar.add_url" resname="tx_cal_calendar.add_url" >
+				<source>Add URL</source>
+			</trans-unit>
 			<trans-unit id="tx_cal_calendar.ext_url_url" resname="tx_cal_calendar.ext_url_url" >
 				<source>URL</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_calendar.ext_url_note" resname="tx_cal_calendar.ext_url_note" >
-				<source>Note</source>
+			<trans-unit id="tx_cal_calendar.ext_url_notes" resname="tx_cal_calendar.ext_url_notes" >
+				<source>External Calendar Notes</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.ics_file" resname="tx_cal_calendar.ics_file" >
 				<source>ICS File</source>
@@ -498,6 +504,45 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_category.title" resname="tx_cal_category.title" >
 				<source>Category title</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color" resname="sys_category.tx_cal_color">
+				<source>Color in the calendar</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.description" resname="sys_category.tx_cal_color.description">
+				<source>Color of the events of this category in the calendar views. Empty: no own color (default color).</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.blue" resname="sys_category.tx_cal_color.blue">
+				<source>Light blue (default)</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.green" resname="sys_category.tx_cal_color.green">
+				<source>Green</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.orange" resname="sys_category.tx_cal_color.orange">
+				<source>Orange</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.red" resname="sys_category.tx_cal_color.red">
+				<source>Red</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.pink" resname="sys_category.tx_cal_color.pink">
+				<source>Pink</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.yellow" resname="sys_category.tx_cal_color.yellow">
+				<source>Yellow</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.brown" resname="sys_category.tx_cal_color.brown">
+				<source>Brown</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color.grey" resname="sys_category.tx_cal_color.grey">
+				<source>Grey</source>
+			</trans-unit>
+			<trans-unit id="sys_category.palette.tx_cal_color" resname="sys_category.palette.tx_cal_color">
+				<source>Calendar (cal)</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color_priority" resname="sys_category.tx_cal_color_priority">
+				<source>Color priority</source>
+			</trans-unit>
+			<trans-unit id="sys_category.tx_cal_color_priority.description" resname="sys_category.tx_cal_color_priority.description">
+				<source>If an event has several categories with a color, the highest priority wins. With the same priority the sub category wins.</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_category.headerstyle" resname="tx_cal_category.headerstyle" >
 				<source>Header style</source>
@@ -858,6 +903,51 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar_subscription" resname="tx_cal_calendar_subscription" >
 				<source>Deselected calendar subscription</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp" resname="tx_cal_event.isTemp">
+				<source>Imported from external calendar (temp)</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp.description" resname="tx_cal_event.isTemp.description">
+				<source>This event is managed by the external calendar import and is replaced on the next import.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp.info" resname="tx_cal_event.isTemp.info">
+				<source>This event was imported from an external calendar and cannot be changed. Change it in the external calendar instead.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.isTemp.locked" resname="tx_cal_event.isTemp.locked">
+				<source>Imported events of external calendars cannot be changed, moved or deleted in the backend.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.import.imported" resname="tx_cal_calendar.import.imported">
+				<source>External calendar imported: %d events.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.import.removed" resname="tx_cal_calendar.import.removed">
+				<source>%d imported events of this calendar have been removed.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.import.error" resname="tx_cal_calendar.import.error">
+				<source>The external calendar could not be imported: %s</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.created" resname="tx_cal_calendar.scheduler.created">
+				<source>Scheduler task #%d created: the calendar is synchronized every %d minutes.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.removed" resname="tx_cal_calendar.scheduler.removed">
+				<source>Scheduler task #%d has been removed.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.error" resname="tx_cal_calendar.scheduler.error">
+				<source>The scheduler task could not be updated: %s</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.scheduler.schemaMissing" resname="tx_cal_calendar.scheduler.schemaMissing">
+				<source>The scheduler task could not be created: the database is not up to date. Please run "Analyze Database Structure".</source>
+			</trans-unit>
+			<trans-unit id="tx_scheduler_task.tx_cal_calendar" resname="tx_scheduler_task.tx_cal_calendar">
+				<source>External calendar</source>
+			</trans-unit>
+			<trans-unit id="tx_scheduler_task.importExternalCalendar" resname="tx_scheduler_task.importExternalCalendar">
+				<source>Calendar Base: Import external calendar</source>
+			</trans-unit>
+			<trans-unit id="tx_scheduler_task.importExternalCalendar.description" resname="tx_scheduler_task.importExternalCalendar.description">
+				<source>Imports the events of an external calendar (ICS URL). Created automatically when an external calendar with a refresh interval is saved.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.index.error" resname="tx_cal_event.index.error">
+				<source>The recurrence index of the event could not be generated: %s</source>
 			</trans-unit>
 		</body>
 	</file>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
  *
@@ -12,418 +14,529 @@
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
-namespace TYPO3\CMS\Cal\Utility;
 
-use TYPO3\CMS\Cal\Backend\Modul\CalIndexer;
-use TYPO3\CMS\Cal\Controller\Api;
-use TYPO3\CMS\Cal\Controller\DateParser;
-use TYPO3\CMS\Cal\Model\CalDate;
-use TYPO3\CMS\Cal\Service\EventService;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+namespace MarioMatzulla\Cal\Utility;
+
+use MarioMatzulla\Cal\Domain\Model\Event;
+use MarioMatzulla\Cal\Domain\Model\Index;
+use MarioMatzulla\Cal\Domain\Repository\EventDeviationRepository;
+use MarioMatzulla\Cal\Domain\Repository\EventRepository;
+use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
+use MarioMatzulla\Cal\Model\CalendarDateTime;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
 /**
- *
- * @author : Mario Matzulla
+ * Class RecurrenceGenerator
  */
-class RecurrenceGenerator {
+class RecurrenceGenerator
+{
+    /**
+     * The table name of the index table
+     */
+    public const INDEX_TABLE = 'tx_cal_domain_model_index';
 
-  /**
-   * The table name of the index table
-   */
-  const INDEX_TABLE = 'tx_cal_index';
+    /**
+     * @var CalendarDateTime|null
+     */
+    public $starttime;
 
-  /**
-   *
-   * @var string
-   */
-  public $info = '';
+    /**
+     * @var CalendarDateTime|null
+     */
+    public $endtime;
 
-  /**
-   *
-   * @var null
-   */
-  public $pageIDForPlugin;
+    /**
+     * @var array
+     */
+    public $configuration;
 
-  /**
-   *
-   * @var null|string
-   */
-  public $starttime;
-
-  /**
-   *
-   * @var null|string
-   */
-  public $endtime;
-
-  /**
-   *
-   * @var array
-   */
-  public $extConf;
-
-  /**
-   *
-   * @param null $pageIDForPlugin          
-   * @param null $starttime          
-   * @param null $endtime          
-   */
-  public function __construct($pageIDForPlugin = null, $starttime = null, $endtime = null) {
-
-    $this->extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class )->get( 'cal' );
-    ;
-    $this->pageIDForPlugin = $pageIDForPlugin;
-    if ($starttime == null) {
-      $starttime = $this->getTimeParsed( $this->extConf ['recurrenceStart'] )->format( '%Y%m%d' );
+    public function __construct(
+        private readonly EventRepository $eventRepository,
+        private readonly EventDeviationRepository $eventDeviationRepository,
+        private readonly IndexRepository $indexRepository,
+        private readonly PersistenceManagerInterface $persistenceManager,
+        ExtensionConfiguration $extensionConfiguration,
+    ) {
+        $this->configuration = (array)$extensionConfiguration->get('cal');
+        $this->setRange();
     }
-    $this->starttime = $starttime;
-    if ($endtime == null) {
-      $endtime = $this->getTimeParsed( $this->extConf ['recurrenceEnd'] )->format( '%Y%m%d' );
+
+    /**
+     * Sets the time range of the index. Empty values use the extension configuration
+     * (recurrenceStart / recurrenceEnd). Accepts YYYYMMDD or relative values like "-3 month".
+     */
+    public function setRange(int|string|null $starttime = null, int|string|null $endtime = null): self
+    {
+        $this->starttime = CalculateDateTime::parseTcaString(
+            (string)($starttime === null || $starttime === '' ? ($this->configuration['recurrenceStart'] ?? '') : $starttime),
+            null,
+        );
+        $this->endtime = CalculateDateTime::parseTcaString(
+            (string)($endtime === null || $endtime === '' ? ($this->configuration['recurrenceEnd'] ?? '') : $endtime),
+            null,
+        );
+        return $this;
     }
-    $this->endtime = $endtime;
-  }
 
-  /**
-   *
-   * @return string
-   */
-  function getInfo() {
-
-    return $this->info;
-  }
-
-  /**
-   *
-   * @param int $pageId          
-   */
-  public function cleanIndexTable($pageId) {
-
-    $this->getDatabaseConnection()->exec_DELETEquery( self::INDEX_TABLE, 'event_uid in (select uid from tx_cal_event where pid = ' . intval( $pageId ) . ')' );
-  }
-
-  /**
-   *
-   * @param int $uid          
-   * @param string $table          
-   */
-  public function cleanIndexTableOfUid($uid, $table) {
-
-    $this->getDatabaseConnection()->exec_DELETEquery( self::INDEX_TABLE, 'event_uid = ' . $uid . ' AND tablename = "' . $table . '"' );
-  }
-
-  /**
-   *
-   * @param int $uid          
-   */
-  function cleanIndexTableOfCalendarUid($uid) {
-
-    $databaseConnection = $this->getDatabaseConnection();
-    $select = 'uid';
-    $table = 'tx_cal_event';
-    $where = 'deleted = 0 AND calendar_id = ' . $uid;
-    $uids = array_keys( $databaseConnection->exec_SELECTgetRows( $select, $table, $where, '', '', '', 'uid' ) );
-    $uids [] = 0;
-    $databaseConnection->exec_DELETEquery( self::INDEX_TABLE, 'event_uid IN (' . implode( $uids ) . ')' . ' AND tablename="' . $table . '"' );
-  }
-
-  /**
-   *
-   * @param int $uid          
-   */
-  function cleanIndexTableOfExceptionGroupUid($uid) {
-
-    $databaseConnection = $this->getDatabaseConnection();
-    $cObj = &Registry::Registry( 'basic', 'cobj' );
-    $uids = Array (
-        
-        0
-    );
-    $where = 'AND tx_cal_exception_event_group.uid = ' . $uid . $cObj->enableFields( 'tx_cal_exception_event' ) . $cObj->enableFields( 'tx_cal_exception_event_group' );
-    $results = $databaseConnection->exec_SELECT_mm_query( 'tx_cal_exception_event_group.*', 'tx_cal_exception_event', 'tx_cal_exception_event_mm', 'tx_cal_exception_event_group', $where );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        $uids [] = $row ['uid'];
-      }
-      $databaseConnection->sql_free_result( $results );
+    /**
+     * @param int $pageId
+     */
+    public function cleanIndexTable(int $pageId)
+    {
+        $uidList = $this->eventRepository->findUidsForEventsWithPage($pageId);
+        $this->indexRepository->deleteByEventUidsAndTablename($uidList, 'tx_cal_event');
     }
-    $databaseConnection->exec_DELETEquery( self::INDEX_TABLE, 'event_uid IN (' . implode( $uids ) . ')' . ' AND tablename = "tx_cal_exception_event"' );
-  }
 
-  /**
-   *
-   * @param int $eventPage          
-   *
-   * @return int
-   */
-  function countRecurringEvents($eventPage = 0) {
-
-    $databaseConnection = $this->getDatabaseConnection();
-    $count = 0;
-    $select = 'count(*)';
-    $table = 'tx_cal_event';
-    $where = 'deleted = 0 AND (freq IN ("day","week","month","year") OR (rdate AND rdate_type IN ("date_time","date","period")))';
-    if ($eventPage > 0) {
-      $where = 'pid = ' . $eventPage . ' AND ' . $where;
+    /**
+     * @param int $uid
+     * @param string $table
+     */
+    public function cleanIndexTableOfUid(int $uid, string $table)
+    {
+        $this->indexRepository->deleteByEventUidsAndTablename([$uid], $table);
     }
-    $results = $databaseConnection->exec_SELECTquery( $select, $table, $where );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        $count = $row ['count(*)'];
-      }
-      $databaseConnection->sql_free_result( $results );
+
+    /**
+     * @param int $uid
+     */
+    public function cleanIndexTableOfCalendarUid(int $uid)
+    {
+        $uidList = $this->eventRepository->findUidsForCalendar($uid);
+        $this->indexRepository->deleteByEventUidsAndTablename($uidList, 'tx_cal_event');
     }
-    
-    $table = 'tx_cal_exception_event';
-    $results = $databaseConnection->exec_SELECTquery( $select, $table, $where );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        $count += $row ['count(*)'];
-      }
-      $databaseConnection->sql_free_result( $results );
-    }
-    return $count;
-  }
 
-  /**
-   *
-   * @return array
-   */
-  public function getRecurringEventPages() {
-
-    $pages = array ();
-    $table = 'tx_cal_event';
-    $this->getPageTitleAndUidFromPagesContaining( $table, $pages );
-    
-    $table = 'tx_cal_exception_event';
-    $this->getPageTitleAndUidFromPagesContaining( $table, $pages );
-    
-    return $pages;
-  }
-
-  /**
-   *
-   * @param string $table          
-   * @param array $pages          
-   */
-  protected function getPageTitleAndUidFromPagesContaining($table, array &$pages) {
-
-    $databaseConnection = $this->getDatabaseConnection();
-    $select = 'pid';
-    $where = 'deleted = 0 AND (freq IN ("day","week","month","year") OR (rdate AND rdate_type IN ("date_time","date","period")))';
-    $pids = Array ();
-    $groupBy = 'pid';
-    $results = $databaseConnection->exec_SELECTquery( $select, $table, $where, $groupBy );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        $pids [] = $row ['pid'];
-      }
-      $databaseConnection->sql_free_result( $results );
-    }
-    if (! empty( $pids )) {
-      $select = 'title,uid';
-      $where = 'deleted = 0 and uid in (' . implode( ',', $pids ) . ')';
-      $results = $databaseConnection->exec_SELECTquery( $select, 'pages', $where );
-      if ($results) {
-        while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-          $pages [$row ['uid']] = $row ['title'];
+    /**
+     * @param int $eventPage
+     *
+     * @return int
+     */
+    public function countRecurringEvents($eventPage = 0): int
+    {
+        $count = 0;
+        if ($eventPage > 0) {
+            $count = $this->eventRepository->countWithPage($eventPage);
+        } else {
+            $count = $this->eventRepository->countAll();
         }
-        $databaseConnection->sql_free_result( $results );
-      }
-    }
-  }
 
-  /**
-   * Generate index
-   *
-   * @param int $eventPage          
-   */
-  function generateIndex($eventPage = 0) {
+        return $count;
+    }
 
-    $eventService = $this->getEventService();
-    if (! is_object( $eventService )) {
-      return;
-    }
-    $eventService->starttime = new CalDate( $this->starttime );
-    $eventService->endtime = new CalDate( $this->endtime );
-    $databaseConnection = $this->getDatabaseConnection();
-    
-    $select = '*';
-    $table = 'tx_cal_event';
-    $this->info .= '<h3>tx_cal_event</h3><br/><ul>';
-    $where = 'deleted = 0 AND (freq IN ("day","week","month","year") OR (rdate AND rdate_type IN ("date_time","date","period")))';
-    if ($eventPage > 0) {
-      $where = 'pid = ' . $eventPage . ' AND ' . $where;
-    }
-    $results = $databaseConnection->exec_SELECTquery( $select, $table, $where );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        // make sure that rdate is empty in case that something went wrong during event creation (e.g. by copying)
-        if ($row ["rdate_type"] == "none" || $row ["rdate_type"] == "" || $row ["rdate_type"] == "0") {
-          $row ["rdate"] = "";
+    /**
+     * Rebuilds the index of all recurring events of the given page (0 = all pages).
+     *
+     * @return list<string> titles of the indexed events
+     */
+    public function generateIndex(int $eventPage = 0): array
+    {
+        $titles = [];
+        foreach ($this->eventRepository->findRecurringEvents($eventPage) as $event) {
+            /** @var Event $event */
+            $titles[] = (string)$event->getTitle();
+            $this->createRecurringInstances($event);
         }
-        $this->info .= '<li>' . $row ['title'] . '</li>';
-        $event = $eventService->createEvent( $row, false );
-        $eventService->recurringEvent( $event );
-      }
-      $databaseConnection->sql_free_result( $results );
+        return $titles;
     }
-    $this->info .= '</ul>';
-    $this->info .= '<h3>tx_cal_exception_event</h3><br/><ul>';
-    $table = 'tx_cal_exception_event';
-    $results = $databaseConnection->exec_SELECTquery( $select, $table, $where );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        $this->info .= '<li>' . $row ['title'] . '</li>';
-        $event = $eventService->createEvent( $row, true );
-        $eventService->recurringEvent( $event );
-      }
-      $databaseConnection->sql_free_result( $results );
+
+    /**
+     * Generate index for UID of table tx_cal_event
+     *
+     * @param int $uid
+     */
+    public function generateIndexForEventUid(int $uid)
+    {
+        $this->cleanIndexTableOfUid($uid, 'tx_cal_event');
+        $event = $this->eventRepository->findByUid($uid);
+        if ($event instanceof Event) {
+            $this->createRecurringInstances($event);
+        }
     }
-    $this->info .= '</ul>';
-    $this->info .= 'Done.';
-    $this->info .= '<br/><br/><a href="javascript:history.back();">' . LocalizationUtility::translate( 'l_back', 'cal' ) . '</a><br/><br/>';
-  }
 
-  /**
-   * Genrate index for UID
-   *
-   * @param int $uid          
-   * @param string $table          
-   */
-  function generateIndexForUid($uid, $table) {
+    /**
+     * Generate index for the given calendar
+     *
+     * @param int $uid
+     */
+    public function generateIndexForCalendarUid(int $uid)
+    {
 
-    $eventService = $this->getEventService();
-    if (! is_object( $eventService )) {
-      return;
+        $this->cleanIndexTableOfCalendarUid($uid);
+        $events = $this->eventRepository->findAllForCalendar($uid);
+
+        foreach ($events as $event) {
+            $this->createRecurringInstances($event);
+        }
     }
-    $eventService->starttime = new CalDate( $this->starttime );
-    $eventService->endtime = new CalDate( $this->endtime );
-    
-    $this->cleanIndexTableOfUid( $uid, $table );
-    
-    $select = '*';
-    $where = 'uid = ' . ( int ) $uid;
-    
-    $rows = $this->getDatabaseConnection()->exec_SELECTgetRows( $select, $table, $where );
-    foreach ( $rows as $row ) {
-      $event = $eventService->createEvent( $row, $table == 'tx_cal_exception_event' );
-      $eventService->recurringEvent( $event );
+
+    public function createRecurringInstances(Event $event)
+    {
+        RecurrenceValidator::validateEvent($event);
+
+        $count = (int)($event->getCnt());
+        $until = new CalendarDateTime();
+        if ($event->getUntil() != null) {
+            $until->setTimestamp($event->getUntil()->getTimestamp());
+            $until->addSeconds(1);
+            if ($this->endtime->before($until)) {
+                $until->copy($this->endtime);
+            }
+        } else {
+            $until->copy($this->endtime);
+        }
+
+        $byyear =  [];
+        $eventStart = new CalendarDateTime();
+        $eventStart->copy($event->getStart());
+        $i = $eventStart->getYear();
+        if ($event->getFreq() == 'year') {
+            $i = (int)($this->starttime->getYear()) - (($this->starttime->getYear() - $eventStart->getYear()) % $event->getIntrval());
+        }
+
+        for (; $i < (int)($until->getYear()) + 1; $i++) {
+            $byyear [] = $i;
+        }
+
+        $maxRecurringEvents = $count;
+
+        $counter = 1;
+        $total = 1;
+
+        // if the 'parent' event is still in future, set $added to 1 (true), because we already have one instance of this event
+        $added = (int)$eventStart->isFuture();
+        $nextOccuranceTime = new CalendarDateTime();
+        $nextOccuranceTime->copy($event->getStart());
+        $nextOccuranceTime->modify('+1 day');
+
+        if ($event->getRdateType() && $event->getRdateType() != 'none') {
+            $this->addRecurringInstances($event, $added);
+        }
+        switch ($event->getFreq()) {
+            case 'day':
+                $this->addDailyOccurrance($event, $nextOccuranceTime, $until, $event->getByday(), $count, $counter, $total, $added, $maxRecurringEvents);
+                break;
+            case 'week':
+            case 'month':
+            case 'year':
+                $bymonth = explode(',', (string)$event->getBymonth());
+                $byday = explode(',', (string)$event->getByday());
+                $hour = $eventStart->getHour();
+                $minute = $eventStart->getMinute();
+                // 2007, 2008...
+                foreach ($byyear as $year) {
+                    $year = (int)$year;
+                    if ($counter < $count && $until->after($nextOccuranceTime) && $added < $maxRecurringEvents) {
+                        // 1,2,3,4,5,6,7,8,9,10,11,12
+                        foreach ($bymonth as $month) {
+                            $month = (int)$month;
+                            if ($counter < $count && $until->after($nextOccuranceTime) && (int)(str_pad((string)$year, 2, '0', STR_PAD_LEFT) . str_pad((string)$month, 2, '0', STR_PAD_LEFT)) >= (int)($nextOccuranceTime->getYear() . $nextOccuranceTime->getMinute()) && $added < $maxRecurringEvents) {
+                                $bymonthday = $this->getMonthDaysForMonth($event, $month, $year);
+                                // 1,2,3,4....31
+                                foreach ($bymonthday as $day) {
+                                    $day = (int)$day;
+                                    $nextOccuranceTime->setTime((int)$hour, (int)$minute, 0);
+                                    $nextOccuranceTime->setDate($year, $month, $day);
+                                    if ($counter < $count && ($until->after($nextOccuranceTime) || $until->equals($nextOccuranceTime)) && $added < $maxRecurringEvents) {
+                                        if ((int)($nextOccuranceTime->getMonth()) == (int)$month && ($eventStart->before($nextOccuranceTime)) || $eventStart->equals($nextOccuranceTime)) {
+                                            $currentUntil = new CalendarDateTime();
+                                            $currentUntil->copy($nextOccuranceTime);
+                                            $currentUntil->addSeconds(86399);
+                                            $this->addDailyOccurrance($event, $nextOccuranceTime, $currentUntil, $byday, $count, $counter, $total, $added, $maxRecurringEvents);
+                                        } else {
+                                            continue;
+                                        }
+                                    } else {
+                                        $this->persistenceManager->persistAll();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        $this->persistenceManager->persistAll();
+                        return;
+                    }
+                }
+                break; // switch-case break
+        }
+        $this->persistenceManager->persistAll();
     }
-    $this->info = 'Done.';
-  }
 
-  /**
-   * Generate index for the given calendar
-   *
-   * @param int $uid          
-   */
-  function generateIndexForCalendarUid($uid) {
+    private function addDailyOccurrance($event, CalendarDateTime &$startRange, CalendarDateTime &$endRange, $weekdays, $maxCount, &$currentCount, &$totalCount, &$addedCount, &$maxRecurringEvents)
+    {
+        $nextOccuranceTime = new CalendarDateTime();
+        $nextOccuranceTime->copy($startRange);
+        while ($currentCount < $maxCount && ($nextOccuranceTime->before($endRange) || $nextOccuranceTime->equals($endRange)) && $addedCount < $maxRecurringEvents) {
+            if (! $nextOccuranceTime->equals($event->getStart())) {
+                if (($totalCount % $event->getIntrval()) == 0) {
+                    $nextOccuranceEndTime = new CalendarDateTime();
+                    $nextOccuranceEndTime->copy($nextOccuranceTime);
+                    $nextOccuranceEndTime->addSeconds($event->getEnd()->getTimestamp() -  $event->getStart()->getTimestamp());
+                    if ($this->starttime->before($nextOccuranceEndTime) || $this->starttime->equals($nextOccuranceTime)) {
+                        $this->createIndexEntry($nextOccuranceTime, $nextOccuranceEndTime, $event);
+                        $addedCount++;
+                    }
+                    $currentCount++;
+                }
+                $totalCount++;
 
-    $eventService = $this->getEventService();
-    if (! is_object( $eventService )) {
-      return;
+            }
+            $nextOccuranceTime->modify('+1 day');
+        }
     }
-    $eventService->starttime = new CalDate( $this->starttime );
-    $eventService->endtime = new CalDate( $this->endtime );
-    
-    $this->cleanIndexTableOfCalendarUid( $uid );
-    $databaseConnection = $this->getDatabaseConnection();
-    
-    $select = '*';
-    $table = 'tx_cal_event';
-    $where = 'calendar_id = ' . $uid;
-    $rows = $databaseConnection->exec_SELECTgetRows( $select, $table, $where );
-    foreach ( $rows as $row ) {
-      $event = $eventService->createEvent( $row, false );
-      $eventService->recurringEvent( $event );
+
+    private function createIndexEntry(CalendarDateTime $nextOccuranceTime, CalendarDateTime $nextOccuranceEndTime, Event $event)
+    {
+        $indexEntry = new Index();
+        $indexEntry->setStartDatetime((float)$nextOccuranceTime->format('YmdHis'));
+        $indexEntry->setEndDatetime((float)$nextOccuranceEndTime->format('YmdHis'));
+        $indexEntry->setEventUid($event->getUid());
+        $indexEntry->setTablename((string)$this->getModelType($event));
+        $this->updateEventDataWithDeviations($event, $indexEntry, $nextOccuranceTime, $nextOccuranceEndTime);
+        $this->indexRepository->add($indexEntry);
     }
-    $this->info = 'Done.';
-  }
 
-  /**
-   * Generate the index for the given exception group id
-   *
-   * @param int $uid          
-   */
-  function generateIndexForExceptionGroupUid($uid) {
-
-    $eventService = $this->getEventService();
-    if (! is_object( $eventService )) {
-      return;
+    private function getModelType($event)
+    {
+        return $event->getModelType() == 'tx_cal_event' ? ($event->isException() ? 'tx_cal_exception_event' : 'tx_cal_event') : $event->getModelType();
     }
-    $eventService->starttime = new CalDate( $this->starttime );
-    $eventService->endtime = new CalDate( $this->endtime );
-    
-    $this->cleanIndexTableOfExceptionGroupUid( $uid );
-    $databaseConnection = $this->getDatabaseConnection();
-    
-    $cObj = &Registry::Registry( 'basic', 'cobj' );
-    $where = 'tx_cal_exception_event_group.id = ' . $uid . $cObj->enableFields( 'tx_cal_exception_event' ) . $cObj->enableFields( 'tx_cal_exception_event_group' );
-    $results = $databaseConnection->exec_SELECT_mm_query( 'tx_cal_exception_event_group.*', 'tx_cal_exception_event', 'tx_cal_exception_event_mm', 'tx_cal_exception_event_group', $where );
-    if ($results) {
-      while ( $row = $databaseConnection->sql_fetch_assoc( $results ) ) {
-        $event = $eventService->createEvent( $row, false );
-        $eventService->recurringEvent( $event );
-      }
-      $databaseConnection->sql_free_result( $results );
+
+    private function getDeviationDates(Event $event)
+    {
+        $deviationResult = $this->eventDeviationRepository->findByEventUid($event->getuid());
+        $deviations = [];
+        if ($deviationResult) {
+            foreach ($deviationResult as $deviation) {
+                $t = new \DateTime();
+                $t->setTimestamp((int)$deviation->getOrigStartDate());
+                $origStartDate = CalendarDateTime::generateFromDateTime($t);
+                $origStartDate->addSeconds((int)$deviation->getOrigStartTime());
+                $deviations [(string)$origStartDate->format('YmdHis')] = $deviation;
+            }
+        }
+        return $deviations;
     }
-    $this->info = 'Done.';
-  }
 
-  /**
-   * Get the event service
-   *
-   * @return EventService
-   */
-  function getEventService() {
+    private function updateEventDataWithDeviations(Event $event, Index $eventData, $nextOccuranceTime, $nextOccuranceEndTime)
+    {
 
-    static $eventService = null;
-    if (is_object( $eventService )) {
-      return $eventService;
+        $deviationDates = $this->getDeviationDates($event);
+        $startDateTime = sprintf('%.0f', (float)$eventData->getStartDatetime());
+        if (array_key_exists($startDateTime, $deviationDates)) {
+            $deviation = $deviationDates[$startDateTime];
+            if ($deviation->getStartDate() instanceof \DateTime) {
+                $startDate = CalendarDateTime::generateFromDateTime($deviation->getStartDate());
+            } else {
+                $startDate = new CalendarDateTime();
+                $startDate->copy($nextOccuranceTime);
+            }
+            if ($deviation->getEndDate() instanceof \DateTime) {
+                $endDate = CalendarDateTime::generateFromDateTime($deviation->getEndDate());
+            } else {
+                $endDate = new CalendarDateTime();
+                $endDate->copy($nextOccuranceEndTime);
+            }
+
+            if (! $deviation->isAllday() && $deviation->getStartTime() instanceof \DateTime && $deviation->getEndTime() instanceof \DateTime) {
+                $startDate->setTime((int)$deviation->getStartTime()->format('H'), (int)$deviation->getStartTime()->format('i'));
+                $endDate->setTime((int)$deviation->getEndTime()->format('H'), (int)$deviation->getEndTime()->format('i'));
+            }
+
+            $eventData->setEventDeviationUid((int)$deviation->getUid());
+            $eventData->setStartDatetime((float)$startDate->format('YmdHis'));
+            $eventData->setEndDatetime((float)$endDate->format('YmdHis'));
+        }
     }
-    try {
-      $modelObj = &Registry::Registry( 'basic', 'modelcontroller' );
-      if (! $modelObj) {
-        /** @var Api $calAPI */
-        $calAPI = GeneralUtility::makeInstance( \TYPO3\CMS\Cal\Controller\Api::class );
-        $calAPI = &$calAPI->tx_cal_api_without( $this->pageIDForPlugin );
-        $modelObj = $calAPI->modelObj;
-      }
-      $eventService = $modelObj->getServiceObjByKey( 'cal_event_model', 'event', 'tx_cal_phpicalendar' );
-    } catch ( \Exception $e ) {
-      $this->info = CalIndexer::getMessage( $e, FlashMessage::ERROR );
+
+    private function addRecurringInstances($event, $addedCount)
+    {
+
+        switch ($event->getRdateType()) {
+            case 'date':
+                $rdateValues = explode(',', (string)$event->getRdate());
+                foreach ($rdateValues as $rdateValue) {
+                    $dateArray = [];
+                    preg_match('/(^[0-9]{4})([0-9]{2})([0-9]{2})/', $rdateValue, $dateArray);
+                    $start = new CalendarDateTime();
+                    $start->copy($event->getStart());
+                    $end = new CalendarDateTime();
+                    $diff = $event->getEnd()->getTimestamp() - $event->getStart()->getTimestamp();
+                    $start->setDay((int)$dateArray [3]);
+                    $start->setMonth((int)$dateArray [2]);
+                    $start->setYear((int)$dateArray [1]);
+                    $end->copy($start);
+                    $end->addSeconds($diff);
+                    if ($end->after($this->starttime) && $start->before($this->endtime)) {
+                        $this->createIndexEntry($start, $end, $event);
+                        $addedCount++;
+                    }
+                }
+                break;
+            case 'period':
+                $rdateValues = explode(',', (string)$event->getRdate());
+                foreach ($rdateValues as $rdateValue) {
+                    $dateArray = [];
+                    $durationArray = [];
+                    preg_match('/([0-9]{4})(-?([0-9]{2})((-?[0-9]{2})(T([0-9]{2}):?([0-9]{2})(:?([0-9]{2})(\.([0-9]+))?)?(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?/', $rdateValue, $dateArray);
+                    preg_match('/\/P((\d+)Y)?((\d+)M)?((\d+)W)?((\d+)D)?T((\d+)H)?((\d+)M)?((\d+)S)?/', $rdateValue, $durationArray);
+                    $start = new CalendarDateTime();
+                    $start->copy($event->getStart());
+                    while (count($dateArray) > 11) {
+                        array_push($dateArray, 0);
+                    }
+                    $start->setDay((int)$dateArray [5]);
+                    $start->setMonth((int)$dateArray [3]);
+                    $start->setYear((int)$dateArray [1]);
+                    $start->setHour((int)$dateArray [7]);
+                    $start->setMinute((int)$dateArray [8]);
+                    $start->setSecond((int)$dateArray [10]);
+
+                    $end = new CalendarDateTime();
+                    $end->copy($start);
+
+                    $diff = 0;
+                    while (count($durationArray) < 15) {
+                        array_push($durationArray, 0);
+                    }
+                    if ($durationArray [2]) {
+                        // Year
+                        $end->setYear($end->getYear() + (int)($durationArray [2]));
+                    }
+                    if ($durationArray [4]) {
+                        // Month
+                        $end->setMonth($end->getMonth() + (int)($durationArray [4]));
+                    }
+                    if ($durationArray [6]) {
+                        // Week
+                        $diff += (int)($durationArray [6]) * 60 * 60 * 24 * 7;
+                    }
+                    if ($durationArray [8]) {
+                        // Day
+                        $diff += (int)($durationArray [8]) * 60 * 60 * 24;
+                    }
+                    if ($durationArray [10]) {
+                        // Hour
+                        $diff += (int)($durationArray [10]) * 60 * 60;
+                    }
+                    if ($durationArray [12]) {
+                        // Minute
+                        $diff += (int)($durationArray [12]) * 60;
+                    }
+                    if ($durationArray [14]) {
+                        // Second
+                        $diff += (int)($durationArray [14]);
+                    }
+
+                    $end->addSeconds($diff);
+
+                    if ($end->after($this->starttime) && $start->before($this->endtime)) {
+                        $this->createIndexEntry($start, $end, $event);
+                        $addedCount++;
+                    }
+                }
+                break;
+            default:
+                $rdateValues = explode(',', (string)$event->getRdate());
+                foreach ($rdateValues as $rdateValue) {
+                    preg_match('/([0-9]{4})(-?([0-9]{2})((-?[0-9]{2})(T([0-9]{2}):?([0-9]{2})(:?([0-9]{2})(\.([0-9]+))?)?(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?/', $rdateValue, $dateArray);
+                    $start = new CalendarDateTime();
+                    $start->copy($event->getStart());
+                    $end = new CalendarDateTime();
+                    $diff = $event->getEnd()->getTimestamp() - $event->getStart()->getTimestamp();
+                    $start->setDay((int)$dateArray [5]);
+                    $start->setMonth((int)$dateArray [3]);
+                    $start->setYear((int)$dateArray [1]);
+                    $start->setHour((int)$dateArray [7]);
+                    $start->setMinute((int)$dateArray [8]);
+                    $start->setSecond((int)$dateArray [10]);
+                    $end->copy($start);
+                    $end->addSeconds($diff);
+                    if ($end->after($this->starttime) && $start->before($this->endtime)) {
+                        $this->createIndexEntry($start, $end, $event);
+                        $addedCount++;
+                    }
+                }
+                break;
+        }
     }
-    if (! is_object( $eventService )) {
-      $this->info = CalIndexer::getMessage( 'Could not fetch the event service! Please make sure the page id is correct!', FlashMessage::ERROR );
+
+    private function getMonthDaysForMonth($event, $month, $year)
+    {
+
+        $byDayArray = explode(',', (string)$event->getByday());
+        $resultDays = [];
+
+        $byMonthDay = trim((string)$event->getBymonthday());
+        $byMonthDays = $byMonthDay === '' ? range(1, 31) : explode(',', $byMonthDay);
+
+        $monthStartTime = CalendarDateTime::generateByYmdHis($year . sprintf('%02d', (int)$month) . '01000000');
+        $monthEndTime = new CalendarDateTime();
+        $monthEndTime->copy($monthStartTime);
+        $monthEndTime = CalculateDateTime::calculateEndOfMonth($monthEndTime);
+        for ($i = 0; $i < count($byDayArray); $i++) {
+            $byDaySplit = [];
+            if (preg_match('/([-\+]{0,1})?([0-9]{1})?([A-Z]{2})/', (string)$byDayArray [$i], $byDaySplit)) {
+                $dayOfWeekday = (int)RecurrenceGenerator::two2threeCharDays($byDaySplit [3], false);
+
+                if ($byDaySplit [2] > 0) {
+                    if ($byDaySplit [1] == '-') {
+                        $monthTime = CalculateDateTime::prevDayOfWeek($dayOfWeekday, $monthEndTime->getDay(), $monthEndTime->getMonth(), $monthEndTime->getYear(), true);
+                        $monthTime->modify('-' . (((int)$byDaySplit [2] - 1) * 7) . ' day');
+                    } else {
+                        $monthTime = CalculateDateTime::nextDayOfWeek($dayOfWeekday, $monthStartTime->getDay(), $monthStartTime->getMonth(), $monthStartTime->getYear(), true);
+                        $monthTime->modify('+' . (((int)$byDaySplit [2] - 1) * 7) . ' day');
+                    }
+                    if (($monthTime->getMonth() == $month) && in_array((int)($monthTime->getDay()), $byMonthDays)) {
+                        $resultDays [] = $monthTime->getDay();
+                    }
+                } else {
+                    $monthTime = CalculateDateTime::prevDayOfWeek($dayOfWeekday, $monthStartTime->getDay(), $monthStartTime->getMonth(), $monthStartTime->getYear(), true);
+                    if ($monthTime->before($monthStartTime)) {
+                        $monthTime->modify('+7 day');
+                    }
+                    while ($monthTime->before($monthEndTime)) {
+                        $resultDays [] = $monthTime->getDay();
+                        $monthTime->modify('+7 day');
+                    }
+                }
+            }
+        }
+        $resultDays = array_intersect($resultDays, $byMonthDays);
+
+        sort($resultDays);
+
+        return $resultDays;
     }
-    return $eventService;
-  }
 
-  /**
-   * Get the time parsed
-   *
-   * @param string $timeString          
-   *
-   * @return CalDate
-   */
-  protected function getTimeParsed($timeString) {
+    /**
+     * Takes iCalendar 2 day format and makes it into 3 characters
+     * if $txt is true, it returns the 3 letters, otherwise it returns the
+     * integer of that day; 0=Sun, 1=Mon, etc.
+     *
+     * @param string $day
+     * @param bool $txt
+     * @return string
+     */
+    public static function two2threeCharDays($day, $txt = true): string
+    {
 
-    /** @var DateParser $dp */
-    $dp = GeneralUtility::makeInstance( 'TYPO3\\CMS\\Cal\\Controller\\DateParser' );
-    $dp->parse( $timeString, 0, '' );
-    return $dp->getDateObjectFromStack();
-  }
+        switch ($day) {
+            case 'SU':
+                return $txt ? 'sun' : '0';
+            case 'MO':
+                return $txt ? 'mon' : '1';
+            case 'TU':
+                return $txt ? 'tue' : '2';
+            case 'WE':
+                return $txt ? 'wed' : '3';
+            case 'TH':
+                return $txt ? 'thu' : '4';
+            case 'FR':
+                return $txt ? 'fri' : '5';
+            case 'SA':
+                return $txt ? 'sat' : '6';
+        }
+        return '';
+    }
 
-  /**
-   * Get the database connection
-   *
-   * @return DatabaseConnection
-   */
-  protected function getDatabaseConnection() {
-
-    return $GLOBALS ['TYPO3_DB'];
-  }
 }

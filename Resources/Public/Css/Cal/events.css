@@ -1,0 +1,158 @@
+/**
+ * Calendar Base (cal) – event entries inside the month, week and day view
+ * The colors come from --cal-event-color / --cal-event-border-color (see categories.css).
+ */
+.tx-cal-controller {
+	.vevent {
+		color: var(--cal-color-text-on-event);
+		cursor: default;
+		user-select: none;
+
+		dl {
+			margin: 0;
+			padding-block-end: 1px;
+			overflow: hidden;
+			border-inline: var(--cal-border-width) solid;
+		}
+
+		dt {
+			margin-block-start: -1px;
+			padding-block-end: 1px;
+			overflow: hidden;
+			font: bold 80% / normal var(--cal-font-family-event);
+			white-space: nowrap;
+			text-align: start;
+		}
+
+		dd {
+			margin: 0;
+			padding: 0 1px;
+			overflow: hidden;
+			overflow-wrap: break-word;
+			font: 100% / 1.3em var(--cal-font-family-event);
+			text-align: start;
+		}
+
+		/* Icon for recurring events */
+		.recurring {
+			display: inline-block;
+			inline-size: 8px;
+			block-size: 12px;
+			background: url(../../img/clock-small.png) no-repeat center bottom;
+		}
+	}
+
+	/* Boxed events: timed events in the grid (dl) and all-day events */
+	:is(.vevent > a > dl, .vevent[class*="_allday"], .vevent [class*="_allday"]) {
+		padding-inline-start: 0.2em;
+		border: var(--cal-border-width) solid var(--cal-event-border-color);
+		border-inline-start-width: var(--cal-border-width-event);
+		border-radius: var(--cal-radius-sm);
+		background-color: var(--cal-event-color);
+		color: var(--cal-color-text-on-event);
+		opacity: 0.9;
+
+		:is(a, a:visited, .summary) {
+			color: var(--cal-color-text-on-event);
+		}
+
+		dt {
+			font-size: xx-small;
+		}
+
+		dd {
+			white-space: nowrap;
+		}
+	}
+
+	/* Event title in the month view: colored text instead of a box */
+	.vevent [class*="_text"] {
+		color: var(--cal-event-color);
+	}
+
+	.alldays .vevent [class*="_text"],
+	.allday.vevent span:first-child {
+		color: var(--cal-color-text-on-event);
+	}
+
+	/* --- Position inside the views --------------------------------------- */
+	.gridcontainertop .vevent {
+		inline-size: 100%;
+	}
+
+	:is(.weekview, .dayview) .vevent {
+		position: absolute;
+		border-radius: var(--cal-radius-sm);
+	}
+
+	:is(.weekview, .dayview) .allday .vevent {
+		position: relative;
+	}
+
+	:is(.month-large, .weekview .wk-allday, .dayview .wk-allday) .vevent {
+		position: inherit;
+	}
+
+	.month-large .vevent {
+		margin: 1px;
+		overflow: hidden;
+		line-height: normal;
+		white-space: nowrap;
+		text-align: start;
+	}
+
+	/* --- Multi-day events in the month view ------------------------------
+	   The cell spans the occupied days (colspan > 1). The frame is drawn on the
+	   inner *_text span, because it carries the category color variables.
+	   All-day events are already boxed (see above). */
+	.month-large td.event:not([colspan="1"]) .vevent:not(.allday) {
+		margin-inline: var(--cal-space-2xs);
+
+		> a {
+			display: block;
+			text-decoration: none;
+		}
+
+		[class*="_text"] {
+			display: block;
+			padding: var(--cal-space-3xs) var(--cal-space-xs);
+			overflow: hidden;
+			border: var(--cal-border-width) solid var(--cal-event-border-color);
+			border-inline-start-width: var(--cal-border-width-event);
+			border-radius: var(--cal-radius-sm);
+			color: var(--cal-event-border-color);
+			text-overflow: ellipsis;
+		}
+
+		&:hover [class*="_text"] {
+			background-color: color-mix(in srgb, var(--cal-event-color) calc(var(--cal-event-multiday-tint) * 2), transparent);
+		}
+	}
+
+	/* --- Popup with details (hidden, shown on hover) --------------------- */
+	.popup {
+		display: none;
+
+		ul {
+			margin: 0;
+			padding-inline-start: 10px;
+			list-style: disc;
+		}
+
+		li {
+			padding-block-end: 4px;
+		}
+	}
+
+	:is(.month-large .vevent a:hover, .month-medium .dayNum:hover) .popup {
+		display: block;
+		position: absolute;
+		max-inline-size: 220px;
+		margin: 15px 0 0 20px;
+		border: var(--cal-border-width) solid silver;
+		background-color: var(--cal-color-popup-surface);
+		color: var(--cal-color-text);
+		font: normal 10px / 12px var(--cal-font-family-event);
+		text-align: start;
+	}
+}

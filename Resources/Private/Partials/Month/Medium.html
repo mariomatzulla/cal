@@ -1,0 +1,67 @@
+<mmcal:month monthOfYear="{monthOfYear}" offset="{offset}" getdate="{getdate}" events="{events}" >
+<h1><f:format.date pattern='{settings.view.year.dateFormatMonth}' locale="{settings.dateConfig.locale}">{monthDateObject}</f:format.date></h1>
+<table class="month-medium" style="clear: both;">
+  <thead>
+    <tr>
+      <th class="month-weeknums monthCorner"/>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject0}</f:format.date></th>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject1}</f:format.date></th>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject2}</f:format.date></th>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject3}</f:format.date></th>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject4}</f:format.date></th>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject5}</f:format.date></th>
+      <th class="weekday"><f:format.date pattern="{settings.view.month.weekdayFormatMediumMonth}" locale="{settings.dateConfig.locale}">{weekdayObject6}</f:format.date></th>
+    </tr>
+  </thead>
+  <tbody>
+  <mmcal:monthWeek type="medium" month="{monthObject}" >
+    <tr class="days {weekClasses}">
+      <f:if condition="{settings.view.linkOnlyDatesWithEvents}">
+        <f:then>
+          <f:if condition="{week.hasEvents}">
+            <f:then>
+              <th class="month-weeknums"><f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: week.year, week: week.week }" title="{f:translate(key:'l_week')}">{week.week}</f:link.action></th>
+            </f:then>
+            <f:else>
+              <th class="month-weeknums">{week.week}</th>
+            </f:else>
+          </f:if>
+        </f:then>
+        <f:else>
+        <th class="month-weeknums"><f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: week.year, week: week.week }" title="{f:translate(key:'l_week')}">{week.week}</f:link.action></th>
+        </f:else>
+      </f:if>
+      <f:for each="{week.days}" as="day" iteration="iterator">
+        <td class="{day.dayClasses}">
+          <f:if condition="{settings.view.linkOnlyDatesWithEvents}">
+            <f:then>
+              <f:if condition="{day.hasEvents}">
+                <f:then>
+                  <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: day.year, month: day.month, day: day.day }" title="{f:translate(key:'l_day')}">{day.day}</f:link.action>
+                </f:then>
+                <f:else>
+                  {day.day}
+                </f:else>
+              </f:if>
+            </f:then>
+            <f:else>
+              <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: day.year, month: day.month, day: day.day }" title="{f:translate(key:'l_day')}">{day.day}</f:link.action>
+            </f:else>
+          </f:if>
+            
+          <f:if condition="{day.hasEvents}">
+            <span class="popup"><ul>
+            <f:for each="{day.events}" as="events">
+            <f:for each="{events}" as="event">
+              <li><f:render partial="Event/MonthMedium" arguments="{event: event}"/></li>
+              </f:for>
+            </f:for>
+            </ul></span>
+          </f:if>
+        </td>
+      </f:for>
+    </tr>
+  </mmcal:monthWeek>
+  </tbody>
+</table>
+</mmcal:month>

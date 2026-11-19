@@ -1,0 +1,156 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Event view in the design of the event cards of the list view:
+  image with the calendar sheet hovering over it (without image only the sheet, left of the text),
+  title, info line (time, location, organizer, categories), description, further images (lightbox),
+  files; footer with back button (left), calendar (center) and ics download (right).
+</f:comment>
+<f:variable name="locale" value="{settings.dateConfig.locale}" />
+<f:variable name="conf" value="{settings.view.event.event}" />
+<f:variable name="startDay" value="{f:format.date(date: event.start, format: 'Ymd')}" />
+<f:variable name="endDay" value="{f:format.date(date: event.end, format: 'Ymd')}" />
+<f:variable name="lightboxGroup" value="cal-event-{event.uid}" />
+
+<div class="event-single {event.headerstyle}" style="{event.colorStyle}">
+  <article class="event-entry h-event{f:if(condition: event.image, else: ' event-entry--no-image')}">
+    <div class="event-entry__media">
+      <f:for each="{event.image}" as="image" iteration="imageIterator">
+        <f:if condition="{imageIterator.isFirst}">
+          <f:render partial="Lightbox/Link" arguments="{image: image, group: lightboxGroup, title: image.originalResource.title, settings: settings}" contentAs="content">
+            <f:image image="{image}" width="{conf.image.width}" alt="{image.alternative}" class="event-entry__image u-photo" />
+          </f:render>
+        </f:if>
+      </f:for>
+      <time class="event-sheet dt-start" datetime="{f:format.date(date: event.start, format: '{f:if(condition: event.allday, then: \'Y-m-d\', else: \'Y-m-d\TH:i\')}')}">
+        <span class="event-sheet__day"><f:format.date pattern="dd" locale="{locale}">{event.start}</f:format.date></span>
+        <span class="event-sheet__month"><f:format.date pattern="LLL" locale="{locale}">{event.start}</f:format.date></span>
+        <span class="event-sheet__year"><f:format.date pattern="yyyy" locale="{locale}">{event.start}</f:format.date></span>
+      </time>
+    </div>
+
+    <div class="event-entry__body">
+      <h1 class="event-entry__title p-name">{event.title}</h1>
+
+      <ul class="event-entry__meta">
+        <li>
+          <f:render partial="Icon/Icon" arguments="{name: 'clock'}" />
+          <span>
+            <f:format.date pattern="{conf.weekdayFormat}" locale="{locale}">{event.start}</f:format.date> ·
+            <f:if condition="{event.allday}">
+              <f:then>
+                <f:translate key="l_all_day" /><f:if condition="{endDay} > {startDay}"> – <f:format.date pattern="{conf.longDateFormat}" locale="{locale}">{event.end}</f:format.date></f:if>
+              </f:then>
+              <f:else>
+                <f:format.date pattern="{conf.timeFormat}" locale="{locale}">{event.start}</f:format.date>
+                <f:if condition="{endDay} > {startDay}">
+                  <f:then>– <f:format.date pattern="{conf.longDateFormat}" locale="{locale}">{event.end}</f:format.date> <f:format.date pattern="{conf.timeFormat}" locale="{locale}">{event.end}</f:format.date></f:then>
+                  <f:else><f:if condition="{f:format.date(date: event.end, format: 'Hi')} != {f:format.date(date: event.start, format: 'Hi')}">– <f:format.date pattern="{conf.timeFormat}" locale="{locale}">{event.end}</f:format.date></f:if></f:else>
+                </f:if>
+              </f:else>
+            </f:if>
+          </span>
+        </li>
+        <f:if condition="{event.locationObject.name} || {event.location}">
+          <li class="p-location">
+            <f:render partial="Icon/Icon" arguments="{name: 'location'}" />
+            <span>
+            <f:if condition="{event.locationObject.name}">
+              <f:then>
+                <f:if condition="{viewLinks.location}">
+                  <f:then><f:link.action action="location" arguments="{view: 'location', type: event.locationObject.modelType, uid: event.locationObject.uid}">{event.locationObject.name}</f:link.action></f:then>
+                  <f:else>{event.locationObject.name}</f:else>
+                </f:if>
+                <f:if condition="{event.locationObject.street} || {event.locationObject.city}">
+                  , <span class="event-entry__address">{event.locationObject.street}<f:if condition="{event.locationObject.street} && {event.locationObject.city}">, </f:if>{event.locationObject.zip} {event.locationObject.city}</span>
+                </f:if>
+              </f:then>
+              <f:else>{event.location}</f:else>
+            </f:if>
+            </span>
+          </li>
+        </f:if>
+        <f:if condition="{event.organizerObject.name} || {event.organizer}">
+          <li class="p-organizer">
+            <f:render partial="Icon/Icon" arguments="{name: 'user'}" />
+            <span>
+            <f:if condition="{event.organizerObject.name}">
+              <f:then>
+                <f:if condition="{viewLinks.organizer}">
+                  <f:then><f:link.action action="organizer" arguments="{view: 'organizer', type: event.organizerObject.modelType, uid: event.organizerObject.uid}">{event.organizerObject.name}</f:link.action></f:then>
+                  <f:else>{event.organizerObject.name}</f:else>
+                </f:if>
+                <f:if condition="{event.organizerObject.email}"><br><f:link.email email="{event.organizerObject.email}" /></f:if>
+                <f:if condition="{event.organizerObject.phone}"><br>{event.organizerObject.phone}</f:if>
+              </f:then>
+              <f:else>{event.organizer}</f:else>
+            </f:if>
+            </span>
+          </li>
+        </f:if>
+        <f:if condition="{event.categories}">
+          <li class="p-category">
+            <f:render partial="Icon/Icon" arguments="{name: 'tag'}" />
+            <span><f:for each="{event.categories}" as="category" iteration="categoryIterator">{category.title}<f:if condition="!{categoryIterator.isLast}">, </f:if></f:for></span>
+          </li>
+        </f:if>
+      </ul>
+
+      <div class="event-entry__content e-content">
+        <f:format.html>{event.description}</f:format.html>
+
+        <f:if condition="{event.image.1}">
+          <ul class="event-entry__gallery">
+            <f:for each="{event.image}" as="image" iteration="imageIterator">
+              <f:if condition="!{imageIterator.isFirst}">
+                <li>
+                  <f:render partial="Lightbox/Link" arguments="{image: image, group: lightboxGroup, title: image.originalResource.title, settings: settings}" contentAs="content">
+                    <figure>
+                      <f:image image="{image}" width="{conf.image.furtherImagesWidth}" alt="{image.alternative}" class="u-photo" loading="lazy" />
+                      <f:if condition="{image.originalResource.title}">
+                        <figcaption>{image.originalResource.title}</figcaption>
+                      </f:if>
+                    </figure>
+                  </f:render>
+                </li>
+              </f:if>
+            </f:for>
+          </ul>
+        </f:if>
+
+      </div>
+
+      <f:if condition="{event.attachment}">
+        <div class="event-entry__files">
+          <h2 class="event-entry__heading"><f:translate key="l_event_attachments" /></h2>
+          <ul>
+            <f:for each="{event.attachment}" as="attachment">
+              <li>
+                <a href="{attachment.originalResource.publicUrl}" target="_blank">{attachment.originalResource.name}</a>
+                <span class="event-entry__filesize"><f:format.bytes>{attachment.originalResource.size}</f:format.bytes></span>
+              </li>
+            </f:for>
+          </ul>
+        </div>
+      </f:if>
+    </div>
+
+    <footer class="event-entry__footer">
+      <div id="calendar-event-backlink" class="event-entry__back"><f:cObject typoscriptObjectPath="plugin.tx_cal.settings.view.backLink"><f:translate key="l_back" /></f:cObject></div>
+      <div class="event-entry__calendar">
+        <f:if condition="{event.calendarObject.title}">
+          <f:render partial="Icon/Icon" arguments="{name: 'folder'}" />
+          <span class="visually-hidden"><f:translate key="l_calendar" />:</span>
+          {event.calendarObject.title}
+        </f:if>
+      </div>
+      <div class="event-entry__ics">
+        <f:if condition="{settings.view.ics.showIcsLinks} == 1">
+          <f:link.action action="ics" pageType="{settings.view.ics.typeNum}" arguments="{view: 'event', type: event.modelType, uid: event.uid}" class="event-button event-button--outline" title="{f:translate(key: 'l_event_icslink')}">
+            <f:render partial="Icon/Icon" arguments="{name: 'download'}" /> <f:translate key="l_event_ics_download" />
+          </f:link.action>
+        </f:if>
+      </div>
+    </footer>
+  </article>
+</div>
+</html>

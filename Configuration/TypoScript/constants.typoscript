@@ -1,0 +1,18 @@
+# Constants for the static template (sites without site sets).
+# With site sets the same values are site settings (Configuration/Sets/Cal/settings.definitions.yaml).
+plugin.tx_cal.settings {
+	# cat=Calendar Base/general/10; type=string; label=Storage folders: Comma separated list of page ids containing cal records
+	pidList =
+	# cat=Calendar Base/display/10; type=int+; label=Max. image width (single view)
+	singleMaxW = 1400
+	# cat=Calendar Base/display/20; type=int+; label=Max. image width (further images)
+	listMaxW = 400
+	# cat=Calendar Base/display/30; type=string; label=Time format (ICU, e.g. HH:mm)
+	view.timeFormat = HH:mm
+	# cat=Calendar Base/ics/10; type=boolean; label=Show iCalendar links
+	view.ics.showIcsLinks = 1
+	# cat=Calendar Base/ics/20; type=int+; label=Page type of the iCalendar export
+	view.ics.typeNum = 150
+	# cat=Calendar Base/ics/30; type=string; label=Prefix for event UIDs (e.g. the domain of the site)
+	view.ics.eventUidPrefix = www.mysite.com
+}

@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  MarioMatzulla\Cal\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Model/*'
+      # depends on EXT:scheduler, which is optional
+      - '../Classes/Task/*'
+
+  # Event listeners are registered via #[AsEventListener] in the classes.
+
+  # Instantiated by GeneralUtility::makeInstance() (DataHandler hook, ICS rendering, CalDAV request)
+  MarioMatzulla\Cal\Hooks\CalendarDataHandlerHook:
+    public: true
+  MarioMatzulla\Cal\Service\IcsGenerator:
+    public: true
+  MarioMatzulla\Cal\Middleware\CalDavMiddleware:
+    public: true
+
+  # Stateful (time range of the index), every consumer gets its own instance
+  MarioMatzulla\Cal\Utility\RecurrenceGenerator:
+    shared: false

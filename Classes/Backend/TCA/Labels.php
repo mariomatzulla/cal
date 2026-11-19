@@ -1,6 +1,8 @@
 <?php
 
-namespace TYPO3\CMS\Cal\Backend\TCA;
+declare(strict_types=1);
+
+namespace MarioMatzulla\Cal\Backend\TCA;
 
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).
@@ -15,149 +17,141 @@ namespace TYPO3\CMS\Cal\Backend\TCA;
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- *
- * @author Steffen Kamper <info(at)sk-typo3.de>
+ * label_userFunc implementations for the backend record titles.
  */
-class Labels {
+class Labels
+{
+    private const LLL = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
 
-  function getEventRecordLabel(&$params, &$pObj) {
+    public function getEventRecordLabel(array &$params): void
+    {
+        $table = $params['table'] ?? '';
+        if ($table !== 'tx_cal_domain_model_event' && $table !== 'tx_cal_domain_model_exception_event') {
+            return;
+        }
+        $record = $this->getRecord($table, $params['row'] ?? []);
+        if ($record === null) {
+            return;
+        }
 
-    if ($params ['table'] != 'tx_cal_event' && $params ['table'] != 'tx_cal_exception_event')
-      return '';
-      
-      // Get complete record
-    $rec = BackendUtility::getRecordWSOL( $params ['table'], $params ['row'] ['uid'] );
-    if($rec == null){
-      return '';
+        $label = $this->formatDate((int)($record['start_date'] ?? 0));
+        $showTimes = (bool)(GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cal', 'showTimes') ?? false);
+        if ($showTimes && empty($record['allday']) && $table === 'tx_cal_domain_model_event') {
+            // gmdate is ok, start_time only holds the seconds of one day
+            $label .= ' ' . gmdate($this->getTimeFormat(), (int)($record['start_time'] ?? 0));
+        }
+
+        $params['title'] = trim($label . ': ' . ($record['title'] ?? ''));
     }
-    $dateObj = new \TYPO3\CMS\Cal\Model\CalDate( $rec ['start_date'] . '000000' );
-    $dateObj->setTZbyId( 'UTC' );
-    
-    $format = str_replace( array (
-        
-        'd',
-        'm',
-        'y',
-        'Y'
-    ), array (
-        
-        '%d',
-        '%m',
-        '%y',
-        '%Y'
-    ), $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['ddmmyy'] );
-    if ($rec ['allday'] || $params ['table'] == 'tx_cal_exception_event') {
-      /* If we have an all day event, only show the date */
-      $datetime = $dateObj->format( $format );
-      $params ['start_date'] = $datetime;
-    } else {
-      /* For normal events, show both the date and time */
-      // gmdate is ok, as long as $rec['start_time'] just holds information about 24h.
-      $datetime = $dateObj->format( $format );
-      
-      $params ['start_date'] = $datetime;
-      
-      $extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance( \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class )->get( 'cal' );
-      if ($extConf ['showTimes'] == 1) {
-        $datetime .= ' ' . gmdate( $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['hhmm'], $rec ['start_time'] );
-      }
+
+    public function getAttendeeRecordLabel(array &$params): void
+    {
+        if (($params['table'] ?? '') !== 'tx_cal_domain_model_attendee') {
+            return;
+        }
+        $record = $this->getRecord($params['table'], $params['row'] ?? []);
+        if ($record === null) {
+            return;
+        }
+
+        $label = (string)($record['email'] ?? '');
+        if (!empty($record['fe_user_id'])) {
+            $feUser = BackendUtility::getRecord('fe_users', (int)$record['fe_user_id']);
+            if ($feUser !== null) {
+                $label = ($feUser['name'] ?? '') !== '' ? $feUser['name'] : $feUser['username'];
+            }
+        }
+        $attendance = $this->translate('tx_cal_attendee.attendance.' . ($record['attendance'] ?? ''));
+        $params['title'] = $label . ' (' . $attendance . ' -> ' . ($record['status'] ?? '') . ')';
     }
-    // Assemble the label
-    $label = $datetime . ': ' . $rec ['title'];
-    
-    // Write to the label
-    $params ['title'] = $label;
-  }
 
-  function getAttendeeRecordLabel(&$params, &$pObj) {
+    public function getMonitoringRecordLabel(array &$params): void
+    {
+        if (($params['table'] ?? '') !== 'tx_cal_domain_model_fe_user_event_monitor_mm') {
+            return;
+        }
+        $record = $this->getRecord($params['table'], $params['row'] ?? []);
+        if ($record === null) {
+            return;
+        }
 
-    if (! $params ['table'] == 'tx_cal_attendee')
-      return '';
-      
-      // Get complete record
-    $rec = BackendUtility::getRecord( $params ['table'], $params ['row'] ['uid'] );
-    
-    $label = $rec ['email'];
-    if ($rec ['fe_user_id']) {
-      $feUserRec = BackendUtility::getRecord( 'fe_users', $rec ['fe_user_id'] );
-      $label = $feUserRec ['name'] != '' ? $feUserRec ['name'] : $feUserRec ['username'];
+        $label = '';
+        $foreignUid = (int)($record['uid_foreign'] ?? 0);
+        switch ($record['tablenames'] ?? '') {
+            case 'fe_users':
+                $feUser = BackendUtility::getRecord('fe_users', $foreignUid);
+                $label = $feUser === null ? '' : (($feUser['name'] ?? '') !== '' ? $feUser['name'] : $feUser['username']);
+                break;
+            case 'fe_groups':
+                $feGroup = BackendUtility::getRecord('fe_groups', $foreignUid);
+                $label = (string)($feGroup['title'] ?? '');
+                break;
+            case 'tx_cal_domain_model_unknown_users':
+                $unknownUser = BackendUtility::getRecord('tx_cal_domain_model_unknown_users', $foreignUid);
+                $label = (string)($unknownUser['email'] ?? '');
+                break;
+        }
+
+        $params['title'] = $label . ' (' . $this->translate('tx_cal_fe_user_event.offset') . ': ' . (int)($record['offset'] ?? 0) . ')';
     }
-    $label .= ' (' . $GLOBALS ['LANG']->sl( 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_attendee.attendance.' . $rec ['attendance'] ) . ' -> ' . $rec ['status'] . ')';
-    
-    // Write to the label
-    $params ['title'] = $label;
-  }
 
-  function getMonitoringRecordLabel(&$params, &$pObj) {
+    public function getDeviationRecordLabel(array &$params): void
+    {
+        if (($params['table'] ?? '') !== 'tx_cal_domain_model_eventdeviation') {
+            return;
+        }
+        $record = $this->getRecord($params['table'], $params['row'] ?? []);
+        if ($record === null) {
+            return;
+        }
 
-    if (! $params ['table'] == 'tx_cal_fe_user_event_monitor_mm')
-      return '';
-      
-      // Get complete record
-    $rec = BackendUtility::getRecord( $params ['table'], $params ['row'] ['uid'] );
-    
-    $label = '';
-    switch ($rec ['tablenames']) {
-      case 'fe_users' :
-        $feUserRec = BackendUtility::getRecord( 'fe_users', $rec ['uid_foreign'] );
-        $label = $feUserRec ['name'] != '' ? $feUserRec ['name'] : $feUserRec ['username'];
-        break;
-      case 'fe_groups' :
-        $feUserRec = BackendUtility::getRecord( 'fe_groups', $rec ['uid_foreign'] );
-        $label = $feUserRec ['title'];
-        break;
-      case 'tx_cal_unknown_users' :
-        $feUserRec = BackendUtility::getRecord( 'tx_cal_unknown_users', $rec ['uid_foreign'] );
-        $label = $feUserRec ['email'];
-        break;
+        $label = $this->translate('tx_cal_event.deviation') . ': ';
+        if (!empty($record['orig_start_date'])) {
+            $label .= $this->formatDate((int)$record['orig_start_date']);
+        }
+        if (!empty($record['orig_start_time'])) {
+            $label .= ' (' . gmdate($this->getTimeFormat(), (int)$record['orig_start_time']) . ')';
+        }
+        $params['title'] = $label;
     }
-    
-    // Write to the label
-    $params ['title'] = $label . ' (' . $GLOBALS ['LANG']->sl( 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_fe_user_event.offset' ) . ': ' . $rec ['offset'] . ')';
-  }
 
-  function getDeviationRecordLabel(&$params, &$pObj) {
+    private function getRecord(string $table, array $row): ?array
+    {
+        $uid = (int)($row['uid'] ?? 0);
+        if ($uid <= 0) {
+            // New records in FormEngine have no uid yet, use what is there
+            return $row !== [] ? $row : null;
+        }
+        return BackendUtility::getRecord($table, $uid);
+    }
 
-    if (! $params ['table'] == 'tx_cal_event_deviation')
-      return '';
-      
-      // Get complete record
-    $rec = BackendUtility::getRecord( $params ['table'], $params ['row'] ['uid'] );
-    
-    $label = $GLOBALS ['LANG']->sl( 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:tx_cal_event.deviation' ) . ': ';
-    
-    if ($rec ['orig_start_date']) {
-      
-      $dateObj = new \TYPO3\CMS\Cal\Model\CalDate( $rec ['orig_start_date'] . '000000' );
-      $dateObj->setTZbyId( 'UTC' );
-      
-      $format = str_replace( array (
-          
-          'd',
-          'm',
-          'y',
-          'Y'
-      ), array (
-          
-          '%d',
-          '%m',
-          '%y',
-          '%Y'
-      ), $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['ddmmyy'] );
-      
-      $datetime = $dateObj->format( $format );
-      $label .= $datetime;
+    private function formatDate(int $timestamp): string
+    {
+        if ($timestamp === 0) {
+            return '';
+        }
+        $format = (string)($GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?? 'd.m.Y');
+        return (new \DateTimeImmutable('@' . $timestamp))
+            ->setTimezone(new \DateTimeZone(date_default_timezone_get()))
+            ->format($format);
     }
-    
-    if ($rec ['orig_start_time']) {
-      $label .= ' (' . gmdate( $GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['hhmm'], $rec ['orig_start_time'] ) . ')';
+
+    private function getTimeFormat(): string
+    {
+        return (string)($GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'] ?? 'H:i');
     }
-    
-    // Write to the label
-    $params ['title'] = $label;
-  }
+
+    private function translate(string $key): string
+    {
+        $languageService = $GLOBALS['LANG'] ?? null;
+        if (!$languageService instanceof LanguageService) {
+            return $key;
+        }
+        return $languageService->sL(self::LLL . $key) ?: $key;
+    }
 }
-
-?>

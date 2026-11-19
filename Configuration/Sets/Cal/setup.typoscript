@@ -1,0 +1,197 @@
+config.cache_clearAtMidnight = 1
+
+# Settings of the calendar plugin. Extbase merges them with plugin.tx_cal_controller.settings
+# (plugin specific) into $this->settings. Former path (cal < 4): plugin.tx_cal_controller.*
+plugin.tx_cal.settings {
+	# List of page ids containing cal records
+	pidList = {$plugin.tx_cal.settings.pidList}
+
+	# Visitors may subscribe to events (also FlexForm)
+	allowSubscribe = 1
+	# Logged in frontend users may subscribe with their account (also FlexForm)
+	subscribeFeUser = 0
+
+	# 1 = FlexForm values do not override TypoScript
+	dontListenToFlexForm = 0
+
+	dateConfig {
+		locale = de_DE.UTF-8
+	}
+
+	view {
+		# Allowed views, the first one is the default view (also FlexForm)
+		allowedViews =
+		# Preselected categories / calendars (comma separated uids)
+		categoryIds =
+		calendarIds =
+
+		# Target views of the date links
+		dayLinkTarget = day
+		weekLinkTarget = week
+		monthLinkTarget = month
+		yearLinkTarget = year
+		# Only link dates with events
+		linkOnlyDatesWithEvents = true
+
+		# Back link in event, location and organizer view (used by f:cObject in the templates)
+		backLink = TEXT
+		backLink {
+			current = 1
+			wrap = <a href="javascript:history.back()">|</a>
+		}
+
+		calendar {
+			nearbyDistance = 50
+		}
+
+		event {
+			eventViewPid =
+			isPreview = 0
+			# Own Fluid template for the event view, e.g. fileadmin/templates/cal/event/my_event.html
+			templateFile =
+			event {
+				dateFormat = dd.MM.yyyy
+				# Dates in the info line of the event view (ICU patterns)
+				weekdayFormat = EEEE
+				longDateFormat = dd. MMMM yyyy
+				timeFormat = {$plugin.tx_cal.settings.view.timeFormat}
+				image {
+					width = {$plugin.tx_cal.settings.singleMaxW}c
+					# Header image of the event view, cropped
+					heroWidth = {$plugin.tx_cal.settings.singleMaxW}c
+					heroHeight = 640c
+					furtherImagesWidth = {$plugin.tx_cal.settings.listMaxW}c
+				}
+			}
+		}
+
+		location {
+			locationViewPid =
+			location.image.width = {$plugin.tx_cal.settings.singleMaxW}c
+		}
+
+		organizer {
+			organizerViewPid =
+		}
+
+		day {
+			dayViewPid =
+			dayStart = 070000
+			dayEnd = 230000
+			gridLength = 30
+			startPointCorrection = 1 seconds
+			endPointCorrection = 1 seconds
+			timeFormatDay = {$plugin.tx_cal.settings.view.timeFormat}
+			displayDate.format = EEEE dd.MM.yyyy
+		}
+
+		week {
+			weekViewPid =
+			startPointCorrection = 6 days
+			endPointCorrection = 6 days
+			dateFormatWeekList = EEEEEE dd. MM
+			timeFormatWeek = {$plugin.tx_cal.settings.view.timeFormat}
+			displayDate {
+				startFormat = dd. MMM
+				endFormat = dd. MMM yyyy
+			}
+		}
+
+		month {
+			monthViewPid =
+			startPointCorrection = 518400 seconds
+			endPointCorrection = 518400 seconds
+			monthMakeMiniCal = 0
+			showListInMonthView = 0
+			weekdayFormatMediumMonth = EEE
+			weekdayFormatLargeMonth = EEE
+			monthOffStyle = monthOff
+			monthTodayStyle = monthToday
+			eventDayStyle = eventDay
+			displayDate = MMMM yyyy
+		}
+
+		year {
+			yearViewPid =
+			startPointCorrection = 6 days
+			endPointCorrection = 6 days
+			dateFormatMonth = MMMM
+		}
+
+		list {
+			listViewPid =
+			starttime = now
+			endtime = +1 month
+			maxEvents = 100
+			maxRecurringEvents =
+			heading.dateFormat = MMMM yyyy
+			# Own Fluid template for the list view, e.g. fileadmin/templates/cal/list/my_list.html
+			templateFile =
+			event {
+				# Date of the entries (ICU pattern)
+				dateFormat = EEEE, dd. MMMM yyyy
+				timeFormat = {$plugin.tx_cal.settings.view.timeFormat}
+				# Thumbnails of the event images (link to the original image)
+				image.width = 120
+				# Event cards of the default list template
+				card {
+					# First image of the event, cropped
+					imageWidth = 720c
+					imageHeight = 480c
+					# Weekday in the time line and date of multi-day events (ICU patterns)
+					weekdayFormat = EEEE
+					dateFormat = dd. MMMM yyyy
+					# Text of the card: the teaser field if filled, otherwise the description shortened to this length (followed by "...")
+					descriptionLength = 200
+					# 1 = show the further images as thumbnails (lightbox) below the "read more" link
+					# (also in the plugin: tab "List view")
+					showAllImages = 0
+					thumbnailWidth = 120c
+					thumbnailHeight = 80c
+				}
+			}
+			pageBrowser {
+				usePageBrowser = 1
+				recordsPerPage = 10
+				pagesCount =
+			}
+		}
+
+		# Size of the enlarged images in the lightbox (event and list view, see EXT:ns_all_lightbox)
+		lightbox {
+			maxWidth = 1600
+			maxHeight = 1200
+		}
+
+		ics {
+			showIcsLinks = {$plugin.tx_cal.settings.view.ics.showIcsLinks}
+			typeNum = {$plugin.tx_cal.settings.view.ics.typeNum}
+			eventUidPrefix = {$plugin.tx_cal.settings.view.ics.eventUidPrefix}
+		}
+
+		other {
+			showLogin = 0
+			showSearch = 0
+			showCategorySelection = 0
+			showCalendarSelection = 0
+			showTomorrowEvents = 0
+			showJumps = 0
+		}
+	}
+}
+
+# iCalendar export (page type)
+calIcs = PAGE
+calIcs {
+	typeNum = {$plugin.tx_cal.settings.view.ics.typeNum}
+	10 = EXTBASEPLUGIN
+	10 {
+		extensionName = Cal
+		pluginName = Controller
+	}
+	config {
+		disableAllHeaderCode = 1
+		additionalHeaders.10.header = Content-Type: text/calendar; charset=utf-8
+		admPanel = 0
+	}
+}

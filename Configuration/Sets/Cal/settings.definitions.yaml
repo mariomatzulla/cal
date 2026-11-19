@@ -1,0 +1,58 @@
+categories:
+  cal:
+    label: 'Calendar Base'
+  cal.general:
+    label: 'General'
+    parent: cal
+  cal.display:
+    label: 'Display'
+    parent: cal
+  cal.ics:
+    label: 'iCalendar export'
+    parent: cal
+
+settings:
+  plugin.tx_cal.settings.pidList:
+    label: 'Storage folders'
+    description: 'Comma separated list of page ids containing cal records.'
+    category: cal.general
+    type: string
+    default: ''
+
+  plugin.tx_cal.settings.singleMaxW:
+    label: 'Max. image width (single view)'
+    category: cal.display
+    type: int
+    default: 1400
+
+  plugin.tx_cal.settings.listMaxW:
+    label: 'Max. image width (further images)'
+    category: cal.display
+    type: int
+    default: 400
+
+  plugin.tx_cal.settings.view.timeFormat:
+    label: 'Time format'
+    description: 'ICU time format, e.g. HH:mm'
+    category: cal.display
+    type: string
+    default: 'HH:mm'
+
+  plugin.tx_cal.settings.view.ics.showIcsLinks:
+    label: 'Show iCalendar links'
+    category: cal.ics
+    type: bool
+    default: true
+
+  plugin.tx_cal.settings.view.ics.typeNum:
+    label: 'Page type of the iCalendar export'
+    category: cal.ics
+    type: int
+    default: 150
+
+  plugin.tx_cal.settings.view.ics.eventUidPrefix:
+    label: 'Prefix for event UIDs'
+    description: 'Used to create globally unique event UIDs. The domain of the site is a good choice.'
+    category: cal.ics
+    type: string
+    default: 'www.mysite.com'

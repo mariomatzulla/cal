@@ -1,143 +1,54 @@
 <?php
-if (! defined( 'TYPO3_MODE' )) {
-  die( 'Access denied.' );
-}
 
-$ll = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xml:';
+declare(strict_types=1);
 
-/**
- * Add extra fields to the sys_category record
- */
-$newCalSysCategoryColumns = array (
-    
-    'images' => array (
-        
-        'exclude' => 1,
-        'l10n_mode' => 'mergeIfNotBlank',
-        'label' => $ll . 'tx_cal_category.image',
-        'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig( 'images', array (
-            
-            'appearance' => array (
-                
-                'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
-                'showPossibleLocalizationRecords' => 1,
-                'showRemovedLocalizationRecords' => 1,
-                'showAllLocalizationLink' => 1,
-                'showSynchronizationLink' => 1
-            ),
-            'foreign_match_fields' => array (
-                
-                'fieldname' => 'images',
-                'tablenames' => 'sys_category',
-                'table_local' => 'sys_file'
-            )
-        ), $GLOBALS ['TYPO3_CONF_VARS'] ['GFX'] ['imagefile_ext'] )
-    ),
-    'single_pid' => array (
-        
-        'exclude' => 1,
-        'l10n_mode' => 'mergeIfNotBlank',
-        'label' => $ll . 'tx_cal_category.single_pid',
-        'config' => array (
-            
-            'type' => 'group',
-            'internal_type' => 'db',
-            'allowed' => 'pages',
-            'size' => 1,
-            'maxitems' => 1,
-            'minitems' => 0
-        )
-    ),
-    'shortcut' => array (
-        
-        'exclude' => 1,
-        'l10n_mode' => 'mergeIfNotBlank',
-        'label' => $ll . 'tx_cal_category.shortcut',
-        'config' => array (
-            
-            'type' => 'group',
-            'internal_type' => 'db',
-            'allowed' => 'pages',
-            'size' => 1,
-            'maxitems' => 1,
-            'minitems' => 0
-        )
-    ),
-    'headerstyle' => Array (
-        
-        'exclude' => 1,
-        'label' => $ll . 'tx_cal_category.headerstyle',
-        'config' => Array (
-            
-            'type' => 'user',
-            'renderType' => 'customStyles'
-        )
-    ),
-    'bodystyle' => Array (
-        
-        'exclude' => 1,
-        'label' => $ll . 'tx_cal_category.bodystyle',
-        'config' => Array (
-            
-            'type' => 'user',
-            'renderType' => 'customStyles'
-        )
-    ),
-    'calendar_id' => Array (
-        
-        'exclude' => 1,
-        'label' => $ll . 'tx_cal_category.calendar',
-        'config' => Array (
-            
-            'renderType' => 'selectSingle',
-            'type' => 'select',
-            'itemsProcFunc' => 'TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc->getRecords',
-            'itemsProcFunc_config' => array (
-                
-                'table' => 'tx_cal_calendar',
-                'orderBy' => 'tx_cal_calendar.title'
-            ),
-            'items' => Array (
-                
-                Array (
-                    
-                    '',
-                    0
-                )
-            ),
-            'size' => 1,
-            'minitems' => 0,
-            'maxitems' => 1,
-            'allowed' => 'tx_cal_calendar'
-        )
-    ),
-    'shared_user_allowed' => Array (
-        
-        'label' => $ll . 'tx_cal_category.shared_user_allowed',
-        'config' => Array (
-            
-            'type' => 'check'
-        )
-    ),
-    
-    'notification_emails' => Array (
-        
-        'exclude' => 0,
-        'label' => $ll . 'tx_cal_category.notification_emails',
-        'config' => Array (
-            
-            'type' => 'input',
-            'size' => '30'
-        )
-    )
-);
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns( 'sys_category', $newCalSysCategoryColumns );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.options, images', '', 'before:description' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'single_pid', '', 'after:description' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'shortcut', '', 'after:shortcut' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'headerstyle', '', 'after:single_pid' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'bodystyle', '', 'after:headerstyle' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'calendar_id', '', 'after:bodystyle' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'shared_user_allowed', '', 'after:calendar_id' );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes( 'sys_category', 'notification_emails', '', 'after:shared_user_allowed' );
+defined('TYPO3') or die();
+
+// Color of the events of this category in the calendar (cal)
+ExtensionManagementUtility::addTCAcolumns('sys_category', [
+    'tx_cal_color' => [
+        'exclude' => true,
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color',
+        'description' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.description',
+        'onChange' => 'reload',
+        'config' => [
+            'type' => 'color',
+            'default' => '',
+            'valuePicker' => [
+                'items' => [
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.blue', 'value' => '#668cd9'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.green', 'value' => '#4cb052'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.orange', 'value' => '#f2a640'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.red', 'value' => '#d96666'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.pink', 'value' => '#e67399'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.yellow', 'value' => '#e0c240'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.brown', 'value' => '#b08b59'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color.grey', 'value' => '#999999'],
+                ],
+            ],
+        ],
+    ],
+    'tx_cal_color_priority' => [
+        'exclude' => true,
+        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color_priority',
+        'description' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.tx_cal_color_priority.description',
+        'displayCond' => 'FIELD:tx_cal_color:REQ:true',
+        'config' => [
+            'type' => 'number',
+            'size' => 5,
+            'range' => [
+                'lower' => 0,
+                'upper' => 999,
+            ],
+            'default' => 0,
+        ],
+    ],
+]);
+
+$GLOBALS['TCA']['sys_category']['palettes']['tx_cal_color'] = [
+    'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:sys_category.palette.tx_cal_color',
+    'showitem' => 'tx_cal_color, tx_cal_color_priority',
+];
+ExtensionManagementUtility::addToAllTCAtypes('sys_category', '--palette--;;tx_cal_color', '', 'after:title');

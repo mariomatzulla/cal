@@ -1,0 +1,52 @@
+<f:layout name="Backend" />
+<f:section name="content">
+  <h1>
+    <f:translate key="backend_module_indexer_header" />
+  </h1>
+  <f:flashMessages />
+  <f:form action="result" name="startIndex">
+    <h3>
+      <f:translate key="backend_module_indexer_selectPage" />
+    </h3>
+    <div class="form-group col-sm-6" id="pageIds_col">
+      <label><f:translate key="backend_module_indexer_tableHeader1" /></label>
+    </div>
+    <div class="form-group col-sm-6" id="pageIds_colId">
+      <label><f:translate key="backend_module_indexer_tableHeader2" /></label>
+    </div>
+    <f:for each="{folders}" as="folder">
+      <div class="form-group col-sm-6" id="pageIds_col{folder.uid}">
+        <div class="form-control-wrap">
+          <div class="input-group" id="tceforms-pageIds_col{folder.uid}_row-wrapper">
+            {folder.title} [{folder.uid}] <f:form.hidden name="pageIds[]" value="{folder.uid}" />
+          </div>
+        </div>
+      </div>
+    </f:for>
+    <div class="form-section">
+      <div class="row">
+        <div class="form-group col-sm-6" id="index_start_col">
+          <label><f:translate key="backend_module_indexer_indexStart" /></label>
+          <div class="form-control-wrap">
+            <div class="input-group" id="tceforms-datetimefield-starttime_row-wrapper">
+              <f:form.textfield name="starttime" id="starttime" class="form-control" value="20260101" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-6" id="index_end_col">
+          <label><f:translate key="backend_module_indexer_indexEnd" /></label>
+          <div class="form-control-wrap">
+            <div class="input-group" id="tceforms-datetimefield-endtime_row-wrapper">
+              <f:form.textfield name="endtime" id="endtime" class="form-control" value="20280101" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <f:form.submit class="btn btn-primary" value="{f:translate(key: 'backend_module_indexer_startIndexing')}" />
+  </f:form>
+  <f:link.action action="index" class="btn btn-primary">
+    <f:translate key="backend_module_indexer_back" />
+  </f:link.action>
+</f:section>
+</html>

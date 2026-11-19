@@ -1,0 +1,125 @@
+/**
+ * Calendar Base (cal) – design tokens
+ *
+ * All recurring values of the calendar styles are defined here as custom properties.
+ * They are scoped to the plugin wrapper and can be overridden by the site, e.g.:
+ *
+ *   .tx-cal-controller { --cal-color-accent-surface: #eef; }
+ */
+.tx-cal-controller {
+	/* --- Colors: surfaces ------------------------------------------------ */
+	--cal-color-surface: #fff;
+	--cal-color-surface-muted: #f8f8f8;
+	--cal-color-surface-subtle: #fafafa;
+	--cal-color-accent-surface: #dcf0fa;      /* headers, week numbers, grid frame */
+	--cal-color-weekday-surface: #efefef;
+	--cal-color-day-number-surface: #e8eef7;
+	--cal-color-weekend-surface: #f8f9f8;
+	--cal-color-today-surface: #fff7d7;
+	--cal-color-time-surface: #f6f9fc;
+	--cal-color-popup-surface: #f5f5dc;
+
+	/* --- Colors: text ----------------------------------------------------- */
+	--cal-color-text: #000;
+	--cal-color-text-muted: #666;
+	--cal-color-list-row-even: #f4f8fb;     /* every second entry of the list view */
+	--cal-color-text-on-event: #fff;
+
+	/* --- Colors: borders and lines ---------------------------------------- */
+	--cal-color-border: #aaa;
+	--cal-color-border-strong: #a1a5a9;
+	--cal-color-line: #ddd;
+	--cal-color-line-accent: #bcf;
+	--cal-color-today-border: #567;
+	--cal-color-today-border-light: #abc;
+
+	/* --- Colors: cards (event, location, organizer) ------------------------ */
+	--cal-color-card-border: #e2e8f0;
+	--cal-color-card-border-soft: #e0e0e0;
+	--cal-color-brand: #0284c7;
+	--cal-color-brand-strong: #0369a1;
+	--cal-color-brand-surface: #e0f2fe;
+	--cal-color-link-strong: #06c;
+	/* Links of the list view ("Weiterlesen") and buttons of the event view */
+	--cal-color-link: #0d6efd;
+	--cal-color-link-hover: #0a58ca;
+
+	/* --- Event colors (default category, overridden in categories.css) ---- */
+	--cal-event-color: #668cd9;
+	--cal-event-border-color: #2952a3;
+	/* Background of multi-day events in the month view: share of the event color */
+	--cal-event-multiday-tint: 18%;
+
+	/* --- Typography ------------------------------------------------------- */
+	--cal-font-family-event: Verdana, sans-serif;
+	--cal-font-size-xxs: 0.625rem;   /* 10px */
+	--cal-font-size-xs: 0.6875rem;   /* 11px */
+	--cal-font-size-sm: 0.8rem;
+	--cal-font-size-md: 0.95rem;
+	--cal-font-size-lg: 1.1rem;
+
+	/* --- Spacing ---------------------------------------------------------- */
+	--cal-space-3xs: 1px;
+	--cal-space-2xs: 2px;
+	--cal-space-xs: 0.25rem;
+	--cal-space-sm: 0.5rem;
+	--cal-space-md: 1rem;
+	--cal-space-lg: 1.5rem;
+	--cal-space-xl: 2rem;
+
+	/* --- Borders, radii, shadows ----------------------------------------- */
+	--cal-border-width: 1px;
+	--cal-border-width-event: 4px;
+	--cal-border-width-frame: 10px;
+	--cal-radius-sm: 3px;
+	--cal-radius-md: 6px;
+	--cal-radius-lg: 8px;
+	--cal-radius-xl: 12px;
+	--cal-radius-pill: 9999px;
+	--cal-shadow-card: 0 4px 12px rgb(0 0 0 / 8%);
+	--cal-shadow-card-soft: 0 4px 6px rgb(0 0 0 / 5%);
+	--cal-shadow-photo: 0 3px 8px rgb(0 0 0 / 30%);
+	--cal-shadow-photo-raised: 0 8px 18px rgb(0 0 0 / 30%);
+
+	/* --- Sizes ------------------------------------------------------------ */
+	--cal-nav-button-width: 40px;
+	--cal-nav-button-height: 27px;
+	--cal-month-large-cell-height: 4em;
+	--cal-time-column-width: 40px;
+	/* Height of one hour in the day/week grid. Must match the 42px used to
+	   position the events in Classes/ViewHelpers/BaseWeekViewHelper.php */
+	--cal-hour-height: 42px;
+	--cal-grid-height: 411px;
+	--cal-grid-scroll-height: 357px;
+	--cal-image-max-height: 400px;
+	--cal-event-image-max-height: 440px;
+	/* List view: event cards */
+	--cal-card-color-title: #192f59;          /* title and date badge */
+	--cal-card-color-badge: rgb(25 47 89 / 90%);
+	--cal-card-color-icon: #59c17a;
+	--cal-card-shadow: 0 0 16px rgb(187 187 187 / 48%);
+	--cal-card-shadow-hover: 0 6px 24px rgb(120 120 120 / 35%);
+	--cal-card-image-ratio: 3 / 2;
+	--cal-card-padding: clamp(1.5rem, 4vw, 3.75rem);
+	--cal-list-thumbnail-width: 5.5rem;        /* further images below "read more" */
+	/* Event view (default): "when & where" left of the image, like the list cards */
+	--cal-entry-color-accent: var(--cal-color-link);        /* buttons and links */
+	--cal-entry-color-accent-hover: var(--cal-color-link-hover);
+	--cal-entry-color-meta: var(--cal-card-color-icon);   /* icons, same as the list view */
+	--cal-entry-color-title: var(--cal-card-color-title);
+	--cal-entry-shadow: var(--cal-card-shadow);
+	--cal-entry-gallery-width: 9rem;          /* further images of the event view */
+	--cal-entry-padding: clamp(1.25rem, 3vw, 1.875rem);
+	--cal-entry-image-max-height: 440px;
+
+	/* Event view (card variant, event_karten.html): header image (matches view.event.event.image.heroWidth / heroHeight) */
+	--cal-detail-hero-ratio: 1400 / 640;
+	--cal-color-button: #192f59;
+	--cal-color-button-hover: #2a4a85;
+
+	/* Image thumbnails with a white frame ("polaroids"), see base.css */
+	--cal-polaroid-width: 200px;           /* event view */
+	--cal-polaroid-width-small: 120px;     /* list view */
+	--cal-polaroid-frame: 8px;
+	--cal-polaroid-rotation: 2deg;
+}

@@ -1,0 +1,15 @@
+<f:layout name="Default" />
+<f:section name="Header"></f:section>
+<f:section name="content">
+<div class="event">
+  <f:if condition="{event}">
+    <f:then>
+      <f:render partial="Event/Event" arguments="{_all}" />
+    </f:then>
+    <f:else>
+      <p class="no-results"><f:translate key="l_no_results" /></p>
+      <div id="calendar-event-backlink" class="event-entry__back"><f:cObject typoscriptObjectPath="plugin.tx_cal.settings.view.backLink"><f:translate key="l_back" /></f:cObject></div>
+    </f:else>
+  </f:if>
+</div>
+</f:section>

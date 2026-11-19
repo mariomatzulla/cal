@@ -1,0 +1,41 @@
+<div class="year-view">
+  <div class="header-buttons" >
+    <f:render partial="Header/Header" arguments="{_all}"/>
+    <div class="today-button">
+      <f:link.action action="{settings.view.yearLinkTarget}" arguments="{year: today.year }" title="{f:translate(key:'l_today')}"><f:translate key="l_today"/></f:link.action>
+    </div>
+  </div>
+  <br style="clear: both;"/><br />
+  <div class="view-header">
+    <div class="previous-button">
+      <f:link.action action="{settings.view.yearLinkTarget}" arguments="{year: prevYear.year}" title="{f:translate(key:'l_last_year')}">&nbsp;</f:link.action>
+    </div>
+    <div class="next-button">
+      <f:link.action action="{settings.view.yearLinkTarget}" arguments="{year: nextYear.year}" title="{f:translate(key:'l_next_year')}">&nbsp;</f:link.action>
+    </div>
+    <h1>{starttime.year}</h1>
+  </div>
+  <table class="year-table">
+    <tr>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:1}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:2}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:3}"/></td>
+    </tr>
+    <tr>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:4}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:5}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:6}"/></td>
+    </tr>
+    <tr>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:7}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:8}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:9}"/></td>
+    </tr>
+    <tr>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:10}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:11}"/></td>
+      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOfYear:12}"/></td>
+    </tr>
+  </table>
+###ICS_LINK###
+</div>

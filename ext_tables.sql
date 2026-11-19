@@ -1,20 +1,7 @@
 #
-# Table structure for table 'tx_cal_event'
+# Table structure for table 'tx_cal_domain_model_event'
 #
-CREATE TABLE tx_cal_event (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) DEFAULT '0' NOT NULL,
-	endtime int(11) DEFAULT '0' NOT NULL,
-	start_date int(11) DEFAULT '0' NOT NULL,
-	end_date int(11) DEFAULT '0' NOT NULL,
-	start_time int(11) unsigned DEFAULT '0' NOT NULL,
-	end_time int(11) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_event (
 	allday tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	timezone varchar(5) DEFAULT 'UTC' NOT NULL,
 	title varchar(128) DEFAULT '' NOT NULL,
@@ -47,277 +34,57 @@ CREATE TABLE tx_cal_event (
 	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
 	type tinyint(4) DEFAULT '0' NOT NULL,
 	page int(11) DEFAULT '0' NOT NULL,
-	ext_url tinytext DEFAULT NULL,
+	ext_url VARCHAR(255) DEFAULT '' NOT NULL,
 	isTemp tinyint(1) DEFAULT '0' NOT NULL,
-	icsUid text,
-	image tinyblob DEFAULT NULL,
-	attachment text DEFAULT NULL,
+	ics_uid text,
+	caldav_data text,
+	image VARCHAR(255) DEFAULT '' NOT NULL,
+	attachment text,
 	ref_event_id int(11) unsigned DEFAULT '0',
 	send_invitation tinyint(1) DEFAULT '0' NOT NULL,
-	attendee tinyblob DEFAULT NULL,
+	attendee VARCHAR(255) DEFAULT '' NOT NULL,
 	status varchar(12) DEFAULT '' NOT NULL,
 	priority tinyint(1) DEFAULT '0' NOT NULL,
-	completed tinyint(3) DEFAULT '0' NOT NULL,
-
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-	
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
-	no_auto_pb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+	completed tinyint(3) DEFAULT '0' NOT NULL
 );
 
-CREATE TABLE tx_cal_event_shared_user_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-CREATE TABLE tx_cal_calendar (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) unsigned DEFAULT '0' NOT NULL,
-	endtime int(11) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_calendar (
 	title varchar(128) DEFAULT '' NOT NULL,
 	owner int(11) unsigned DEFAULT '0' NOT NULL,
+	timezone varchar(255) DEFAULT 'Europe/Berlin',
 	activate_fnb tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	fnb_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
 	type tinyint(4) DEFAULT '0' NOT NULL,
-	ext_url text NOT NULL,
-	ext_url_notes text NOT NULL,
-	ics_file tinytext NOT NULL,
+	ext_url text,
+	ext_url_notes text,
+	ics_file VARCHAR(255) DEFAULT '' NOT NULL,
 	refresh int(11) unsigned DEFAULT '0' NOT NULL,
 	md5 varchar(32) DEFAULT '' NOT NULL,
 	headerstyle varchar(30) DEFAULT '' NOT NULL,
 	bodystyle varchar(30) DEFAULT '' NOT NULL,
-	nearby tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	schedulerId int(11) unsigned DEFAULT '0' NOT NULL,
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-	
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
-	no_auto_pb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+	schedulerId int(11) unsigned DEFAULT '0' NOT NULL
+
 );
 
-# fnb = free & busy
-CREATE TABLE tx_cal_calendar_fnb_user_group_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-#
-# Extend table structure of table 'sys_category'
-#
-CREATE TABLE sys_category (
-	images int(11) unsigned DEFAULT '0',
-	single_pid int(11) unsigned DEFAULT '0' NOT NULL,
-	shortcut int(11) DEFAULT '0' NOT NULL,
-
-	headerstyle varchar(30) DEFAULT '' NOT NULL,
-	bodystyle varchar(30) DEFAULT '' NOT NULL,
-	calendar_id int(11) unsigned DEFAULT '0' NOT NULL,
-	shared_user_allowed tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	notification_emails text NOT NULL,
-);
-
-CREATE TABLE tx_cal_category (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	parent_category int(11) unsigned DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) unsigned DEFAULT '0' NOT NULL,
-	endtime int(11) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_fe_user_event_monitor_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	tablenames varchar(64) DEFAULT '' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-    title varchar(128) DEFAULT '' NOT NULL,
-	headerstyle varchar(30) DEFAULT '' NOT NULL,
-	bodystyle varchar(30) DEFAULT '' NOT NULL,
-	calendar_id int(11) unsigned DEFAULT '0' NOT NULL,
-	single_pid int(11) DEFAULT '0' NOT NULL,
-	shared_user_allowed tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	notification_emails text NOT NULL,
-	icon varchar(128) DEFAULT '' NOT NULL,
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
-	no_auto_pb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+	offset int(11) DEFAULT '0' NOT NULL,
+	schedulerId int(11) DEFAULT '0' NOT NULL
 );
 
-CREATE TABLE tx_cal_event_category_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
+CREATE TABLE tx_cal_domain_model_unknown_users (
+	email varchar(128) DEFAULT '' NOT NULL
 );
 
-CREATE TABLE tx_cal_calendar_user_group_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-CREATE TABLE tx_cal_fe_user_event_monitor_mm (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) DEFAULT '0' NOT NULL,
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  offset int(11) DEFAULT '0' NOT NULL,
-  schedulerId int(11) DEFAULT '0' NOT NULL,
-  PRIMARY KEY (uid),
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-CREATE TABLE tx_cal_unknown_users (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) unsigned DEFAULT '0' NOT NULL,
-	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-	email varchar(128) DEFAULT '' NOT NULL,
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-);
-
-CREATE TABLE tx_cal_exception_event_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-CREATE TABLE tx_cal_exception_event_group_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-
-CREATE TABLE tx_cal_exception_event_group (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_exception_event_group (
 	title varchar(128) DEFAULT '' NOT NULL,
-	exception_event_cnt int(11) unsigned DEFAULT '0' NOT NULL,
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+	exception_event_cnt int(11) unsigned DEFAULT '0' NOT NULL
 );
 
-CREATE TABLE tx_cal_exception_event (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) unsigned DEFAULT '0' NOT NULL,
-	endtime int(11) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_exception_event (
 	start_date int(11) DEFAULT '0' NOT NULL,
 	end_date int(11) DEFAULT '0' NOT NULL,
 	relation_cnt int(11) unsigned DEFAULT '0' NOT NULL,
@@ -331,34 +98,13 @@ CREATE TABLE tx_cal_exception_event (
 	intrval tinyint(4) unsigned DEFAULT '1',
 	rdate text,
 	rdate_type varchar(10) DEFAULT 'none' NOT NULL,
-	monitor_cnt int(11) unsigned DEFAULT '0',
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
+	monitor_cnt int(11) unsigned DEFAULT '0'
 
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 );
 
-CREATE TABLE tx_cal_organizer (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_organizer (
 	name varchar(128) DEFAULT '' NOT NULL,
-	description text DEFAULT '' NOT NULL,
+	description text,
 	street varchar(128) DEFAULT '' NOT NULL,
 	zip varchar(16) DEFAULT '' NOT NULL,
 	city varchar(128) DEFAULT '' NOT NULL,
@@ -368,53 +114,18 @@ CREATE TABLE tx_cal_organizer (
 	fax varchar(24) DEFAULT '' NOT NULL,
 	email varchar(64) DEFAULT '' NOT NULL,
 	image varchar(64) DEFAULT '' NOT NULL,
-	imagecaption text DEFAULT '' NOT NULL,
-	imagealttext text DEFAULT '' NOT NULL,
-	imagetitletext text DEFAULT '' NOT NULL,
+	imagecaption text,
+	imagealttext text,
+	imagetitletext text,
 	link varchar(255) DEFAULT '' NOT NULL,
 	fe_user_id int(11) unsigned DEFAULT '0' NOT NULL,
-	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
+	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL
 
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
-	no_auto_pb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 );
 
-CREATE TABLE tx_cal_organizer_shared_user_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-CREATE TABLE tx_cal_location (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_location (
 	name varchar(128) DEFAULT '' NOT NULL,
-	description text NOT NULL,
+	description text,
 	street varchar(128) DEFAULT '' NOT NULL,
 	zip varchar(16) DEFAULT '' NOT NULL,
 	city varchar(128) DEFAULT '' NOT NULL,
@@ -424,127 +135,46 @@ CREATE TABLE tx_cal_location (
 	fax varchar(24) DEFAULT '' NOT NULL,
 	email varchar(64) DEFAULT '' NOT NULL,
 	image varchar(64) DEFAULT '' NOT NULL,
-	imagecaption text NOT NULL,
-	imagealttext text NOT NULL,
-	imagetitletext text NOT NULL,
+	imagecaption text,
+	imagealttext text,
+	imagetitletext text,
 	link varchar(255) DEFAULT '' NOT NULL,
 	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
 	latitude double default '0',
-  	longitude double default '0',
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
+	longitude double default '0'
 
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
-	no_auto_pb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-);
-
-CREATE TABLE tx_cal_location_shared_user_mm (
-  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-  tablenames varchar(30) DEFAULT '' NOT NULL,
-  sorting int(11) unsigned DEFAULT '0' NOT NULL,
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-CREATE TABLE tt_address (
-	tx_cal_controller_isorganizer tinyint(4) DEFAULT '0' NOT NULL,
-	tx_cal_controller_islocation tinyint(4) DEFAULT '0' NOT NULL,
-	tx_cal_controller_latitude tinytext NOT NULL,
-	tx_cal_controller_longitude tinytext NOT NULL,
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-);
-
-CREATE TABLE be_users (
-	tx_cal_enable_accesscontroll tinyint(4) DEFAULT '0' NOT NULL,
-	tx_cal_calendar tinyblob,
-	tx_cal_category tinyblob,
-);
-
-CREATE TABLE be_groups (
-	tx_cal_enable_accesscontroll tinyint(4) DEFAULT '0' NOT NULL,
-	tx_cal_calendar tinyblob,
-	tx_cal_category tinyblob,
 );
 
 CREATE TABLE fe_users (
-	tx_cal_calendar tinytext NOT NULL,
-	tx_cal_calendar_subscription tinyblob NOT NULL,
+	tx_cal_calendar VARCHAR(255) DEFAULT '' NOT NULL,
+	tx_cal_calendar_subscription VARCHAR(255) DEFAULT '' NOT NULL
 );
 
-CREATE TABLE tx_cal_attendee (
-	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_attendee (
 	event_id int(11) unsigned DEFAULT '0' NOT NULL,
 	email varchar(128) DEFAULT '',
 	fe_user_id int(11) unsigned DEFAULT '0' NOT NULL,
 	fe_group_id int(11) unsigned DEFAULT '0' NOT NULL,
 	attendance varchar(16) DEFAULT '' NOT NULL,
-	status varchar(12) DEFAULT '' NOT NULL,
-	
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-	
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+	status varchar(12) DEFAULT '' NOT NULL
+
 );
 
-CREATE TABLE tx_cal_index (
-	uid int(11) unsigned NOT NULL auto_increment,
+CREATE TABLE tx_cal_domain_model_index (
 	tablename varchar(30) DEFAULT '' NOT NULL,
 	start_datetime bigint(14) NOT NULL DEFAULT '0',
 	end_datetime bigint(14) NOT NULL DEFAULT '0',
 	event_uid int(11) DEFAULT '-1' NOT NULL,
 	event_deviation_uid int(11) DEFAULT '-1' NOT NULL,
-	PRIMARY KEY (uid),
 	KEY start_datetime (start_datetime),
-	KEY event_uid_start_datetime (event_uid,start_datetime),
+	KEY event_uid_start_datetime (event_uid, start_datetime)
 );
 
 #
-# Table structure for table 'tx_cal_event_deviation'
+# Table structure for table 'tx_cal_domain_model_eventdeviation'
 #
-CREATE TABLE tx_cal_event_deviation (
-	uid int(11) unsigned NOT NULL auto_increment,
-	pid int(11) DEFAULT '0' NOT NULL,
-	parentid int(11) DEFAULT '0' NOT NULL,
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-	crdate int(11) unsigned DEFAULT '0' NOT NULL,
-	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	starttime int(11) DEFAULT '0' NOT NULL,
-	endtime int(11) DEFAULT '0' NOT NULL,
+CREATE TABLE tx_cal_domain_model_eventdeviation (
+    parentid int(11) DEFAULT '0' NOT NULL,
 	orig_start_date int(11) DEFAULT '0' NOT NULL,
 	orig_start_time int(11) DEFAULT '0' NOT NULL,
 	start_date int(11) DEFAULT '0' NOT NULL,
@@ -565,57 +195,21 @@ CREATE TABLE tx_cal_event_deviation (
 	teaser text,
 	description text,
 	isTemp tinyint(1) DEFAULT '0' NOT NULL,
-	icsUid text,
-	image tinyblob NOT NULL,
-	imagecaption text NOT NULL,
-	imagealttext text NOT NULL,
-	imagetitletext text NOT NULL,
-	attachment text NOT NULL,
-	attachmentcaption text NOT NULL,
-	ref_event_id int(11) unsigned DEFAULT '0',
+	ics_uid text,
+	image VARCHAR(255) DEFAULT '' NOT NULL,
+	imagecaption text,
+	imagealttext text,
+	imagetitletext text,
+	attachment text,
+	attachmentcaption text,
+	ref_event_id int(11) unsigned DEFAULT '0'
 
-	t3ver_oid int(11) DEFAULT '0' NOT NULL,
-	t3ver_id int(11) DEFAULT '0' NOT NULL,
-	t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-	t3ver_label varchar(30) DEFAULT '' NOT NULL,
-	t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
-	t3ver_count int(11) DEFAULT '0' NOT NULL,
-	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-	t3_origuid int(11) DEFAULT '0' NOT NULL,
-	
-	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l18n_parent int(11) DEFAULT '0' NOT NULL,
-	l18n_diffsource mediumblob NOT NULL,
-	no_auto_pb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid)
 );
 
 #
-# Table structure for table 'tx_cal_cache'
+# Table structure for table 'sys_category': color of the events of a category and its priority
 #
-CREATE TABLE tx_cal_cache (
-    id int(11) unsigned NOT NULL auto_increment,
-    identifier varchar(128) DEFAULT '' NOT NULL,
-    content text NOT NULL,
-	crdate int(11) DEFAULT '0' NOT NULL,
-	lifetime bigint(13) DEFAULT '0' NOT NULL,    
-  	PRIMARY KEY (id),
-  	KEY cache_id (identifier)
-) ENGINE=InnoDB;
-
-#
-# Table structure for table 'tx_cal_cache_tags'
-#
-CREATE TABLE tx_cal_cache_tags (
-  id int(11) unsigned NOT NULL auto_increment,
-  identifier varchar(128) DEFAULT '' NOT NULL,
-  tag varchar(128) DEFAULT '' NOT NULL,
-  PRIMARY KEY (id),
-  KEY cache_id (identifier),
-  KEY cache_tag (tag)
-) ENGINE=InnoDB;
+CREATE TABLE sys_category (
+	tx_cal_color varchar(7) DEFAULT '' NOT NULL,
+	tx_cal_color_priority int(11) DEFAULT '0' NOT NULL
+);

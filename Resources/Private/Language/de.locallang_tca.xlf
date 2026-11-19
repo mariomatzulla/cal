@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_tca.xlf" product-name="cal">
+		<header/>
+		<body>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages" resname="cal.pi_flexform.listView.showAllImages" approved="yes">
+				<source>Images of an event</source>
+				<target>Bilder eines Termins</target>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages.description" resname="cal.pi_flexform.listView.showAllImages.description" approved="yes">
+				<source>Show the further images as thumbnails (with lightbox) below the "read more" link</source>
+				<target>Weitere Bilder als Vorschaubilder (mit Lightbox) unter dem „Weiterlesen“-Link anzeigen</target>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages.show" resname="cal.pi_flexform.listView.showAllImages.show" approved="yes">
+				<source>Show all images</source>
+				<target>Alle Bilder anzeigen</target>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.listView.showAllImages.firstOnly" resname="cal.pi_flexform.listView.showAllImages.firstOnly" approved="yes">
+				<source>Only the first image</source>
+				<target>Nur das erste Bild</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
