@@ -37,116 +37,16 @@
 										<value>list</value>
 									</numIndex>
 									<numIndex index="6">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewAdmin</label>
-										<value>admin</value>
-									</numIndex>
-									<numIndex index="7">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewSearchEvent</label>
-										<value>search_event</value>
-									</numIndex>
-									<numIndex index="8">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewSearchLocation</label>
-										<value>search_location</value>
-									</numIndex>
-									<numIndex index="9">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewSearchOrganizer</label>
-										<value>search_organizer</value>
-									</numIndex>
-									<numIndex index="10">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewSearchAll</label>
-										<value>search_all</value>
-									</numIndex>
-									<numIndex index="11">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewCreateEvent</label>
-										<value>create_event~confirm_event~save_event</value>
-									</numIndex>
-									<numIndex index="12">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewEditEvent</label>
-										<value>edit_event~confirm_event~save_event</value>
-									</numIndex>
-									<numIndex index="13">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewDeleteEvent</label>
-										<value>delete_event~confirm_event~remove_event~save_exception_event</value>
-									</numIndex>
-									<numIndex index="14">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewCreateCalendar</label>
-										<value>create_calendar~confirm_calendar~save_calendar</value>
-									</numIndex>
-									<numIndex index="15">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewEditCalendar</label>
-										<value>edit_calendar~confirm_calendar~save_calendar</value>
-									</numIndex>
-									<numIndex index="16">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewDeleteCalendar</label>
-										<value>delete_calendar~confirm_calendar~remove_calendar</value>
-									</numIndex>
-									<numIndex index="17">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewCreateCategory</label>
-										<value>create_category~confirm_category~save_category</value>
-									</numIndex>
-									<numIndex index="18">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewEditCategory</label>
-										<value>edit_category~confirm_category~save_category</value>
-									</numIndex>
-									<numIndex index="19">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewDeleteCategory</label>
-										<value>delete_category~confirm_category~remove_category</value>
-									</numIndex>
-									<numIndex index="20">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewCreateLocation</label>
-										<value>create_location~confirm_location~save_location</value>
-									</numIndex>
-									<numIndex index="21">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewEditLocation</label>
-										<value>edit_location~confirm_location~save_location</value>
-									</numIndex>
-									<numIndex index="22">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewDeleteLocation</label>
-										<value>delete_location~confirm_location~remove_location</value>
-									</numIndex>
-									<numIndex index="23">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewCreateOrganizer</label>
-										<value>create_organizer~confirm_organizer~save_organizer</value>
-									</numIndex>
-									<numIndex index="24">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewEditOrganizer</label>
-										<value>edit_organizer~confirm_organizer~save_organizer</value>
-									</numIndex>
-									<numIndex index="25">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewDeleteOrganizer</label>
-										<value>delete_organizer~confirm_organizer~remove_organizer</value>
-									</numIndex>
-									<numIndex index="26">
 										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewOrganizer</label>
 										<value>organizer</value>
 									</numIndex>
-									<numIndex index="27">
+									<numIndex index="7">
 										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewLocation</label>
 										<value>location</value>
 									</numIndex>
-									<numIndex index="28">
+									<numIndex index="8">
 										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewIcs</label>
-										<value>ics~icslist~single_ics</value>
-									</numIndex>
-									<numIndex index="30">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewSubscriptionManager</label>
-										<value>subscription</value>
-									</numIndex>
-									<numIndex index="31">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewMeetingManager</label>
-										<value>meeting</value>
-									</numIndex>
-									<numIndex index="32">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewTranslation</label>
-										<value>translation</value>
-									</numIndex>
-									<numIndex index="33">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewTodo</label>
-										<value>todo</value>
-									</numIndex>
-									<numIndex index="34">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.viewAjax</label>
-										<value>ajax</value>
+										<value>ics</value>
 									</numIndex>
 								</items>
 								<minitems>0</minitems>

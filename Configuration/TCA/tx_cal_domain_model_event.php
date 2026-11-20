@@ -58,6 +58,9 @@ return [
         ],
         'iconfile' => 'EXT:cal/Resources/Public/Icons/tx_cal_event.svg',
         'label_userFunc' => Labels::class . '->getEventRecordLabel',
+        // Not shown (label_userFunc builds the label), but the record list selects these fields,
+        // so the label function does not need a database query per record
+        'label_alt' => 'start_date,start_time,allday',
     ],
     'columns' => [
         'hidden' => [

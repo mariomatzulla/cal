@@ -28,25 +28,40 @@ class Labels
 {
     private const LLL = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
 
+    /**
+     * The record list builds the label of a record several times (title, aria labels, delete confirmation)
+     *
+     * @var array<string, string> "table:uid:tstamp" => label
+     */
+    private static array $eventLabels = [];
+
     public function getEventRecordLabel(array &$params): void
     {
         $table = $params['table'] ?? '';
         if ($table !== 'tx_cal_domain_model_event' && $table !== 'tx_cal_domain_model_exception_event') {
             return;
         }
-        $record = $this->getRecord($table, $params['row'] ?? []);
+        $row = $params['row'] ?? [];
+        $cacheKey = (int)($row['uid'] ?? 0) > 0 ? $table . ':' . $row['uid'] . ':' . ($row['tstamp'] ?? '') . ':' . ($row['title'] ?? '') : '';
+        if ($cacheKey !== '' && isset(self::$eventLabels[$cacheKey])) {
+            $params['title'] = self::$eventLabels[$cacheKey];
+            return;
+        }
+        $record = $this->getRecord($table, $row, ['start_date', 'start_time', 'allday', 'title']);
         if ($record === null) {
             return;
         }
 
         $label = $this->formatDate((int)($record['start_date'] ?? 0));
-        $showTimes = (bool)(GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cal', 'showTimes') ?? false);
-        if ($showTimes && empty($record['allday']) && $table === 'tx_cal_domain_model_event') {
+        if ($this->showTimes() && empty($record['allday']) && $table === 'tx_cal_domain_model_event') {
             // gmdate is ok, start_time only holds the seconds of one day
             $label .= ' ' . gmdate($this->getTimeFormat(), (int)($record['start_time'] ?? 0));
         }
 
         $params['title'] = trim($label . ': ' . ($record['title'] ?? ''));
+        if ($cacheKey !== '') {
+            self::$eventLabels[$cacheKey] = $params['title'];
+        }
     }
 
     public function getAttendeeRecordLabel(array &$params): void
@@ -54,7 +69,7 @@ class Labels
         if (($params['table'] ?? '') !== 'tx_cal_domain_model_attendee') {
             return;
         }
-        $record = $this->getRecord($params['table'], $params['row'] ?? []);
+        $record = $this->getRecord($params['table'], $params['row'] ?? [], ['email', 'fe_user_id', 'attendance', 'status']);
         if ($record === null) {
             return;
         }
@@ -75,7 +90,7 @@ class Labels
         if (($params['table'] ?? '') !== 'tx_cal_domain_model_fe_user_event_monitor_mm') {
             return;
         }
-        $record = $this->getRecord($params['table'], $params['row'] ?? []);
+        $record = $this->getRecord($params['table'], $params['row'] ?? [], ['uid_foreign', 'tablenames', 'offset']);
         if ($record === null) {
             return;
         }
@@ -105,7 +120,7 @@ class Labels
         if (($params['table'] ?? '') !== 'tx_cal_domain_model_eventdeviation') {
             return;
         }
-        $record = $this->getRecord($params['table'], $params['row'] ?? []);
+        $record = $this->getRecord($params['table'], $params['row'] ?? [], ['orig_start_date', 'orig_start_time']);
         if ($record === null) {
             return;
         }
@@ -120,14 +135,43 @@ class Labels
         $params['title'] = $label;
     }
 
-    private function getRecord(string $table, array $row): ?array
+    /**
+     * The record list passes the complete row, the record is only fetched from the database
+     * if fields are missing (e.g. labels of relations, which only contain uid and label field).
+     *
+     * @param list<string> $requiredFields
+     */
+    private function getRecord(string $table, array $row, array $requiredFields = []): ?array
     {
+        if ($requiredFields !== [] && array_diff($requiredFields, array_keys($row)) === [] && self::hasRawDates($row, $requiredFields)) {
+            return $row;
+        }
         $uid = (int)($row['uid'] ?? 0);
         if ($uid <= 0) {
             // New records in FormEngine have no uid yet, use what is there
             return $row !== [] ? $row : null;
         }
         return BackendUtility::getRecord($table, $uid);
+    }
+
+    /**
+     * FormEngine converts date fields to ISO strings, only database rows (timestamps) can be used
+     */
+    private static function hasRawDates(array $row, array $fields): bool
+    {
+        foreach ($fields as $field) {
+            if ((str_ends_with($field, '_date') || str_ends_with($field, '_time')) && !is_numeric($row[$field] ?? 0)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function showTimes(): bool
+    {
+        static $showTimes = null;
+        $showTimes ??= (bool)(GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cal', 'showTimes') ?? false);
+        return $showTimes;
     }
 
     private function formatDate(int $timestamp): string
