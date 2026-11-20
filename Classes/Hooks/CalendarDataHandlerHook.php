@@ -33,6 +33,11 @@ class CalendarDataHandlerHook
     private const LLL = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
     private const INDEX_MODEL_TYPE = 'tx_cal_event';
 
+    /**
+     * @var array<int, int> calendars saved in the current DataHandler run
+     */
+    private array $savedCalendars = [];
+
     public function __construct(
         private readonly EventRepository $eventRepository,
         private readonly CalendarRepository $calendarRepository,
@@ -105,8 +110,9 @@ class CalendarDataHandlerHook
         if ($table === self::CALENDAR_TABLE) {
             $calendarUid = (int)($status === 'new' ? ($dataHandler->substNEWwithIDs[$id] ?? 0) : $id);
             if ($calendarUid > 0) {
-                $this->importExternalCalendar($calendarUid);
-                $this->synchronizeSchedulerTask($calendarUid);
+                // The file references (ICS files) are written after the calendar record,
+                // therefore the import runs in processDatamap_afterAllOperations()
+                $this->savedCalendars[$calendarUid] = $calendarUid;
             }
             return;
         }
@@ -161,6 +167,19 @@ class CalendarDataHandlerHook
             $this->recurrenceGenerator->setRange()->generateIndexForEventUid($uid);
         } catch (\Throwable $e) {
             $this->addFlashMessage('tx_cal_event.index.error', ContextualFeedbackSeverity::ERROR, [$e->getMessage()]);
+        }
+    }
+
+    /**
+     * Imports the saved external / ICS file calendars and synchronizes their scheduler tasks.
+     */
+    public function processDatamap_afterAllOperations(DataHandler $dataHandler): void
+    {
+        $calendars = $this->savedCalendars;
+        $this->savedCalendars = [];
+        foreach ($calendars as $calendarUid) {
+            $this->importExternalCalendar($calendarUid);
+            $this->synchronizeSchedulerTask($calendarUid);
         }
     }
 

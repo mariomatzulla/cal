@@ -24,7 +24,7 @@ use TYPO3\CMS\Scheduler\Execution;
 
 /**
  * Keeps one scheduler task per external calendar in sync with the calendar record:
- * - external calendar with "Refresh Interval" > 0: task is created or updated (interval = refresh minutes)
+ * - external calendar (URL) or ICS file calendar with "Refresh Interval" > 0: task is created or updated (interval = refresh minutes)
  * - other calendar type, interval 0 or deleted calendar: task is removed
  * The uid of the task is stored in tx_cal_domain_model_calendar.schedulerId.
  *
@@ -49,6 +49,7 @@ final class CalendarSchedulerService
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly CalendarRepository $calendarRepository,
+        private readonly ExternalCalendarImporter $importer,
     ) {}
 
     public function isAvailable(): bool
@@ -73,10 +74,9 @@ final class CalendarSchedulerService
         $taskUid = $this->findTaskUid($calendarUid, (int)($calendar['schedulerId'] ?? 0));
         $intervalMinutes = max(0, (int)($calendar['refresh'] ?? 0));
         $needsTask = $calendar !== null
-            && empty($calendar['deleted'])
-            && (int)$calendar['type'] === ExternalCalendarImporter::CALENDAR_TYPE_EXTERNAL
-            && trim((string)$calendar['ext_url']) !== ''
-            && $intervalMinutes > 0;
+            && $intervalMinutes > 0
+            && ExternalCalendarImporter::isImportedType((int)$calendar['type'])
+            && $this->importer->hasImportSource($calendar);
 
         if (!$needsTask) {
             if ($taskUid > 0) {

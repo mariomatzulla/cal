@@ -183,21 +183,15 @@ return [
         'ics_file' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.ics_file',
+            'description' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.ics_file.description',
             'config' => [
-                'type' => 'group',
-                'allowed' => 'ics', // Must be empty for disallowed to work.
-                'max_size' => 10000,
-                'uploadfolder' => 'uploads/tx_cal/ics',
-                'size' => 1,
-                'fieldWizard' => [
-                    'fileThumbnails' => [
-                        'disabled' => true,
-                    ],
+                'type' => 'file',
+                'allowed' => 'ics',
+                'maxitems' => 10,
+                'appearance' => [
+                    'createNewRelationLinkTitle' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.ics_file.add',
+                    'fileUploadAllowed' => true,
                 ],
-                'autoSizeMax' => 1,
-                'maxitems' => 1,
-                'minitems' => 0,
-                'default' => '',
             ],
         ],
 

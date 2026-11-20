@@ -23,6 +23,27 @@ Download and install the extension with the extension manager module.
 3) Create the content element "Calendar Plugin" on a page, select the allowed views and the calendars to show.
 4) Run "Analyze Database Structure" and the upgrade wizards of the extension after an update.
 
+### Upgrade from cal 1.x (TYPO3 <= 11)
+
+cal 4 uses new table names (`tx_cal_domain_model_*`), `sys_category` instead of `tx_cal_category`, a content
+element instead of the plugin "list_type" and replaces EXT:caldav. After the TYPO3 update:
+
+1) Uninstall EXT:caldav, install cal 4.
+2) "Analyze Database Structure": create the new tables and fields. Do **not** remove the old `tx_cal_*` tables and
+   fields yet (if they were already renamed to `zzz_deleted_*`, the wizards read them from there).
+3) Run the upgrade wizards "Calendar Base (cal) 1.x => 4.0" (Upgrade module or `vendor/bin/typo3 upgrade:run`):
+   - migrate categories to sys_category
+   - migrate plugins, permissions and TypoScript templates
+   - migrate calendars, events, locations and organizers (keeps the uids, rebuilds the recurrence index). The files
+     of "ICS file" calendars are copied from `uploads/tx_cal/ics/` into the folder `cal/ics/` of the default storage,
+     the events of external and ICS file calendars are imported again.
+   - replace the scheduler tasks
+4) Generate the ICS data of the events in the backend module "Cal ICS Generator", update the reference index.
+5) Check the result, then remove the old tables and fields with "Analyze Database Structure".
+
+Own TypoScript below `plugin.tx_cal_controller` keeps working but is deprecated, move it to `plugin.tx_cal.settings`.
+Templates of cal 1.x (marker based) cannot be migrated, cal 4 uses Fluid templates.
+
 ### CalDAV
 
 The CalDAV endpoint is `<site base>/caldav`. Frontend users authenticate with their TYPO3 username and password

@@ -917,13 +917,13 @@
 				<source>Imported events of external calendars cannot be changed, moved or deleted in the backend.</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.import.imported" resname="tx_cal_calendar.import.imported">
-				<source>External calendar imported: %d events.</source>
+				<source>Calendar imported: %d events.</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.import.removed" resname="tx_cal_calendar.import.removed">
 				<source>%d imported events of this calendar have been removed.</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.import.error" resname="tx_cal_calendar.import.error">
-				<source>The external calendar could not be imported: %s</source>
+				<source>The calendar could not be imported: %s</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.scheduler.created" resname="tx_cal_calendar.scheduler.created">
 				<source>Scheduler task #%d created: the calendar is synchronized every %d minutes.</source>
@@ -948,6 +948,12 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_event.index.error" resname="tx_cal_event.index.error">
 				<source>The recurrence index of the event could not be generated: %s</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.ics_file.description" resname="tx_cal_calendar.ics_file.description">
+				<source>One or more iCalendar files (.ics). The events are imported when the calendar is saved and, with a refresh interval, regularly by the scheduler. Imported events cannot be edited in the backend.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.ics_file.add" resname="tx_cal_calendar.ics_file.add">
+				<source>Add ICS file</source>
 			</trans-unit>
 		</body>
 	</file>

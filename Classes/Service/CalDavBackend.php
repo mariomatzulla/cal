@@ -39,7 +39,7 @@ class CalDavBackend extends AbstractBackend
                 '{http://sabredav.org/ns}sync-token' => 'http://sabredav.org/ns/sync-token/' . $calendar['tstamp'],
                 '{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set' => new SupportedCalendarComponentSet(['VEVENT']),
                 '{DAV:}displayname' => $calendar['title'],
-                '{http://sabredav.org/ns}read-only' => (int)$calendar['type'] === ExternalCalendarImporter::CALENDAR_TYPE_EXTERNAL,
+                '{http://sabredav.org/ns}read-only' => ExternalCalendarImporter::isImportedType((int)$calendar['type']),
             ];
         }
         return $calendars;
@@ -197,7 +197,7 @@ class CalDavBackend extends AbstractBackend
     private function assertCalendarIsWritable(int $calendarId): void
     {
         $calendar = $this->calendarRepository->findRawByUid($calendarId);
-        if ($calendar !== null && (int)$calendar['type'] === ExternalCalendarImporter::CALENDAR_TYPE_EXTERNAL) {
+        if ($calendar !== null && ExternalCalendarImporter::isImportedType((int)$calendar['type'])) {
             throw new Forbidden('This calendar is imported from an external source and is read-only.');
         }
     }

@@ -20,16 +20,16 @@
 				<target>Importierte Termine externer Kalender können im Backend nicht geändert, verschoben oder gelöscht werden.</target>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.import.imported" resname="tx_cal_calendar.import.imported" approved="yes">
-				<source>External calendar imported: %d events.</source>
-				<target>Externer Kalender importiert: %d Termine.</target>
+				<source>Calendar imported: %d events.</source>
+				<target>Kalender importiert: %d Termine.</target>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.import.removed" resname="tx_cal_calendar.import.removed" approved="yes">
 				<source>%d imported events of this calendar have been removed.</source>
 				<target>%d importierte Termine dieses Kalenders wurden entfernt.</target>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.import.error" resname="tx_cal_calendar.import.error" approved="yes">
-				<source>The external calendar could not be imported: %s</source>
-				<target>Der externe Kalender konnte nicht importiert werden: %s</target>
+				<source>The calendar could not be imported: %s</source>
+				<target>Der Kalender konnte nicht importiert werden: %s</target>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.scheduler.created" resname="tx_cal_calendar.scheduler.created" approved="yes">
 				<source>Scheduler task #%d created: the calendar is synchronized every %d minutes.</source>
@@ -114,6 +114,26 @@
 			<trans-unit id="tx_cal_event.index.error" resname="tx_cal_event.index.error" approved="yes">
 				<source>The recurrence index of the event could not be generated: %s</source>
 				<target>Der Wiederholungsindex des Termins konnte nicht erzeugt werden: %s</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.ics_file.description" resname="tx_cal_calendar.ics_file.description" approved="yes">
+				<source>One or more iCalendar files (.ics). The events are imported when the calendar is saved and, with a refresh interval, regularly by the scheduler. Imported events cannot be edited in the backend.</source>
+				<target>Eine oder mehrere iCalendar-Dateien (.ics). Die Termine werden beim Speichern des Kalenders und – mit Aktualisierungsintervall – regelmäßig per Scheduler importiert. Importierte Termine können im Backend nicht bearbeitet werden.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.ics_file.add" resname="tx_cal_calendar.ics_file.add" approved="yes">
+				<source>Add ICS file</source>
+				<target>ICS-Datei hinzufügen</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.type.I.2" resname="tx_cal_calendar.type.I.2" approved="yes">
+				<source>Include ICS File</source>
+				<target>ICS-Datei einbinden</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.ics_file" resname="tx_cal_calendar.ics_file" approved="yes">
+				<source>ICS File</source>
+				<target>ICS-Datei(en)</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_calendar.refresh" resname="tx_cal_calendar.refresh" approved="yes">
+				<source>Refresh Interval (Minutes) (scheduler needed)</source>
+				<target>Aktualisierungsintervall (Minuten, benötigt Scheduler)</target>
 			</trans-unit>
 		</body>
 	</file>

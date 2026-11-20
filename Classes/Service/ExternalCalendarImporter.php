@@ -21,18 +21,23 @@ use MarioMatzulla\Cal\Utility\CalculateDateTime;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Http\RequestFactory;
+use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
 
 /**
- * Imports the events of an external calendar (calendar type 1, field ext_url) as
- * read-only "temp" events (tx_cal_domain_model_event.isTemp = 1).
+ * Imports the events of
+ * - an external calendar (calendar type 1, field ext_url: one or more URLs) or
+ * - an ICS file calendar (calendar type 2, field ics_file: one or more uploaded .ics files)
+ * as read-only "temp" events (tx_cal_domain_model_event.isTemp = 1).
  *
- * The downloaded ICS data is hashed (calendar field md5). As long as the hash does
- * not change, the import is skipped.
+ * The ICS data is hashed (calendar field md5). As long as the hash does not change, the import is skipped.
  */
 #[Autoconfigure(public: true)]
 final class ExternalCalendarImporter
 {
     public const CALENDAR_TYPE_EXTERNAL = 1;
+    public const CALENDAR_TYPE_FILE = 2;
+    public const CALENDAR_TABLE = 'tx_cal_domain_model_calendar';
 
     public const STATUS_IMPORTED = 'imported';
     public const STATUS_UNCHANGED = 'unchanged';
@@ -50,7 +55,31 @@ final class ExternalCalendarImporter
         private readonly CalendarRepository $calendarRepository,
         private readonly EventRepository $eventRepository,
         private readonly IndexRepository $indexRepository,
+        private readonly FileRepository $fileRepository,
     ) {}
+
+    /**
+     * Calendars of these types get their events from an import (read-only in the backend and via CalDAV)
+     */
+    public static function isImportedType(int $type): bool
+    {
+        return $type === self::CALENDAR_TYPE_EXTERNAL || $type === self::CALENDAR_TYPE_FILE;
+    }
+
+    /**
+     * Whether the calendar has something to import (URLs or files)
+     */
+    public function hasImportSource(array $calendar): bool
+    {
+        if (!empty($calendar['deleted'])) {
+            return false;
+        }
+        return match ((int)($calendar['type'] ?? 0)) {
+            self::CALENDAR_TYPE_EXTERNAL => trim((string)($calendar['ext_url'] ?? '')) !== '',
+            self::CALENDAR_TYPE_FILE => $this->getFileReferences((int)$calendar['uid']) !== [],
+            default => false,
+        };
+    }
 
     /**
      * @return array{status: string, count: int}
@@ -63,19 +92,13 @@ final class ExternalCalendarImporter
             return ['status' => self::STATUS_UNCHANGED, 'count' => 0];
         }
 
-        $isExternal = (int)$calendar['type'] === self::CALENDAR_TYPE_EXTERNAL && empty($calendar['deleted']);
-        $urls = $isExternal ? $this->getUrls((string)($calendar['ext_url'] ?? '')) : [];
-        if ($urls === []) {
+        $contents = empty($calendar['deleted']) ? $this->loadContents($calendar) : [];
+        if ($contents === []) {
             $removed = $this->removeImportedEvents($calendarId);
             if ((string)($calendar['md5'] ?? '') !== '') {
                 $this->calendarRepository->updateMd5($calendarId, '');
             }
             return ['status' => $removed > 0 ? self::STATUS_REMOVED : self::STATUS_UNCHANGED, 'count' => $removed];
-        }
-
-        $contents = [];
-        foreach ($urls as $url) {
-            $contents[] = $this->download($url);
         }
 
         $timezone = $this->getCalendarTimezone($calendar);
@@ -91,7 +114,7 @@ final class ExternalCalendarImporter
             try {
                 $events = IcsParser::parseEvents($content, $from, $to, $timezone->getName());
             } catch (\Throwable $e) {
-                throw new \RuntimeException('The external calendar could not be parsed: ' . $e->getMessage(), 1794940001, $e);
+                throw new \RuntimeException('The calendar data could not be parsed: ' . $e->getMessage(), 1794940001, $e);
             }
             foreach ($events as $event) {
                 $rows[] = array_merge($event, [
@@ -123,6 +146,50 @@ final class ExternalCalendarImporter
             $this->calendarRepository->updateMd5($calendarId, '');
         }
         return count($uids);
+    }
+
+    /**
+     * ICS data of the calendar: downloaded from the URLs (type 1) or read from the files (type 2)
+     *
+     * @return string[]
+     */
+    private function loadContents(array $calendar): array
+    {
+        $contents = [];
+        switch ((int)($calendar['type'] ?? 0)) {
+            case self::CALENDAR_TYPE_EXTERNAL:
+                foreach ($this->getUrls((string)($calendar['ext_url'] ?? '')) as $url) {
+                    $contents[] = $this->download($url);
+                }
+                break;
+            case self::CALENDAR_TYPE_FILE:
+                foreach ($this->getFileReferences((int)$calendar['uid']) as $fileReference) {
+                    $contents[] = $this->readFile($fileReference);
+                }
+                break;
+        }
+        return $contents;
+    }
+
+    /**
+     * @return FileReference[]
+     */
+    private function getFileReferences(int $calendarId): array
+    {
+        return $this->fileRepository->findByRelation(self::CALENDAR_TABLE, 'ics_file', $calendarId);
+    }
+
+    private function readFile(FileReference $fileReference): string
+    {
+        try {
+            $content = $fileReference->getOriginalFile()->getContents();
+        } catch (\Throwable $e) {
+            throw new \RuntimeException('The ICS file "' . $fileReference->getName() . '" could not be read: ' . $e->getMessage(), 1795180001, $e);
+        }
+        if (!str_contains($content, 'BEGIN:VCALENDAR')) {
+            throw new \RuntimeException('The file "' . $fileReference->getName() . '" does not contain iCalendar data.', 1795180002);
+        }
+        return $content;
     }
 
     /**
@@ -166,7 +233,7 @@ final class ExternalCalendarImporter
     }
 
     /**
-     * Hash over the downloaded data. Only the content counts, not the formatting:
+     * Hash over the ICS data. Only the content counts, not the formatting:
      * - DTSTAMP (time of the export) changes with every download and is ignored
      * - some servers (e.g. Google) return the VEVENTs in a different order on every download,
      *   therefore the components are sorted before hashing
