@@ -254,8 +254,37 @@ class ContentController extends ActionController
         $this->view->assign('prevMonth', $prevMonth);
         $this->view->assign('events', $events);
         $this->view->assign('view', 'month');
+        $this->view->assign('calendarViews', $this->getCalendarViewConfiguration('month'));
+        $this->view->assign('eventLink', $this->getEventLinkConfiguration());
+        $this->view->assign('contentUid', $this->getContentUid());
         $this->addToAllViews();
         return $this->htmlResponse();
+    }
+
+    /**
+     * Calendar views the plugin may link to (view switch, day numbers, week numbers).
+     * The current view is always part of the view switch; "switch" is true if there is another view.
+     *
+     * @return array{year: bool, month: bool, week: bool, day: bool, list: bool, switch: bool}
+     */
+    protected function getCalendarViewConfiguration(string $currentView): array
+    {
+        $allowedViews = (array)($this->settings ['view'] ['allowedViewsToLinkTo'] ?? []);
+        $views = [];
+        foreach (['year', 'month', 'week', 'day', 'list'] as $view) {
+            $views[$view] = $view === $currentView || in_array($view, $allowedViews, true);
+        }
+        $views['switch'] = count(array_filter($views)) > 1;
+        return $views;
+    }
+
+    /**
+     * uid of the rendered content element, used for unique HTML ids
+     */
+    protected function getContentUid(): int
+    {
+        $contentObject = $this->request->getAttribute('currentContentObject');
+        return $contentObject instanceof ContentObjectRenderer ? (int)($contentObject->data['uid'] ?? 0) : 0;
     }
 
     public function yearAction(): ResponseInterface
@@ -323,6 +352,9 @@ class ContentController extends ActionController
         $this->view->assign('prevWeek', $prevWeek);
         $this->view->assign('events', $events);
         $this->view->assign('view', 'week');
+        $this->view->assign('calendarViews', $this->getCalendarViewConfiguration('week'));
+        $this->view->assign('eventLink', $this->getEventLinkConfiguration());
+        $this->view->assign('contentUid', $this->getContentUid());
         $this->addToAllViews();
         return $this->htmlResponse();
     }
@@ -369,6 +401,9 @@ class ContentController extends ActionController
         $this->view->assign('prevDay', $prevDay);
         $this->view->assign('events', $events);
         $this->view->assign('view', 'day');
+        $this->view->assign('calendarViews', $this->getCalendarViewConfiguration('day'));
+        $this->view->assign('eventLink', $this->getEventLinkConfiguration());
+        $this->view->assign('contentUid', $this->getContentUid());
         $this->addToAllViews();
         return $this->htmlResponse();
     }

@@ -49,7 +49,18 @@ final class WeekViewHelper extends BaseWeekViewHelper
         if ($this->arguments ['view'] == 'week') {
             $this->renderingContext->getVariableProvider()->add('days', $weekModel->getDays());
         }
-        $this->renderingContext->getVariableProvider()->add('theMatrixAllday', $this->generateTheRenderingMatrix($weekModel, true, false));
+        if ((bool)($this->settings ['view'] ['day'] ['extendGridToEvents'] ?? false)) {
+            $this->extendDayTimesToEvents(array_filter(
+                $weekModel->getDays(),
+                fn($day): bool => $this->arguments ['view'] !== 'day' || $day->getYmd() === $weekDate->format('Ymd'),
+            ));
+        }
+        $theMatrixAllday = $this->generateTheRenderingMatrix($weekModel, true, false);
+        $this->renderingContext->getVariableProvider()->add('theMatrixAllday', $theMatrixAllday);
+        if ($this->arguments ['view'] == 'day') {
+            $column = array_search($weekDate->format('Ymd'), array_map('strval', array_keys($weekModel->getDays())), true);
+            $this->renderingContext->getVariableProvider()->add('alldayEvents', $column === false ? [] : $this->getAlldayEventsOfColumn($theMatrixAllday, (int)$column));
+        }
         $eventColumns = [];
         foreach ($weekModel->getDays() as $day) {
             if ($this->arguments ['view'] == 'day') {

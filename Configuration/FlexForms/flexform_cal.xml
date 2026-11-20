@@ -333,7 +333,7 @@
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
-								<default>0700</default>
+								<default>070000</default>
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0"></numIndex>
@@ -349,7 +349,7 @@
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
-								<default>2300</default>
+								<default>230000</default>
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0"></numIndex>

@@ -87,6 +87,46 @@
 				<source>Cal ICS Generator</source>
 				<target>Cal ICS-Generator</target>
 			</trans-unit>
+			<trans-unit id="l_calendar_views" resname="l_calendar_views" approved="yes">
+				<source>Calendar views</source>
+				<target>Kalenderansichten</target>
+			</trans-unit>
+			<trans-unit id="l_list" resname="l_list" approved="yes">
+				<source>List</source>
+				<target>Liste</target>
+			</trans-unit>
+			<trans-unit id="l_year" resname="l_year" approved="yes">
+				<source>Year</source>
+				<target>Jahr</target>
+			</trans-unit>
+			<trans-unit id="l_month" resname="l_month" approved="yes">
+				<source>Month</source>
+				<target>Monat</target>
+			</trans-unit>
+			<trans-unit id="l_week" resname="l_week" approved="yes">
+				<source>Week</source>
+				<target>Woche</target>
+			</trans-unit>
+			<trans-unit id="l_day" resname="l_day" approved="yes">
+				<source>Day</source>
+				<target>Tag</target>
+			</trans-unit>
+			<trans-unit id="l_today" resname="l_today" approved="yes">
+				<source>Today</source>
+				<target>Heute</target>
+			</trans-unit>
+			<trans-unit id="l_last_month" resname="l_last_month" approved="yes">
+				<source>Previous month</source>
+				<target>Vorheriger Monat</target>
+			</trans-unit>
+			<trans-unit id="l_next_month" resname="l_next_month" approved="yes">
+				<source>Next month</source>
+				<target>Nächster Monat</target>
+			</trans-unit>
+			<trans-unit id="l_week_short" resname="l_week_short" approved="yes">
+				<source>Wk</source>
+				<target>KW</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

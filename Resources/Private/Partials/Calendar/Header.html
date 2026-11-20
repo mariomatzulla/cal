@@ -1,0 +1,47 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Header of the month, week and day view: title, view switch (allowed views) and navigation.
+  Arguments: titleId, title, activeView (month|week|day), calendarViews, getdate, settings,
+  navAction, prevArguments, todayArguments, nextArguments, prevLabel, nextLabel (language keys)
+</f:comment>
+<header class="cal-view__head">
+  <h2 class="cal-view__title" id="{titleId}" aria-live="polite">{title}</h2>
+  <div class="cal-view__tools">
+    <f:if condition="{calendarViews.switch}">
+      <nav class="cal-view__views" aria-label="{f:translate(key: 'l_calendar_views')}">
+        <f:if condition="{calendarViews.year}">
+          <f:render section="view" arguments="{activeView: activeView, view: 'year', action: settings.view.yearLinkTarget, arguments: {year: getdate.year}}" />
+        </f:if>
+        <f:if condition="{calendarViews.month}">
+          <f:render section="view" arguments="{activeView: activeView, view: 'month', action: settings.view.monthLinkTarget, arguments: {year: getdate.year, month: getdate.month}}" />
+        </f:if>
+        <f:if condition="{calendarViews.week}">
+          <f:render section="view" arguments="{activeView: activeView, view: 'week', action: settings.view.weekLinkTarget, arguments: {year: getdate.year, week: getdate.weekOfYear}}" />
+        </f:if>
+        <f:if condition="{calendarViews.day}">
+          <f:render section="view" arguments="{activeView: activeView, view: 'day', action: settings.view.dayLinkTarget, arguments: {year: getdate.year, month: getdate.month, day: getdate.day}}" />
+        </f:if>
+        <f:if condition="{calendarViews.list}">
+          <f:render section="view" arguments="{activeView: activeView, view: 'list', action: 'list', arguments: {}}" />
+        </f:if>
+      </nav>
+    </f:if>
+    <nav class="cal-view__nav" aria-label="{f:translate(key: 'l_{activeView}')}">
+      <f:link.action action="{navAction}" arguments="{prevArguments}" class="cal-view__button" title="{f:translate(key: prevLabel)}">
+        <span aria-hidden="true">&lsaquo;</span><span class="visually-hidden"><f:translate key="{prevLabel}" /></span>
+      </f:link.action>
+      <f:link.action action="{navAction}" arguments="{todayArguments}" class="cal-view__button cal-view__button--today"><f:translate key="l_today" /></f:link.action>
+      <f:link.action action="{navAction}" arguments="{nextArguments}" class="cal-view__button" title="{f:translate(key: nextLabel)}">
+        <span aria-hidden="true">&rsaquo;</span><span class="visually-hidden"><f:translate key="{nextLabel}" /></span>
+      </f:link.action>
+    </nav>
+  </div>
+</header>
+
+<f:section name="view">
+  <f:if condition="{activeView} == {view}">
+    <f:then><span class="cal-view__view cal-view__view--active" aria-current="page"><f:translate key="l_{view}" /></span></f:then>
+    <f:else><f:link.action action="{action}" arguments="{arguments}" class="cal-view__view"><f:translate key="l_{view}" /></f:link.action></f:else>
+  </f:if>
+</f:section>
+</html>

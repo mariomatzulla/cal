@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Time grid of the day view. Variables of mmcal:week (view="day"): day, timeCells, eventColumns (one column)
+</f:comment>
+<f:variable name="gridId" value="cal-day-grid-{contentUid}" />
+<div class="cal-timegrid__scroll" tabindex="0" role="region" aria-labelledby="{titleId}">
+  <div class="cal-timegrid__grid" style="--cal-timegrid-days: 1; --cal-timegrid-hours: {timeCells -> f:count()}">
+    <div class="cal-timegrid__columns">
+      <div class="cal-timegrid__corner"></div>
+      <f:render partial="Week/ColumnHeader" arguments="{day: day, column: 1, calendarViews: {day: 0}, settings: settings}" />
+    </div>
+
+    <div class="cal-timegrid__allday" style="--cal-timegrid-rows: {f:if(condition: alldayEvents, then: '{alldayEvents -> f:count()}', else: 1)}">
+      <div class="cal-timegrid__allday-label"><f:translate key="l_all_day" /></div>
+      <div class="cal-timegrid__allday-cell {day.dayClasses}" style="--cal-timegrid-col: 1"></div>
+      <f:for each="{alldayEvents}" as="event" iteration="eventIterator">
+        <f:render partial="Event/TimeGridAllday" arguments="{event: event, column: 1, span: 1, row: eventIterator.cycle, eventLink: eventLink}" />
+      </f:for>
+    </div>
+
+    <div class="cal-timegrid__body" id="{gridId}" tabindex="0">
+      <f:render partial="Week/Hours" arguments="{timeCells: timeCells, gridId: gridId, settings: settings}" />
+      <div class="cal-timegrid__column {day.dayClasses}" style="--cal-timegrid-col: 1" {f:if(condition: day.current, then: 'aria-current="date"') -> f:format.raw()}>
+        <f:for each="{eventColumns.0}" as="eventValues">
+          <f:render partial="Event/TimeGrid" arguments="{eventValues: eventValues, eventLink: eventLink, settings: settings}" />
+        </f:for>
+      </div>
+    </div>
+  </div>
+</div>
+<f:render partial="Week/ScrollToTime" arguments="{gridId: gridId}" />
+</html>

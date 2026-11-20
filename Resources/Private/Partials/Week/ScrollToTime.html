@@ -1,0 +1,13 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>Scrolls the hours of the time grid (not the page) to one hour before the current hour</f:comment>
+<script data-cal-timegrid="{gridId}">
+  (function (script) {
+    var body = document.getElementById(script.getAttribute('data-cal-timegrid'));
+    var scroll = body;
+    var hour = body && body.querySelector('[data-hour="' + Math.max(0, new Date().getHours() - 1) + '"]');
+    if (scroll && hour) {
+      scroll.scrollTop = hour.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop;
+    }
+  })(document.currentScript);
+</script>
+</html>

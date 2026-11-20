@@ -79,9 +79,15 @@ plugin.tx_cal.settings {
 			dayStart = 070000
 			dayEnd = 230000
 			gridLength = 30
+			# The time grid of the day and week view spans dayStart - dayEnd (HHMMSS).
+			# 1 = extend it to full hours if events start before or end after it
+			extendGridToEvents = 0
 			startPointCorrection = 1 seconds
 			endPointCorrection = 1 seconds
 			timeFormatDay = {$plugin.tx_cal.settings.view.timeFormat}
+			# Labels of the hours in the time grid (day and week view): hour and small suffix, e.g. "h" + "a" for 12-hour clocks
+			hourFormat = H
+			hourSuffixFormat = mm
 			displayDate.format = EEEE dd.MM.yyyy
 		}
 
@@ -91,6 +97,9 @@ plugin.tx_cal.settings {
 			endPointCorrection = 6 days
 			dateFormatWeekList = EEEEEE dd. MM
 			timeFormatWeek = {$plugin.tx_cal.settings.view.timeFormat}
+			# Column headers of the time grid (week and day view)
+			columnWeekdayFormat = EEE
+			columnDateFormat = d. MMM
 			displayDate {
 				startFormat = dd. MMM
 				endFormat = dd. MMM yyyy

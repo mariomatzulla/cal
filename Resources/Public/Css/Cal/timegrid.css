@@ -1,130 +1,283 @@
 /**
- * Calendar Base (cal) – time grid of the day and week view
+ * Calendar Base (cal) – time grid of the week and day view
+ *
+ * Styling based on the DayPilot calendar theme "Blue": white column headers with blue-green dates,
+ * large hour labels, light grid lines, events as filled boxes in the color of their category.
+ *
+ *   .cal-timegrid__columns   column headers (date)
+ *   .cal-timegrid__allday    all-day events: one grid row per line, multi-day events span the days
+ *   .cal-timegrid__body      hours (scrolls vertically), events are placed by
+ *                            --cal-timegrid-start / --cal-timegrid-duration (minutes) and
+ *                            --cal-timegrid-left / --cal-timegrid-width (overlapping events side by side)
  */
 .tx-cal-controller {
-	:is(.dayview, .weekview) {
-		clear: both;
-		border-inline-start: 5px solid var(--cal-color-accent-surface);
+	.cal-timegrid {
+		/* events without category color */
+		--cal-event-color: var(--cal-timegrid-event-color);
+		--cal-event-border-color: var(--cal-timegrid-event-border-color);
+
+		font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 	}
 
-	.gridcontainer {
-		position: relative;
-		block-size: var(--cal-grid-height);
-		overflow-y: visible;
-		border-block-start: var(--cal-border-width-frame) solid var(--cal-color-accent-surface);
-		background: var(--cal-color-surface-muted);
-		user-select: none;
+	.cal-timegrid__scroll {
+		overflow-x: auto;
 	}
 
-	/* Day names and all-day events */
-	.gridcontainertop {
-		inline-size: 100%;
-		table-layout: fixed;
+	.cal-timegrid--week .cal-timegrid__grid {
+		min-inline-size: var(--cal-timegrid-min-width);
+	}
+
+	:is(.cal-timegrid__columns, .cal-timegrid__allday, .cal-timegrid__body) {
+		display: grid;
+		grid-template-columns: var(--cal-timegrid-hour-column) repeat(var(--cal-timegrid-days, 7), minmax(0, 1fr));
+		/* same width as the body with its scrollbar */
 		overflow: hidden;
-		border-block-end: var(--cal-border-width-frame) solid var(--cal-color-accent-surface);
-		background-color: var(--cal-color-accent-surface);
-		font-size: var(--cal-font-size-xs);
-		line-height: 14px;
+		scrollbar-gutter: stable;
+	}
 
-		.allday {
-			inline-size: 100%;
-			table-layout: fixed;
-		}
+	/* --- Column headers -------------------------------------------------------- */
+	.cal-timegrid__columns {
+		border-block-end: var(--cal-border-width) solid var(--cal-timegrid-line);
+	}
 
-		td {
-			block-size: 20px;
-			vertical-align: top;
-			background-color: var(--cal-color-surface);
-		}
+	.cal-timegrid__colhead {
+		grid-column: calc(var(--cal-timegrid-col) + 1);
+		border-inline-start: var(--cal-border-width) solid var(--cal-timegrid-line);
+		color: var(--cal-timegrid-head-text);
+		text-align: center;
 
-		.daynames {
-			th {
-				text-align: center;
-			}
-
-			th.dummy {
-				inline-size: 15px;
-			}
-
-			td {
-				inline-size: var(--cal-time-column-width);
-				background-color: var(--cal-color-accent-surface);
-			}
+		&[aria-current="date"] {
+			background: var(--cal-view-today-surface);
+			box-shadow: inset 0 3px 0 var(--cal-view-today-line);
 		}
 	}
 
-	/* Scrollable hours */
-	.scrolltime {
+	.cal-timegrid__colhead-link {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.1rem;
+		padding: 0.55rem 0.25rem;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	a.cal-timegrid__colhead-link {
+		&:hover {
+			background: color-mix(in srgb, var(--cal-timegrid-head-text) 6%, transparent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--cal-view-accent);
+			outline-offset: -2px;
+		}
+	}
+
+	.cal-timegrid__weekday {
+		color: var(--cal-view-text-muted);
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.cal-timegrid__date {
+		font-size: 0.95rem;
+		font-weight: 600;
+	}
+
+	/* --- All-day events -------------------------------------------------------- */
+	.cal-timegrid__allday {
+		grid-template-rows: repeat(var(--cal-timegrid-rows, 1), minmax(1.75rem, auto));
+		padding-block: 3px;
+		border-block-end: var(--cal-border-width) solid var(--cal-timegrid-line);
+		row-gap: 3px;
+	}
+
+	.cal-timegrid__allday-label {
+		grid-column: 1;
+		grid-row: 1 / -1;
+		align-self: center;
+		padding-inline-end: 0.4rem;
+		color: var(--cal-view-text-muted);
+		font-size: 0.65rem;
+		text-align: end;
+	}
+
+	.cal-timegrid__allday-cell {
+		grid-column: calc(var(--cal-timegrid-col) + 1);
+		grid-row: 1 / -1;
+		margin-block: -3px;
+		border-inline-start: var(--cal-border-width) solid var(--cal-timegrid-line);
+	}
+
+	.cal-timegrid__allday-event {
+		grid-column: calc(var(--cal-timegrid-col) + 1) / span var(--cal-timegrid-span, 1);
+		grid-row: var(--cal-timegrid-row, 1);
+		z-index: 1;
+		align-self: start;
+		min-inline-size: 0;
+		margin-inline: 3px;
+		padding: 4px 6px;
+		overflow: hidden;
+		border: var(--cal-border-width) solid var(--cal-event-border-color);
+		border-radius: var(--cal-timegrid-event-radius);
+		background: var(--cal-event-color);
+		color: #fff;
+		font-size: 0.75rem;
+		font-weight: 600;
+		line-height: 1.25;
+		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	/* --- Hours ------------------------------------------------------------------ */
+	.cal-timegrid__body {
 		position: relative;
-		block-size: var(--cal-grid-scroll-height);
-		padding: 0;
-		overflow: hidden scroll;
-		border-block: var(--cal-border-width) solid var(--cal-color-accent-surface);
-		border-inline-start: 0;
-		font-size: var(--cal-font-size-xs);
-		line-height: normal;
+		max-block-size: var(--cal-timegrid-scroll-height);
+		overflow-y: auto;
 
-		.timetable {
-			inline-size: 100%;
-			margin-block-start: -1px;
-			table-layout: fixed;
-			border-block-end: var(--cal-border-width) solid var(--cal-color-line-accent);
-			background-color: var(--cal-color-surface);
+		&:focus-visible {
+			outline: 2px solid var(--cal-view-accent);
+			outline-offset: -2px;
+		}
+	}
 
-			.width {
-				inline-size: var(--cal-time-column-width);
-			}
+	.cal-timegrid__hours {
+		grid-column: 1;
+		grid-row: 1;
+	}
 
-			.wrapper {
-				position: relative;
-				inset-block-start: 3px;
-				margin-inline-start: 1px;
+	.cal-timegrid__hour {
+		box-sizing: border-box;
+		block-size: var(--cal-hour-height);
+		padding: 2px 6px 0 0;
+		border-block-start: var(--cal-border-width) solid var(--cal-timegrid-line);
+		color: var(--cal-timegrid-head-text);
+		line-height: 1;
+		text-align: end;
+		white-space: nowrap;
+	}
 
-				.hours {
-					position: absolute;
-					inline-size: 100%;
+	.cal-timegrid__hour-value {
+		font-size: 1.3rem;
+	}
 
-					.cell {
-						block-size: var(--cal-hour-height);
-					}
+	.cal-timegrid__hour-suffix {
+		position: static;
+		margin-inline-start: 2px;
+		font-size: 0.6rem;
+		line-height: 1;
+		vertical-align: top;
+	}
 
-					/* full hour solid, half hour dotted */
-					.line {
-						block-size: calc(var(--cal-hour-height) / 2 - 1px);
-						margin-block-end: calc(var(--cal-hour-height) / 2 - 1px);
-						border-block-start: var(--cal-border-width) solid var(--cal-color-line);
-						border-block-end: var(--cal-border-width) dotted var(--cal-color-line);
-						font-size: 1px;
-					}
-				}
-			}
+	/* Day columns: lines of the full and half hours as background */
+	.cal-timegrid__column {
+		--cal-timegrid-half: calc(var(--cal-hour-height) / 2);
 
-			.times {
-				padding-block-start: 1px;
-				background-color: var(--cal-color-time-surface);
-				color: var(--cal-color-text-muted);
-				text-align: end;
-				vertical-align: top;
+		position: relative;
+		grid-column: calc(var(--cal-timegrid-col) + 1);
+		grid-row: 1;
+		block-size: calc(var(--cal-timegrid-hours) * var(--cal-hour-height));
+		overflow: hidden;
+		border-inline-start: var(--cal-border-width) solid var(--cal-timegrid-line);
+		background-color: var(--cal-view-surface);
+		background-image: repeating-linear-gradient(
+			to bottom,
+			var(--cal-timegrid-line) 0 1px,
+			transparent 1px var(--cal-timegrid-half),
+			var(--cal-timegrid-line-half) var(--cal-timegrid-half) calc(var(--cal-timegrid-half) + 1px),
+			transparent calc(var(--cal-timegrid-half) + 1px) var(--cal-hour-height)
+		);
 
-				div {
-					block-size: var(--cal-hour-height);
-				}
+		/* Saturday and Sunday */
+		&:is(.weekday0, .weekday6) {
+			background-color: var(--cal-timegrid-offday-surface);
+		}
 
-				div.timeborder {
-					block-size: calc(var(--cal-hour-height) - 1px);
-				}
-			}
+		&[aria-current="date"] {
+			background-color: var(--cal-view-today-surface);
+		}
+	}
 
-			.event-column {
-				border-inline-start: var(--cal-border-width) solid var(--cal-color-line);
-				vertical-align: top;
+	:is(.cal-timegrid__allday-cell):is(.weekday0, .weekday6) {
+		background-color: var(--cal-timegrid-offday-surface);
+	}
 
-				.wrapper {
-					position: relative;
-					margin-inline-end: 10px;
-					cursor: default;
-				}
-			}
+	.cal-timegrid__allday-cell.currentDay {
+		background-color: var(--cal-view-today-surface);
+	}
+
+	/* --- Timed events ------------------------------------------------------------ */
+	.cal-timegrid__event {
+		position: absolute;
+		inset-block-start: calc(var(--cal-timegrid-start) * var(--cal-hour-height) / 60 + 1px);
+		inset-inline-start: calc(var(--cal-timegrid-left, 0%) + 2px);
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+		inline-size: calc(var(--cal-timegrid-width, 100%) - 6px);
+		block-size: max(calc(var(--cal-timegrid-duration) * var(--cal-hour-height) / 60 - 2px), 1.4rem);
+		padding: 2px 2px 2px 8px;
+		overflow: hidden;
+		border: var(--cal-border-width) solid var(--cal-event-border-color);
+		border-radius: var(--cal-timegrid-event-radius);
+		background: var(--cal-event-color);
+		color: #fff;
+		font-size: 0.75rem;
+		line-height: 1.25;
+		text-decoration: none;
+
+		&:is(a):hover {
+			z-index: 2;
+			filter: brightness(1.06);
+			box-shadow: 0 6px 16px -8px rgb(0 0 0 / 45%);
+			color: #fff;
+		}
+
+		&:focus-visible {
+			z-index: 2;
+			outline: 2px solid var(--cal-event-border-color);
+			outline-offset: 1px;
+		}
+	}
+
+	.cal-timegrid__event > span {
+		min-inline-size: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.cal-timegrid__event-time {
+		flex-shrink: 0;
+		white-space: nowrap;
+		font-size: 0.68rem;
+		opacity: 0.9;
+	}
+
+	.cal-timegrid__event-title {
+		font-weight: 600;
+		overflow-wrap: break-word;
+	}
+
+	.cal-timegrid__event-location {
+		white-space: nowrap;
+		font-size: 0.68rem;
+		opacity: 0.9;
+	}
+
+	/* Short events: one line */
+	.cal-timegrid__event--short {
+		flex-direction: row;
+		gap: 0.35rem;
+		align-items: baseline;
+		padding-block: 1px;
+		white-space: nowrap;
+
+		.cal-timegrid__event-location {
+			display: none;
 		}
 	}
 }

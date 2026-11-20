@@ -1,6 +1,7 @@
 /**
- * Calendar Base (cal) – month tables
- * .month-large: month view, .month-medium: months of the year view
+ * Calendar Base (cal) – month view and month tables
+ * .cal-month: month view (card with a CSS grid per week)
+ * .month-medium: months of the year view, .month-large: month table of cal < 4.1 (custom templates)
  */
 .tx-cal-controller {
 	:is(.month-medium, .month-large) {
@@ -119,4 +120,168 @@
 			border: var(--cal-border-width) solid var(--cal-color-border-strong);
 		}
 	}
+
+	/* --- Month view --------------------------------------------------------
+	   Every week is a grid with 7 columns. The day cells span all rows of the week,
+	   the events are placed on top: row 1 = day numbers, row 2… = events,
+	   multi-day events span the occupied days. */
+	.cal-month__scroll {
+		overflow-x: auto;
+
+		&:focus-visible {
+			outline: 2px solid var(--cal-view-accent);
+			outline-offset: -2px;
+		}
+	}
+
+	.cal-month__grid {
+		min-inline-size: var(--cal-month-min-width);
+	}
+
+	:is(.cal-month__weekdays, .cal-month__week) {
+		display: grid;
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+	}
+
+	/* Optional first column with the week numbers (links to the week view) */
+	.cal-month__grid--weeknums {
+		--cal-month-col-offset: 1;
+
+		:is(.cal-month__weekdays, .cal-month__week) {
+			grid-template-columns: var(--cal-month-weeknum-width) repeat(7, minmax(0, 1fr));
+		}
+	}
+
+	.cal-month__weeknum {
+		grid-column: 1;
+		grid-row: 1 / -1;
+		padding-block-start: 0.6rem;
+		border-inline-end: var(--cal-border-width) solid var(--cal-view-line);
+		background: var(--cal-month-surface-off);
+		color: var(--cal-view-text-muted);
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-align: center;
+		text-decoration: none;
+
+		&:hover {
+			background: #f2f5fa;
+			color: var(--cal-view-accent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--cal-view-accent);
+			outline-offset: -2px;
+		}
+	}
+
+	.cal-month__weekday {
+		padding-block: 0.6rem;
+		border-block-end: var(--cal-border-width) solid var(--cal-view-line);
+		color: var(--cal-view-text-muted);
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	.cal-month__week {
+		/* day numbers, one row per event line, rest of the cell */
+		grid-template-rows: 2rem repeat(var(--cal-month-rows, 1), auto) minmax(0.5rem, 1fr);
+		min-block-size: var(--cal-month-cell-height);
+		row-gap: 0.3rem;
+		border-block-end: var(--cal-border-width) solid var(--cal-view-line);
+
+		&:last-child {
+			border-block-end: 0;
+		}
+	}
+
+	.cal-month__day {
+		grid-column: calc(var(--cal-month-col) + var(--cal-month-col-offset, 0));
+		grid-row: 1 / -1;
+		padding: 0.5rem;
+		border-inline-end: var(--cal-border-width) solid var(--cal-view-line);
+		font-size: 0.8rem;
+
+		/* Sunday: last day cell of the week (events follow in the DOM) */
+		&:nth-last-child(1 of .cal-month__day) {
+			border-inline-end: 0;
+		}
+
+		&.monthOff {
+			background: var(--cal-month-surface-off);
+			color: var(--cal-month-text-off);
+		}
+	}
+
+	.cal-month__num {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-inline-size: 1.5rem;
+		block-size: 1.5rem;
+		margin: -0.15rem 0 0 -0.15rem;
+		border-radius: 50%;
+		color: inherit;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	a.cal-month__num:hover {
+		background: #f2f5fa;
+	}
+
+	/* Today: tinted cell and number in a circle */
+	.cal-month__day[aria-current="date"] {
+		background: var(--cal-view-today-surface);
+		box-shadow: inset 0 3px 0 var(--cal-view-today-line);
+	}
+
+	.cal-month__day[aria-current="date"] .cal-month__num {
+		background: var(--cal-view-accent);
+		color: #fff;
+	}
+
+	/* Events: tinted chips in the color of the category */
+	.cal-month__event {
+		grid-column: calc(var(--cal-month-col) + var(--cal-month-col-offset, 0)) / span var(--cal-month-span, 1);
+		grid-row: calc(var(--cal-month-row, 0) + 2);
+		z-index: 1;
+		min-inline-size: 0;
+		margin-inline: 0.5rem;
+		padding: 0.2rem 0.45rem;
+		overflow: hidden;
+		border-radius: 6px;
+		background: color-mix(in srgb, var(--cal-event-color) var(--cal-month-event-tint), var(--cal-view-surface));
+		color: var(--cal-event-border-color);
+		font-size: 0.68rem;
+		font-weight: 700;
+		line-height: 1.35;
+		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&:is(a):hover {
+			background: color-mix(in srgb, var(--cal-event-color) calc(var(--cal-month-event-tint) * 2), var(--cal-view-surface));
+			color: var(--cal-event-border-color);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--cal-event-border-color);
+			outline-offset: 1px;
+		}
+	}
+
+	/* Multi-day events: one chip across the occupied days, marked by the frame color */
+	.cal-month__event--multiday {
+		border-inline-start: 3px solid var(--cal-event-border-color);
+	}
+
+	.cal-month__time {
+		font-weight: 600;
+		opacity: 0.8;
+	}
 }
+

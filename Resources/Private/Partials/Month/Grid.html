@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:mmcal="http://typo3.org/ns/MarioMatzulla/Cal/ViewHelpers" data-namespace-typo3-fluid="true">
+<mmcal:month offset="{offset}" dateObject="{getdate}" events="{events}">
+<div class="cal-month__grid{f:if(condition: calendarViews.week, then: ' cal-month__grid--weeknums')}">
+  <div class="cal-month__weekdays" aria-hidden="true">
+    <f:if condition="{calendarViews.week}">
+      <div class="cal-month__weekday cal-month__weekday--weeknum"><f:translate key="l_week_short" /></div>
+    </f:if>
+    <f:for each="{0: weekdayObject0, 1: weekdayObject1, 2: weekdayObject2, 3: weekdayObject3, 4: weekdayObject4, 5: weekdayObject5, 6: weekdayObject6}" as="weekday">
+      <div class="cal-month__weekday">{f:format.date(date: weekday, pattern: settings.view.month.weekdayFormatLargeMonth, locale: settings.dateConfig.locale) -> f:replace(search: '.', replace: '')}</div>
+    </f:for>
+  </div>
+  <mmcal:monthWeek type="large" month="{monthObject}">
+    <div class="cal-month__week {weekClasses}" style="--cal-month-rows: {rowspan}">
+      <f:if condition="{calendarViews.week}">
+        <f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: week.year, week: week.week}" class="cal-month__weeknum" title="{f:translate(key: 'l_week')} {week.week}">{week.week}</f:link.action>
+      </f:if>
+      <f:for each="{week.days}" as="day" iteration="iterator">
+        <div class="cal-month__day {day.dayClasses}" style="--cal-month-col: {iterator.cycle}" {f:if(condition: day.current, then: 'aria-current="date"')->f:format.raw()}>
+          <span class="visually-hidden"><f:format.date pattern="EEEE, d. MMMM yyyy" locale="{settings.dateConfig.locale}">{day.time}</f:format.date></span>
+          <f:if condition="{calendarViews.day} && ({settings.view.linkOnlyDatesWithEvents} == 0 || {day.hasEvents})">
+            <f:then>
+              <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: day.year, month: day.month, day: day.day}" class="cal-month__num" additionalAttributes="{aria-hidden: 'true', tabindex: '-1'}">{day.day}</f:link.action>
+            </f:then>
+            <f:else>
+              <span class="cal-month__num" aria-hidden="true">{day.day}</span>
+            </f:else>
+          </f:if>
+        </div>
+      </f:for>
+      <f:for each="{rowspanArray}" as="row">
+        <f:for each="{week.days}" as="day" iteration="iterator">
+          <f:variable name="event" value="{theMatrix.{iterator.index}.{row}}" />
+          <f:if condition="{event} && {event} != 'TRUE'">
+            <f:render partial="Event/MonthGrid" arguments="{event: event, column: iterator.cycle, row: row, eventLink: eventLink}" />
+          </f:if>
+        </f:for>
+      </f:for>
+    </div>
+  </mmcal:monthWeek>
+</div>
+</mmcal:month>
+</html>

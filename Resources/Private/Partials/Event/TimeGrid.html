@@ -1,0 +1,24 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>Timed event in the time grid of the week / day view. eventValues: event, offset, duration (minutes), columnLeft, columnWidth (%)</f:comment>
+<f:variable name="event" value="{eventValues.event}" />
+<f:variable name="time">{f:format.date(date: event.start, pattern: settings.view.week.timeFormatWeek, locale: settings.dateConfig.locale)} – {f:format.date(date: event.end, pattern: settings.view.week.timeFormatWeek, locale: settings.dateConfig.locale)}</f:variable>
+<f:variable name="location"><f:if condition="{event.locationObject}"><f:then>{event.locationObject.name}</f:then><f:else>{event.location}</f:else></f:if></f:variable>
+<f:variable name="classes">cal-timegrid__event{f:if(condition: '{eventValues.duration} < 45', then: ' cal-timegrid__event--short')}</f:variable>
+<f:variable name="style">--cal-timegrid-start: {eventValues.offset}; --cal-timegrid-duration: {eventValues.duration}; --cal-timegrid-left: {eventValues.columnLeft}%; --cal-timegrid-width: {eventValues.columnWidth}%; {event.colorStyle}</f:variable>
+<f:if condition="{eventLink.enabled}">
+  <f:then>
+    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{view: 'event', type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: '{time} {event.title}'}">
+      <f:render section="content" arguments="{event: event, time: time, location: location}" />
+    </f:link.action>
+  </f:then>
+  <f:else>
+    <div class="{classes}" style="{style}" title="{time} {event.title}"><f:render section="content" arguments="{event: event, time: time, location: location}" /></div>
+  </f:else>
+</f:if>
+
+<f:section name="content">
+  <span class="cal-timegrid__event-time">{time}</span>
+  <span class="cal-timegrid__event-title">{event.title}</span>
+  <f:if condition="{location}"><span class="cal-timegrid__event-location">{location}</span></f:if>
+</f:section>
+</html>

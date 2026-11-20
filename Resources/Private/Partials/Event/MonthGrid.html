@@ -1,0 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:variable name="label"><f:if condition="{event.allday}"><f:else>{f:format.date(date: event.starttime, format: 'H:i')} </f:else></f:if>{event.title}</f:variable>
+<f:variable name="classes">cal-month__event{f:if(condition: event.allday, then: ' cal-month__event--allday')}{f:if(condition: '{event.matrixValue} > 1', then: ' cal-month__event--multiday')}</f:variable>
+<f:variable name="style">--cal-month-col: {column}; --cal-month-span: {event.matrixValue}; --cal-month-row: {row}; {event.colorStyle}</f:variable>
+<f:if condition="{eventLink.enabled}">
+  <f:then>
+    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{view: 'event', type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: label}">
+      <f:render section="content" arguments="{event: event}" />
+    </f:link.action>
+  </f:then>
+  <f:else>
+    <span class="{classes}" style="{style}" title="{label}"><f:render section="content" arguments="{event: event}" /></span>
+  </f:else>
+</f:if>
+
+<f:section name="content"><f:if condition="{event.allday}"><f:else><time class="cal-month__time" datetime="{f:format.date(date: event.starttime, format: 'H:i')}">{f:format.date(date: event.starttime, format: 'H:i')}</time> </f:else></f:if><span class="cal-month__summary">{event.title}</span></f:section>
+</html>

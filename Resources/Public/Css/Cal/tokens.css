@@ -85,12 +85,8 @@
 	--cal-nav-button-width: 40px;
 	--cal-nav-button-height: 27px;
 	--cal-month-large-cell-height: 4em;
-	--cal-time-column-width: 40px;
-	/* Height of one hour in the day/week grid. Must match the 42px used to
-	   position the events in Classes/ViewHelpers/BaseWeekViewHelper.php */
-	--cal-hour-height: 42px;
-	--cal-grid-height: 411px;
-	--cal-grid-scroll-height: 357px;
+	/* Height of one hour in the day/week grid */
+	--cal-hour-height: 44px;
 	--cal-image-max-height: 400px;
 	--cal-event-image-max-height: 440px;
 	/* List view: event cards */
@@ -122,4 +118,36 @@
 	--cal-polaroid-width-small: 120px;     /* list view */
 	--cal-polaroid-frame: 8px;
 	--cal-polaroid-rotation: 2deg;
+
+	/* --- Card of the month, week and day view (frame, header, view switch) -- */
+	--cal-view-accent: var(--cal-color-link);           /* active view, focus */
+	--cal-view-surface: #fff;
+	--cal-view-border: #e6eaf1;                          /* frame of the card */
+	--cal-view-line: #eef1f6;                            /* lines of the grid */
+	--cal-view-text: #1b2433;
+	--cal-view-text-muted: #64748b;
+	--cal-view-radius: 16px;
+	--cal-view-shadow: 0 16px 38px -22px rgb(20 30 55 / 20%);
+	--cal-view-today-surface: #fff8db;                   /* light yellow */
+	--cal-view-today-line: #f2c94c;
+
+	/* --- Month view (grid) ---------------------------------------------------- */
+	--cal-month-surface-off: #fafbfd;                     /* days of the previous / next month */
+	--cal-month-text-off: #66728a;
+	--cal-month-cell-height: 5.5rem;
+	--cal-month-weeknum-width: 2.25rem;                    /* column with the week numbers */
+	--cal-month-min-width: 35rem;                         /* below: horizontal scrolling */
+	--cal-month-event-tint: 14%;                          /* background of an event: share of its color */
+
+	/* --- Week and day view (time grid, colors like the DayPilot theme "Blue") -- */
+	--cal-timegrid-head-text: #045776;                    /* dates and hours */
+	--cal-timegrid-line: #eeeeee;                         /* full hours */
+	--cal-timegrid-line-half: #f5f5f5;                    /* half hours */
+	--cal-timegrid-offday-surface: #f9f9f9;               /* Saturday, Sunday */
+	--cal-timegrid-event-color: #09b2ef;                  /* events without category color */
+	--cal-timegrid-event-border-color: #079beb;
+	--cal-timegrid-event-radius: 6px;
+	--cal-timegrid-hour-column: 3.75rem;
+	--cal-timegrid-scroll-height: 36rem;                  /* visible part of the hours */
+	--cal-timegrid-min-width: 42rem;                      /* week view, below: horizontal scrolling */
 }

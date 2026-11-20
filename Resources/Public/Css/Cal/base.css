@@ -170,4 +170,104 @@
 		clip-path: inset(50%);
 		white-space: nowrap;
 	}
+
+	/* --- Card of the month, week and day view: header with title, view switch and navigation */
+	.cal-view {
+		overflow: hidden;
+		border: var(--cal-border-width) solid var(--cal-view-border);
+		border-radius: var(--cal-view-radius);
+		background: var(--cal-view-surface);
+		box-shadow: var(--cal-view-shadow);
+		color: var(--cal-view-text);
+	}
+
+	.cal-view__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 1.1rem 1.4rem;
+		border-block-end: var(--cal-border-width) solid var(--cal-view-line);
+	}
+
+	.cal-view__title {
+		margin: 0;
+		font-size: 1.05rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+	}
+
+	.cal-view__tools,
+	.cal-view__nav,
+	.cal-view__views {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.cal-view__tools {
+		gap: 0.75rem;
+	}
+
+	:is(.cal-view__button, .cal-view__view) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-inline-size: 2rem;
+		block-size: 2rem;
+		padding-inline: 0.6rem;
+		border: var(--cal-border-width) solid #dde3ec;
+		border-radius: 8px;
+		background: var(--cal-view-surface);
+		color: #4c5a72;
+		font-size: 0.85rem;
+		line-height: 1;
+		text-decoration: none;
+		transition: background-color 0.15s;
+
+		&:is(a):hover {
+			background: #f2f5fa;
+			color: var(--cal-view-text);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--cal-view-accent);
+			outline-offset: 2px;
+		}
+	}
+
+	.cal-view__button:not(.cal-view__button--today) {
+		padding-inline: 0;
+		font-size: 1.1rem;
+	}
+
+	/* View switch: segmented control */
+	.cal-view__views {
+		gap: 0;
+
+		.cal-view__view {
+			border-radius: 0;
+			margin-inline-start: calc(-1 * var(--cal-border-width));
+
+			&:first-child {
+				margin-inline-start: 0;
+				border-start-start-radius: 8px;
+				border-end-start-radius: 8px;
+			}
+
+			&:last-child {
+				border-start-end-radius: 8px;
+				border-end-end-radius: 8px;
+			}
+		}
+
+		.cal-view__view--active {
+			position: relative;
+			border-color: var(--cal-view-accent);
+			background: var(--cal-view-accent);
+			color: #fff;
+		}
+	}
 }

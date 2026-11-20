@@ -829,6 +829,10 @@ class Event extends AbstractEntity
         } else {
             $end->setTime(0, 0);
         }
+        // An end time of 00:00 on the start day means midnight at the end of the day
+        if (!$this->isAllday() && $end->format('YmdHis') === $this->getStart()->format('Ymd') . '000000' && $this->getStart()->format('His') !== '000000') {
+            $end->modify('+1 day');
+        }
         return $end;
     }
 

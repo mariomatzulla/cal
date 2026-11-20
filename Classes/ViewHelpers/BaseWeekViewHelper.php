@@ -27,9 +27,9 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
     protected $settings;
 
     /**
-     * @var int
+     * Start of the time grid in hours (e.g. 7.5 = 07:30)
      */
-    private $startOffset;
+    private ?float $startOffset = null;
 
     /**
      * @param \MarioMatzulla\Cal\Model\WeekView $week
@@ -43,10 +43,11 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         foreach ($week->getDays() as $day) {
             foreach ($day->getEvents() as $events) {
                 foreach ($events as $event) {
-                    if ($includeAlldayEvents && $event->isAllday()) {
+                    $timed = $this->isTimedSingleDayEvent($event);
+                    if ($includeAlldayEvents && !$timed) {
                         $this->eventCount++;
                         $lengthArray = $this->addEventIntoTheArray($week, $lengthArray, $event);
-                    } elseif ($includeNormalEvents && !$event->isAllday()) {
+                    } elseif ($includeNormalEvents && $timed) {
                         $this->eventCount++;
                         $lengthArray = $this->addEventIntoTheArray($week, $lengthArray, $event);
                     }
@@ -106,14 +107,19 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
     {
 
         $eventStart = $event->getStart()->format('Ymd');
-        $eventEnd = $event->getEnd()->format('Ymd');
+        // last day of the event: an end at midnight (00:00) belongs to the day before
+        $lastDay = clone $event->getEnd();
+        if (!$event->isAllday() && $lastDay->format('His') === '000000' && $lastDay->format('YmdHis') > $event->getStart()->format('YmdHis')) {
+            $lastDay->subtractSeconds(1);
+        }
+        $eventEnd = $lastDay->format('Ymd');
         if ($eventStart <= $week->getWeekStart()) {
             if ($eventEnd >= $week->getWeekEnd()) {
                 // lasts the whole week
                 $length = 7;
                 $start = 0;
             } else {
-                $length = (int)($event->getEnd()->getDayOfWeek());
+                $length = (int)($lastDay->getDayOfWeek());
                 if ($length === 0) {
                     if (DATE_CALC_BEGIN_WEEKDAY == 1) {
                         $length = 7;
@@ -134,7 +140,7 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
             if ($eventEnd >= $week->getWeekEnd()) {
                 $length = 7 - $start;
             } else {
-                $weekEnd = (int)($event->getEnd()->getDayOfWeek());
+                $weekEnd = (int)($lastDay->getDayOfWeek());
                 if (DATE_CALC_BEGIN_WEEKDAY === 1) {
                     $weekEnd--;
                     if ($weekEnd === - 1) {
@@ -150,40 +156,21 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
 
     protected function getHourCells(): array
     {
-
-        $dayStart = (string)($this->settings ['view'] ['day'] ['dayStart'] ?? '0700'); // '0700'; // Start time for day grid
-        $dayEnd = (string)($this->settings ['view'] ['day'] ['dayEnd'] ?? '2300'); // '2300'; // End time for day grid
-
-        while (strlen($dayStart) < 6) {
-            $dayStart .= '0';
-        }
-        while (strlen($dayEnd) < 6) {
-            $dayEnd .= '0';
-        }
-
-        $count = ((int)$dayEnd - (int)$dayStart) / 10000;
-        $hourCells = [];
-        for ($i = 0; $i < $count; $i++) {
-            $hourCells[] = $i;
-        }
-        return $hourCells;
+        [$startHour, $startMinute] = $this->getDayTime('dayStart', '070000');
+        [$endHour, $endMinute] = $this->getDayTime('dayEnd', '230000');
+        $count = (int)ceil((($endHour * 60 + $endMinute) - ($startHour * 60 + $startMinute)) / 60);
+        return $count > 0 ? range(0, $count - 1) : [];
     }
 
     protected function getTimeCells(string $view): array
     {
-
-        $dayStart = (string)($this->settings ['view'] ['day'] ['dayStart'] ?? '0700'); // '0700'; // Start time for day grid
-        $dayEnd = (string)($this->settings ['view'] ['day'] ['dayEnd'] ?? '2300'); // '2300'; // End time for day grid
-
-        $dTimeStart = [];
-        $dTimeEnd = [];
-        preg_match('/([0-9]{2})([0-9]{2})([0-9]{2})/', sprintf('%06d', (int)$dayStart), $dTimeStart);
-        preg_match('/([0-9]{2})([0-9]{2})([0-9]{2})/', sprintf('%06d', (int)$dayEnd), $dTimeEnd);
+        [$startHour, $startMinute, $startSecond] = $this->getDayTime('dayStart', '070000');
+        [$endHour, $endMinute, $endSecond] = $this->getDayTime('dayEnd', '230000');
 
         $start = new CalendarDateTime();
-        $start->setTime((int)$dTimeStart[1], (int)$dTimeStart[2], (int)$dTimeStart[3]);
+        $start->setTime($startHour, $startMinute, $startSecond);
         $end = clone $start;
-        $end->setTime((int)$dTimeEnd[1], (int)$dTimeEnd[2], (int)$dTimeEnd[3]);
+        $end->setTime($endHour, $endMinute, $endSecond);
 
         $timeCells = [];
         while ($end->after($start)) {
@@ -191,6 +178,95 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
             $start->addSeconds(3600);
         }
         return $timeCells;
+    }
+
+    /**
+     * Events shown in the hours of the time grid: not all-day, on one day (an end at midnight belongs to the day).
+     * All other events are shown in the all-day area.
+     */
+    protected function isTimedSingleDayEvent($event): bool
+    {
+        if ($event->isAllday()) {
+            return false;
+        }
+        $start = $event->getStart();
+        $end = $event->getEnd();
+        if ($start->format('Ymd') === $end->format('Ymd')) {
+            return true;
+        }
+        $nextDay = clone $start;
+        $nextDay->setTime(0, 0, 0);
+        $nextDay->addSeconds(86400);
+        return $end->format('YmdHis') === $nextDay->format('Ymd') . '000000';
+    }
+
+    /**
+     * Events of the all-day area which cover the given column (0 - 6) of the matrix
+     *
+     * @param array<int, array<int, mixed>> $matrix
+     * @return list<object>
+     */
+    protected function getAlldayEventsOfColumn(array $matrix, int $column): array
+    {
+        $events = [];
+        foreach ($matrix as $startColumn => $rows) {
+            foreach ($rows as $event) {
+                if (is_object($event) && $startColumn <= $column && $column < $startColumn + (int)$event->matrixValue) {
+                    $events[] = $event;
+                }
+            }
+        }
+        return $events;
+    }
+
+    /**
+     * Start or end of the time grid (settings.view.day.dayStart / dayEnd) as [hour, minute, second].
+     * Accepts "HH", "HHMM" and "HHMMSS" (TypoScript: 070000, FlexForm: 070000 or 0700).
+     *
+     * @return array{0: int, 1: int, 2: int}
+     */
+    protected function getDayTime(string $key, string $default): array
+    {
+        $value = (string)preg_replace('/\D/', '', (string)($this->settings ['view'] ['day'] [$key] ?? ''));
+        if ($value === '') {
+            $value = $default;
+        }
+        if (strlen($value) % 2 === 1) {
+            $value = '0' . $value;
+        }
+        $value = substr(str_pad($value, 6, '0'), 0, 6);
+        return [(int)substr($value, 0, 2), (int)substr($value, 2, 2), (int)substr($value, 4, 2)];
+    }
+
+    /**
+     * Extends the time grid (dayStart / dayEnd) to full hours so that all timed events of the days are visible
+     *
+     * @param iterable<\MarioMatzulla\Cal\Model\DayView> $days
+     */
+    protected function extendDayTimesToEvents(iterable $days): void
+    {
+        [$startHour, $startMinute] = $this->getDayTime('dayStart', '070000');
+        [$endHour, $endMinute] = $this->getDayTime('dayEnd', '230000');
+        $gridStart = $startHour * 60 + $startMinute;
+        $gridEnd = $endHour * 60 + $endMinute;
+        foreach ($days as $day) {
+            foreach ($day->getEvents() as $events) {
+                foreach ($events as $event) {
+                    if (!$this->isTimedSingleDayEvent($event)) {
+                        continue;
+                    }
+                    $eventStart = (int)$event->getStart()->format('H') * 60 + (int)$event->getStart()->format('i');
+                    $eventEnd = $event->getStart()->format('Ymd') === $event->getEnd()->format('Ymd')
+                        ? (int)$event->getEnd()->format('H') * 60 + (int)$event->getEnd()->format('i')
+                        : 24 * 60;
+                    $gridStart = min($gridStart, intdiv($eventStart, 60) * 60);
+                    $gridEnd = max($gridEnd, (int)ceil($eventEnd / 60) * 60);
+                }
+            }
+        }
+        $this->settings ['view'] ['day'] ['dayStart'] = sprintf('%02d%02d00', intdiv($gridStart, 60), $gridStart % 60);
+        $this->settings ['view'] ['day'] ['dayEnd'] = sprintf('%02d%02d00', intdiv($gridEnd, 60), $gridEnd % 60);
+        $this->startOffset = null;
     }
 
     protected function getEventsColumn($day): array
@@ -205,23 +281,17 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
             }
         }
 
-        $dayStart = (string)($this->settings ['view'] ['day'] ['dayStart'] ?? '0700'); // '0700'; // Start time for day grid
-        $dayEnd = (string)($this->settings ['view'] ['day'] ['dayEnd'] ?? '2300'); // '2300'; // End time for day grid
-        $gridLength = $this->settings ['view'] ['day'] ['gridLength']; // '15'; // Grid distance in minutes for day view, multiples of 15 preferred
-
-        if ($gridLength === 0) {
+        $gridLength = (int)($this->settings ['view'] ['day'] ['gridLength'] ?? 15); // Grid distance in minutes for day view, multiples of 15 preferred
+        if ($gridLength <= 0) {
             $gridLength = 15;
         }
 
-        $dTimeStart = [];
-        $dTimeEnd = [];
-        preg_match('/([0-9]{2})([0-9]{2})([0-9]{2})/', sprintf('%06d', (int)$dayStart), $dTimeStart);
-        preg_match('/([0-9]{2})([0-9]{2})([0-9]{2})/', sprintf('%06d', (int)$dayEnd), $dTimeEnd);
-
+        [$startHour, $startMinute, $startSecond] = $this->getDayTime('dayStart', '070000');
+        [$endHour, $endMinute, $endSecond] = $this->getDayTime('dayEnd', '230000');
         $start = clone $day->getTime();
-        $start->setTime((int)$dTimeStart[1], (int)$dTimeStart[2], (int)$dTimeStart[3]);
+        $start->setTime($startHour, $startMinute, $startSecond);
         $end = clone $start;
-        $end->setTime((int)$dTimeEnd[1], (int)$dTimeEnd[2], (int)$dTimeEnd[3]);
+        $end->setTime($endHour, $endMinute, $endSecond);
 
         // splitting the events into H:M, to find out if events run in parallel
         $i = new CalendarDateTime();
@@ -239,7 +309,7 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
             foreach ($eventKeys as $eventKey) {
                 $currentEvent = $events [$timeKey] [$eventKey];
 
-                if (! $currentEvent->isAllday() && ($currentEvent->getStart()->format('Ymd') == $currentEvent->getEnd()->format('Ymd'))) {
+                if ($this->isTimedSingleDayEvent($currentEvent)) {
                     $eventMappingKey = $currentEvent->getModelType() . '_' . $currentEvent->getUid() . '_' . $currentEvent->getStart()->format('YmdHis');
                     $eventArray [$eventMappingKey] = $currentEvent;
 
@@ -365,7 +435,20 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
                                 //TODO make this magic number 145 a constant
                                 $width = 145 / ($colSpan + 1);
                             }
-                            $daydisplay[] = ['left' => $left, 'width' => $width, 'colspan' => $colSpan, 'top' => $this->getTop($event), 'length' => $this->getLength($event), 'event' => $event];
+                            [$offset, $duration] = $this->getGridPosition($event, $day);
+                            $daydisplay[] = [
+                                'left' => $left,
+                                'width' => $width,
+                                'colspan' => $colSpan,
+                                'top' => $this->getTop($event),
+                                'length' => $this->getLength($event),
+                                // position in the time grid of cal >= 4.1: minutes since the start of the grid, side by side columns
+                                'offset' => $offset,
+                                'duration' => $duration,
+                                'columnWidth' => round(100 / max(1, $colSpan), 4),
+                                'columnLeft' => round($left, 4),
+                                'event' => $event,
+                            ];
 
                             // End event drawing
                         }
@@ -382,19 +465,32 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         return ($x * 42) - 3;
     }
 
+    /**
+     * Start (minutes since the start of the grid) and duration (minutes) of a timed event in the grid of a day,
+     * limited to the grid (dayStart - dayEnd)
+     *
+     * @return array{0: int, 1: int}
+     */
+    protected function getGridPosition($event, $day): array
+    {
+        $gridStart = (int)round($this->getStartOffset() * 60);
+        [$endHour, $endMinute] = $this->getDayTime('dayEnd', '230000');
+        $gridEnd = $endHour * 60 + $endMinute;
+        $midnight = clone $day->getTime();
+        $midnight->setTime(0, 0, 0);
+        $dayBegin = (int)$midnight->format('U');
+        $start = (int)floor(((int)$event->getStart()->format('U') - $dayBegin) / 60);
+        $end = (int)ceil(((int)$event->getEnd()->format('U') - $dayBegin) / 60);
+        $start = min(max($start, $gridStart), $gridEnd);
+        $end = min(max($end, $start), $gridEnd);
+        return [$start - $gridStart, $end - $start];
+    }
+
     protected function getStartOffset()
     {
-
-        if (! isset($this->startOffset)) {
-            $dayStart = (string)($this->settings ['view'] ['day'] ['dayStart'] ?? '0700'); // '0700'; // Start time for day grid
-            while (strlen($dayStart) < 6) {
-                $dayStart .= '0';
-            }
-            $d_start = new CalendarDateTime();
-            $dTimeStart = [];
-            preg_match('/([0-9]{2})([0-9]{2})([0-9]{2})/', $dayStart, $dTimeStart);
-            $d_start->setTime((int)$dTimeStart[1], (int)$dTimeStart[2], (int)$dTimeStart[3]);
-            $this->startOffset = $d_start->getHour() + $d_start->getMinute() / 60;
+        if ($this->startOffset === null) {
+            [$startHour, $startMinute] = $this->getDayTime('dayStart', '070000');
+            $this->startOffset = (float)($startHour + $startMinute / 60);
         }
         return $this->startOffset;
     }

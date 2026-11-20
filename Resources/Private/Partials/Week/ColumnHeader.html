@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:variable name="weekday">{f:format.date(date: day.time, pattern: settings.view.week.columnWeekdayFormat, locale: settings.dateConfig.locale) -> f:replace(search: '.', replace: '')}</f:variable>
+<f:variable name="date">{f:format.date(date: day.time, pattern: settings.view.week.columnDateFormat, locale: settings.dateConfig.locale)}</f:variable>
+<div class="cal-timegrid__colhead {day.dayClasses}" style="--cal-timegrid-col: {column}" {f:if(condition: day.current, then: 'aria-current="date"') -> f:format.raw()}>
+  <f:if condition="{calendarViews.day}">
+    <f:then>
+      <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: day.year, month: day.month, day: day.day}" class="cal-timegrid__colhead-link" title="{f:format.date(date: day.time, pattern: 'EEEE', locale: settings.dateConfig.locale)}">
+        <span class="cal-timegrid__weekday">{weekday}</span>
+        <span class="cal-timegrid__date">{date}</span>
+      </f:link.action>
+    </f:then>
+    <f:else>
+      <span class="cal-timegrid__colhead-link">
+        <span class="cal-timegrid__weekday">{weekday}</span>
+        <span class="cal-timegrid__date">{date}</span>
+      </span>
+    </f:else>
+  </f:if>
+</div>
+</html>

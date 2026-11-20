@@ -1,84 +1,18 @@
-<div class="header-buttons" >
-  <f:render partial="Header/Header" arguments="{_all}"/>
-  <div class="today-button">
-    <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: today.year, month: today.month, day: today.day }" title="{f:translate(key:'l_today')}"><f:translate key="l_today"/></f:link.action>
-  </div>
-</div>
-
-<br style="clear: both;"/>
-<div class="view-header">
-  <div class="previous-button">
-  <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: prevDay.year, month: prevDay.month, day: prevDay.day }" title="{f:translate(key:'l_last_day')}">&nbsp;</f:link.action>
-  </div>
-  <div class="next-button">
-  <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: nextDay.year, month: nextDay.month, day: nextDay.day }" title="{f:translate(key:'l_next_day')}">&nbsp;</f:link.action>
-  </div>
-  <h1><f:format.date pattern='{settings.view.day.displayDate.format}' locale="{settings.dateConfig.locale}">{getdate}</f:format.date></h1>
-</div>
-<mmcal:week dateObject="{getdate}" events="{events}" view="day" >
-<div class="dayview">
-  <div class="gridcontainer">
-      <table class="gridcontainertop allday">
-        <tbody>
-          <tr>
-            <f:variable name="hasNoEvent" value="1" />
-            <f:for each="{day.events}" as="events" >
-              <f:for each="{events}" as="event" >
-                <f:if condition="{event.allday}">
-                  <f:variable name="hasNoEvent" value="0" />
-                  <td class="weekday{day.weekdayNumber}"><f:render partial="Event/Day" arguments="{event: event}"/></td>
-                </f:if>
-              </f:for>
-            </f:for>
-            <f:if condition="{hasNoEvent}">
-              <td class="st-c st-s">&nbsp;</td>
-            </f:if>
-        </tr>
-      </tbody>
-    </table>
-	
-	<div class="scrolltime">
-		<table class="timetable" style="height:{timetableHeight}px">
-		  <tbody>
-			<tr height="1">
-			  <td class="width"></td>
-			  <td>
-				<div class="wrapper">
-				  <div class="hours">
-					<f:for each="{hourCells}" as="hourCell">
-					<div class="cell">
-					  <div class="line"></div>
-					</div>
-					</f:for>
-				  </div>
-				</div>
-			  </td>
-			</tr>
-			<tr>
-			  <td class="times">
-				<f:for each="{timeCells}" as="timeCell">
-				<div>
-					<div class="timeborder" id="time_{timeCell.value}"><f:format.date pattern="{settings.view.day.timeFormatDay}" locale="{settings.dateConfig.locale}">{timeCell.time}</f:format.date></div>
-				</div>
-				</f:for>
-			  </td>
-			  <f:for each="{eventColumns}" as="eventColumn" iteration="iterator">
-                <td class="event-column">
-                  <div class="wrapper">
-                    <f:for each="{eventColumn}" as="eventValues">
-                      <f:render partial="Event/Day" arguments="{event: eventValues.event, left: eventValues.left, width: eventValues.width, top: eventValues.top, length: eventValues.length}"/>
-                    </f:for>
-                  </div>
-                </td>
-              </f:for>
-			</tr>
-		  </tbody>
-		</table>
-	</div>
-  </div>
-</div>
-<script type="text/javascript">
-	var now = new Date();
-	document.getElementById('time_'+now.getHours()).scrollIntoView(true);
-</script>
-</mmcal:week>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:mmcal="http://typo3.org/ns/MarioMatzulla/Cal/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:variable name="titleId" value="cal-day-title-{contentUid}" />
+<section class="cal-view cal-timegrid cal-timegrid--day" aria-labelledby="{titleId}">
+  <f:render partial="Calendar/Header" arguments="{
+    titleId: titleId,
+    title: '{f:format.date(date: getdate, pattern: settings.view.day.displayDate.format, locale: settings.dateConfig.locale)}',
+    activeView: 'day', calendarViews: calendarViews, getdate: getdate, settings: settings,
+    navAction: settings.view.dayLinkTarget,
+    prevArguments: {year: prevDay.year, month: prevDay.month, day: prevDay.day},
+    todayArguments: {year: today.year, month: today.month, day: today.day},
+    nextArguments: {year: nextDay.year, month: nextDay.month, day: nextDay.day},
+    prevLabel: 'l_last_day', nextLabel: 'l_next_day'
+  }" />
+  <mmcal:week dateObject="{getdate}" events="{events}" view="day">
+    <f:render partial="Day/TimeGrid" arguments="{_all}" />
+  </mmcal:week>
+</section>
+</html>

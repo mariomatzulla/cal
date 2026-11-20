@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Time grid of the week view: column headers, all-day events and the hours.
+  Variables of mmcal:week: days, theMatrixAllday, rowspanArray, timeCells, eventColumns
+</f:comment>
+<f:variable name="gridId" value="cal-week-grid-{contentUid}" />
+<div class="cal-timegrid__scroll" tabindex="0" role="region" aria-labelledby="{titleId}">
+  <div class="cal-timegrid__grid" style="--cal-timegrid-days: 7; --cal-timegrid-hours: {timeCells -> f:count()}">
+    <div class="cal-timegrid__columns">
+      <div class="cal-timegrid__corner"></div>
+      <f:for each="{days}" as="day" iteration="iterator">
+        <f:render partial="Week/ColumnHeader" arguments="{day: day, column: iterator.cycle, calendarViews: calendarViews, settings: settings}" />
+      </f:for>
+    </div>
+
+    <div class="cal-timegrid__allday" style="--cal-timegrid-rows: {rowspanArray -> f:count()}">
+      <div class="cal-timegrid__allday-label"><f:translate key="l_all_day" /></div>
+      <f:for each="{days}" as="day" iteration="iterator">
+        <div class="cal-timegrid__allday-cell {day.dayClasses}" style="--cal-timegrid-col: {iterator.cycle}"></div>
+      </f:for>
+      <f:for each="{days}" as="day" iteration="dayIterator">
+        <f:for each="{rowspanArray}" as="key">
+          <f:variable name="event" value="{theMatrixAllday.{dayIterator.index}.{key}}" />
+          <f:if condition="{event.uid}">
+            <f:render partial="Event/TimeGridAllday" arguments="{event: event, column: dayIterator.cycle, span: event.matrixValue, row: '{key + 1}', eventLink: eventLink}" />
+          </f:if>
+        </f:for>
+      </f:for>
+    </div>
+
+    <div class="cal-timegrid__body" id="{gridId}" tabindex="0">
+      <f:render partial="Week/Hours" arguments="{timeCells: timeCells, gridId: gridId, settings: settings}" />
+      <f:for each="{days}" as="day" iteration="iterator">
+        <div class="cal-timegrid__column {day.dayClasses}" style="--cal-timegrid-col: {iterator.cycle}" {f:if(condition: day.current, then: 'aria-current="date"') -> f:format.raw()}>
+          <f:for each="{eventColumns.{iterator.index}}" as="eventValues">
+            <f:render partial="Event/TimeGrid" arguments="{eventValues: eventValues, eventLink: eventLink, settings: settings}" />
+          </f:for>
+        </div>
+      </f:for>
+    </div>
+  </div>
+</div>
+<f:render partial="Week/ScrollToTime" arguments="{gridId: gridId}" />
+</html>

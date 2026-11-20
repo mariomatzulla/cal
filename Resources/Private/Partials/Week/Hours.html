@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="cal-timegrid__hours" aria-hidden="true">
+  <f:for each="{timeCells}" as="timeCell">
+    <div class="cal-timegrid__hour" data-hour="{timeCell.value}">
+      <span class="cal-timegrid__hour-value">{f:format.date(date: timeCell.time, pattern: settings.view.day.hourFormat, locale: settings.dateConfig.locale)}</span><sup class="cal-timegrid__hour-suffix">{f:format.date(date: timeCell.time, pattern: settings.view.day.hourSuffixFormat, locale: settings.dateConfig.locale)}</sup>
+    </div>
+  </f:for>
+</div>
+</html>

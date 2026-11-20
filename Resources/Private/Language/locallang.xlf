@@ -1448,6 +1448,12 @@
 			<trans-unit id="backend_module_ics_generator_successMessage" resname="backend_module_ics_generator_successMessage">
 				<source>The ICS data of the events has been generated.</source>
 			</trans-unit>
+			<trans-unit id="l_calendar_views" resname="l_calendar_views">
+				<source>Calendar views</source>
+			</trans-unit>
+			<trans-unit id="l_week_short" resname="l_week_short">
+				<source>Wk</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

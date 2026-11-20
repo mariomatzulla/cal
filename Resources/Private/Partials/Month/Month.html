@@ -1,21 +1,18 @@
-<div class="month-view">
-  <div class="header-buttons" >
-    <f:render partial="Header/Header" arguments="{_all}"/>
-    <div class="today-button">
-      <f:link.action action="{settings.view.monthLinkTarget}" arguments="{year: today.year, month: today.month }" title="{f:translate(key:'l_today')}"><f:translate key="l_today"/></f:link.action>
-    </div>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:variable name="titleId" value="cal-month-title-{contentUid}" />
+<section class="cal-view cal-month" aria-labelledby="{titleId}">
+  <f:render partial="Calendar/Header" arguments="{
+    titleId: titleId,
+    title: '{f:format.date(date: getdate, pattern: settings.view.month.displayDate, locale: settings.dateConfig.locale)}',
+    activeView: 'month', calendarViews: calendarViews, getdate: getdate, settings: settings,
+    navAction: settings.view.monthLinkTarget,
+    prevArguments: {year: prevMonth.year, month: prevMonth.month},
+    todayArguments: {year: today.year, month: today.month},
+    nextArguments: {year: nextMonth.year, month: nextMonth.month},
+    prevLabel: 'l_last_month', nextLabel: 'l_next_month'
+  }" />
+  <div class="cal-month__scroll" tabindex="0" role="region" aria-labelledby="{titleId}">
+    <f:render partial="Month/Grid" arguments="{_all}" />
   </div>
-  <br style="clear: both;"/><br />
-  <div class="view-header">
-    <div class="previous-button">
-      <f:link.action action="{settings.view.monthLinkTarget}" arguments="{year: prevMonth.year, month: prevMonth.month }" title="{f:translate(key:'l_last_month')}">&nbsp;</f:link.action>
-    </div>
-    <div class="next-button">
-      <f:link.action action="{settings.view.monthLinkTarget}" arguments="{year: nextMonth.year, month: nextMonth.month }" title="{f:translate(key:'l_next_month')}">&nbsp;</f:link.action>
-    </div>
-    <h1><f:format.date pattern='{settings.view.month.displayDate}' locale="{settings.dateConfig.locale}">{getdate}</f:format.date></h1>
-  
-    <f:render partial="Month/Large" arguments="{settings:settings,events:events,rightsManager:rightsManager,getdate:getdate,monthOffset:0}"/>
-  </div>
-
-</div>
+</section>
+</html>
