@@ -1,0 +1,130 @@
+# Speaking URLs for the plugin "Calendar Base (cal)"
+#
+# Import this file in the site configuration (config/sites/<site>/config.yaml):
+#
+#   imports:
+#     - { resource: 'EXT:cal/Configuration/Routes/Cal.yaml' }
+#     # optional, "/ics/<event>.ics" instead of "?type=150" (see the file):
+#     - { resource: 'EXT:cal/Configuration/Routes/CalPageType.yaml' }
+#
+# Resulting URLs (below the page of the plugin, English / German):
+#
+#   year         /2026
+#   month        /2026/11
+#   week         /2026/week/47                      /2026/woche/47
+#   day          /2026/11/21
+#   event        /event/2026-11-21/cleaning-day     /termin/2026-11-21/friedhofsreinigung
+#   location     /location/community-hall           /ort/gemeindehaus
+#   organizer    /organizer/club                    /veranstalter/verein
+#   list         /list                              /liste
+#   ICS file     /ics/cleaning-day                  (/ics/cleaning-day.ics with CalPageType.yaml)
+#
+# The words are translated by the locale of the site language (aspects "label_*"), own words can be
+# set by overriding the aspects in the site configuration. Events, locations and organizers are
+# addressed by their field "URL segment" (slug); records without slug get the plain uid parameter.
+# Other record types than the default ones (e.g. locations of other extensions) keep their type as
+# last path segment.
+routeEnhancers:
+  Cal:
+    type: Extbase
+    extension: Cal
+    plugin: Controller
+    defaultController: 'Content::index'
+    routes:
+      - routePath: '/{year}'
+        _controller: 'Content::year'
+      - routePath: '/{year}/{month}'
+        _controller: 'Content::month'
+      - routePath: '/{year}/{label_week}/{week}'
+        _controller: 'Content::week'
+      - routePath: '/{year}/{month}/{day}'
+        _controller: 'Content::day'
+      - routePath: '/{label_event}/{year}-{month}-{day}/{event}/{event_type}'
+        _controller: 'Content::event'
+        _arguments:
+          event: uid
+          event_type: type
+      # ICS file of an event (other record types than tx_cal_event use the uid parameter)
+      - routePath: '/{label_ics}/{event}'
+        _controller: 'Content::ics'
+        _arguments:
+          event: uid
+      - routePath: '/{label_list}'
+        _controller: 'Content::list'
+      - routePath: '/{label_location}/{location}/{location_type}'
+        _controller: 'Content::location'
+        _arguments:
+          location: uid
+          location_type: type
+      - routePath: '/{label_organizer}/{organizer}/{organizer_type}'
+        _controller: 'Content::organizer'
+        _arguments:
+          organizer: uid
+          organizer_type: type
+    defaults:
+      event_type: tx_cal_event
+      location_type: tx_cal_location
+      organizer_type: tx_cal_organizer
+    requirements:
+      year: '\d{4}'
+      event_type: '[a-z0-9_]+'
+      location_type: '[a-z0-9_]+'
+      organizer_type: '[a-z0-9_]+'
+    # Variables without aspect that need no cHash (validated by their requirement)
+    static:
+      year: true
+      event_type: true
+      location_type: true
+      organizer_type: true
+    aspects:
+      month:
+        type: StaticValueMapper
+        map: { '01': '1', '02': '2', '03': '3', '04': '4', '05': '5', '06': '6', '07': '7', '08': '8', '09': '9', '10': '10', '11': '11', '12': '12' }
+      day:
+        type: StaticValueMapper
+        map: { '01': '1', '02': '2', '03': '3', '04': '4', '05': '5', '06': '6', '07': '7', '08': '8', '09': '9', '10': '10', '11': '11', '12': '12', '13': '13', '14': '14', '15': '15', '16': '16', '17': '17', '18': '18', '19': '19', '20': '20', '21': '21', '22': '22', '23': '23', '24': '24', '25': '25', '26': '26', '27': '27', '28': '28', '29': '29', '30': '30', '31': '31' }
+      week:
+        type: StaticRangeMapper
+        start: '1'
+        end: '53'
+      event:
+        type: PersistedAliasMapper
+        tableName: tx_cal_domain_model_event
+        routeFieldName: slug
+      location:
+        type: PersistedAliasMapper
+        tableName: tx_cal_domain_model_location
+        routeFieldName: slug
+      organizer:
+        type: PersistedAliasMapper
+        tableName: tx_cal_domain_model_organizer
+        routeFieldName: slug
+      label_week:
+        type: LocaleModifier
+        default: week
+        localeMap:
+          - { locale: 'de_.*', value: woche }
+      label_event:
+        type: LocaleModifier
+        default: event
+        localeMap:
+          - { locale: 'de_.*', value: termin }
+      label_list:
+        type: LocaleModifier
+        default: list
+        localeMap:
+          - { locale: 'de_.*', value: liste }
+      label_ics:
+        type: LocaleModifier
+        default: ics
+        localeMap: []
+      label_location:
+        type: LocaleModifier
+        default: location
+        localeMap:
+          - { locale: 'de_.*', value: ort }
+      label_organizer:
+        type: LocaleModifier
+        default: organizer
+        localeMap:
+          - { locale: 'de_.*', value: veranstalter }

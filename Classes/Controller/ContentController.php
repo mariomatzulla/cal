@@ -23,6 +23,16 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class ContentController extends ActionController
 {
+    /**
+     * Record type of the detail views, if the request has no argument "type"
+     */
+    private const DEFAULT_RECORD_TYPES = [
+        'event' => 'tx_cal_event',
+        'ics' => 'tx_cal_event',
+        'location' => 'tx_cal_location',
+        'organizer' => 'tx_cal_organizer',
+    ];
+
     use \MarioMatzulla\Cal\General;
 
     /**
@@ -589,6 +599,8 @@ class ContentController extends ActionController
                 $this->view->assign('view', $value);
             }
         }
+        // Links (and speaking URLs) omit the record type of the default records
+        $urlParameters ['type'] = self::DEFAULT_RECORD_TYPES[$this->request->getControllerActionName()] ?? 'not_submitted';
         if ($this->request->hasArgument('type')) {
             $value = $this->getStringArgument('type');
             if ($value != '') {

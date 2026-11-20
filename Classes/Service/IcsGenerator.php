@@ -241,16 +241,10 @@ class IcsGenerator
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
             $site = $siteFinder->getSiteByPageId($pageUid);
 
-            // 2. Parameter für das Extbase-Plugin definieren
-            // (Passe 'tx_yourextension_pi1' und die Action/Argumente an deine Extension an)
-            // <f:else>URL:<f:format.raw><f:uri.action action="event" arguments="{view: 'event',type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }" absolute="true"/></f:format.raw></f:else>
-            // tx_cal_controller[action]=event&tx_cal_controller[controller]=Content&
-            // tx_cal_controller[day]=14&tx_cal_controller[month]=12&tx_cal_controller[type]=tx_cal_event
-            // &tx_cal_controller[uid]=1&tx_cal_controller[view]=event&tx_cal_controller[year]=2026
+            // 2. Arguments of the plugin, the same as the links of the templates (see Configuration/Routes/Cal.yaml)
             $arguments = [
                 'tx_cal_controller' => [
                     'action' => 'event',
-                    'view' => 'event',
                     'controller' => 'Content',
                     'day' => $calEvent->getStart()->getDay(),
                     'month' => $calEvent->getStart()->getMonth(),

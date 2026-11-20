@@ -649,6 +649,12 @@
 			<trans-unit id="tx_cal_location.description" resname="tx_cal_location.description" >
 				<source>Description</source>
 			</trans-unit>
+			<trans-unit id="tx_cal.slug" resname="tx_cal.slug">
+				<source>URL segment</source>
+			</trans-unit>
+			<trans-unit id="tx_cal.slug.description" resname="tx_cal.slug.description">
+				<source>Part of the speaking URL of the detail view, created from the title / name</source>
+			</trans-unit>
 			<trans-unit id="tx_cal_location.name" resname="tx_cal_location.name" >
 				<source>Name</source>
 			</trans-unit>

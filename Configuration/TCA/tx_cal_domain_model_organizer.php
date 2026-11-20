@@ -35,6 +35,23 @@ $tx_cal_domain_model_organizer =  [
                 'default' => '0',
             ],
         ],
+        'slug' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal.slug',
+            'description' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal.slug.description',
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['name'],
+                    'replacements' => [
+                        '/' => '-',
+                    ],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInSite',
+                'default' => '',
+            ],
+        ],
         'name' =>  [
 
             'exclude' => 0,
@@ -221,7 +238,7 @@ $tx_cal_domain_model_organizer =  [
 
         '0' =>  [
 
-            'showitem' => 'name, --palette--;;1, description, street, city, country, country_zone, zip, phone,fax,email,image,link,shared_user_cnt',
+            'showitem' => 'name, slug, --palette--;;1, description, street, city, country, country_zone, zip, phone,fax,email,image,link,shared_user_cnt',
         ],
     ],
     'palettes' =>  [

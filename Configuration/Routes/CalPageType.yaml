@@ -1,0 +1,13 @@
+# Calendar Base (cal): page type of the ICS download (plugin.tx_cal.settings.view.ics.typeNum, default 150)
+# as file extension, e.g. "/ics/cleaning-day.ics" instead of "/ics/cleaning-day?type=150".
+#
+# Only import this file if the site has no own decorator "PageTypeSuffix". Otherwise add the line
+#   '.ics': 150
+# to the "map" of the existing decorator.
+routeEnhancers:
+  PageTypeSuffix:
+    type: PageType
+    default: ''
+    index: ''
+    map:
+      '.ics': 150

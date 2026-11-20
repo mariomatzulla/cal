@@ -7,7 +7,7 @@
 <f:variable name="style">--cal-timegrid-start: {eventValues.offset}; --cal-timegrid-duration: {eventValues.duration}; --cal-timegrid-left: {eventValues.columnLeft}%; --cal-timegrid-width: {eventValues.columnWidth}%; {event.colorStyle}</f:variable>
 <f:if condition="{eventLink.enabled}">
   <f:then>
-    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{view: 'event', type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: '{time} {event.title}'}">
+    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: '{time} {event.title}'}">
       <f:render section="content" arguments="{event: event, time: time, location: location}" />
     </f:link.action>
   </f:then>

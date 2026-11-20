@@ -3,6 +3,14 @@
 	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:cal/Resources/Private/Language/locallang_db.xlf" product-name="cal">
 		<header/>
 		<body>
+			<trans-unit id="tx_cal.slug" resname="tx_cal.slug" approved="yes">
+				<source>URL segment</source>
+				<target>URL-Segment</target>
+			</trans-unit>
+			<trans-unit id="tx_cal.slug.description" resname="tx_cal.slug.description" approved="yes">
+				<source>Part of the speaking URL of the detail view, created from the title / name</source>
+				<target>Teil der sprechenden URL der Detailansicht, wird aus dem Titel / Namen erzeugt</target>
+			</trans-unit>
 			<trans-unit id="tx_cal_event.isTemp" resname="tx_cal_event.isTemp" approved="yes">
 				<source>Imported from external calendar (temp)</source>
 				<target>Aus externem Kalender importiert (temp)</target>

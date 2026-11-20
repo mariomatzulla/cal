@@ -4,7 +4,7 @@
 <f:variable name="style">--cal-month-col: {column}; --cal-month-span: {event.matrixValue}; --cal-month-row: {row}; {event.colorStyle}</f:variable>
 <f:if condition="{eventLink.enabled}">
   <f:then>
-    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{view: 'event', type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: label}">
+    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: label}">
       <f:render section="content" arguments="{event: event}" />
     </f:link.action>
   </f:then>

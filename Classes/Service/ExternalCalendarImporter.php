@@ -38,6 +38,7 @@ final class ExternalCalendarImporter
     public const CALENDAR_TYPE_EXTERNAL = 1;
     public const CALENDAR_TYPE_FILE = 2;
     public const CALENDAR_TABLE = 'tx_cal_domain_model_calendar';
+    public const EVENT_TABLE = 'tx_cal_domain_model_event';
 
     public const STATUS_IMPORTED = 'imported';
     public const STATUS_UNCHANGED = 'unchanged';
@@ -56,6 +57,7 @@ final class ExternalCalendarImporter
         private readonly EventRepository $eventRepository,
         private readonly IndexRepository $indexRepository,
         private readonly FileRepository $fileRepository,
+        private readonly SlugService $slugService,
     ) {}
 
     /**
@@ -130,6 +132,7 @@ final class ExternalCalendarImporter
 
         $this->removeImportedEvents($calendarId);
         $this->eventRepository->insertRows($rows);
+        $this->slugService->fillMissing(self::EVENT_TABLE, $calendarId);
         $this->calendarRepository->updateMd5($calendarId, $md5);
 
         return ['status' => self::STATUS_IMPORTED, 'count' => count($rows)];

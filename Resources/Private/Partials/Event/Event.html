@@ -57,7 +57,7 @@
             <f:if condition="{event.locationObject.name}">
               <f:then>
                 <f:if condition="{viewLinks.location}">
-                  <f:then><f:link.action action="location" arguments="{view: 'location', type: event.locationObject.modelType, uid: event.locationObject.uid}">{event.locationObject.name}</f:link.action></f:then>
+                  <f:then><f:link.action action="location" arguments="{type: event.locationObject.modelType, uid: event.locationObject.uid}">{event.locationObject.name}</f:link.action></f:then>
                   <f:else>{event.locationObject.name}</f:else>
                 </f:if>
                 <f:if condition="{event.locationObject.street} || {event.locationObject.city}">
@@ -76,7 +76,7 @@
             <f:if condition="{event.organizerObject.name}">
               <f:then>
                 <f:if condition="{viewLinks.organizer}">
-                  <f:then><f:link.action action="organizer" arguments="{view: 'organizer', type: event.organizerObject.modelType, uid: event.organizerObject.uid}">{event.organizerObject.name}</f:link.action></f:then>
+                  <f:then><f:link.action action="organizer" arguments="{type: event.organizerObject.modelType, uid: event.organizerObject.uid}">{event.organizerObject.name}</f:link.action></f:then>
                   <f:else>{event.organizerObject.name}</f:else>
                 </f:if>
                 <f:if condition="{event.organizerObject.email}"><br><f:link.email email="{event.organizerObject.email}" /></f:if>
@@ -145,7 +145,9 @@
       </div>
       <div class="event-entry__ics">
         <f:if condition="{settings.view.ics.showIcsLinks} == 1">
-          <f:link.action action="ics" pageType="{settings.view.ics.typeNum}" arguments="{view: 'event', type: event.modelType, uid: event.uid}" class="event-button event-button--outline" title="{f:translate(key: 'l_event_icslink')}">
+          <f:variable name="icsArguments" value="{uid: event.uid}" />
+          <f:if condition="{event.modelType} != 'tx_cal_event'"><f:variable name="icsArguments" value="{uid: event.uid, type: event.modelType}" /></f:if>
+          <f:link.action action="ics" pageType="{settings.view.ics.typeNum}" arguments="{icsArguments}" class="event-button event-button--outline" title="{f:translate(key: 'l_event_icslink')}">
             <f:render partial="Icon/Icon" arguments="{name: 'download'}" /> <f:translate key="l_event_ics_download" />
           </f:link.action>
         </f:if>

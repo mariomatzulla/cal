@@ -19,6 +19,7 @@ class CalDavBackend extends AbstractBackend
         private readonly EventRepository $eventRepository,
         private readonly CalendarRepository $calendarRepository,
         private readonly FrontendUserRepository $feuserRepository,
+        private readonly SlugService $slugService,
     ) {}
 
     public function getCalendarsForUser($principalUri)
@@ -87,6 +88,7 @@ class CalDavBackend extends AbstractBackend
             $values['crdate'] = $values['tstamp'];
             $this->eventRepository->persistEvent($values);
         }
+        $this->slugService->fillMissing('tx_cal_domain_model_event', $calendarId);
 
         $this->calendarRepository->touch($calendarId);
         return self::etag($calendarData);

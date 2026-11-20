@@ -44,6 +44,22 @@ element instead of the plugin "list_type" and replaces EXT:caldav. After the TYP
 Own TypoScript below `plugin.tx_cal_controller` keeps working but is deprecated, move it to `plugin.tx_cal.settings`.
 Templates of cal 1.x (marker based) cannot be migrated, cal 4 uses Fluid templates.
 
+### Speaking URLs
+
+Import the route enhancer of the extension in the site configuration (`config/sites/<site>/config.yaml`):
+
+```yaml
+imports:
+  - { resource: 'EXT:cal/Configuration/Routes/Cal.yaml' }
+  # optional, "/ics/<event>.ics" (only if the site has no own PageTypeSuffix decorator)
+  - { resource: 'EXT:cal/Configuration/Routes/CalPageType.yaml' }
+```
+
+URLs: `/2026`, `/2026/11`, `/2026/week/47`, `/2026/11/21`, `/event/2026-11-21/<event>`, `/location/<location>`,
+`/organizer/<organizer>` (German sites: `woche`, `termin`, `ort`, `veranstalter`). Events, locations and organizers
+need the field "URL segment", run the upgrade wizard "create the URL segments" for existing records. Details and an
+English-only configuration: `Documentation/Advanced/SpeakingUrls`.
+
 ### CalDAV
 
 The CalDAV endpoint is `<site base>/caldav`. Frontend users authenticate with their TYPO3 username and password

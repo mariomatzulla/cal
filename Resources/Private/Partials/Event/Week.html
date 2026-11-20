@@ -2,7 +2,7 @@
   <f:then>
   <div class="vevent">
     <div class="{event.headerstyle}_allday" style="{event.colorStyle}">
-      <f:link.action action="event" arguments="{view: 'event',type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
+      <f:link.action action="event" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
         <span class="summary">{event.title}</span>
         {event.freq}
       </f:link.action>
@@ -11,7 +11,7 @@
   </f:then>
   <f:else>
   <div style="top: {top}px; left: {left}%; width: {width}%; {event.colorStyle}" class="vevent {event.headerstyle}">
-    <f:link.action action="event" arguments="{view: 'event',type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
+    <f:link.action action="event" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day  }">
     <dl style="height: {length}px;">
         <span class="popup">
           <span title="{f:format.date(date:event.start, format:'dmY\THis')}" class="dtstart"></span>

@@ -14,6 +14,7 @@ Advanced
 
    ConstantEditor/Index
    CalendarBaseConfiguration/Index
+   SpeakingUrls/Index
    Localization/Index
    UsingMultipleCalendars/Index
    UsingNewRecurringEventModelCalIndexer/Index

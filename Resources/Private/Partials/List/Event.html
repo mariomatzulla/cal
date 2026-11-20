@@ -8,7 +8,7 @@
 <f:variable name="timeFormat" value="{settings.view.list.event.timeFormat}" />
 <f:variable name="startDay" value="{f:format.date(date: event.start, format: 'Ymd')}" />
 <f:variable name="endDay" value="{f:format.date(date: event.end, format: 'Ymd')}" />
-<f:variable name="linkArguments" value="{view: 'event', type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" />
+<f:variable name="linkArguments" value="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" />
 
 <article class="event-card {event.headerstyle}{f:if(condition: event.image, else: ' event-card--no-image')}" style="{event.colorStyle}">
   <div class="event-card__media">
