@@ -56,13 +56,7 @@
             <span>
             <f:if condition="{event.locationObject.name}">
               <f:then>
-                <f:if condition="{viewLinks.location}">
-                  <f:then><f:link.action action="location" arguments="{type: event.locationObject.modelType, uid: event.locationObject.uid}">{event.locationObject.name}</f:link.action></f:then>
-                  <f:else>{event.locationObject.name}</f:else>
-                </f:if>
-                <f:if condition="{event.locationObject.street} || {event.locationObject.city}">
-                  , <span class="event-entry__address">{event.locationObject.street}<f:if condition="{event.locationObject.street} && {event.locationObject.city}">, </f:if>{event.locationObject.zip} {event.locationObject.city}</span>
-                </f:if>
+                <f:render partial="Event/RecordLink" arguments="{record: event.locationObject, view: 'location', link: viewLinks.location}" /><f:if condition="{event.locationObject.street} || {event.locationObject.city}">, <span class="event-entry__address">{event.locationObject.street}<f:if condition="{event.locationObject.street} && {event.locationObject.city}">, </f:if>{event.locationObject.zip} {event.locationObject.city}</span></f:if>
               </f:then>
               <f:else>{event.location}</f:else>
             </f:if>
@@ -75,12 +69,7 @@
             <span>
             <f:if condition="{event.organizerObject.name}">
               <f:then>
-                <f:if condition="{viewLinks.organizer}">
-                  <f:then><f:link.action action="organizer" arguments="{type: event.organizerObject.modelType, uid: event.organizerObject.uid}">{event.organizerObject.name}</f:link.action></f:then>
-                  <f:else>{event.organizerObject.name}</f:else>
-                </f:if>
-                <f:if condition="{event.organizerObject.email}"><br><f:link.email email="{event.organizerObject.email}" /></f:if>
-                <f:if condition="{event.organizerObject.phone}"><br>{event.organizerObject.phone}</f:if>
+                <f:render partial="Event/RecordLink" arguments="{record: event.organizerObject, view: 'organizer', link: viewLinks.organizer}" /><f:if condition="{event.organizerObject.email}"> · <f:link.email email="{event.organizerObject.email}" /></f:if><f:if condition="{event.organizerObject.phone}"> · <a href="tel:{event.organizerObject.phone -> f:replace(search: ' ', replace: '')}">{event.organizerObject.phone}</a></f:if>
               </f:then>
               <f:else>{event.organizer}</f:else>
             </f:if>
@@ -144,7 +133,7 @@
         </f:if>
       </div>
       <div class="event-entry__ics">
-        <f:if condition="{settings.view.ics.showIcsLinks} == 1">
+        <f:if condition="{viewLinks.ics}">
           <f:variable name="icsArguments" value="{uid: event.uid}" />
           <f:if condition="{event.modelType} != 'tx_cal_event'"><f:variable name="icsArguments" value="{uid: event.uid, type: event.modelType}" /></f:if>
           <f:link.action action="ics" pageType="{settings.view.ics.typeNum}" arguments="{icsArguments}" class="event-button event-button--outline" title="{f:translate(key: 'l_event_icslink')}">

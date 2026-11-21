@@ -185,6 +185,19 @@
 			flex: none;
 			color: var(--cal-card-color-icon);
 		}
+
+		/* location linked to the location view */
+		a {
+			color: inherit;
+			text-decoration: underline;
+			text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+			text-underline-offset: 0.15em;
+
+			&:is(:hover, :focus-visible) {
+				color: var(--cal-color-link);
+				text-decoration-color: currentColor;
+			}
+		}
 	}
 
 	.event-card__teaser {

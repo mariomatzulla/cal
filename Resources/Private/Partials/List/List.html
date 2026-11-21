@@ -10,7 +10,7 @@
       <p class="found">{f:translate(key: 'LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_list_found', arguments: {0: eventCount})}</p>
       <div class="event-cards">
         <f:for each="{events}" as="event" iteration="iterator">
-          <f:render partial="List/Event" arguments="{event: event, iterator: iterator, settings: settings, eventLink: eventLink}" />
+          <f:render partial="List/Event" arguments="{event: event, iterator: iterator, settings: settings, eventLink: eventLink, viewLinks: viewLinks}" />
         </f:for>
       </div>
     </f:then>

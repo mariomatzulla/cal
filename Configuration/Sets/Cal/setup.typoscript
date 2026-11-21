@@ -67,11 +67,26 @@ plugin.tx_cal.settings {
 
 		location {
 			locationViewPid =
-			location.image.width = {$plugin.tx_cal.settings.singleMaxW}c
+			# First image: maximum width, the proportions are kept (a height like 480c crops the image),
+			# further images as thumbnails
+			image {
+				width = 720m
+				height =
+				thumbnailWidth = 120c
+				thumbnailHeight = 80c
+			}
 		}
 
 		organizer {
 			organizerViewPid =
+			# First image: maximum width, the proportions are kept (a height like 480c crops the image),
+			# further images as thumbnails
+			image {
+				width = 720m
+				height =
+				thumbnailWidth = 120c
+				thumbnailHeight = 80c
+			}
 		}
 
 		day {

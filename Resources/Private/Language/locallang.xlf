@@ -886,6 +886,12 @@
 			<trans-unit id="l_availability" resname="l_availability" >
 				<source>Check availability</source>
 			</trans-unit>
+			<trans-unit id="l_location_address" resname="l_location_address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="l_organizer_address" resname="l_organizer_address">
+				<source>Address</source>
+			</trans-unit>
 			<trans-unit id="l_location_name" resname="l_location_name" >
 				<source>Name</source>
 			</trans-unit>

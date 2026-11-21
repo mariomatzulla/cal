@@ -61,7 +61,7 @@
       <f:if condition="{event.locationObject.name} || {event.location}">
         <li>
           <f:render partial="Icon/Icon" arguments="{name: 'location'}" />
-          <f:if condition="{event.locationObject.name}"><f:then>{event.locationObject.name}</f:then><f:else>{event.location}</f:else></f:if>
+          <f:if condition="{event.locationObject.name}"><f:then><f:render partial="Event/RecordLink" arguments="{record: event.locationObject, view: 'location', link: viewLinks.location}" /></f:then><f:else>{event.location}</f:else></f:if>
         </li>
       </f:if>
       <f:if condition="{event.categories}">

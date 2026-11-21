@@ -109,9 +109,11 @@
 			gap: var(--cal-space-xs);
 		}
 
+		/* icon in front of the first line, also if the text wraps */
 		.cal-icon {
 			flex: none;
-			align-self: center;
+			align-self: flex-start;
+			margin-block-start: calc((1lh - 1em) / 2);
 			color: var(--cal-entry-color-meta);
 		}
 
@@ -612,6 +614,105 @@
 		}
 	}
 
+	/* --- Location and organizer: image (width as in the list view) next to name, description and details --- */
+	.record-card {
+		container-type: inline-size;
+	}
+
+	.record-card__head {
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: var(--cal-space-lg);
+		align-items: start;
+
+		h1 {
+			margin-block: 0 var(--cal-space-sm);
+			text-align: start;
+		}
+	}
+
+	.record-card--no-image .record-card__head {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.record-card__media {
+		margin: 0;
+
+		a {
+			display: block;
+		}
+
+		figcaption {
+			margin-block-start: var(--cal-space-xs);
+			color: var(--cal-color-text-muted);
+			font-size: var(--cal-font-size-sm);
+		}
+	}
+
+	/* Proportions of the image are kept, the column limits the width */
+	.record-card__image {
+		display: block;
+		max-inline-size: 100%;
+		block-size: auto;
+		border-radius: var(--cal-radius-sm);
+	}
+
+	/* Address and contact data: label and value side by side */
+	.record-card__details {
+		display: grid;
+		grid-template-columns: max-content minmax(0, 1fr);
+		gap: var(--cal-space-xs) var(--cal-space-md);
+		margin: var(--cal-space-md) 0 0;
+		padding-block-start: var(--cal-space-md);
+		border-block-start: var(--cal-border-width) solid var(--cal-color-line);
+		font-size: var(--cal-font-size-md);
+
+		dt {
+			color: var(--cal-color-text-muted);
+			font-weight: 600;
+		}
+
+		dd {
+			margin: 0;
+			overflow-wrap: anywhere;
+		}
+
+		address {
+			margin: 0;
+			font-style: normal;
+		}
+	}
+
+	.record-card__thumbnails {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--cal-space-xs);
+		margin: var(--cal-space-md) 0 0;
+		padding: 0;
+		list-style: none;
+
+		a {
+			display: block;
+			overflow: hidden;
+			border-radius: var(--cal-radius-sm);
+		}
+
+		img {
+			display: block;
+			inline-size: var(--cal-list-thumbnail-width);
+			block-size: auto;
+			aspect-ratio: var(--cal-card-image-ratio);
+			object-fit: cover;
+		}
+	}
+
+	/* Narrow: image above the text */
+	@container (inline-size < 40rem) {
+		.record-card__head {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
 	/* --- Location --------------------------------------------------------- */
 	.location {
 		.place-card {
@@ -619,27 +720,6 @@
 			border: var(--cal-border-width) solid var(--cal-color-line);
 			border-radius: var(--cal-radius-lg);
 			background: var(--cal-color-surface);
-
-			.image {
-				inline-size: 100%;
-				max-block-size: var(--cal-image-max-height);
-				object-fit: cover;
-				border-radius: var(--cal-radius-sm);
-			}
-		}
-
-		.meta-info {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-			gap: var(--cal-space-md);
-			margin-block-start: var(--cal-space-md);
-			padding-block-start: var(--cal-space-md);
-			border-block-start: var(--cal-border-width) solid #eee;
-		}
-
-		:is(.address, .coords) {
-			font-style: normal;
-			font-size: var(--cal-font-size-md);
 		}
 	}
 
@@ -651,49 +731,6 @@
 			border-radius: var(--cal-radius-xl);
 			background: var(--cal-color-surface-subtle);
 			box-shadow: var(--cal-shadow-card-soft);
-		}
-
-		.profile-header {
-			display: flex;
-			align-items: center;
-			gap: var(--cal-space-lg);
-			margin-block-end: var(--cal-space-lg);
-		}
-
-		.profile-img {
-			inline-size: 100px;
-			block-size: 100px;
-			border-radius: 50%;
-			object-fit: cover;
-		}
-
-		.job-title {
-			margin: 0;
-			color: var(--cal-color-text-muted);
-			font-size: var(--cal-font-size-lg);
-		}
-
-		.company {
-			color: var(--cal-color-link-strong);
-			font-weight: bold;
-		}
-
-		.contact-info {
-			margin-block-start: var(--cal-space-lg);
-			padding-block-start: var(--cal-space-md);
-			border-block-start: var(--cal-border-width) solid var(--cal-color-card-border-soft);
-			font-size: var(--cal-font-size-md);
-		}
-
-		.social-links a {
-			margin-inline-end: 10px;
-			color: #555;
-			font-weight: 500;
-			text-decoration: none;
-
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 	}
 }

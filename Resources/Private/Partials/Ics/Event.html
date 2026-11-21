@@ -3,9 +3,9 @@ BEGIN:VEVENT
 UID:{event.icsUid}
 DTSTAMP:<mm:zuluDateTime date="{event.crdate}" time="{event.crdate}" /><f:if condition="{event.allday}"><f:then>
 DTSTART;VALUE=DATE:<f:format.date format="Ymd">{event.start}</f:format.date>
-DTEND;VALUE=DATE:<f:format.date format="Ymd">{event.end}</f:format.date></f:then><f:else><f:if condition="event.calendarObject.timezone"><f:then>
-DTSTART;TZID={event.calendarObject.timezone}:<f:format.date format="Ymd">{event.startDate}</f:format.date>T<f:format.date format="His">{event.startTime}</f:format.date>
-DTEND;TZID={event.calendarObject.timezone}:<f:format.date format="Ymd">{event.endDate}</f:format.date>T<f:format.date format="His">{event.endTime}</f:format.date></f:then><f:else>
+DTEND;VALUE=DATE:<f:format.date format="Ymd">{event.icsEnd}</f:format.date></f:then><f:else><f:if condition="{event.calendarObject.timezone}"><f:then>
+DTSTART;TZID={event.calendarObject.timezone}:<f:format.date format="Ymd">{event.start}</f:format.date>T<f:format.date format="His">{event.start}</f:format.date>
+DTEND;TZID={event.calendarObject.timezone}:<f:format.date format="Ymd">{event.icsEnd}</f:format.date>T<f:format.date format="His">{event.icsEnd}</f:format.date></f:then><f:else>
 DTSTART:<mm:zuluDateTime date="{event.startDate}" time="{event.startTime}" />
 DTEND:<mm:zuluDateTime date="{event.endDate}" time="{event.endTime}" /></f:else></f:if></f:else></f:if><f:if condition="{event.categories}">
 CATEGORIES:<f:for each="{event.categories}" as="category" iteration="itemIteration">{category.title}<f:if condition="!{itemIteration.isLast}">,</f:if></f:for></f:if>

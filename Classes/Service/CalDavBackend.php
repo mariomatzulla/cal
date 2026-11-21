@@ -50,6 +50,10 @@ class CalDavBackend extends AbstractBackend
     {
         $events = [];
         foreach ($this->eventRepository->findAllForCalendarNative((int)$calendarId) as $record) {
+            // Events without iCalendar data (not generated yet, see backend module "Cal ICS Generator") are skipped
+            if (trim((string)$record['caldav_data']) === '') {
+                continue;
+            }
             $events[] = $this->buildCalendarObject((int)$calendarId, $record);
         }
         return $events;

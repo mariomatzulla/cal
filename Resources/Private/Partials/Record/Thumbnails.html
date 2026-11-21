@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>Further images (all but the first) of a location or organizer as thumbnails. Arguments: images, group, config, settings</f:comment>
+<f:if condition="{images.1}">
+  <ul class="record-card__thumbnails">
+    <f:for each="{images}" as="image" iteration="imageIterator">
+      <f:if condition="!{imageIterator.isFirst}">
+        <li>
+          <f:render partial="Lightbox/Link" arguments="{image: image, group: group, title: image.originalResource.title, settings: settings}" contentAs="content">
+            <f:image image="{image}" width="{config.thumbnailWidth}" height="{config.thumbnailHeight}" alt="{image.originalResource.alternative}" loading="lazy" />
+          </f:render>
+        </li>
+      </f:if>
+    </f:for>
+  </ul>
+</f:if>
+</html>

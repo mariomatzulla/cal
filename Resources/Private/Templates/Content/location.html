@@ -3,54 +3,16 @@
 <f:section name="content">
   <div class="location">
     <main class="place-card">
-      <article>
-        <h1>{location.name}</h1>
-        <p class="description">
-          <f:format.html>{location.description}</f:format.html>
-        </p>
-
-        <f:for each="{location.image}" as="image" iteration="itemIteration">
-          <figure class="image">
-            <f:image src="{image.uid}" alt="{image.originalResource.title}" width="{settings.view.location.location.image.width}"
-              treatIdAsReference="1" />
-          </figure>
-        </f:for>
-
-        <div class="meta-info">
-          <div>
-            <h3>
-              <f:translate key="l_location_address" />
-            </h3>
-            <address class="address">
-              <f:if condition="{location.street}">{location.street}<br>
-              </f:if>
-              <f:if condition="{location.zip}">{location.zip}</f:if>
-              <f:if condition="{location.city}">{location.city}</f:if>
-              <f:if condition="{location.countryzone}">, {location.countryzone}</f:if>
-              <f:if condition="{location.country}"> {location.country}</f:if>
-            </address>
-          </div>
-          <div>
-            <h3>Details & Koordinaten</h3>
-            <p class="coords">
-              <f:if condition="{location.phone}">
-                <strong><f:translate key="l_location_phone" />:</strong>  {location.phone}<br>
-              </f:if>
-              <f:if condition="{location.mobilephone}">
-                <strong><f:translate key="l_location_mobilephone" />:</strong> {location.mobilephone}<br>
-              </f:if>
-              <f:if condition="{location.fax}">
-                <strong><f:translate key="l_location_fax" />:</strong> {location.fax}<br>
-              </f:if>
-            </p>
-            <p class="contact">
-              <f:if condition="{location.email}">
-                <strong><f:translate key="l_location_email" />:</strong> {location.email}<br>
-              </f:if>
-              <f:if condition="{location.link}">
-                <strong><f:translate key="l_location_link" />:</strong> {location.link}<br>
-              </f:if>
-            </p>
+      <article class="record-card{f:if(condition: location.image, else: ' record-card--no-image')}">
+        <div class="record-card__head">
+          <f:render partial="Record/Images" arguments="{images: location.image, group: 'cal-location-{location.uid}', config: settings.view.location.image, settings: settings}" />
+          <div class="record-card__body">
+            <h1>{location.name}</h1>
+            <f:if condition="{location.description}">
+              <div class="description"><f:format.html>{location.description}</f:format.html></div>
+            </f:if>
+            <f:render partial="Record/Details" arguments="{record: location, view: 'location'}" />
+            <f:render partial="Record/Thumbnails" arguments="{images: location.image, group: 'cal-location-{location.uid}', config: settings.view.location.image, settings: settings}" />
           </div>
         </div>
       </article>
@@ -61,5 +23,4 @@
       </f:cObject>
     </div>
   </div>
-</div>
 </f:section>

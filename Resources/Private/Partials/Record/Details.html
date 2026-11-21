@@ -1,0 +1,37 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Address and contact data of a location or organizer as list of label and value.
+  Arguments: record, view (location|organizer, prefix of the labels l_location_* / l_organizer_*)
+</f:comment>
+<dl class="record-card__details">
+  <f:if condition="{record.street} || {record.zip} || {record.city} || {record.country}">
+    <dt><f:translate key="l_{view}_address" /></dt>
+    <dd>
+      <address>
+        <f:if condition="{record.street}">{record.street}<br></f:if>
+        {record.zip} {record.city}<f:if condition="{record.countryzone}">, {record.countryzone}</f:if><f:if condition="{record.country}"><br>{record.country}</f:if>
+      </address>
+    </dd>
+  </f:if>
+  <f:if condition="{record.phone}">
+    <dt><f:translate key="l_{view}_phone" /></dt>
+    <dd><a href="tel:{record.phone -> f:replace(search: ' ', replace: '')}">{record.phone}</a></dd>
+  </f:if>
+  <f:if condition="{record.mobilephone}">
+    <dt><f:translate key="l_{view}_mobilephone" /></dt>
+    <dd><a href="tel:{record.mobilephone -> f:replace(search: ' ', replace: '')}">{record.mobilephone}</a></dd>
+  </f:if>
+  <f:if condition="{record.fax}">
+    <dt><f:translate key="l_{view}_fax" /></dt>
+    <dd>{record.fax}</dd>
+  </f:if>
+  <f:if condition="{record.email}">
+    <dt><f:translate key="l_{view}_email" /></dt>
+    <dd><f:link.email email="{record.email}" /></dd>
+  </f:if>
+  <f:if condition="{record.link}">
+    <dt><f:translate key="l_{view}_link" /></dt>
+    <dd><f:link.typolink parameter="{record.link}" target="_blank">{record.link}</f:link.typolink></dd>
+  </f:if>
+</dl>
+</html>

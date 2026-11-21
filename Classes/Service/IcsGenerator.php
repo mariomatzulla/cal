@@ -71,6 +71,10 @@ class IcsGenerator
 
     public function updateIcs($event, $request)
     {
+        // Events without start or end date (incomplete records) cannot be exported
+        if ($event->getStartDate() === null || $event->getEndDate() === null) {
+            return;
+        }
         if ($event->getPid() > 0) {
             if ($event->getIcsUid() == null || $event->getIcsUid() == '') {
                 $event->setIcsUid(md5($event->getCalendarObject()->getTitle() . '_' . $event->getCalendarObject()->getUid() . '_' . $event->getUid()));

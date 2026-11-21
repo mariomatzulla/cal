@@ -149,6 +149,7 @@ class ContentController extends ActionController
         $this->view->assign('years', $years);
         $this->view->assign('eventCount', count($events));
         $this->view->assign('eventLink', $this->getEventLinkConfiguration());
+        $this->view->assign('viewLinks', $this->getViewLinkConfiguration());
         $this->view->assign('view', 'list');
         $this->addToAllViews();
         $this->useTemplateFile((string)($this->settings ['view'] ['list'] ['templateFile'] ?? ''));
@@ -203,18 +204,27 @@ class ContentController extends ActionController
     }
 
     /**
-     * Location and organizer of an event are linked only if their view is allowed in the plugin
-     * or a page for the view is configured.
+     * Links of the location and organizer of an event: only if the view is one of the allowed views of the
+     * plugin or a separate page for the view is configured (view.location.locationViewPid,
+     * view.organizer.organizerViewPid).
      *
-     * @return array{location: bool, organizer: bool}
+     * The ICS download is shown if the ICS view is allowed and view.ics.showIcsLinks is set.
+     *
+     * @return array{location: array{enabled: bool, pageUid: int|null}, organizer: array{enabled: bool, pageUid: int|null}, ics: bool}
      */
     protected function getViewLinkConfiguration(): array
     {
         $allowedViews = (array)($this->settings ['view'] ['allowedViewsToLinkTo'] ?? []);
-        return [
-            'location' => in_array('location', $allowedViews, true),
-            'organizer' => in_array('organizer', $allowedViews, true),
-        ];
+        $links = [];
+        foreach (['location', 'organizer'] as $view) {
+            $pageUid = (int)($this->settings ['view'] [$view] [$view . 'ViewPid'] ?? 0);
+            $links[$view] = [
+                'enabled' => in_array($view, $allowedViews, true),
+                'pageUid' => $pageUid > 0 ? $pageUid : null,
+            ];
+        }
+        $links['ics'] = in_array('ics', $allowedViews, true) && (int)($this->settings ['view'] ['ics'] ['showIcsLinks'] ?? 0) === 1;
+        return $links;
     }
 
     /**
@@ -539,6 +549,12 @@ class ContentController extends ActionController
      */
     public function icsAction(): ResponseInterface
     {
+        // Only if the ICS view is one of the allowed views of the plugin
+        if (!in_array('ics', (array)($this->settings ['view'] ['allowedViewsToLinkTo'] ?? []), true)) {
+            return $this->responseFactory->createResponse(404)
+              ->withHeader('Content-Type', 'text/plain; charset=utf-8')
+              ->withBody($this->streamFactory->createStream('The ICS view is not allowed'));
+        }
         $params = $this->getUrlParameters();
         $event = $this->fetchEvent((string)$params ['type'], (int)$params ['uid'], $this->getGetdate());
         if (!$event) {

@@ -1,0 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Images of a location or organizer: the first image with a maximum width (settings.view.<view>.image.width / height),
+  proportions kept, further images as thumbnails. All open in the lightbox.
+  Arguments: images, group (lightbox group), config (settings.view.location.image / settings.view.organizer.image), settings
+</f:comment>
+<f:for each="{images}" as="image" iteration="imageIterator">
+  <f:if condition="{imageIterator.isFirst}">
+    <figure class="record-card__media">
+      <f:render partial="Lightbox/Link" arguments="{image: image, group: group, title: image.originalResource.title, settings: settings}" contentAs="content">
+        <f:image image="{image}" width="{config.width}" height="{config.height}" alt="{image.originalResource.alternative}" class="record-card__image" />
+      </f:render>
+      <f:if condition="{image.originalResource.description}"><figcaption>{image.originalResource.description}</figcaption></f:if>
+    </figure>
+  </f:if>
+</f:for>
+</html>

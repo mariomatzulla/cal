@@ -830,7 +830,21 @@ class Event extends AbstractEntity
             $end->setTime(0, 0);
         }
         // An end time of 00:00 on the start day means midnight at the end of the day
-        if (!$this->isAllday() && $end->format('YmdHis') === $this->getStart()->format('Ymd') . '000000' && $this->getStart()->format('His') !== '000000') {
+        if (!$this->isAllday() && $this->getStartDate() !== null && $end->format('YmdHis') === $this->getStart()->format('Ymd') . '000000' && $this->getStart()->format('His') !== '000000') {
+            $end->modify('+1 day');
+        }
+        return $end;
+    }
+
+    /**
+     * End for iCalendar (DTEND): for all-day events the day after the last day (DTEND is exclusive),
+     * otherwise the end (an end at 00:00 on the start day is midnight, see getEnd()).
+     */
+    public function getIcsEnd(): \MarioMatzulla\Cal\Model\CalendarDateTime
+    {
+        $end = $this->getEnd();
+        if ($this->isAllday()) {
+            $end->setTime(0, 0);
             $end->modify('+1 day');
         }
         return $end;

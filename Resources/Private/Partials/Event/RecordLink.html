@@ -1,0 +1,8 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Name of a location or organizer of an event, linked to its view if the view is allowed (viewLinks.location /
+  viewLinks.organizer, see ContentController::getViewLinkConfiguration()).
+  Arguments: record, view (location|organizer), link ({enabled, pageUid})
+  The record type is only added for other types than the default ones (speaking URLs, Configuration/Routes/Cal.yaml).
+</f:comment>
+<f:variable name="defaultType">tx_cal_{view}</f:variable><f:variable name="linkArguments" value="{uid: record.uid}" /><f:if condition="{record.modelType} != {defaultType}"><f:variable name="linkArguments" value="{uid: record.uid, type: record.modelType}" /></f:if><f:if condition="{link.enabled} && {record.uid}"><f:then><f:link.action action="{view}" pageUid="{link.pageUid}" arguments="{linkArguments}" class="event-entry__{view}-link">{record.name}</f:link.action></f:then><f:else>{record.name}</f:else></f:if></html>
