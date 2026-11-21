@@ -1,5 +1,0 @@
-﻿.. |img-47|     image:: ../../Images/create_event.png
-   :width: 100%
-.. :align: left
-.. :border: 0
-.. :name: graphics28

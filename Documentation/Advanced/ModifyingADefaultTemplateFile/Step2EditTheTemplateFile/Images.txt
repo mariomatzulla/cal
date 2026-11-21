@@ -1,6 +1,0 @@
-﻿.. |img-61|     image:: ../../../Images/list_marker.jpg
-.. :align: left
-.. :border: 0
-.. :name: Template Syntax Example
-.. :width: 100%
-

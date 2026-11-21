@@ -2,14 +2,14 @@
 <f:section name="Header"></f:section>
 <f:section name="content">
   <div class="organizer">
-    <main class="profile-card">
+    <main class="record-view">
       <article class="record-card{f:if(condition: organizer.image, else: ' record-card--no-image')}">
         <div class="record-card__head">
           <f:render partial="Record/Images" arguments="{images: organizer.image, group: 'cal-organizer-{organizer.uid}', config: settings.view.organizer.image, settings: settings}" />
           <div class="record-card__body">
             <h1>{organizer.name}</h1>
             <f:if condition="{organizer.description}">
-              <div class="bio"><f:format.html>{organizer.description}</f:format.html></div>
+              <div class="description"><f:format.html>{organizer.description}</f:format.html></div>
             </f:if>
             <f:render partial="Record/Details" arguments="{record: organizer, view: 'organizer'}" />
             <f:render partial="Record/Thumbnails" arguments="{images: organizer.image, group: 'cal-organizer-{organizer.uid}', config: settings.view.organizer.image, settings: settings}" />

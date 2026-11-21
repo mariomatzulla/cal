@@ -1,59 +1,56 @@
-.. _Cal:
+..  include:: /Includes.rst.txt
 
-==================
-Cal: Calendar Base
-==================
+..  _start:
 
-.. include:: Includes.txt
+=============
+Calendar Base
+=============
 
-:Classification:
-      cal
+:Extension key:
+    cal
+
+:Package name:
+    mariomatzulla/cal
 
 :Version:
-      |release|
+    |release|
 
 :Language:
-      en
-
-:Keywords:
-      forEditors, forAdmins, forDevelopers, forIntermediates, forAdvanced
-
-:Copyright:
-      2005-2015
+    en
 
 :Author:
-      Mario Matzulla, Jeff Segars, Franz Koch, Thomas Kowtsch
-
-:Email:
-      mario@matzullas.de, jeff@webempoweredchurch.org, franz.koch@elements-net.de, typo3@thomas-kowtsch.de
+    Mario Matzulla, Jan Helke and contributors
 
 :License:
-      This document is published under the Open Content License available from http://www.opencontent.org/opl.shtml
+    This document is published under the
+    `Creative Commons BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`__
+    license.
 
-The content of this document is related to TYPO3, a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+:Rendered:
+    |today|
 
+----
 
-**Table of Contents**
+Calendar Base (cal) is a calendar for TYPO3 v14 based on the iCalendar standard
+(RFC 5545). It shows events in a year, month, week, day and list view, has
+detail views for events, locations and organizers, imports external iCalendar
+feeds and ships a CalDAV server, so calendars can be synchronized with clients
+like Apple Calendar or Thunderbird.
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
-   :glob:
+----
 
-   Introduction/Index
-   Overview/Index
-   Installation/Index
-   UpdatingToVersion14/Index
-   UpdatingToVersion15/Index
-   UpdatingToVersion170/Index
-   ConfigureThePlugin/Index
-   CreateTheCalendarRecords/Index
-   UsingTheSuggestedExtensions/Index
-   FrontendEditing/Index
-   AddingAnRssFeed/Index
-   AddingASearchOption/Index
-   Advanced/Index
-   DevelopersManual/Index
-   KnownIssues/Index
-   Changelog/Index
+**Table of Contents:**
 
+..  toctree::
+    :maxdepth: 2
+    :titlesonly:
+
+    Introduction/Index
+    Installation/Index
+    Upgrade/Index
+    Editors/Index
+    Plugin/Index
+    Configuration/Index
+    Developer/Index
+    KnownIssues/Index
+    Changelog/Index

@@ -1,0 +1,2 @@
+..  This file is included at the top of every page of the documentation.
+..  Add roles or substitutions here that are needed on several pages.

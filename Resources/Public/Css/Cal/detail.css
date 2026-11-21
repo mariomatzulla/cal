@@ -713,24 +713,11 @@
 		}
 	}
 
-	/* --- Location --------------------------------------------------------- */
-	.location {
-		.place-card {
-			padding: var(--cal-space-lg);
-			border: var(--cal-border-width) solid var(--cal-color-line);
-			border-radius: var(--cal-radius-lg);
-			background: var(--cal-color-surface);
-		}
-	}
-
-	/* --- Organizer -------------------------------------------------------- */
-	.organizer {
-		.profile-card {
-			padding: var(--cal-space-xl);
-			border: var(--cal-border-width) solid var(--cal-color-card-border-soft);
-			border-radius: var(--cal-radius-xl);
-			background: var(--cal-color-surface-subtle);
-			box-shadow: var(--cal-shadow-card-soft);
-		}
+	/* --- Location and organizer ------------------------------------------ */
+	:is(.location, .organizer) .record-view {
+		padding: var(--cal-space-lg);
+		border: var(--cal-border-width) solid var(--cal-color-line);
+		border-radius: var(--cal-radius-lg);
+		background: var(--cal-color-surface);
 	}
 }

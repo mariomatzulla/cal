@@ -58,7 +58,7 @@ imports:
 URLs: `/2026`, `/2026/11`, `/2026/week/47`, `/2026/11/21`, `/event/2026-11-21/<event>`, `/location/<location>`,
 `/organizer/<organizer>` (German sites: `woche`, `termin`, `ort`, `veranstalter`). Events, locations and organizers
 need the field "URL segment", run the upgrade wizard "create the URL segments" for existing records. Details and an
-English-only configuration: `Documentation/Advanced/SpeakingUrls`.
+English-only configuration: `Documentation/Configuration/SpeakingUrls`.
 
 ### CalDAV
 

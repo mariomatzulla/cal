@@ -1,0 +1,234 @@
+..  include:: /Includes.rst.txt
+
+..  _editors:
+
+===========
+For editors
+===========
+
+The records of cal are created with the module :guilabel:`Content > List` in a
+folder. All events belong to a calendar.
+
+..  contents::
+    :local:
+    :depth: 1
+
+..  _editors-calendar:
+
+Calendars
+=========
+
+:guilabel:`Calendar Type`
+    Standard Calendar (database)
+        The events are created in TYPO3.
+
+    External Calendar
+        The events are imported from the iCalendar feed in
+        :guilabel:`External Calendar URL`.
+
+    Include ICS File
+        The events are imported from the uploaded :guilabel:`ICS File`.
+
+    The events of external and ICS file calendars are imported when the
+    calendar is saved. With a :guilabel:`Refresh Interval (Minutes)` cal creates
+    a scheduler task that imports the calendar again, see
+    :ref:`external-calendars`. Imported events are read-only in CalDAV.
+
+:guilabel:`Calendar Title`
+    Name of the calendar. It is also the name of the calendar in CalDAV clients.
+
+:guilabel:`Timezone`
+    Timezone of the events.
+
+:guilabel:`Owner`
+    Frontend users and groups owning the calendar. A calendar without owner is
+    public. A calendar with owners is private: its events are only shown to
+    the owners when they are logged in.
+
+:guilabel:`Header style`, :guilabel:`Body style`
+    CSS class of the events of the calendar, e.g. `green_catheader`. The
+    default styles contain the colors `default`, `blue`, `green`, `orange`,
+    `pink`, `red`, `yellow` (each with the suffix `_catheader`). The color of a
+    category wins over the style of the calendar.
+
+..  _editors-event:
+
+Events
+======
+
+..  figure:: /Images/BackendEventGeneral.png
+    :alt: Tab "General" of an event
+    :class: with-shadow
+
+    Tab "General" of an event
+
+Tab "General"
+-------------
+
+:guilabel:`Event type`
+    Event with description
+        A normal event with a detail view.
+
+    Shortcut to page
+        The event links to a page.
+
+    Link to external url
+        The event links to an URL.
+
+:guilabel:`Title`
+    Title of the event.
+
+:guilabel:`URL segment`
+    Part of the speaking URL of the event view. It is created from the title.
+    See :ref:`speaking-urls`.
+
+:guilabel:`Calendar`
+    Calendar of the event.
+
+:guilabel:`Categories`
+    Categories (`sys_category`) of the event, used by the filters of the plugin
+    and for the color of the event.
+
+:guilabel:`All Day Event`, :guilabel:`Event Start Day`, :guilabel:`Event Start Time`, :guilabel:`Event End Day`, :guilabel:`Event End Time`
+    Start and end of the event. An all-day event can span several days.
+
+:guilabel:`Teaser`
+    Short text for the list view. Only shown if the extension setting
+    `useTeaser` is enabled (see :ref:`extension-configuration`). Without a
+    teaser, the list view shows the shortened description.
+
+:guilabel:`Description`
+    Text of the event view.
+
+Tab "Recurrence"
+----------------
+
+..  figure:: /Images/BackendEventRecurrence.png
+    :alt: Tab "Recurrence" of an event
+    :class: with-shadow
+
+    A monthly event on the 15th of every month
+
+The recurrence follows the rules of RFC 5545 (`RRULE`):
+
+:guilabel:`Regular Frequency Rule` (`FREQ`)
+    None, daily, weekly, monthly or yearly.
+
+:guilabel:`By Day of the Week` (`BYDAY`)
+    Weekdays, for monthly and yearly rules with an ordinal number, e.g. "the
+    third Wednesday" or "the last Friday".
+
+:guilabel:`By Monthday` (`BYMONTHDAY`)
+    Days of the month, 1 to 31. Negative values count from the end of the
+    month (-1 is the last day).
+
+:guilabel:`By Month` (`BYMONTH`)
+    Months of yearly rules. Without months, a yearly event recurs in the
+    month of its start date. With :guilabel:`By Day of the Week` but without
+    :guilabel:`By Month` an ordinal refers to the year, e.g. "the 20th Monday
+    of the year".
+
+:guilabel:`Until Date` (`UNTIL`), :guilabel:`Count` (`COUNT`)
+    End of the recurrence. Without both, the event recurs until the end of the
+    recurrence range (extension setting `recurrenceEnd`).
+
+:guilabel:`Interval` (`INTERVAL`)
+    Every n-th occurrence, e.g. 2 for every second week.
+
+:guilabel:`Recurrence by` (`RDATE`)
+    Additional single dates, dates with time or periods.
+
+:guilabel:`Deviation`
+    Changes of single dates of a recurring event (another time, title,
+    location, description etc.). A deviation refers to the original start of
+    the date.
+
+:guilabel:`Exceptions`
+    Exception events and exception groups (see below). The event does not take
+    place on their dates.
+
+The dates of recurring events are stored in an index table. It is updated
+when an event is saved, and can be rebuilt with the backend module
+:guilabel:`Cal Indexer` (see :ref:`backend-modules`).
+
+Tabs "Location" and "Organizer"
+-------------------------------
+
+The location and the organizer are either a text, a location / organizer
+record, a page or an external link. With a record, the event view links to the
+location or organizer view, if this view is allowed in the plugin.
+
+..  figure:: /Images/EventViewLinks.png
+    :alt: Event view with links to the location and the organizer
+    :class: with-shadow
+
+    Event view: the location and the organizer link to their views, address,
+    e-mail and phone number are shown next to them
+
+The text fields can be hidden with the extension settings
+`hideLocationTextfield` and `hideOrganizerTextfield`.
+
+Tab "Files"
+-----------
+
+Images and files of the event. The first image is shown in the list and event
+view.
+
+Tab "Other"
+-----------
+
+Attendees and the frontend users / groups that created the event.
+
+..  _editors-exception:
+
+Exception events and exception groups
+=====================================
+
+An :guilabel:`Exception Event` is a date (optionally recurring, e.g. every
+24th of December) on which events do not take place. An
+:guilabel:`Exception Event Group` combines several exception events, e.g. the
+holidays of a year. Both are assigned to events in the field
+:guilabel:`Exceptions`.
+
+..  _editors-location:
+
+Locations and organizers
+========================
+
+Locations and organizers have a name, a URL segment, a description, an address,
+phone, fax, e-mail, images and a link. Locations also have the coordinates
+(latitude and longitude).
+
+The location view and the organizer view show the first image with the details
+next to it and the further images as thumbnails. The size of the images is set
+with `view.location.image` and `view.organizer.image` (see
+:ref:`typoscript-location`).
+
+..  figure:: /Images/LocationView.png
+    :alt: Location view
+    :class: with-shadow
+
+    Location view
+
+..  figure:: /Images/OrganizerView.png
+    :alt: Organizer view
+    :class: with-shadow
+
+    Organizer view
+
+..  _editors-category:
+
+Categories
+==========
+
+Events use the system categories (`sys_category`). cal adds two fields to
+categories:
+
+:guilabel:`Color in the calendar`
+    Color of the events of this category in the calendar. Empty: the color of
+    the calendar style or the default color is used.
+
+:guilabel:`Color priority`
+    If an event has several categories with a color, the color of the category
+    with the highest priority is used. With the same priority, the more
+    specific category (deeper in the category tree) wins.

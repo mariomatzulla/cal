@@ -1,25 +1,96 @@
-.. _Installation:
+..  include:: /Includes.rst.txt
 
-=============
+..  _installation:
+
+============
 Installation
+============
+
+..  _installation-composer:
+
+Install the extension
+=====================
+
+Composer based installations:
+
+..  code-block:: bash
+
+    composer require mariomatzulla/cal
+
+Installations without Composer: install the extension from the TYPO3 Extension
+Repository (TER) with the module :guilabel:`Admin Tools > Extensions`.
+
+Afterwards run :guilabel:`Admin Tools > Maintenance > Analyze Database Structure`
+to create the tables and fields of cal.
+
+..  _installation-site-set:
+
+Include the configuration
+=========================
+
+Add the site sets to the site configuration
+(:guilabel:`Site Management > Sites`, or :file:`config/sites/<site>/config.yaml`):
+
+Calendar Base (cal)
+    TypoScript settings of the plugin and the page type of the iCalendar
+    download. Required.
+
+Calendar Base (cal): default styles
+    The default CSS of the calendar views. Optional, leave it out if you
+    write your own styles.
+
+..  code-block:: yaml
+    :caption: config/sites/<site>/config.yaml
+
+    dependencies:
+      - mariomatzulla/cal
+      - mariomatzulla/cal-styles
+
+Sites without site sets include the static TypoScript templates
+"Calendar Base (cal)" and "Calendar Base (cal): default styles" in their
+TypoScript record instead.
+
+The site set has settings for the image sizes, the time format and the options of the iCalendar download, see :ref:`typoscript`.
+
+..  _installation-records:
+
+Create the records
+==================
+
+#.  Create a folder for the calendar records.
+#.  Create a calendar record in the folder, then events, and optionally
+    locations, organizers and categories. See :ref:`editors`.
+
+..  _installation-plugin:
+
+Add the plugin
+==============
+
+#.  Create the content element :guilabel:`Calendar Plugin` on the page that
+    shows the calendar.
+#.  Select the allowed views on the tab :guilabel:`Plugin`. The first view is
+    the default view.
+#.  Optionally select the calendars and categories on the tab
+    :guilabel:`Filters`. Without a selection the plugin shows the events of
+    all calendars, independent of the folder they are stored in.
+
+See :ref:`plugin` for all options.
+
+..  _installation-urls:
+
+Speaking URLs
 =============
 
-.. include:: ../Includes.txt
+Import the route enhancer of cal in the site configuration to get URLs like
+:samp:`/2026/11/21` or :samp:`/event/2026-11-21/cleaning-day`. See
+:ref:`speaking-urls`.
 
-There are four steps necessary to install all the components of the
-Calendar Base extension. If you've installed other extensions in the
-past, you will run into little new here.
+..  _installation-update:
 
+After an update
+===============
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
-   :glob:
-
-   Step1InstallTheExtension/Index
-   Step2CreateTheNecessaryPages/Index
-   Step3CreateAndConfigureRecordStorageFolder(s)/Index
-   Step4AddAnExtensionTemplateRecord/Index
-   Step5AddTheStaticTemplates/Index
-   Step6InstallThePlugin/Index
-
+Run :guilabel:`Analyze Database Structure` and the upgrade wizards of the
+extension (:guilabel:`Admin Tools > Upgrade > Upgrade Wizard` or
+:bash:`vendor/bin/typo3 upgrade:run`). Updating from cal 1.x is described in
+:ref:`upgrade`.

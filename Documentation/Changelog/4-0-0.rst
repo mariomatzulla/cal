@@ -1,0 +1,53 @@
+..  include:: /Includes.rst.txt
+
+..  _changelog-4-0-0:
+
+=================
+4.0.0 - TYPO3 v14
+=================
+
+Breaking changes
+================
+
+*   Requires TYPO3 v14 and PHP 8.2 or higher.
+*   New table names `tx_cal_domain_model_*`, categories are `sys_category`
+    records, the plugin is the content element `cal_controller`. Upgrade
+    wizards migrate the data of cal 1.x, see :ref:`upgrade`.
+*   Extbase controller with Fluid templates instead of the marker based
+    templates. TypoScript settings moved to `plugin.tx_cal.settings`.
+*   Removed: frontend editing and the rights management, search, RSS,
+    subscription and meeting manager, todo views, e-mail notifications,
+    mini calendar, AJAX views, `wec_map` and captcha connections.
+*   The extension `caldav` is part of cal now and must be uninstalled.
+*   The location and organizer views use the CSS class `record-view` (formerly
+    `place-card` / `profile-card`), the description of organizers the class
+    `description` (formerly `bio`).
+
+Features
+========
+
+*   Site sets "Calendar Base (cal)" and "Calendar Base (cal): default styles".
+*   New design of the month, week, day and year view: time grid with
+    overlapping events side by side, configurable day range (default 07:00 to
+    23:00), year view with a dot per day and the events on hover.
+*   List view with event cards, event view with images and lightbox.
+*   Location and organizer views, links from the event view if the views are
+    allowed.
+*   Speaking URLs with the route enhancer
+    :file:`EXT:cal/Configuration/Routes/Cal.yaml` and URL segments of events,
+    locations and organizers, see :ref:`speaking-urls`.
+*   Category colors with priority.
+*   CSS custom properties for an own design, see :ref:`styling`.
+*   Import of external calendars and ICS files with automatically created
+    scheduler tasks.
+*   CalDAV server at :samp:`<site base>/caldav`.
+*   PSR-14 events instead of the service registry of cal 1.x.
+
+Bugfixes
+========
+
+*   Recurring events follow RFC 5545: yearly rules with `BYMONTH`,
+    `BYMONTHDAY` (also negative values), `BYDAY` with ordinal and `INTERVAL`.
+*   All-day events of several days are exported with the correct `DTEND`, so
+    CalDAV clients show them on all days (upgrade wizard `cal_icsData`).
+*   The iCalendar download is only available if the view "ICS" is allowed.

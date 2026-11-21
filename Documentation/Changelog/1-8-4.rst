@@ -1,3 +1,4 @@
+.. include:: /Includes.rst.txt
 
 1.8.4 - TYPO3 LTS 6.2 & TYPO3 7
 --------------------------------
