@@ -193,9 +193,12 @@ class RecurrenceGenerator
             $i = (int)($this->starttime->getYear()) - (($this->starttime->getYear() - $eventStart->getYear()) % $event->getIntrval());
         }
 
-        for (; $i < (int)($until->getYear()) + 1; $i++) {
+        // RFC 5545: INTERVAL of a yearly rule counts years (every n-th year)
+        $yearStep = $event->getFreq() == 'year' ? max(1, (int)$event->getIntrval()) : 1;
+        for (; $i < (int)($until->getYear()) + 1; $i += $yearStep) {
             $byyear [] = $i;
         }
+        $occurrenceInterval = $event->getFreq() == 'year' ? 1 : null;
 
         $maxRecurringEvents = $count;
 
@@ -225,36 +228,23 @@ class RecurrenceGenerator
                 // 2007, 2008...
                 foreach ($byyear as $year) {
                     $year = (int)$year;
-                    if ($counter < $count && $until->after($nextOccuranceTime) && $added < $maxRecurringEvents) {
-                        // 1,2,3,4,5,6,7,8,9,10,11,12
-                        foreach ($bymonth as $month) {
-                            $month = (int)$month;
-                            if ($counter < $count && $until->after($nextOccuranceTime) && (int)(str_pad((string)$year, 2, '0', STR_PAD_LEFT) . str_pad((string)$month, 2, '0', STR_PAD_LEFT)) >= (int)($nextOccuranceTime->getYear() . $nextOccuranceTime->getMinute()) && $added < $maxRecurringEvents) {
-                                $bymonthday = $this->getMonthDaysForMonth($event, $month, $year);
-                                // 1,2,3,4....31
-                                foreach ($bymonthday as $day) {
-                                    $day = (int)$day;
-                                    $nextOccuranceTime->setTime((int)$hour, (int)$minute, 0);
-                                    $nextOccuranceTime->setDate($year, $month, $day);
-                                    if ($counter < $count && ($until->after($nextOccuranceTime) || $until->equals($nextOccuranceTime)) && $added < $maxRecurringEvents) {
-                                        if ((int)($nextOccuranceTime->getMonth()) == (int)$month && ($eventStart->before($nextOccuranceTime)) || $eventStart->equals($nextOccuranceTime)) {
-                                            $currentUntil = new CalendarDateTime();
-                                            $currentUntil->copy($nextOccuranceTime);
-                                            $currentUntil->addSeconds(86399);
-                                            $this->addDailyOccurrance($event, $nextOccuranceTime, $currentUntil, $byday, $count, $counter, $total, $added, $maxRecurringEvents);
-                                        } else {
-                                            continue;
-                                        }
-                                    } else {
-                                        $this->persistenceManager->persistAll();
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                    } else {
+                    if (!($counter < $count && $until->after($nextOccuranceTime) && $added < $maxRecurringEvents)) {
                         $this->persistenceManager->persistAll();
                         return;
+                    }
+                    foreach ($this->getOccurrenceDaysOfYear($event, $year, $bymonth) as [$month, $day]) {
+                        $nextOccuranceTime->setTime((int)$hour, (int)$minute, 0);
+                        $nextOccuranceTime->setDate($year, $month, $day);
+                        if (!($counter < $count && ($until->after($nextOccuranceTime) || $until->equals($nextOccuranceTime)) && $added < $maxRecurringEvents)) {
+                            $this->persistenceManager->persistAll();
+                            return;
+                        }
+                        if ($eventStart->before($nextOccuranceTime) || $eventStart->equals($nextOccuranceTime)) {
+                            $currentUntil = new CalendarDateTime();
+                            $currentUntil->copy($nextOccuranceTime);
+                            $currentUntil->addSeconds(86399);
+                            $this->addDailyOccurrance($event, $nextOccuranceTime, $currentUntil, $byday, $count, $counter, $total, $added, $maxRecurringEvents, $occurrenceInterval);
+                        }
                     }
                 }
                 break; // switch-case break
@@ -262,13 +252,17 @@ class RecurrenceGenerator
         $this->persistenceManager->persistAll();
     }
 
-    private function addDailyOccurrance($event, CalendarDateTime &$startRange, CalendarDateTime &$endRange, $weekdays, $maxCount, &$currentCount, &$totalCount, &$addedCount, &$maxRecurringEvents)
+    /**
+     * @param int|null $interval every n-th occurrence (default: INTERVAL of the event)
+     */
+    private function addDailyOccurrance($event, CalendarDateTime &$startRange, CalendarDateTime &$endRange, $weekdays, $maxCount, &$currentCount, &$totalCount, &$addedCount, &$maxRecurringEvents, ?int $interval = null)
     {
+        $interval = max(1, $interval ?? (int)$event->getIntrval());
         $nextOccuranceTime = new CalendarDateTime();
         $nextOccuranceTime->copy($startRange);
         while ($currentCount < $maxCount && ($nextOccuranceTime->before($endRange) || $nextOccuranceTime->equals($endRange)) && $addedCount < $maxRecurringEvents) {
             if (! $nextOccuranceTime->equals($event->getStart())) {
-                if (($totalCount % $event->getIntrval()) == 0) {
+                if (($totalCount % $interval) == 0) {
                     $nextOccuranceEndTime = new CalendarDateTime();
                     $nextOccuranceEndTime->copy($nextOccuranceTime);
                     $nextOccuranceEndTime->addSeconds($event->getEnd()->getTimestamp() -  $event->getStart()->getTimestamp());
@@ -460,14 +454,110 @@ class RecurrenceGenerator
         }
     }
 
+    /**
+     * Days ([month, day]) of a year on which the rule (week, month, year) may occur, in chronological order.
+     * The day is limited by addDailyOccurrance() (start of the event, COUNT, UNTIL).
+     *
+     * @param list<string> $bymonth
+     * @return list<array{0: int, 1: int}>
+     */
+    private function getOccurrenceDaysOfYear(Event $event, int $year, array $bymonth): array
+    {
+        // RFC 5545: a yearly rule with BYDAY but without BYMONTH and BYMONTHDAY uses the days of the whole year
+        // (e.g. BYDAY=20MO: the 20th Monday of the year), see RecurrenceValidator::checkByMonth()
+        if ($event->getFreq() == 'year' && trim((string)$event->getBymonth()) === '') {
+            return $this->getYearDaysForByDay($event, $year);
+        }
+        $days = [];
+        foreach ($bymonth as $month) {
+            $month = (int)$month;
+            if ($month < 1 || $month > 12) {
+                continue;
+            }
+            foreach ($this->getMonthDaysForMonth($event, $month, $year) as $day) {
+                $days[] = [$month, (int)$day];
+            }
+        }
+        return $days;
+    }
+
+    /**
+     * Days of a year matching BYDAY: "MO" every Monday, "20MO" the 20th, "-1MO" the last Monday of the year.
+     * BYMONTHDAY limits the days.
+     *
+     * @return list<array{0: int, 1: int}>
+     */
+    private function getYearDaysForByDay(Event $event, int $year): array
+    {
+        $dates = [];
+        foreach (explode(',', strtoupper((string)$event->getByday())) as $entry) {
+            $match = [];
+            if (!preg_match('/^([-+]?)(\d{1,2})?([A-Z]{2})$/', trim($entry), $match)) {
+                continue;
+            }
+            $weekday = (int)self::two2threeCharDays($match[3], false);
+            $ordinal = (int)$match[2];
+            $first = new \DateTimeImmutable(sprintf('%04d-01-01', $year));
+            $first = $first->modify('+' . (($weekday - (int)$first->format('w') + 7) % 7) . ' days');
+            if ($ordinal === 0) {
+                for ($date = $first; (int)$date->format('Y') === $year; $date = $date->modify('+7 days')) {
+                    $dates[$date->format('md')] = $date;
+                }
+                continue;
+            }
+            if ($match[1] === '-') {
+                $last = new \DateTimeImmutable(sprintf('%04d-12-31', $year));
+                $date = $last->modify('-' . (((int)$last->format('w') - $weekday + 7) % 7 + ($ordinal - 1) * 7) . ' days');
+            } else {
+                $date = $first->modify('+' . (($ordinal - 1) * 7) . ' days');
+            }
+            if ((int)$date->format('Y') === $year) {
+                $dates[$date->format('md')] = $date;
+            }
+        }
+        ksort($dates);
+        $days = [];
+        foreach ($dates as $date) {
+            $month = (int)$date->format('n');
+            $day = (int)$date->format('j');
+            if (in_array($day, self::resolveMonthDays((string)$event->getBymonthday(), $month, $year), true)) {
+                $days[] = [$month, $day];
+            }
+        }
+        return $days;
+    }
+
+    /**
+     * BYMONTHDAY for a month: negative values count from the end of the month (-1 = last day),
+     * days the month does not have (e.g. 30 in February) are skipped (RFC 5545). Empty: all days.
+     *
+     * @return list<int>
+     */
+    public static function resolveMonthDays(string $byMonthDay, int $month, int $year): array
+    {
+        $daysInMonth = (int)date('t', (int)mktime(0, 0, 0, $month, 1, $year));
+        $values = trim($byMonthDay) === '' ? range(1, $daysInMonth) : array_map('intval', explode(',', $byMonthDay));
+        $days = [];
+        foreach ($values as $value) {
+            if ($value < 0) {
+                $value = $daysInMonth + 1 + $value;
+            }
+            if ($value >= 1 && $value <= $daysInMonth) {
+                $days[] = $value;
+            }
+        }
+        $days = array_values(array_unique($days));
+        sort($days);
+        return $days;
+    }
+
     private function getMonthDaysForMonth($event, $month, $year)
     {
 
         $byDayArray = explode(',', (string)$event->getByday());
         $resultDays = [];
 
-        $byMonthDay = trim((string)$event->getBymonthday());
-        $byMonthDays = $byMonthDay === '' ? range(1, 31) : explode(',', $byMonthDay);
+        $byMonthDays = self::resolveMonthDays((string)$event->getBymonthday(), (int)$month, (int)$year);
 
         $monthStartTime = CalendarDateTime::generateByYmdHis($year . sprintf('%02d', (int)$month) . '01000000');
         $monthEndTime = new CalendarDateTime();
@@ -475,7 +565,7 @@ class RecurrenceGenerator
         $monthEndTime = CalculateDateTime::calculateEndOfMonth($monthEndTime);
         for ($i = 0; $i < count($byDayArray); $i++) {
             $byDaySplit = [];
-            if (preg_match('/([-\+]{0,1})?([0-9]{1})?([A-Z]{2})/', (string)$byDayArray [$i], $byDaySplit)) {
+            if (preg_match('/([-\+]{0,1})?([0-9]{1,2})?([A-Z]{2})/', (string)$byDayArray [$i], $byDaySplit)) {
                 $dayOfWeekday = (int)RecurrenceGenerator::two2threeCharDays($byDaySplit [3], false);
 
                 if ($byDaySplit [2] > 0) {

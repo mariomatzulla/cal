@@ -438,9 +438,9 @@ class CalculateDateTime
                 $date->modify('+7 day 0:00:00');
             }
         } elseif ($curr_weekday > $dow) {
-            $date->modify('+' . (7 - ($dow - $curr_weekday)) . ' day 0:00:00');
+            $date->modify('+' . (7 - ($curr_weekday - $dow)) . ' day 0:00:00');
         } else {
-            $date->modify('+' . ($curr_weekday - $dow) . ' day 0:00:00');
+            $date->modify('+' . ($dow - $curr_weekday) . ' day 0:00:00');
         }
 
         return $date;
@@ -508,23 +508,6 @@ class CalculateDateTime
         }
         $today->setDate((int)$year, (int)$month, 1);
         return (int)($today->format('t'));
-
-        if ($year == 1582 && $month == 10) {
-            return 21; // October 1582 only had 1st-4th and 15th-31st
-        }
-
-        if ($month == 2) {
-            if (self::isLeapYear($year)) {
-                return 29;
-            }
-            return 28;
-
-        }
-        if ($month == 4 or $month == 6 or $month == 9 or $month == 11) {
-            return 30;
-        }
-        return 31;
-
     }
 
     /**

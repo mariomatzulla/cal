@@ -14,3 +14,6 @@ parameters:
     # depends on the optional extension "scheduler"
     - Classes/Task/*
   reportUnmatchedIgnoredErrors: false
+  # Can be defined by the installation before cal is loaded (0 = weeks start on Sunday)
+  dynamicConstantNames:
+    - DATE_CALC_BEGIN_WEEKDAY

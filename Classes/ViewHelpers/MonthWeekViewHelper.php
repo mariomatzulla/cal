@@ -9,11 +9,6 @@ final class MonthWeekViewHelper extends BaseWeekViewHelper
     protected $escapeOutput = false;
 
     /**
-     * @var \MarioMatzulla\Cal\Model\RightsManager
-     */
-    protected $rightsManager;
-
-    /**
      * @var string
      */
     protected $view;
@@ -34,7 +29,6 @@ final class MonthWeekViewHelper extends BaseWeekViewHelper
     public function render()
     {
         $this->settings = (array)$this->templateVariableContainer->get('settings');
-        $this->rightsManager = $this->templateVariableContainer->get('rightsManager');
         $this->view = (string)($this->templateVariableContainer->get('view') ?? 'month');
 
         $this->monthModel = $this->arguments ['month'];

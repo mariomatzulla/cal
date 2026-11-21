@@ -58,7 +58,7 @@ class TYPO3PrincipalBackend extends AbstractBackend
                 return $principal;
             }
         }
-        return null;
+        return [];
     }
 
     public function updatePrincipal($path, PropPatch $propPatch)

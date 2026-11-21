@@ -31,12 +31,10 @@ namespace MarioMatzulla\Cal\Service;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewFactoryData;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\FluidViewFactory;
 
 class IcsGenerator
@@ -45,8 +43,6 @@ class IcsGenerator
         private readonly FluidViewFactory $fluidViewFactory,
         private readonly EventRepository $eventRepository,
         private readonly CalendarRepository $calendarRepository,
-        private readonly ModuleTemplateFactory $moduleTemplateFactory,
-        private readonly ConfigurationManagerInterface $configurationManager,
     ) {}
 
     public function check()

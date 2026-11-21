@@ -28,11 +28,6 @@ trait General
      */
     protected array $settings;
 
-    /**
-     * @var array
-     */
-    protected $configuration;
-
     /* ======================================================================================= */
     /* P R O P E R T I E S                                                                     */
     /* ======================================================================================= */
@@ -336,10 +331,9 @@ trait General
                 ),
             );
         }
-        $records = $queryBuilder
+        return $queryBuilder
             ->executeQuery()
             ->fetchAllAssociative();
-        return ($records !== false) ? $records : [];
     }
 
     /* ======================================================================================= */

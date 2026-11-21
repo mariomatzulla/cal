@@ -36,16 +36,6 @@ abstract class TimeView
     /**
      * @var int
      */
-    private $minute = 0;
-
-    /**
-     * @var int
-     */
-    private $hour = 0;
-
-    /**
-     * @var int
-     */
     private $weekdayNumber = 0;
 
     /**

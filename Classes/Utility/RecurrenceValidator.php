@@ -34,8 +34,25 @@ class RecurrenceValidator
 
     public static function validateEvent(Event $event)
     {
+        RecurrenceValidator::normalizeAllValues($event);
         RecurrenceValidator::filterFalseCombinations($event);
         RecurrenceValidator::checkRecurringSettings($event);
+    }
+
+    /**
+     * cal 1.x stored "all" for "every month" / "every day of the month" / "every weekday"
+     */
+    private static function normalizeAllValues(Event $event): void
+    {
+        if (strtolower(trim((string)$event->getByMonth())) === 'all') {
+            $event->setByMonth(implode(',', RecurrenceValidator::allMonths));
+        }
+        if (strtolower(trim((string)$event->getByMonthDay())) === 'all') {
+            $event->setByMonthDay('');
+        }
+        if (strtolower(trim((string)$event->getByDay())) === 'all') {
+            $event->setByDay('');
+        }
     }
 
     private static function filterFalseCombinations(Event $event)
@@ -58,12 +75,8 @@ class RecurrenceValidator
                 $event->setByMonth('');
                 break;
             case 'year':
-                $byMonthValues = explode(',', (string)$event->getByMonth());
-                $byMonthDayValues = explode(',', (string)$event->getByMonthDay());
-                if (count($byMonthValues) > 0) {
-                } elseif (count($byMonthDayValues) > 0) {
-                    $event->setByDay('');
-                }
+                // yearly: BYMONTH, BYMONTHDAY and BYDAY are kept. With BYMONTHDAY, BYDAY limits the days
+                // (RFC 5545, e.g. BYMONTHDAY=13;BYDAY=FR: every Friday the 13th)
                 break;
         }
     }
@@ -85,7 +98,6 @@ class RecurrenceValidator
         RecurrenceValidator::checkBySecond($event);
         RecurrenceValidator::checkBySetpos($event);
         RecurrenceValidator::checkCount($event);
-        RecurrenceValidator::checkUntil($event);
         RecurrenceValidator::checkWkst($event);
     }
 
@@ -96,8 +108,6 @@ class RecurrenceValidator
             $event->setCnt(9999999);
         }
     }
-
-    private static function checkUntil($event) {}
 
     private static function checkBySecond($event)
     {
@@ -136,7 +146,7 @@ class RecurrenceValidator
         for ($i = 0; $i < count($byDayArray); $i++) {
             $byDayArray [$i] = strtoupper($byDayArray [$i]);
             $byDaySplit = [];
-            if (preg_match('/([-\+]{0,1})?([0-9]{1})?([A-Z]{2})/', (string)$byDayArray [$i], $byDaySplit)) {
+            if (preg_match('/([-\+]{0,1})?([0-9]{1,2})?([A-Z]{2})/', (string)$byDayArray [$i], $byDaySplit)) {
                 if (! in_array($byDaySplit [3], $allowedWeekdayValues)) {
                     continue;
                 }
@@ -166,8 +176,15 @@ class RecurrenceValidator
 
         if ($event->getBymonth() == '') {
             if ($event->getFreq() == 'year') {
-                $eventStart = $event->getStart();
-                $event->setBymonth($eventStart->getMonth());
+                // RFC 5545, yearly rule without BYMONTH:
+                // - BYMONTHDAY: the days of every month (BYDAY limits them)
+                // - only BYDAY: the days of the whole year, BYMONTH stays empty (RecurrenceGenerator::getYearDaysForByDay())
+                // - neither: the month of the start (once a year on the start date)
+                if (trim((string)$event->getBymonthday()) !== '') {
+                    $event->setBymonth(implode(',', RecurrenceValidator::allMonths));
+                } elseif (trim((string)$event->getByday()) === '') {
+                    $event->setBymonth($event->getStart()->getMonth());
+                }
             } else {
                 $event->setBymonth(implode(',', RecurrenceValidator::allMonths));
             }
@@ -205,12 +222,10 @@ class RecurrenceValidator
                 $event->setBymonthday(implode(',', RecurrenceValidator::allMonthDays));
             }
         } else {
+            // RFC 5545: 1 to 31 and -31 to -1 (counted from the end of the month, -1 = last day)
             $event->setBymonthday(implode(',', array_filter(explode(',', (string)$event->getBymonthday()), function ($value) {
                 $value = (int)$value;
-                if ($value < 0 || $value > 31) {
-                    return false;
-                }
-                return true;
+                return $value !== 0 && $value >= -31 && $value <= 31;
             })));
         }
     }

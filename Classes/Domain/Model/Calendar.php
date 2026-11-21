@@ -85,14 +85,6 @@ class Calendar extends AbstractEntity
     }
 
     /**
-     * @param string $modelType
-     */
-    private function setModelType($modelType)
-    {
-        $this->modelType = $modelType;
-    }
-
-    /**
      * @return string
      */
     public function getTitle()

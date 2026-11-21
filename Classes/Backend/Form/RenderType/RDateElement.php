@@ -101,9 +101,7 @@ class RDateElement extends AbstractCalFormElementHelper
 
             if ($rdateType === 'period') {
                 $periodArray = [ ];
-                if (is_string($value)) {
-                    preg_match('/P((\d+)Y)?((\d+)M)?((\d+)W)?((\d+)D)?T((\d+)H)?((\d+)M)?((\d+)S)?/', $value, $periodArray);
-                }
+                preg_match('/P((\d+)Y)?((\d+)M)?((\d+)W)?((\d+)D)?T((\d+)H)?((\d+)M)?((\d+)S)?/', $value, $periodArray);
                 while (count($periodArray) < 13) {
                     array_push($periodArray, 0);
                 }

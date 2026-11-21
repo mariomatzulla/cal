@@ -10,11 +10,9 @@ use MarioMatzulla\Cal\Events\GetLocationEvent;
 use MarioMatzulla\Cal\Events\GetOrganizerEvent;
 use MarioMatzulla\Cal\Events\SearchEventsEvent;
 use MarioMatzulla\Cal\Model\CalendarDateTime;
-use MarioMatzulla\Cal\Model\RightsManager;
 use MarioMatzulla\Cal\Utility\CalculateDateTime;
 use MarioMatzulla\Cal\Utility\HelperFunctions;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -38,17 +36,7 @@ class ContentController extends ActionController
     /**
      * @var array
      */
-    protected $configuration;
-
-    /**
-     * @var array
-     */
     protected $pids =  [];
-
-    public function __construct(ExtensionConfiguration $extensionConfiguration)
-    {
-        $this->configuration = (array)$extensionConfiguration->get('cal');
-    }
 
     /**
      * Initializes the settings for every action. Runs after the request has been set,
@@ -584,12 +572,6 @@ class ContentController extends ActionController
     private function addToAllViews()
     {
         $this->view->assign('settings', $this->settings);
-        $this->view->assign('rightsManager', $this->getRightsManager());
-    }
-
-    protected function getRightsManager()
-    {
-        return new RightsManager($this->settings, $this->configuration);
     }
 
     /**

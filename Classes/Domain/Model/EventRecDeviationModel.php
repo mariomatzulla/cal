@@ -24,8 +24,6 @@ namespace MarioMatzulla\Cal\Domain\Model;
  */
 class EventRecDeviationModel extends EventRecModel
 {
-    private $origStartDate;
-
     protected $deviation;
 
     public function __construct(Event $event, EventDeviation $deviation, float $start, float $end)

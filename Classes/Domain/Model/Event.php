@@ -54,7 +54,7 @@ class Event extends AbstractEntity
     protected $location;
 
     /**
-     * @var ObjectStorage<Location>
+     * @var ObjectStorage<Location>|null
      */
     protected $locationId;
 
@@ -64,7 +64,7 @@ class Event extends AbstractEntity
     protected $organizer;
 
     /**
-     * @var ObjectStorage<Organizer>
+     * @var ObjectStorage<Organizer>|null
      */
     protected $organizerId;
 
@@ -86,22 +86,22 @@ class Event extends AbstractEntity
     protected $crdate;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $startDate;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $startTime;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $endDate;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $endTime;
 
@@ -134,7 +134,7 @@ class Event extends AbstractEntity
     /**
      * Categories
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MarioMatzulla\Cal\Domain\Model\Category>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MarioMatzulla\Cal\Domain\Model\Category>|null
      * @lazy
      */
     protected $categories;
@@ -616,7 +616,7 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MarioMatzulla\Cal\Domain\Model\Category>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MarioMatzulla\Cal\Domain\Model\Category>|null
      */
     public function getCategories()
     {
@@ -635,7 +635,7 @@ class Event extends AbstractEntity
         $color = '';
         $best = null;
         foreach ($this->getCategories() ?? [] as $category) {
-            if (!$category instanceof Category || $category->getColor() === '') {
+            if ($category->getColor() === '') {
                 continue;
             }
             $rank = [$category->getColorPriority(), $category->getDepth()];
@@ -851,14 +851,6 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @param string $modelType
-     */
-    private function setModelType($modelType)
-    {
-        $this->modelType = $modelType;
-    }
-
-    /**
      * @return bool
      */
     public function isAllday()
@@ -909,7 +901,7 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getEndDate()
     {
@@ -917,7 +909,7 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getEndTime()
     {
@@ -965,7 +957,7 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getStartTime()
     {
@@ -981,7 +973,7 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getStartDate()
     {

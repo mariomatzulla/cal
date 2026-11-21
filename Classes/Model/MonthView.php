@@ -160,8 +160,8 @@ class MonthView extends TimeView
         if ($dateObject->getYear() === $this->getYear() && $dateObject->getMonth() === $this->getMonth()) {
             $this->current = true;
 
-            $week = $this->weeks [$dateObject->getYear() . '_' . $dateObject->getWeekOfYear()];
-            if (is_object($week)) {
+            $week = $this->weeks [$dateObject->getYear() . '_' . $dateObject->getWeekOfYear()] ?? null;
+            if ($week !== null) {
                 $week->setCurrent($dateObject);
             }
         }

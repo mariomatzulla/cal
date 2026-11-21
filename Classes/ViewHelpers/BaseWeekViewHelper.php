@@ -81,7 +81,7 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
                                 //FIXME This is bad: we should not manipulate the event to store a rendering variable
                                 $theMatrix [$i] [$j]->matrixValue = $values [0];
                                 // fill it
-                                for ($k = $i + 1; $k < $values [0] + $i && $empty; $k++) {
+                                for ($k = $i + 1; $k < $values [0] + $i; $k++) {
                                     $theMatrix [$k] [$j] = true;
                                 }
                                 $done = true;

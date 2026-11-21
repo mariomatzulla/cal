@@ -11,11 +11,6 @@ final class WeekViewHelper extends BaseWeekViewHelper
 {
     protected $escapeOutput = false;
 
-    /**
-     * @var \MarioMatzulla\Cal\Model\RightsManager
-     */
-    protected $rightsManager;
-
     public function initializeArguments(): void
     {
 
@@ -29,7 +24,6 @@ final class WeekViewHelper extends BaseWeekViewHelper
     public function render()
     {
         $this->settings = (array)$this->templateVariableContainer->get('settings');
-        $this->rightsManager = $this->templateVariableContainer->get('rightsManager');
 
         $weekDate = CalendarDateTime::generateFromDateTime($this->arguments ['dateObject']);
         $weekModel = new WeekView($weekDate->getWeekOfYear(), $weekDate->getYear());
