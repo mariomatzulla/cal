@@ -140,6 +140,10 @@ plugin.tx_cal.settings {
 			startPointCorrection = 6 days
 			endPointCorrection = 6 days
 			dateFormatMonth = MMMM
+			# Weekdays above the small months and date in the popover with the events of a day (ICU patterns)
+			weekdayFormat = EEEEEE
+			popoverDateFormat = EEEE, d. MMMM yyyy
+			timeFormat = {$plugin.tx_cal.settings.view.timeFormat}
 		}
 
 		list {

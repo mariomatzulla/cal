@@ -276,7 +276,7 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         foreach ($day->getEvents() as $eventArrayTmp) {
             foreach ($eventArrayTmp as $event) {
                 if ((!$event->isAllday())) {
-                    $events[$event->getStart()->format('YmdHi')][] = $event;
+                    $events[$event->getStart()->format('YmdHis')][] = $event;
                 }
             }
         }
@@ -358,6 +358,8 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         while ($i->before($end)) {
             $timeframe = $i->format('Hi');
             $entrysOfTimeframe = $viewArray [$ymdOfDay] [$timeframe] ?? [];
+            // events which already have a column first, new events take a free column afterwards
+            usort($entrysOfTimeframe, static fn(string $a, string $b): int => (int)!array_key_exists($a, $pos_array) <=> (int)!array_key_exists($b, $pos_array));
             if (count($entrysOfTimeframe) > 0) {
                 foreach ($entrysOfTimeframe as $eventKey) {
                     $event = $eventArray [$eventKey];

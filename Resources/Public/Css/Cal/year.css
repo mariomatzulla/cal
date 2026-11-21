@@ -1,16 +1,179 @@
 /**
- * Calendar Base (cal) – year view (12 medium months)
+ * Calendar Base (cal) – year view: 12 small months in the card of the month view.
+ * A day with events shows a dot and links to the day view; hovering it shows its events (popover="manual").
  */
 .tx-cal-controller {
-	.year-table {
-		clear: both;
-		inline-size: 100%;
-		table-layout: fixed;
-		background-color: var(--cal-color-surface);
+	.cal-year__months {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--cal-year-month-min-width)), 1fr));
+		gap: var(--cal-space-xl) var(--cal-space-lg);
+		padding: 1.25rem 1.4rem 1.5rem;
+	}
 
-		.year-month {
-			vertical-align: top;
-			text-align: center;
+	.cal-year__month-title {
+		margin: 0 0 0.5rem;
+		font-size: 0.95rem;
+		font-weight: 700;
+
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				color: var(--cal-view-accent);
+			}
 		}
+	}
+
+	:is(.cal-year__weekdays, .cal-year__days) {
+		display: grid;
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+		text-align: center;
+	}
+
+	.cal-year__weekdays {
+		margin-block-end: 0.2rem;
+		color: var(--cal-view-text-muted);
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.cal-year__days {
+		row-gap: 2px;
+	}
+
+	.cal-year__day {
+		position: relative;
+		display: grid;
+		place-items: center;
+		aspect-ratio: 1;
+		max-block-size: var(--cal-year-day-size);
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: var(--cal-year-day-size);
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: none;
+		color: var(--cal-view-text);
+		font: inherit;
+		font-size: 0.78rem;
+		line-height: 1;
+	}
+
+	.cal-year__day--weekend {
+		color: var(--cal-view-text-muted);
+	}
+
+	.cal-year__day--off {
+		color: var(--cal-month-text-off);
+		opacity: 0.45;
+	}
+
+	/* Days with events: dot below the number, link to the day view */
+	.cal-year__day--events {
+		cursor: pointer;
+		font-weight: 700;
+		text-decoration: none;
+		transition: background-color 0.15s;
+
+		&:hover {
+			background: color-mix(in srgb, var(--cal-view-accent) 10%, transparent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--cal-view-accent);
+			outline-offset: 1px;
+		}
+	}
+
+	span.cal-year__day--events {
+		cursor: default;
+	}
+
+	.cal-year__dot {
+		position: absolute;
+		inset-block-end: 12%;
+		inset-inline-start: 50%;
+		inline-size: 5px;
+		block-size: 5px;
+		border-radius: 50%;
+		background: var(--cal-event-color, var(--cal-view-accent));
+		translate: -50% 0;
+	}
+
+	/* Today: circle in the colors of the month view */
+	.cal-year__day[aria-current="date"] {
+		background: var(--cal-view-today-surface);
+		box-shadow: inset 0 0 0 2px var(--cal-view-today-line);
+	}
+}
+
+/* Box with the events of a day (shown in the top layer, the tokens are inherited from the plugin).
+   The script places it next to the day. */
+.cal-year__popover {
+	position: fixed;
+	inset: auto;
+	margin: 0;
+	inline-size: max-content;
+	max-inline-size: min(20rem, calc(100vw - 1rem));
+	padding: 0.75rem 0.9rem;
+	border: var(--cal-border-width) solid var(--cal-view-border);
+	border-radius: 12px;
+	background: var(--cal-view-surface);
+	box-shadow: 0 16px 38px -14px rgb(20 30 55 / 35%);
+	color: var(--cal-view-text);
+	font-size: 0.85rem;
+	text-align: start;
+
+	.cal-year__popover-date {
+		margin: 0 0 0.5rem;
+		font-weight: 700;
+
+		a {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				color: var(--cal-view-accent);
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.cal-year__events {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cal-year__event {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 0.15rem 0.6rem;
+		align-items: baseline;
+		padding-inline-start: 0.6rem;
+		border-inline-start: 3px solid var(--cal-event-color, var(--cal-view-accent));
+	}
+
+	.cal-year__event-time {
+		color: var(--cal-view-text-muted);
+		font-size: 0.75rem;
+		white-space: nowrap;
+	}
+
+	.cal-year__event-title {
+		color: var(--cal-view-text);
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	a.cal-year__event-title:hover {
+		color: var(--cal-view-accent);
+		text-decoration: underline;
 	}
 }

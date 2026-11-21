@@ -139,6 +139,10 @@
 	--cal-month-min-width: 35rem;                         /* below: horizontal scrolling */
 	--cal-month-event-tint: 14%;                          /* background of an event: share of its color */
 
+	/* --- Year view (small months) ---------------------------------------- */
+	--cal-year-month-min-width: 13.5rem;                  /* the months wrap below this width */
+	--cal-year-day-size: 2.1rem;                          /* maximum size of a day */
+
 	/* --- Week and day view (time grid, colors like the DayPilot theme "Blue") -- */
 	--cal-timegrid-head-text: #045776;                    /* dates and hours */
 	--cal-timegrid-line: #eeeeee;                         /* full hours */

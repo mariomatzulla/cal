@@ -1,41 +1,82 @@
-<div class="year-view">
-  <div class="header-buttons" >
-    <f:render partial="Header/Header" arguments="{_all}"/>
-    <div class="today-button">
-      <f:link.action action="{settings.view.yearLinkTarget}" arguments="{year: today.year }" title="{f:translate(key:'l_today')}"><f:translate key="l_today"/></f:link.action>
-    </div>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Year view: 12 small months. A day with events shows a dot and links to the day view, hovering it (or the keyboard focus) shows its events.
+  Variables: months (ContentController::buildYearMonths()), calendarViews, eventLink, contentUid
+</f:comment>
+<f:variable name="titleId" value="cal-year-title-{contentUid}" />
+<section class="cal-view cal-year" aria-labelledby="{titleId}" data-cal-year>
+  <f:render partial="Calendar/Header" arguments="{
+    titleId: titleId, title: starttime.year,
+    activeView: 'year', calendarViews: calendarViews, getdate: getdate, settings: settings,
+    navAction: settings.view.yearLinkTarget,
+    prevArguments: {year: prevYear.year},
+    todayArguments: {year: today.year},
+    nextArguments: {year: nextYear.year},
+    prevLabel: 'l_last_year', nextLabel: 'l_next_year'
+  }" />
+  <div class="cal-year__months">
+    <f:for each="{months}" as="month">
+      <f:variable name="monthTitle">{f:format.date(date: month.date, pattern: settings.view.year.dateFormatMonth, locale: settings.dateConfig.locale)}</f:variable>
+      <div class="cal-year__month">
+        <h3 class="cal-year__month-title">
+          <f:if condition="{calendarViews.month}">
+            <f:then><f:link.action action="{settings.view.monthLinkTarget}" arguments="{year: month.year, month: month.month}">{monthTitle}</f:link.action></f:then>
+            <f:else>{monthTitle}</f:else>
+          </f:if>
+        </h3>
+        <div class="cal-year__weekdays" aria-hidden="true">
+          <f:for each="{month.weeks.0}" as="weekday">
+            <span>{f:format.date(date: weekday.date, pattern: settings.view.year.weekdayFormat, locale: settings.dateConfig.locale) -> f:replace(search: '.', replace: '')}</span>
+          </f:for>
+        </div>
+        <div class="cal-year__days">
+          <f:for each="{month.weeks}" as="week">
+            <f:for each="{week}" as="day">
+              <f:render section="day" arguments="{day: day, contentUid: contentUid, calendarViews: calendarViews, eventLink: eventLink, settings: settings}" />
+            </f:for>
+          </f:for>
+        </div>
+      </div>
+    </f:for>
   </div>
-  <br style="clear: both;"/><br />
-  <div class="view-header">
-    <div class="previous-button">
-      <f:link.action action="{settings.view.yearLinkTarget}" arguments="{year: prevYear.year}" title="{f:translate(key:'l_last_year')}">&nbsp;</f:link.action>
-    </div>
-    <div class="next-button">
-      <f:link.action action="{settings.view.yearLinkTarget}" arguments="{year: nextYear.year}" title="{f:translate(key:'l_next_year')}">&nbsp;</f:link.action>
-    </div>
-    <h1>{starttime.year}</h1>
-  </div>
-  <table class="year-table">
-    <tr>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:1}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:2}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:3}"/></td>
-    </tr>
-    <tr>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:4}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:5}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:6}"/></td>
-    </tr>
-    <tr>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:7}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:8}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:9}"/></td>
-    </tr>
-    <tr>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:10}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:11}"/></td>
-      <td class="year-month"><f:render partial="Month/Medium" arguments="{settings:settings,events:events,getdate:getdate,monthOfYear:12}"/></td>
-    </tr>
-  </table>
-###ICS_LINK###
-</div>
+  <f:render partial="Year/PopoverScript" />
+</section>
+
+<f:section name="day">
+  <f:variable name="classes">cal-year__day{f:if(condition: '!{day.inMonth}', then: ' cal-year__day--off')}{f:if(condition: day.weekend, then: ' cal-year__day--weekend')}{f:if(condition: day.events, then: ' cal-year__day--events')}</f:variable>
+  <f:if condition="{day.events}">
+    <f:then>
+      <f:variable name="tooltipId" value="cal-year-{contentUid}-{day.ymd}" />
+      <f:variable name="dateLabel">{f:format.date(date: day.date, pattern: settings.view.year.popoverDateFormat, locale: settings.dateConfig.locale)}</f:variable>
+      <f:variable name="content"><span class="cal-year__num">{day.day}</span><span class="cal-year__dot" style="{day.events.0.colorStyle}"></span></f:variable>
+      <f:if condition="{calendarViews.day}">
+        <f:then>
+          <f:variable name="attributes" value="{data-cal-tooltip: tooltipId, aria-describedby: tooltipId}" />
+          <f:if condition="{day.current}"><f:variable name="attributes" value="{data-cal-tooltip: tooltipId, aria-describedby: tooltipId, aria-current: 'date'}" /></f:if>
+          <f:link.action action="{settings.view.dayLinkTarget}" arguments="{year: day.year, month: day.month, day: day.day}" class="{classes}" additionalAttributes="{attributes}">{content -> f:format.raw()}</f:link.action>
+        </f:then>
+        <f:else>
+          <span class="{classes}" tabindex="0" data-cal-tooltip="{tooltipId}" aria-describedby="{tooltipId}" {f:if(condition: day.current, then: 'aria-current="date"') -> f:format.raw()}>{content -> f:format.raw()}</span>
+        </f:else>
+      </f:if>
+      <div class="cal-year__popover" id="{tooltipId}" role="tooltip" popover="manual">
+        <p class="cal-year__popover-date">{dateLabel}</p>
+        <ul class="cal-year__events">
+          <f:for each="{day.events}" as="event">
+            <li class="cal-year__event" style="{event.colorStyle}">
+              <span class="cal-year__event-time"><f:if condition="{event.allday}"><f:then><f:translate key="l_all_day" /></f:then><f:else>{f:format.date(date: event.start, pattern: settings.view.year.timeFormat, locale: settings.dateConfig.locale)}</f:else></f:if></span>
+              <f:if condition="{eventLink.enabled}">
+                <f:then><f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="cal-year__event-title">{event.title}</f:link.action></f:then>
+                <f:else><span class="cal-year__event-title">{event.title}</span></f:else>
+              </f:if>
+            </li>
+          </f:for>
+        </ul>
+      </div>
+    </f:then>
+    <f:else>
+      <span class="{classes}" {f:if(condition: day.current, then: 'aria-current="date"') -> f:format.raw()}><span class="cal-year__num">{day.day}</span></span>
+    </f:else>
+  </f:if>
+</f:section>
+</html>

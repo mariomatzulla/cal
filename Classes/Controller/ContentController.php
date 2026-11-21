@@ -247,7 +247,7 @@ class ContentController extends ActionController
         $prevMonth->modify('-1 month');
         $starttime = clone $getdate;
         $endtime = clone $getdate;
-        $endtime->modify('last day of this month 23:23:59');
+        $endtime->modify('last day of this month 23:59:59');
         $starttime->modify('first day of this month');
         $searchStarttime = clone $starttime;
         $searchStarttime->sub(\DateInterval::createFromDateString((string)($this->settings['view']['month']['startPointCorrection'] ?? '0 days')));
@@ -295,6 +295,86 @@ class ContentController extends ActionController
         return $contentObject instanceof ContentObjectRenderer ? (int)($contentObject->data['uid'] ?? 0) : 0;
     }
 
+    /**
+     * The 12 months of the year view: 6 weeks of 7 days per month, every day of the month with the events
+     * on it (events of several days on every day).
+     *
+     * @param array<object> $events
+     * @return list<array{date: \DateTimeImmutable, year: int, month: int, weeks: list<list<array{date: \DateTimeImmutable, day: int, month: int, year: int, ymd: string, inMonth: bool, current: bool, weekend: bool, events: list<object>}>>}>
+     */
+    protected function buildYearMonths(int $year, array $events): array
+    {
+        $eventsByDay = $this->groupEventsByDay($events, sprintf('%04d0101', $year), sprintf('%04d1231', $year));
+        $today = (new \DateTimeImmutable('today'))->format('Ymd');
+        $months = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $first = new \DateTimeImmutable(sprintf('%04d-%02d-01', $year, $month));
+            $offset = ((int)$first->format('w') - DATE_CALC_BEGIN_WEEKDAY + 7) % 7;
+            $weeks = [];
+            for ($week = 0; $week < 6; $week++) {
+                $days = [];
+                for ($weekday = 0; $weekday < 7; $weekday++) {
+                    $date = $first->modify(sprintf('%+d days', $week * 7 + $weekday - $offset));
+                    $ymd = $date->format('Ymd');
+                    $inMonth = (int)$date->format('n') === $month;
+                    $days[] = [
+                        'date' => $date,
+                        'day' => (int)$date->format('j'),
+                        'month' => (int)$date->format('n'),
+                        'year' => (int)$date->format('Y'),
+                        'ymd' => $ymd,
+                        'inMonth' => $inMonth,
+                        'current' => $ymd === $today,
+                        'weekend' => in_array((int)$date->format('w'), [0, 6], true),
+                        'events' => $inMonth ? ($eventsByDay[$ymd] ?? []) : [],
+                    ];
+                }
+                $weeks[] = $days;
+            }
+            $months[] = ['date' => $first, 'year' => $year, 'month' => $month, 'weeks' => $weeks];
+        }
+        return $months;
+    }
+
+    /**
+     * Events per day (Ymd) between two days: an event of several days is added to every day,
+     * an end at 00:00 belongs to the day before. All-day events first, then by start.
+     *
+     * @param array<object> $events
+     * @return array<string, list<object>>
+     */
+    protected function groupEventsByDay(array $events, string $firstDay, string $lastDay): array
+    {
+        $unique = [];
+        foreach ($events as $event) {
+            $unique[$event->getModelType() . '_' . $event->getUid() . '_' . $event->getStart()->format('YmdHis')] = $event;
+        }
+        $byDay = [];
+        foreach ($unique as $event) {
+            $start = \DateTimeImmutable::createFromFormat('!Ymd', $event->getStart()->format('Ymd'));
+            if ($start === false) {
+                continue;
+            }
+            $end = $event->getEnd();
+            if (!$event->isAllday() && $end->format('YmdHis') > $event->getStart()->format('YmdHis')) {
+                $end = (clone $end)->modify('-1 second');
+            }
+            $lastOfEvent = $end->format('Ymd');
+            for ($day = $start, $i = 0; $day->format('Ymd') <= $lastOfEvent && $i < 400; $day = $day->modify('+1 day'), $i++) {
+                $ymd = $day->format('Ymd');
+                if ($ymd >= $firstDay && $ymd <= $lastDay) {
+                    $byDay[$ymd][] = $event;
+                }
+            }
+        }
+        foreach ($byDay as &$dayEvents) {
+            usort($dayEvents, static fn($a, $b): int => [$a->isAllday() ? 0 : 1, $a->getStart()->format('His'), (string)$a->getTitle()]
+                <=> [$b->isAllday() ? 0 : 1, $b->getStart()->format('His'), (string)$b->getTitle()]);
+        }
+        unset($dayEvents);
+        return $byDay;
+    }
+
     public function yearAction(): ResponseInterface
     {
         $getdate = new CalendarDateTime();
@@ -307,10 +387,13 @@ class ContentController extends ActionController
         $nextYear->modify('+1 year');
         $prevYear = clone $getdate;
         $prevYear->modify('-1 year');
+        // "first day of this year" would be the first day of the current month in PHP
         $starttime = clone $getdate;
+        $starttime->setDate($getdate->getYear(), 1, 1);
+        $starttime->setTime(0, 0, 0);
         $endtime = clone $getdate;
-        $endtime->modify('last day of this year 23:23:59');
-        $starttime->modify('first day of this year');
+        $endtime->setDate($getdate->getYear(), 12, 31);
+        $endtime->setTime(23, 59, 59);
         $searchStarttime = clone $starttime;
         $searchStarttime->sub(\DateInterval::createFromDateString((string)($this->settings['view']['year']['startPointCorrection'] ?? '0 days')));
         $searchEndtime = clone $endtime;
@@ -323,7 +406,11 @@ class ContentController extends ActionController
         $this->view->assign('nextYear', $nextYear);
         $this->view->assign('prevYear', $prevYear);
         $this->view->assign('events', $events);
+        $this->view->assign('months', $this->buildYearMonths($starttime->getYear(), $events));
         $this->view->assign('view', 'year');
+        $this->view->assign('calendarViews', $this->getCalendarViewConfiguration('year'));
+        $this->view->assign('eventLink', $this->getEventLinkConfiguration());
+        $this->view->assign('contentUid', $this->getContentUid());
         $this->addToAllViews();
         return $this->htmlResponse();
     }
@@ -346,7 +433,7 @@ class ContentController extends ActionController
 
         $starttime = CalculateDateTime::getDayByWeek($getdate->getYear(), $getdate->getWeekOfYear(), DATE_CALC_BEGIN_WEEKDAY);
         $endtime = clone $getdate;
-        $endtime->modify('+6 days 23:23:59');
+        $endtime->modify('+6 days 23:59:59');
         $searchStarttime = clone $starttime;
         $searchStarttime->sub(\DateInterval::createFromDateString((string)($this->settings['view']['week']['startPointCorrection'] ?? '0 days')));
         $searchEndtime = clone $endtime;

@@ -1,0 +1,79 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Hover of the year view: shows the events of a day (popover="manual" in the top layer, not clipped by the card)
+  next to the day while the pointer or the keyboard focus is on it. The pointer can move into the box (links to the events).
+</f:comment>
+<script>
+  (function (section) {
+    if (!section || section.dataset.calYearReady || !HTMLElement.prototype.showPopover) {
+      return;
+    }
+    section.dataset.calYearReady = '1';
+    var open = null;
+    var hideTimer = null;
+
+    function place(trigger, box) {
+      var gap = 6;
+      var rect = trigger.getBoundingClientRect();
+      var width = box.offsetWidth;
+      var height = box.offsetHeight;
+      var left = Math.min(Math.max(gap, rect.left + rect.width / 2 - width / 2), window.innerWidth - width - gap);
+      var top = rect.bottom + gap;
+      if (top + height > window.innerHeight - gap && rect.top - gap - height > gap) {
+        top = rect.top - gap - height;
+      }
+      box.style.left = left + 'px';
+      box.style.top = top + 'px';
+    }
+    function show(trigger) {
+      var box = document.getElementById(trigger.getAttribute('data-cal-tooltip'));
+      if (!box) {
+        return;
+      }
+      clearTimeout(hideTimer);
+      if (open && open !== box) {
+        open.hidePopover();
+      }
+      if (open !== box) {
+        box.showPopover();
+        open = box;
+      }
+      place(trigger, box);
+    }
+    function hideSoon() {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        if (open) {
+          open.hidePopover();
+          open = null;
+        }
+      }, 150);
+    }
+
+    section.querySelectorAll('[data-cal-tooltip]').forEach(function (trigger) {
+      trigger.addEventListener('mouseenter', function () { show(trigger); });
+      trigger.addEventListener('focus', function () { show(trigger); });
+      trigger.addEventListener('mouseleave', hideSoon);
+      trigger.addEventListener('blur', hideSoon);
+    });
+    section.querySelectorAll('.cal-year__popover').forEach(function (box) {
+      box.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+      box.addEventListener('mouseleave', hideSoon);
+      box.addEventListener('focusin', function () { clearTimeout(hideTimer); });
+      box.addEventListener('focusout', hideSoon);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && open) {
+        open.hidePopover();
+        open = null;
+      }
+    });
+    window.addEventListener('scroll', function () {
+      if (open) {
+        open.hidePopover();
+        open = null;
+      }
+    }, {passive: true});
+  })(document.currentScript && document.currentScript.closest('[data-cal-year]'));
+</script>
+</html>
