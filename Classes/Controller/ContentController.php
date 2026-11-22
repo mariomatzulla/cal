@@ -13,6 +13,7 @@ use MarioMatzulla\Cal\Model\CalendarDateTime;
 use MarioMatzulla\Cal\Utility\CalculateDateTime;
 use MarioMatzulla\Cal\Utility\HelperFunctions;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -34,9 +35,11 @@ class ContentController extends ActionController
     use \MarioMatzulla\Cal\General;
 
     /**
-     * @var array
+     * Storage folders of the records (settings pidList / recursive), null: not resolved yet
+     *
+     * @var array<int>|null
      */
-    protected $pids =  [];
+    private ?array $storagePageIds = null;
 
     /**
      * Initializes the settings for every action. Runs after the request has been set,
@@ -52,52 +55,19 @@ class ContentController extends ActionController
     }
 
     /**
-     * @return array
+     * Detail views with an own page (view.<view>.<view>ViewPid) can be linked to,
+     * even if they are not allowed in this plugin.
+     *
+     * @return list<string>
      */
     protected function getAllowedViewsByViewPid(): array
     {
-        // for now, ownly check basic views.
-        $allowedViews = [ ];
-        $regularViews = [
-
-            'day',
-            'week',
-            'month',
-            'year',
-            'list',
-            'event',
-            'location',
-            'organizer',
-        ];
-        $feEditingViews = [
-
-            'event',
-            'location',
-            'organizer',
-            'calendar',
-            'category',
-        ];
-        $editingTypes = [
-
-            'create',
-            'edit',
-            'delete',
-        ];
-
-        foreach ($regularViews as $view) {
-            if (isset($this->settings ['view'] [$view] [$view . 'ViewPid']) && $this->settings ['view'] [$view] [$view . 'ViewPid'] != '') {
+        $allowedViews = [];
+        foreach (['event', 'location', 'organizer'] as $view) {
+            if ((string)($this->settings ['view'] [$view] [$view . 'ViewPid'] ?? '') !== '') {
                 $allowedViews [] = $view;
             }
         }
-
-        foreach ($feEditingViews as $view) {
-            foreach ($editingTypes as $type) {
-                if ($this->settings ['view'] [$view] [$type . ucfirst($view) . 'ViewPid'] ?? false) {
-                    $allowedViews [] = $type . '_' . $view;
-                }
-            }
-        }
-
         return $allowedViews;
     }
 
@@ -517,6 +487,26 @@ class ContentController extends ActionController
      *
      * @return array{0: array<int>, 1: array<int>} [calendars to show, calendars to exclude]
      */
+    /**
+     * Page ids of the storage folders: plugin.tx_cal.settings.pidList (comma separated) and their
+     * subpages up to plugin.tx_cal.settings.recursive levels. Empty: records of all pages.
+     *
+     * @return array<int>
+     */
+    protected function getStoragePageIds(): array
+    {
+        if ($this->storagePageIds === null) {
+            $pageIds = array_map('intval', HelperFunctions::trimExplode((string)($this->settings['pidList'] ?? '')));
+            $pageIds = array_values(array_unique(array_filter($pageIds, static fn(int $uid): bool => $uid > 0)));
+            $depth = max(0, (int)($this->settings['recursive'] ?? 0));
+            if ($pageIds !== [] && $depth > 0) {
+                $pageIds = array_map('intval', GeneralUtility::makeInstance(PageRepository::class)->getPageIdsRecursive($pageIds, $depth));
+            }
+            $this->storagePageIds = $pageIds;
+        }
+        return $this->storagePageIds;
+    }
+
     protected function getCalendarFilter(): array
     {
         $mode = (int)($this->settings['view']['calendarMode'] ?? 0);
@@ -535,7 +525,7 @@ class ContentController extends ActionController
     protected function fetchEvents(\DateTime $start, \DateTime $end)
     {
         [$calendarIds, $excludedCalendarIds] = $this->getCalendarFilter();
-        $events = $this->eventDispatcher->dispatch(new SearchEventsEvent($start, $end, $calendarIds, $excludedCalendarIds))->getEvents();
+        $events = $this->eventDispatcher->dispatch(new SearchEventsEvent($start, $end, $calendarIds, $excludedCalendarIds, $this->getStoragePageIds()))->getEvents();
         if (count($events) > 0) {
             $events = $this->filterEvents($events);
         }
@@ -545,7 +535,7 @@ class ContentController extends ActionController
     protected function fetchEvent(string $type, int $uid, CalendarDateTime $getdate)
     {
         [$calendarIds, $excludedCalendarIds] = $this->getCalendarFilter();
-        $event = $this->eventDispatcher->dispatch(new GetEventEvent($type, $uid, $getdate, $calendarIds, $excludedCalendarIds))->getEvent();
+        $event = $this->eventDispatcher->dispatch(new GetEventEvent($type, $uid, $getdate, $calendarIds, $excludedCalendarIds, $this->getStoragePageIds()))->getEvent();
         if ($event != null) {
             $events = $this->filterEvents([$event]);
             if (count($events) > 0) {
@@ -610,12 +600,12 @@ class ContentController extends ActionController
 
     protected function fetchLocation(string $type, int $uid)
     {
-        return $this->eventDispatcher->dispatch(new GetLocationEvent($type, $uid))->getLocation();
+        return $this->eventDispatcher->dispatch(new GetLocationEvent($type, $uid, $this->getStoragePageIds()))->getLocation();
     }
 
     protected function fetchOrganizer(string $type, int $uid)
     {
-        return $this->eventDispatcher->dispatch(new GetOrganizerEvent($type, $uid))->getOrganizer();
+        return $this->eventDispatcher->dispatch(new GetOrganizerEvent($type, $uid, $this->getStoragePageIds()))->getOrganizer();
     }
 
     /**

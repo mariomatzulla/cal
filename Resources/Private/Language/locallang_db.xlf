@@ -907,9 +907,6 @@
 			<trans-unit id="l_duration" resname="l_duration" >
 				<source>Duration</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_calendar_subscription" resname="tx_cal_calendar_subscription" >
-				<source>Deselected calendar subscription</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.isTemp" resname="tx_cal_event.isTemp">
 				<source>Imported from external calendar (temp)</source>
 			</trans-unit>

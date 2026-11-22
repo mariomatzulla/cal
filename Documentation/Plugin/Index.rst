@@ -62,15 +62,15 @@ Filters
 
 ..  _plugin-views:
 
-Year, Month, Week and Day View
-==============================
+Day and Week View
+=================
 
-:guilabel:`Day start time`, :guilabel:`Day endtime` (tab "Day View")
+:guilabel:`Day start time`, :guilabel:`Day endtime`
     The time range of the time grid of the week and day view. Default 07:00 to
     23:00. Events outside of the range are cut at the start or end of the
     grid, see `view.day.extendGridToEvents` in :ref:`typoscript-day`.
 
-:guilabel:`Show divider every x minutes` (tab "Day View")
+:guilabel:`Show divider every x minutes`
     Lines of the time grid.
 
 ..  _plugin-list:
@@ -122,19 +122,6 @@ TypoScript for this plugin only. It is relative to `plugin.tx_cal.settings`:
 
     view.day.dayStart = 080000
     view.list.event.card.descriptionLength = 120
-
-..  _plugin-unused:
-
-Fields without function
-=======================
-
-Some fields of the plugin form are taken over from cal 1.x and have no
-function in cal 4 yet: :guilabel:`Calendar name`, :guilabel:`Subscription`,
-:guilabel:`Week start day`, :guilabel:`Distance (Km) ...`, the page fields of the year, month, week, day and
-list view, :guilabel:`Show list view` and :guilabel:`Display as a mini calendar`
-(month view), :guilabel:`Max instances of the same recurring event`, the page
-browser options of the list view, :guilabel:`Show preview` (event view) and
-the tab :guilabel:`Other View`. See :ref:`known-issues`.
 
 ..  _plugin-ignore-flexform:
 

@@ -105,28 +105,10 @@ trait General
     protected function mergeSettingsWithFlexformValues($piFlexForm)
     {
 
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['calendarName']) || $this->settings ['dontListenToFlexForm'] ['general'] ['calendarName'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['calendarName'], $piFlexForm ['calendarName']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['allowSubscribe']) || $this->settings ['dontListenToFlexForm'] ['general'] ['allowSubscribe'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['allowSubscribe'], $piFlexForm ['subscription'] == 1 ? 1 : - 1);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['subscribeFeUser']) || $this->settings ['dontListenToFlexForm'] ['general'] ['subscribeFeUser'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['subscribeFeUser'], $piFlexForm ['subscription'] == 2 ? 1 : - 1);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['subscribeWithCaptcha']) || $this->settings ['dontListenToFlexForm'] ['general'] ['subscribeWithCaptcha'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['subscribeWithCaptcha'], $piFlexForm ['subscribeWithCaptcha']);
-        }
         if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['allowedViews']) || $this->settings ['dontListenToFlexForm'] ['general'] ['allowedViews'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['allowedViews'], $piFlexForm ['allowedViews']);
         }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['calendarDistance']) || $this->settings ['dontListenToFlexForm'] ['general'] ['calendarDistance'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['calendar'] ['nearbyDistance'], (int)($piFlexForm ['calendarDistance']));
-        }
 
-        if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['dayViewPid']) || $this->settings ['dontListenToFlexForm'] ['day'] ['dayViewPid'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['day'] ['dayViewPid'], $piFlexForm ['dayViewPid']);
-        }
         if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['dayStart']) || $this->settings ['dontListenToFlexForm'] ['day'] ['dayStart'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['day'] ['dayStart'], $piFlexForm ['dayStart']);
         }
@@ -136,34 +118,11 @@ trait General
         if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['gridLength']) || $this->settings ['dontListenToFlexForm'] ['day'] ['gridLength'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['day'] ['gridLength'], $piFlexForm ['gridLength']);
         }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['weekViewPid']) || $this->settings ['dontListenToFlexForm'] ['day'] ['weekViewPid'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['week'] ['weekViewPid'], $piFlexForm ['weekViewPid']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['month'] ['monthViewPid']) || $this->settings ['dontListenToFlexForm'] ['month'] ['monthViewPid'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['month'] ['monthViewPid'], $piFlexForm ['monthViewPid']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['month'] ['monthMakeMiniCal']) || $this->settings ['dontListenToFlexForm'] ['month'] ['monthMakeMiniCal'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['month'] ['monthMakeMiniCal'], $piFlexForm ['monthMakeMiniCal']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['month'] ['monthShowListView']) || $this->settings ['dontListenToFlexForm'] ['month'] ['monthShowListView'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['month'] ['showListInMonthView'], $piFlexForm ['monthShowListView']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['year'] ['yearViewPid']) || $this->settings ['dontListenToFlexForm'] ['year'] ['yearViewPid'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['year'] ['yearViewPid'], $piFlexForm ['yearViewPid']);
-        }
 
         if (! isset($this->settings ['dontListenToFlexForm'] ['event'] ['eventViewPid']) || $this->settings ['dontListenToFlexForm'] ['event'] ['eventViewPid'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['event'] ['eventViewPid'], $piFlexForm ['eventViewPid']);
         }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['event'] ['isPreview']) || $this->settings ['dontListenToFlexForm'] ['event'] ['isPreview'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['event'] ['isPreview'], $piFlexForm ['isPreview']);
-        }
 
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['listViewPid']) || $this->settings ['dontListenToFlexForm'] ['list'] ['listViewPid'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['listViewPid'], $piFlexForm ['listViewPid']);
-        }
         if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['starttime']) || $this->settings ['dontListenToFlexForm'] ['list'] ['starttime'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['list'] ['starttime'], $piFlexForm ['starttime']);
         }
@@ -176,40 +135,9 @@ trait General
         if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['maxEvents']) || $this->settings ['dontListenToFlexForm'] ['list'] ['maxEvents'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['list'] ['maxEvents'], $piFlexForm ['maxEvents']);
         }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['maxRecurringEvents']) || $this->settings ['dontListenToFlexForm'] ['list'] ['maxRecurringEvents'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['maxRecurringEvents'], $piFlexForm ['maxRecurringEvents']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['usePageBrowser']) || $this->settings ['dontListenToFlexForm'] ['list'] ['usePageBrowser'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['pageBrowser'] ['usePageBrowser'], $piFlexForm ['usePageBrowser']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['recordsPerPage']) || $this->settings ['dontListenToFlexForm'] ['list'] ['recordsPerPage'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['pageBrowser'] ['recordsPerPage'], $piFlexForm ['recordsPerPage']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['pagesCount']) || $this->settings ['dontListenToFlexForm'] ['list'] ['pagesCount'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['pageBrowser'] ['pagesCount'], $piFlexForm ['pagesCount']);
-        }
 
         if (! isset($this->settings ['dontListenToFlexForm'] ['ics'] ['showIcsLinks']) || $this->settings ['dontListenToFlexForm'] ['ics'] ['showIcsLinks'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['ics'] ['showIcsLinks'], $piFlexForm ['showIcsLinks']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['other'] ['showLogin']) || $this->settings ['dontListenToFlexForm'] ['other'] ['showLogin'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['other'] ['showLogin'], $piFlexForm ['showLogin']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['other'] ['showSearch']) || $this->settings ['dontListenToFlexForm'] ['other'] ['showSearch'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['other'] ['showSearch'], $piFlexForm ['showSearch']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['other'] ['showJumps']) || $this->settings ['dontListenToFlexForm'] ['other'] ['showJumps'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['other'] ['showJumps'], $piFlexForm ['showJumps']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['other'] ['showCalendarSelection']) || $this->settings ['dontListenToFlexForm'] ['other'] ['showCalendarSelection'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['other'] ['showCalendarSelection'], $piFlexForm ['showCalendarSelection']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['other'] ['showCategorySelection']) || $this->settings ['dontListenToFlexForm'] ['other'] ['showCategorySelection'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['other'] ['showCategorySelection'], $piFlexForm ['showCategorySelection']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['other'] ['showTomorrowEvents']) || $this->settings ['dontListenToFlexForm'] ['other'] ['showTomorrowEvents'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['other'] ['showTomorrowEvents'], $piFlexForm ['showTomorrowEvents']);
         }
 
         if (! isset($this->settings ['dontListenToFlexForm'] ['filters'] ['categorySelection']) || $this->settings ['dontListenToFlexForm'] ['filters'] ['categorySelection'] !== 1) {

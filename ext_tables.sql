@@ -146,8 +146,7 @@ CREATE TABLE tx_cal_domain_model_location (
 );
 
 CREATE TABLE fe_users (
-	tx_cal_calendar VARCHAR(255) DEFAULT '' NOT NULL,
-	tx_cal_calendar_subscription VARCHAR(255) DEFAULT '' NOT NULL
+	tx_cal_calendar VARCHAR(255) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE tx_cal_domain_model_attendee (

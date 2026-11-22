@@ -3,13 +3,11 @@ config.cache_clearAtMidnight = 1
 # Settings of the calendar plugin. Extbase merges them with plugin.tx_cal_controller.settings
 # (plugin specific) into $this->settings. Former path (cal < 4): plugin.tx_cal_controller.*
 plugin.tx_cal.settings {
-	# List of page ids containing cal records
+	# Storage folders: comma separated page ids containing the events, locations and organizers.
+	# Empty: records of all pages. The plugin can override it in its TypoScript field.
 	pidList = {$plugin.tx_cal.settings.pidList}
-
-	# Visitors may subscribe to events (also FlexForm)
-	allowSubscribe = 1
-	# Logged in frontend users may subscribe with their account (also FlexForm)
-	subscribeFeUser = 0
+	# Number of subpage levels of the storage folders to include as well
+	recursive = {$plugin.tx_cal.settings.recursive}
 
 	# 1 = FlexForm values do not override TypoScript
 	dontListenToFlexForm = 0
@@ -40,13 +38,8 @@ plugin.tx_cal.settings {
 			wrap = <a href="javascript:history.back()">|</a>
 		}
 
-		calendar {
-			nearbyDistance = 50
-		}
-
 		event {
 			eventViewPid =
-			isPreview = 0
 			# Own Fluid template for the event view, e.g. fileadmin/templates/cal/event/my_event.html
 			templateFile =
 			event {
@@ -90,7 +83,6 @@ plugin.tx_cal.settings {
 		}
 
 		day {
-			dayViewPid =
 			dayStart = 070000
 			dayEnd = 230000
 			gridLength = 30
@@ -107,7 +99,6 @@ plugin.tx_cal.settings {
 		}
 
 		week {
-			weekViewPid =
 			startPointCorrection = 6 days
 			endPointCorrection = 6 days
 			dateFormatWeekList = EEEEEE dd. MM
@@ -122,11 +113,8 @@ plugin.tx_cal.settings {
 		}
 
 		month {
-			monthViewPid =
 			startPointCorrection = 518400 seconds
 			endPointCorrection = 518400 seconds
-			monthMakeMiniCal = 0
-			showListInMonthView = 0
 			weekdayFormatMediumMonth = EEE
 			weekdayFormatLargeMonth = EEE
 			monthOffStyle = monthOff
@@ -136,7 +124,6 @@ plugin.tx_cal.settings {
 		}
 
 		year {
-			yearViewPid =
 			startPointCorrection = 6 days
 			endPointCorrection = 6 days
 			dateFormatMonth = MMMM
@@ -147,11 +134,9 @@ plugin.tx_cal.settings {
 		}
 
 		list {
-			listViewPid =
 			starttime = now
 			endtime = +1 month
 			maxEvents = 100
-			maxRecurringEvents =
 			heading.dateFormat = MMMM yyyy
 			# Own Fluid template for the list view, e.g. fileadmin/templates/cal/list/my_list.html
 			templateFile =
@@ -178,11 +163,6 @@ plugin.tx_cal.settings {
 					thumbnailHeight = 80c
 				}
 			}
-			pageBrowser {
-				usePageBrowser = 1
-				recordsPerPage = 10
-				pagesCount =
-			}
 		}
 
 		# Size of the enlarged images in the lightbox (event and list view, see EXT:ns_all_lightbox)
@@ -195,15 +175,6 @@ plugin.tx_cal.settings {
 			showIcsLinks = {$plugin.tx_cal.settings.view.ics.showIcsLinks}
 			typeNum = {$plugin.tx_cal.settings.view.ics.typeNum}
 			eventUidPrefix = {$plugin.tx_cal.settings.view.ics.eventUidPrefix}
-		}
-
-		other {
-			showLogin = 0
-			showSearch = 0
-			showCategorySelection = 0
-			showCalendarSelection = 0
-			showTomorrowEvents = 0
-			showJumps = 0
 		}
 	}
 }

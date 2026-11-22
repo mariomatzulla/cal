@@ -14,10 +14,17 @@ categories:
 settings:
   plugin.tx_cal.settings.pidList:
     label: 'Storage folders'
-    description: 'Comma separated list of page ids containing cal records.'
+    description: 'Comma separated list of page ids containing the events, locations and organizers. Empty: records of all pages.'
     category: cal.general
     type: string
     default: ''
+
+  plugin.tx_cal.settings.recursive:
+    label: 'Recursion levels of the storage folders'
+    description: 'Subpages of the storage folders up to this level are included as well (0 = only the folders).'
+    category: cal.general
+    type: int
+    default: 0
 
   plugin.tx_cal.settings.singleMaxW:
     label: 'Max. image width (single view)'

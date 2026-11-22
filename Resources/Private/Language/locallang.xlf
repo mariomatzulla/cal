@@ -1272,9 +1272,6 @@
 			<trans-unit id="l_remind_minutes_2" resname="l_remind_minutes_2" >
 				<source> minutes before start&lt;/span&gt;</source>
 			</trans-unit>
-			<trans-unit id="l_calendar_subscription" resname="l_calendar_subscription" >
-				<source>Manage calendar subscription</source>
-			</trans-unit>
 			<trans-unit id="l_color" resname="l_color" >
 				<source>Color</source>
 			</trans-unit>

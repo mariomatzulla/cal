@@ -54,7 +54,10 @@ final class GetLocationEvent implements StoppableEventInterface
         return $this->uid;
     }
 
-    public function __construct(string $type, int $uid)
+    /**
+     * @param array<int> $storagePageIds only records stored in these pages (empty: no limitation)
+     */
+    public function __construct(string $type, int $uid, protected array $storagePageIds = [])
     {
         $this->type = $type;
         $this->uid = $uid;
@@ -74,5 +77,15 @@ final class GetLocationEvent implements StoppableEventInterface
     public function setLocation($location)
     {
         $this->location = $location;
+    }
+
+    /**
+     * Page ids of the storage folders (plugin.tx_cal.settings.pidList), empty: no limitation
+     *
+     * @return array<int>
+     */
+    public function getStoragePageIds(): array
+    {
+        return $this->storagePageIds;
     }
 }

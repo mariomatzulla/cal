@@ -29,7 +29,7 @@ final class OrganizerService extends BaseService
     private function getOrganizer(GetOrganizerEvent $event): void
     {
         if ($event->getType() == 'tx_cal_organizer') {
-            $foundOrganizer = $this->organizerRepository->findOrganizer($event->getUid())->toArray();
+            $foundOrganizer = $this->organizerRepository->findOrganizer($event->getUid(), $event->getStoragePageIds())->toArray();
             if (!empty($foundOrganizer)) {
                 $event->setOrganizer($foundOrganizer[0]);
                 $event->stopPropagation();

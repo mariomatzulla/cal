@@ -50,7 +50,8 @@ Sites without site sets include the static TypoScript templates
 "Calendar Base (cal)" and "Calendar Base (cal): default styles" in their
 TypoScript record instead.
 
-The site set has settings for the image sizes, the time format and the options of the iCalendar download, see :ref:`typoscript`.
+The site set has settings for the storage folders, the image sizes, the time
+format and the options of the iCalendar download, see :ref:`typoscript`.
 
 ..  _installation-records:
 
@@ -72,7 +73,10 @@ Add the plugin
     the default view.
 #.  Optionally select the calendars and categories on the tab
     :guilabel:`Filters`. Without a selection the plugin shows the events of
-    all calendars, independent of the folder they are stored in.
+    all calendars.
+#.  Optionally limit the plugin to the folder of the records with the site
+    setting :guilabel:`Storage folders` (`pidList`), see
+    :ref:`typoscript-general`.
 
 See :ref:`plugin` for all options.
 

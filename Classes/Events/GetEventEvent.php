@@ -100,8 +100,9 @@ final class GetEventEvent implements StoppableEventInterface
     /**
      * @param array<int> $calendarIds only events of these calendars (empty: no limitation)
      * @param array<int> $excludedCalendarIds never events of these calendars
+     * @param array<int> $storagePageIds only events stored in these pages (empty: no limitation)
      */
-    public function __construct(string $type, int $uid, CalendarDateTime $date, array $calendarIds, protected array $excludedCalendarIds = [])
+    public function __construct(string $type, int $uid, CalendarDateTime $date, array $calendarIds, protected array $excludedCalendarIds = [], protected array $storagePageIds = [])
     {
         $this->type = $type;
         $this->uid = $uid;
@@ -115,5 +116,15 @@ final class GetEventEvent implements StoppableEventInterface
     public function getExcludedCalendarIds(): array
     {
         return $this->excludedCalendarIds;
+    }
+
+    /**
+     * Page ids of the storage folders (plugin.tx_cal.settings.pidList), empty: no limitation
+     *
+     * @return array<int>
+     */
+    public function getStoragePageIds(): array
+    {
+        return $this->storagePageIds;
     }
 }

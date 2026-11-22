@@ -34,6 +34,8 @@ are used by the TypoScript below.
 ========================================  ==========  ===============  =====================================
 Setting                                   Type        Default          Description
 ========================================  ==========  ===============  =====================================
+`plugin.tx_cal.settings.pidList`          string      (empty)          Storage folders, see below
+`plugin.tx_cal.settings.recursive`        int         0                Recursion levels of the storage folders
 `plugin.tx_cal.settings.singleMaxW`       int         1400             Width of the images of the event view
 `plugin.tx_cal.settings.listMaxW`         int         400              Width of the further images
 `plugin.tx_cal.settings.view.timeFormat`  string      `HH:mm`          Time format of all views
@@ -45,6 +47,18 @@ Setting                                   Type        Default          Descripti
 
 General
 =======
+
+`pidList`
+    Storage folders: comma separated page ids of the folders containing the
+    events, locations and organizers. Only records of these folders are shown.
+    Empty (default): records of all pages.
+
+`recursive`
+    The subpages of the storage folders up to this number of levels are
+    included as well. Default `0`: only the folders themselves.
+
+    Different plugins can use different folders with the TypoScript field of
+    the plugin, e.g. `pidList = 12,13`.
 
 `view.allowedViews`
     Comma separated list of the allowed views, the first one is the default

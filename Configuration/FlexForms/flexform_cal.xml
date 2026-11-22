@@ -56,81 +56,6 @@
 								<itemListStyle>width:150px</itemListStyle>
 							</config>
 					</allowedViews>
-					<calendarName>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.calendarName</label>
-							<config>
-								<type>input</type>
-								<default>My Calendar</default>
-								<size>15</size>
-								<max>40</max>
-							</config>
-					</calendarName>
-					<subscription>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.subscrition</label>
-							<config>
-								<type>select</type>
-								<renderType>selectSingle</renderType>
-								<items type="array">
-									<numIndex index="0">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.noSubscription</label>
-										<value></value>
-									</numIndex>
-									<numIndex index="1">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.allowSubscribe</label>
-										<value>1</value>
-									</numIndex>
-									<numIndex index="2">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.subscribeFeUser</label>
-										<value>2</value>
-									</numIndex>
-								</items>
-								<minitems>0</minitems>
-								<maxitems>1</maxitems>
-								<default>0</default>
-								<size>1</size>
-							</config>
-					</subscription>
-					<subscribeWithCaptcha>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.subscribeWithCaptcha</label>
-							<config>
-								<type>check</type>
-							</config>
-					</subscribeWithCaptcha>
-					<weekStartDay>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.weekStartDay</label>
-							<config>
-								<type>select</type>
-								<renderType>selectSingle</renderType>
-								<items type="array">
-									<numIndex index="0">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.default</label>
-										<value></value>
-									</numIndex>
-									<numIndex index="1">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_daysofweek_lang_monday</label>
-										<value>Monday</value>
-									</numIndex>
-									<numIndex index="2">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_daysofweek_lang_sunday</label>
-										<value>Sunday</value>
-									</numIndex>
-								</items>
-								<minitems>0</minitems>
-								<maxitems>1</maxitems>
-								<size>1</size>
-							</config>
-					</weekStartDay>
-					<calendarDistance>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.calendarDistance</label>
-							<config>
-								<type>input</type>
-								<default>50</default>
-								<size>10</size>
-								<max>5</max>
-							</config>
-					</calendarDistance>
 				</el>
 			</ROOT>
 			<!-- xXX offset -->
@@ -233,101 +158,11 @@
 				</el>
 			</ROOT>
 		</s_Cat>
-		<s_Year_View>
-			<ROOT>
-					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetYearView</sheetTitle>
-				<type>array</type>
-				<el>
-					<yearViewPid>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.yearViewPid</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<minitems>0</minitems>
-								<show_thumbs>1</show_thumbs>
-							</config>
-					</yearViewPid>
-				</el>
-			</ROOT>
-		</s_Year_View>
-		<s_Month_View>
-			<ROOT>
-					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetMonthView</sheetTitle>
-				<type>array</type>
-				<el>
-					<monthViewPid>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.monthViewPid</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<minitems>0</minitems>
-								<show_thumbs>1</show_thumbs>
-							</config>
-					</monthViewPid>
-					<monthShowListView>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.monthShowListView</label>
-							<config>
-								<type>check</type>
-							</config>
-					</monthShowListView>
-					<monthMakeMiniCal>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.monthMakeMiniCal</label>
-							<config>
-								<type>check</type>
-							</config>
-					</monthMakeMiniCal>
-				</el>
-			</ROOT>
-		</s_Month_View>
-		<s_Week_View>
-			<ROOT>
-					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetWeekView</sheetTitle>
-				<type>array</type>
-				<el>
-					<weekViewPid>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.weekViewPid</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<minitems>0</minitems>
-								<show_thumbs>1</show_thumbs>
-							</config>
-					</weekViewPid>
-				</el>
-			</ROOT>
-		</s_Week_View>
 		<s_Day_View>
 			<ROOT>
 					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetDayView</sheetTitle>
 				<type>array</type>
 				<el>
-					<dayViewPid>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.dayViewPid</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<minitems>0</minitems>
-								<show_thumbs>1</show_thumbs>
-							</config>
-					</dayViewPid>
 					<dayStart>
 							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.dayStart</label>
 							<config>
@@ -416,19 +251,6 @@
 					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetListView</sheetTitle>
 				<type>array</type>
 				<el>
-					<listViewPid>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listViewPid</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<minitems>0</minitems>
-								<show_thumbs>1</show_thumbs>
-							</config>
-					</listViewPid>
 					<starttime>
 							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.starttime</label>
 							<config>
@@ -538,57 +360,6 @@
 								<max>5</max>
 							</config>
 					</maxEvents>
-					<maxRecurringEvents>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.maxRecurringEvents</label>
-							<config>
-								<type>input</type>
-								<default />
-								<size>5</size>
-								<max>5</max>
-							</config>
-					</maxRecurringEvents>
-					<usePageBrowser>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.usePageBrowser</label>
-							<config>
-								<type>select</type>
-								<renderType>selectSingle</renderType>
-								<items type="array">
-									<numIndex index="0">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.default</label>
-										<value></value>
-									</numIndex>
-									<numIndex index="1">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.usePageBrowser.use</label>
-										<value>1</value>
-									</numIndex>
-									<numIndex index="2">
-										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.usePageBrowser.dontUse</label>
-										<value>0</value>
-									</numIndex>
-								</items>
-								<minitems>0</minitems>
-								<maxitems>1</maxitems>
-								<default></default>
-							</config>
-					</usePageBrowser>
-					<recordsPerPage>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.recordsPerPage</label>
-							<config>
-								<type>input</type>
-								<default />
-								<size>5</size>
-								<max>5</max>
-							</config>
-					</recordsPerPage>
-					<pagesCount>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.pagesCount</label>
-							<config>
-								<type>input</type>
-								<default />
-								<size>5</size>
-								<max>5</max>
-							</config>
-					</pagesCount>
 					<showAllImages>
 							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.showAllImages</label>
 							<description>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.listView.showAllImages.description</description>
@@ -633,13 +404,6 @@
 								<show_thumbs>1</show_thumbs>
 							</config>
 					</eventViewPid>
-					<isPreview>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.isPreview</label>
-							<config>
-								<type>check</type>
-							</config>
-					</isPreview>
 				</el>
 			</ROOT>
 		</s_Event_View>
@@ -657,56 +421,6 @@
 				</el>
 			</ROOT>
 		</s_Ics_View>
-		<s_Other_View>
-			<ROOT>
-					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetOtherView</sheetTitle>
-				<type>array</type>
-				<el>
-					<showLogin>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.showLogin</label>
-							<config>
-								<type>check</type>
-							</config>
-					</showLogin>
-					<showSearch>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.showSearch</label>
-							<config>
-								<type>check</type>
-							</config>
-					</showSearch>
-					<showJumps>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.showJumps</label>
-							<config>
-								<type>check</type>
-							</config>
-					</showJumps>
-					<showCalendarSelection>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.showCalendarSelection</label>
-							<config>
-								<type>check</type>
-							</config>
-					</showCalendarSelection>
-					<showCategorySelection>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.showCategorySelection</label>
-							<config>
-								<type>check</type>
-							</config>
-					</showCategorySelection>
-					<showTomorrowEvents>
-							<exclude>1</exclude>
-							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.showTomorrowEvents</label>
-							<config>
-								<type>check</type>
-							</config>
-					</showTomorrowEvents>
-				</el>
-			</ROOT>
-		</s_Other_View>
 		<s_TS_View>
 			<ROOT>
 					<sheetTitle>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.sheetTSView</sheetTitle>

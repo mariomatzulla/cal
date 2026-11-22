@@ -45,8 +45,9 @@ final class SearchEventsEvent
     /**
      * @param array<int> $calendarIds only events of these calendars (empty: no limitation)
      * @param array<int> $excludedCalendarIds never events of these calendars
+     * @param array<int> $storagePageIds only events stored in these pages (empty: no limitation)
      */
-    public function __construct(\DateTime $start, \DateTime $end, array $calendarIds, protected array $excludedCalendarIds = [])
+    public function __construct(\DateTime $start, \DateTime $end, array $calendarIds, protected array $excludedCalendarIds = [], protected array $storagePageIds = [])
     {
         $this->start = $start;
         $this->end = $end;
@@ -84,5 +85,15 @@ final class SearchEventsEvent
     public function getCalendarIds()
     {
         return $this->calendarIds;
+    }
+
+    /**
+     * Page ids of the storage folders (plugin.tx_cal.settings.pidList), empty: no limitation
+     *
+     * @return array<int>
+     */
+    public function getStoragePageIds(): array
+    {
+        return $this->storagePageIds;
     }
 }

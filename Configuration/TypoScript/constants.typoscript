@@ -3,6 +3,8 @@
 plugin.tx_cal.settings {
 	# cat=Calendar Base/general/10; type=string; label=Storage folders: Comma separated list of page ids containing cal records
 	pidList =
+	# cat=Calendar Base/general/20; type=int+; label=Recursion levels of the storage folders
+	recursive = 0
 	# cat=Calendar Base/display/10; type=int+; label=Max. image width (single view)
 	singleMaxW = 1400
 	# cat=Calendar Base/display/20; type=int+; label=Max. image width (further images)

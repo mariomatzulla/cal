@@ -22,6 +22,18 @@ Breaking changes
 *   The location and organizer views use the CSS class `record-view` (formerly
     `place-card` / `profile-card`), the description of organizers the class
     `description` (formerly `bio`).
+*   Removed plugin fields and TypoScript settings without function (taken
+    over from cal 1.x): calendar name, subscription (`allowSubscribe`,
+    `subscribeFeUser`, `subscribeWithCaptcha`), week start day, distance of
+    nearby calendars (`view.calendar.nearbyDistance`), the pages of the year,
+    month, week, day and list view (`view.<view>.<view>ViewPid`), mini calendar
+    and list in the month view (`monthMakeMiniCal`, `showListInMonthView`),
+    `view.list.maxRecurringEvents`, the page browser (`view.list.pageBrowser`),
+    `view.event.isPreview` and the tab "Other View" (`view.other.*`). The tabs
+    "Year View", "Month View" and "Week View" are removed, the tab "Day View"
+    is now "Day and Week View". Values stored in existing plugins are ignored.
+*   Removed the unused field `tx_cal_calendar_subscription` of frontend users.
+    Remove the column with "Analyze Database Structure".
 
 Features
 ========
@@ -37,10 +49,14 @@ Features
     :file:`EXT:cal/Configuration/Routes/Cal.yaml` and URL segments of events,
     locations and organizers, see :ref:`speaking-urls`.
 *   Category colors with priority.
+*   Storage folders: `plugin.tx_cal.settings.pidList` limits the events,
+    locations and organizers to these folders, `recursive` includes their
+    subpages.
 *   CSS custom properties for an own design, see :ref:`styling`.
 *   Import of external calendars and ICS files with automatically created
     scheduler tasks.
-*   CalDAV server at :samp:`<site base>/caldav`.
+*   CalDAV server at :samp:`<site base>/caldav`, :samp:`<site base>/.well-known/caldav`
+    redirects to it (service discovery).
 *   PSR-14 events instead of the service registry of cal 1.x.
 
 Bugfixes

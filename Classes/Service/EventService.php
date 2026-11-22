@@ -129,7 +129,7 @@ final class EventService extends BaseService
             // No calendar left to show (e.g. all calendars excluded by the filter)
             return;
         }
-        $events = $this->eventRepository->findAllForEvent($event, $calendarIds, $this->findRecurringUids($event))->toArray();
+        $events = $this->eventRepository->findAllForEvent($event, $calendarIds, $this->findRecurringUids($event), $event->getStoragePageIds())->toArray();
 
         $returnList = [];
         foreach ($events as $eventResult) {
@@ -168,7 +168,7 @@ final class EventService extends BaseService
             if ($calendarIds === []) {
                 return;
             }
-            $foundEvent = $this->eventRepository->findEvent($event->getUid(), $calendarIds)->toArray();
+            $foundEvent = $this->eventRepository->findEvent($event->getUid(), $calendarIds, $event->getStoragePageIds())->toArray();
             if (!empty($foundEvent)) {
                 //find the right for the date
                 $end = clone $event->getDate();

@@ -36,6 +36,11 @@ result.
     `setLocation()` / `setOrganizer()`. These events are stoppable: the first
     listener that finds the record stops the propagation.
 
+`SearchEventsEvent`, `GetEventEvent`, `GetLocationEvent` and `GetOrganizerEvent`
+also have `getStoragePageIds()`: the page ids of the storage
+folders (setting `pidList` with `recursive`). Listeners should only return
+records of these pages, an empty array means no limitation.
+
 Example: a listener for locations of another table.
 
 ..  code-block:: php

@@ -29,7 +29,7 @@ final class LocationService extends BaseService
     private function getLocation(GetLocationEvent $event): void
     {
         if ($event->getType() == 'tx_cal_location') {
-            $foundLocation = $this->locationRepository->findLocation($event->getUid())->toArray();
+            $foundLocation = $this->locationRepository->findLocation($event->getUid(), $event->getStoragePageIds())->toArray();
             if (!empty($foundLocation)) {
                 $event->setLocation($foundLocation[0]);
                 $event->stopPropagation();

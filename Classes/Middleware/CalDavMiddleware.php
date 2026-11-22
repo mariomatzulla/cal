@@ -17,15 +17,18 @@ use Sabre\DAV\Browser\Plugin as BrowserPlugin;
 use Sabre\DAV\Server;
 use Sabre\DAVACL;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Site\Entity\SiteInterface;
 
 /**
- * Serves the CalDAV endpoint "<site base>/caldav" via SabreDAV.
+ * Serves the CalDAV endpoint "<site base>/caldav" via SabreDAV and redirects
+ * "<site base>/.well-known/caldav" to it (service discovery, RFC 6764).
  */
 final class CalDavMiddleware implements MiddlewareInterface
 {
     private const ENDPOINT = '/caldav';
+    private const WELL_KNOWN = '/.well-known/caldav';
 
     public function __construct(
         private readonly TYPO3AuthBackend $authBackend,
@@ -35,8 +38,14 @@ final class CalDavMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $baseUri = $this->getBaseUri($request);
+        $sitePath = $this->getSitePath($request);
+        $baseUri = $sitePath . self::ENDPOINT;
         $path = $request->getUri()->getPath();
+
+        // Clients that only know the domain ask "/.well-known/caldav" first
+        if (rtrim($path, '/') === $sitePath . self::WELL_KNOWN) {
+            return new RedirectResponse($baseUri . '/', 301);
+        }
 
         // Only handle "<base>/caldav" and "<base>/caldav/...", not e.g. "/caldav-help"
         if ($path !== $baseUri && !str_starts_with($path, $baseUri . '/')) {
@@ -80,13 +89,15 @@ final class CalDavMiddleware implements MiddlewareInterface
         return $response->withStatus($sabreResponse->getStatus());
     }
 
-    private function getBaseUri(ServerRequestInterface $request): string
+    /**
+     * Path of the site base without trailing slash, e.g. "" or "/club"
+     */
+    private function getSitePath(ServerRequestInterface $request): string
     {
         $site = $request->getAttribute('site');
-        $pathPrefix = '';
         if ($site instanceof SiteInterface) {
-            $pathPrefix = rtrim($site->getBase()->getPath(), '/');
+            return rtrim($site->getBase()->getPath(), '/');
         }
-        return $pathPrefix . self::ENDPOINT;
+        return '';
     }
 }

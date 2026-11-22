@@ -30,7 +30,10 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $this->tableName = 'tx_cal_domain_model_event';
     }
 
-    public function findAllForEvent(SearchEventsEvent $event, array $calendarLimitationIds, array $recurringEventIds)
+    /**
+     * @param array<int> $storagePageIds only events stored in these pages (empty: no limitation)
+     */
+    public function findAllForEvent(SearchEventsEvent $event, array $calendarLimitationIds, array $recurringEventIds, array $storagePageIds = [])
     {
         $query = $this->createQuery();
         $conditions = [ ];
@@ -50,12 +53,18 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         if (! empty($calendarLimitationIds)) {
             $conditions [] = $query->logicalAnd($query->in('calendar_id', array_unique($calendarLimitationIds)));
         }
+        if ($storagePageIds !== []) {
+            $conditions [] = $query->in('pid', $storagePageIds);
+        }
         $query->matching($query->logicalAnd(...$conditions));
         return $query->execute(false);
 
     }
 
-    public function findEvent(int $uid, array $calendarLimitationIds)
+    /**
+     * @param array<int> $storagePageIds only events stored in these pages (empty: no limitation)
+     */
+    public function findEvent(int $uid, array $calendarLimitationIds, array $storagePageIds = [])
     {
         $query = $this->createQuery();
         $conditions = [ ];
@@ -63,6 +72,9 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
 
         if (! empty($calendarLimitationIds)) {
             $conditions [] = $query->logicalAnd($query->in('calendar_id', array_unique($calendarLimitationIds)));
+        }
+        if ($storagePageIds !== []) {
+            $conditions [] = $query->in('pid', $storagePageIds);
         }
         return $query->matching($query->logicalAnd(...$conditions))->execute(false);
     }

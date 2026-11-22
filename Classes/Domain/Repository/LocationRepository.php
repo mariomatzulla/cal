@@ -11,11 +11,17 @@ class LocationRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseReposi
         $this->objectType = 'MarioMatzulla\Cal\Domain\Model\Location';
     }
 
-    public function findLocation($uid)
+    /**
+     * @param array<int> $storagePageIds only records stored in these pages (empty: no limitation)
+     */
+    public function findLocation($uid, array $storagePageIds = [])
     {
         $query = $this->createQuery();
         $conditions = [ ];
         $conditions [] = $query->logicalAnd($query->equals('uid', $uid));
+        if ($storagePageIds !== []) {
+            $conditions [] = $query->in('pid', $storagePageIds);
+        }
         return $query->matching($query->logicalAnd(...$conditions))->execute(false);
     }
 
