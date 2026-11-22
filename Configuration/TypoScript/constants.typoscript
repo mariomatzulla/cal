@@ -9,6 +9,8 @@ plugin.tx_cal.settings {
 	singleMaxW = 1400
 	# cat=Calendar Base/display/20; type=int+; label=Max. image width (further images)
 	listMaxW = 400
+	# cat=Calendar Base/display/5; type=options[Monday=monday,Sunday=sunday]; label=First day of the week
+	view.weekStartDay = monday
 	# cat=Calendar Base/display/30; type=string; label=Time format (ICU, e.g. HH:mm)
 	view.timeFormat = HH:mm
 	# cat=Calendar Base/ics/10; type=boolean; label=Show iCalendar links

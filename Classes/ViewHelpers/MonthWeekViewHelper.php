@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\ViewHelpers;
 
+use MarioMatzulla\Cal\Utility\WeekStart;
+
 final class MonthWeekViewHelper extends BaseWeekViewHelper
 {
     protected $escapeOutput = false;
@@ -61,35 +63,23 @@ final class MonthWeekViewHelper extends BaseWeekViewHelper
     }
 
     /**
-     * @param $weekdayIndex
-     * @return string
+     * @param \MarioMatzulla\Cal\Model\WeekView $week
+     * @param int $position position of the day in the week (0 = first day of the week, see WeekStart)
      */
-    protected function getDayClasses($week, $weekdayIndex)
+    protected function getDayClasses($week, $position): string
     {
-
         $classes = '';
-        if ($week->isDayHasEvent() [$weekdayIndex] === 1) {
-            $classes .= ' ' . $this->settings ['view'] ['month'] ['eventDayStyle'];
+        // days with events are stored by weekday (0 = Sunday)
+        if (($week->isDayHasEvent() [($position + WeekStart::get()) % 7] ?? 0) === 1) {
+            $classes .= ' ' . ($this->settings ['view'] ['month'] ['eventDayStyle'] ?? '');
         }
-
-        $localDayIndex = $week->getCurrentDayIndex() + DATE_CALC_BEGIN_WEEKDAY;
-        if ($localDayIndex == 7) {
-            $localDayIndex = 0;
+        if ((int)$week->getCurrentDayIndex() === $position) {
+            $classes .= ' ' . ($this->settings ['view'] ['month'] ['monthTodayStyle'] ?? '');
         }
-
-        if ($localDayIndex === $weekdayIndex) {
-            $classes .= ' ' . $this->settings ['view'] ['month'] ['monthTodayStyle'];
+        $days = array_values($week->getDays());
+        if (isset($days [$position]) && (int)$week->getParentMonth() !== (int)$days [$position]->getMonth()) {
+            $classes .= ' ' . ($this->settings ['view'] ['month'] ['monthOffStyle'] ?? '');
         }
-
-        $localDayIndex = $weekdayIndex - DATE_CALC_BEGIN_WEEKDAY;
-        if ($localDayIndex === - 1) {
-            $localDayIndex = 6;
-        }
-        $daysKeys = array_keys($week->getdays());
-        if ((int)($week->getParentMonth()) != (int)($week->getDays() [$daysKeys [$localDayIndex]]->getMonth())) {
-            $classes .= ' ' . $this->settings ['view'] ['month'] ['monthOffStyle'];
-        }
-
         return $classes;
     }
 

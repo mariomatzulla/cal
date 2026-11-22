@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\ViewHelpers;
 
+use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Model\CalendarDateTime;
 use MarioMatzulla\Cal\Model\WeekView;
@@ -113,40 +114,25 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
             $lastDay->subtractSeconds(1);
         }
         $eventEnd = $lastDay->format('Ymd');
+        // e.g. an event ending at midnight on the first day of the week belongs to the week before
+        if ($eventEnd < $week->getWeekStart() || $eventStart >= $week->getWeekEnd()) {
+            return $lengthArray;
+        }
         if ($eventStart <= $week->getWeekStart()) {
             if ($eventEnd >= $week->getWeekEnd()) {
                 // lasts the whole week
                 $length = 7;
                 $start = 0;
             } else {
-                $length = (int)($lastDay->getDayOfWeek());
-                if ($length === 0) {
-                    if (DATE_CALC_BEGIN_WEEKDAY == 1) {
-                        $length = 7;
-                    } else {
-                        $length = 1;
-                    }
-                }
+                $length = WeekStart::indexOf($lastDay->getDayOfWeek()) + 1;
                 $start = 0;
             }
         } else {
-            $start = (int)($event->getStart()->getDayOfWeek());
-            if (DATE_CALC_BEGIN_WEEKDAY === 1) {
-                $start--;
-                if ($start === - 1) {
-                    $start = 6;
-                }
-            }
+            $start = WeekStart::indexOf($event->getStart()->getDayOfWeek());
             if ($eventEnd >= $week->getWeekEnd()) {
                 $length = 7 - $start;
             } else {
-                $weekEnd = (int)($lastDay->getDayOfWeek());
-                if (DATE_CALC_BEGIN_WEEKDAY === 1) {
-                    $weekEnd--;
-                    if ($weekEnd === - 1) {
-                        $weekEnd = 6;
-                    }
-                }
+                $weekEnd = WeekStart::indexOf($lastDay->getDayOfWeek());
                 $length = ($weekEnd - $start) + 1;
             }
         }

@@ -17,6 +17,9 @@ plugin.tx_cal.settings {
 	}
 
 	view {
+		# First day of the week: monday or sunday (also site setting and FlexForm)
+		weekStartDay = {$plugin.tx_cal.settings.view.weekStartDay}
+
 		# Allowed views, the first one is the default view (also FlexForm)
 		allowedViews =
 		# Preselected categories / calendars (comma separated uids)

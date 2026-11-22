@@ -26,6 +26,15 @@ settings:
     type: int
     default: 0
 
+  plugin.tx_cal.settings.view.weekStartDay:
+    label: 'First day of the week'
+    category: cal.display
+    type: string
+    default: 'monday'
+    enum:
+      monday: 'Monday'
+      sunday: 'Sunday'
+
   plugin.tx_cal.settings.singleMaxW:
     label: 'Max. image width (single view)'
     category: cal.display

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Controller;
 
+use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Events\FilterEventsEvent;
 use MarioMatzulla\Cal\Events\GetEventEvent;
 use MarioMatzulla\Cal\Events\GetLocationEvent;
@@ -50,6 +51,8 @@ class ContentController extends ActionController
         // inject repositories and init data, FlexForm of the rendered plugin
         $contentObject = $this->request->getAttribute('currentContentObject');
         $this->initSettings($contentObject instanceof ContentObjectRenderer ? $contentObject->data : null);
+        // First day of the week of all views (monday / sunday)
+        WeekStart::set($this->settings ['view'] ['weekStartDay'] ?? WeekStart::MONDAY);
         $this->settings ['view'] ['allowedViewsToLinkTo'] = array_unique(array_merge(HelperFunctions::trimExplode($this->settings ['view'] ['allowedViews'] ?? ''), $this->getAllowedViewsByViewPid()));
         $this->settings ['view'] ['categoryIds'] = array_unique(array_merge(HelperFunctions::trimExplode($this->settings ['view'] ['category'] ?? ''), HelperFunctions::trimExplode($this->settings ['view'] ['categoryIds'] ?? '')));
     }
@@ -279,7 +282,7 @@ class ContentController extends ActionController
         $months = [];
         for ($month = 1; $month <= 12; $month++) {
             $first = new \DateTimeImmutable(sprintf('%04d-%02d-01', $year, $month));
-            $offset = ((int)$first->format('w') - DATE_CALC_BEGIN_WEEKDAY + 7) % 7;
+            $offset = WeekStart::indexOf((int)$first->format('w'));
             $weeks = [];
             for ($week = 0; $week < 6; $week++) {
                 $days = [];
@@ -394,14 +397,14 @@ class ContentController extends ActionController
             $getdate->setYear((int)($urlParams['year']));
         }
         if ($urlParams['week'] != 'not_submitted') {
-            $getdate = CalculateDateTime::getDayByWeek($getdate->getYear(), (int)($urlParams['week']), DATE_CALC_BEGIN_WEEKDAY);
+            $getdate = CalculateDateTime::getDayByWeek($getdate->getYear(), (int)($urlParams['week']), WeekStart::get());
         }
         $nextWeek = clone $getdate;
         $nextWeek->modify('+7 days');
         $prevWeek = clone $getdate;
         $prevWeek->modify('-1 day');
 
-        $starttime = CalculateDateTime::getDayByWeek($getdate->getYear(), $getdate->getWeekOfYear(), DATE_CALC_BEGIN_WEEKDAY);
+        $starttime = CalculateDateTime::getDayByWeek($getdate->getYear(), $getdate->getWeekOfYear(), WeekStart::get());
         $endtime = clone $getdate;
         $endtime->modify('+6 days 23:59:59');
         $searchStarttime = clone $starttime;

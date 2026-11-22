@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Model;
 
+use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Utility\CalculateDateTime;
 
@@ -131,7 +132,7 @@ class WeekView extends TimeView
         $weekStart = CalculateDateTime::getDayByWeek(
             $this->getYear(),
             $this->week,
-            DATE_CALC_BEGIN_WEEKDAY,
+            WeekStart::get(),
         );
         $this->weekStart = $weekStart->format('Ymd');
         $this->setMonth($weekStart->getMonth());
@@ -276,13 +277,7 @@ class WeekView extends TimeView
 
             $day = $this->days [$dateObject->format('Ymd')] ?? false;
             if (is_object($day)) {
-                $this->currentDayIndex = $dateObject->getDayOfWeek();
-                if (DATE_CALC_BEGIN_WEEKDAY === 1) {
-                    $this->currentDayIndex--;
-                    if ($this->currentDayIndex === - 1) {
-                        $this->currentDayIndex = 6;
-                    }
-                }
+                $this->currentDayIndex = WeekStart::indexOf($dateObject->getDayOfWeek());
                 $day->setCurrent($dateObject);
             }
         }

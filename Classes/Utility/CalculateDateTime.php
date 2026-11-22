@@ -40,79 +40,44 @@ class CalculateDateTime
     }
 
     /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
+     * First day of the week (00:00:00), see WeekStart
      */
     public static function calculateStartOfWeek(CalendarDateTime $dateTime): CalendarDateTime
     {
-        if (DATE_CALC_BEGIN_WEEKDAY === 0) {
-            return $dateTime->modify('Sunday this week 0:00:00');
-        }
-        return $dateTime->modify('Monday this week 0:00:00');
+        $dateTime->modify('-' . WeekStart::indexOf($dateTime->getDayOfWeek()) . ' days');
+        $dateTime->setTime(0, 0, 0);
+        return $dateTime;
     }
 
     /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
+     * Last day of the week (23:59:59)
      */
     public static function calculateEndOfWeek(CalendarDateTime $dateTime): CalendarDateTime
     {
-        if (DATE_CALC_BEGIN_WEEKDAY === 0) {
-            return $dateTime->modify('Saturday this week 23:59:59');
-        }
-        return $dateTime->modify('Sunday this week 23:59:59');
+        $dateTime = self::calculateStartOfWeek($dateTime);
+        $dateTime->modify('+6 days');
+        $dateTime->setTime(23, 59, 59);
+        return $dateTime;
     }
 
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
     public static function calculateStartOfNextWeek(CalendarDateTime $dateTime): CalendarDateTime
     {
-        if (DATE_CALC_BEGIN_WEEKDAY === 0) {
-            return $dateTime->modify('Sunday next week 0:00:00');
-        }
-        return $dateTime->modify('Monday next week 0:00:00');
+        return self::calculateStartOfWeek($dateTime)->modify('+7 days');
     }
 
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
     public static function calculateEndOfNextWeek(CalendarDateTime $dateTime): CalendarDateTime
     {
-        if (DATE_CALC_BEGIN_WEEKDAY === 0) {
-            return $dateTime->modify('Saturday next week 23:59:59');
-        }
-        return $dateTime->modify('Sunday next week 23:59:59');
+        return self::calculateEndOfWeek($dateTime)->modify('+7 days');
     }
 
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
     public static function calculateStartOfLastWeek(CalendarDateTime $dateTime): CalendarDateTime
     {
-        if (DATE_CALC_BEGIN_WEEKDAY === 0) {
-            $dateTime = $dateTime->modify('Sunday last week 0:00:00');
-        } else {
-            $dateTime = $dateTime->modify('Monday last week 0:00:00');
-        }
-        return $dateTime;
+        return self::calculateStartOfWeek($dateTime)->modify('-7 days');
     }
 
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
     public static function calculateEndOfLastWeek(CalendarDateTime $dateTime): CalendarDateTime
     {
-        if (DATE_CALC_BEGIN_WEEKDAY === 0) {
-            $dateTime = $dateTime->modify('Saturday last week 23:59:59');
-        } else {
-            $dateTime = $dateTime->modify('Sunday last week 23:59:59');
-        }
-        return $dateTime;
+        return self::calculateEndOfWeek($dateTime)->modify('-7 days');
     }
 
     /**
@@ -592,17 +557,12 @@ class CalculateDateTime
      * @param $weekday
      * @return CalendarDateTime
      */
+    /**
+     * A weekday (0 = Sunday ... 6 = Saturday) of the week with the number $week of $year (see WeekStart)
+     */
     public static function getDayByWeek(int $year, int $week, int $weekday): CalendarDateTime
     {
-        $date = CalendarDateTime::generateByYmd($year . '0101');
-        $offset = $weekday - $date->getDayOfWeek();
-
-        // correct weekday
-        $date->addSeconds($offset * 86400);
-        $oldYearWeek = ((int)($date->getWeekOfYear()) > 1) ? 0 : 1;
-
-        // correct week
-        $date->addSeconds((($week - $oldYearWeek) * 7) * 86400);
-        return $date;
+        $date = WeekStart::firstDayOfWeek($year, $week)->modify('+' . WeekStart::indexOf($weekday) . ' days');
+        return CalendarDateTime::generateByYmd($date->format('Ymd'));
     }
 }

@@ -36,6 +36,7 @@ Setting                                   Type        Default          Descripti
 ========================================  ==========  ===============  =====================================
 `plugin.tx_cal.settings.pidList`          string      (empty)          Storage folders, see below
 `plugin.tx_cal.settings.recursive`        int         0                Recursion levels of the storage folders
+`…view.weekStartDay`                      string      `monday`         First day of the week (`monday`, `sunday`)
 `plugin.tx_cal.settings.singleMaxW`       int         1400             Width of the images of the event view
 `plugin.tx_cal.settings.listMaxW`         int         400              Width of the further images
 `plugin.tx_cal.settings.view.timeFormat`  string      `HH:mm`          Time format of all views
@@ -59,6 +60,13 @@ General
 
     Different plugins can use different folders with the TypoScript field of
     the plugin, e.g. `pidList = 12,13`.
+
+`view.weekStartDay`
+    First day of the week in the month, week, day and year view: `monday`
+    (default) or `sunday`. Also a site setting and a field of the plugin.
+    The weeks keep their ISO 8601 numbers: with `sunday` a week starts on the
+    Sunday before the Monday of the ISO week. The recurrence rules are not
+    affected.
 
 `view.allowedViews`
     Comma separated list of the allowed views, the first one is the default

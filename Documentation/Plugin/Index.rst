@@ -40,6 +40,11 @@ General Settings
     ICS
         The iCalendar download of single events.
 
+:guilabel:`Week starts on`
+    Monday or Sunday as first day of the week in the month, week and year
+    view. "Use Typoscript Default" takes `view.weekStartDay` (site setting,
+    default Monday).
+
 ..  _plugin-filters:
 
 Filters

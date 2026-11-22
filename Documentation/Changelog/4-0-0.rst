@@ -33,6 +33,8 @@ Breaking changes
     "Year View", "Month View" and "Week View" are removed, the tab "Day View"
     is now "Day and Week View". Values stored in existing plugins are ignored.
 *   Removed the unused field `tx_cal_calendar_subscription` of frontend users.
+*   Removed the PHP constant `DATE_CALC_BEGIN_WEEKDAY`, use the setting
+    `view.weekStartDay` instead.
 *   Removed the extension settings `useLocationStructure` and
     `useOrganizerStructure`: events use the locations and organizers of cal,
     `tt_address` and frontend users are no longer supported as location or
@@ -54,6 +56,8 @@ Features
     :file:`EXT:cal/Configuration/Routes/Cal.yaml` and URL segments of events,
     locations and organizers, see :ref:`speaking-urls`.
 *   Category colors with priority.
+*   First day of the week (Monday or Sunday): site setting / TypoScript
+    `view.weekStartDay` and field of the plugin.
 *   Storage folders: `plugin.tx_cal.settings.pidList` limits the events,
     locations and organizers to these folders, `recursive` includes their
     subpages.

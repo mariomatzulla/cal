@@ -16,16 +16,6 @@ namespace MarioMatzulla\Cal\Model;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
-if (! defined('DATE_CALC_BEGIN_WEEKDAY')) {
-    /**
-     * Defines what day starts the week
-     *
-     * Monday (1) is the international standard.
-     * Redefine this to 0 if you want weeks to begin on Sunday.
-     */
-    define('DATE_CALC_BEGIN_WEEKDAY', 1);
-}
-
 if (! defined('DATE_CALC_FORMAT')) {
     /**
      * The default value for each method's $format parameter
@@ -312,7 +302,7 @@ class CalendarDateTime extends \DateTime
      */
     public function getWeekOfYear(): int
     {
-        return (int)($this->format('W'));
+        return \MarioMatzulla\Cal\Utility\WeekStart::weekOfYear($this);
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Model;
 
+use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Domain\Model\Event;
 
 /**
@@ -47,7 +48,7 @@ class DayView extends \MarioMatzulla\Cal\Model\TimeView
         $this->setYear((int)$year);
         $date = new CalendarDateTime();
         $date = $date->setDate($this->getYear(), $this->getMonth(), (int)$this->getDay());
-        $this->setWeekdayNumber($date->getDayOfWeek() - 1);
+        $this->setWeekdayNumber(WeekStart::indexOf($date->getDayOfWeek()));
         $this->setYmd($date->format('Ymd'));
         $this->time = $date;
         if ($parentMonth >= 0) {

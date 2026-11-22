@@ -108,6 +108,9 @@ trait General
         if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['allowedViews']) || $this->settings ['dontListenToFlexForm'] ['general'] ['allowedViews'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['allowedViews'], $piFlexForm ['allowedViews']);
         }
+        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['weekStartDay']) || $this->settings ['dontListenToFlexForm'] ['general'] ['weekStartDay'] !== 1) {
+            self::updateIfNotEmpty($this->settings ['view'] ['weekStartDay'], $piFlexForm ['weekStartDay'] ?? null);
+        }
 
         if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['dayStart']) || $this->settings ['dontListenToFlexForm'] ['day'] ['dayStart'] !== 1) {
             self::updateIfNotEmpty($this->settings ['view'] ['day'] ['dayStart'], $piFlexForm ['dayStart']);

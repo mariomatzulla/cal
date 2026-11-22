@@ -36,6 +36,15 @@
 			<trans-unit id="cal.pi_flexform.viewIcs" resname="cal.pi_flexform.viewIcs" >
 				<source>ICS</source>
 			</trans-unit>
+			<trans-unit id="cal.pi_flexform.weekStartDay" resname="cal.pi_flexform.weekStartDay" >
+				<source>Week starts on</source>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.weekStartDay.monday" resname="cal.pi_flexform.weekStartDay.monday" >
+				<source>Monday</source>
+			</trans-unit>
+			<trans-unit id="cal.pi_flexform.weekStartDay.sunday" resname="cal.pi_flexform.weekStartDay.sunday" >
+				<source>Sunday</source>
+			</trans-unit>
 			<trans-unit id="cal.pi_flexform.viewRss" resname="cal.pi_flexform.viewRss" >
 				<source>Rss</source>
 			</trans-unit>
