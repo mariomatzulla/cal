@@ -32,8 +32,6 @@ return [
             0 => 'cal-eventtype-standard',
             1 => 'cal-eventtype-intlnk',
             2 => 'cal-eventtype-exturl',
-            3 => 'cal-eventtype-meeting',
-            4 => 'cal-eventtype-todo',
         ],
         'enablecolumns' => [
             'disabled' => 'hidden',
@@ -493,20 +491,6 @@ return [
                 'maxitems' => 10,
             ],
         ],
-        'monitor_cnt' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_fe_user_event.monitor',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_cal_domain_model_fe_user_event_monitor_mm',
-                'foreign_field' => 'uid_local',
-                'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1,
-                ],
-            ],
-        ],
         'exception_cnt' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.exception',
@@ -519,41 +503,7 @@ return [
                 'MM' => 'tx_cal_domain_model_exception_event_mm',
             ],
         ],
-        'fe_cruser_id' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.fe_cruser_id',
-            'config' => [
-                'type' => 'group',
-                'allowed' => 'fe_users',
-                'size' => 1,
-                'minitems' => 0,
-                'maxitems' => 1,
-            ],
-        ],
-        'fe_crgroup_id' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.fe_crgroup_id',
-            'config' => [
-                'type' => 'group',
-                'allowed' => 'fe_groups',
-                'size' => 1,
-                'minitems' => 0,
-                'maxitems' => 1,
-            ],
-        ],
 
-        'shared_user_cnt' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.shared_user',
-            'config' => [
-                'type' => 'group',
-                'allowed' => 'fe_users,fe_groups',
-                'size' => 6,
-                'minitems' => 0,
-                'maxitems' => 100,
-                'MM' => 'tx_cal_event_shared_user_mm',
-            ],
-        ],
 
         /* new */
         'type' => [
@@ -575,14 +525,6 @@ return [
                     [
                         'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.type.I.2',
                         'value' => 2,
-                    ],
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.type.I.3',
-                        'value' => 3,
-                    ],
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.type.I.4',
-                        'value' => 4,
                     ],
                 ],
                 'default' => 0,
@@ -632,126 +574,6 @@ return [
             ],
         ],
 
-        'attendee' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.attendee',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_cal_domain_model_attendee',
-                'foreign_field' => 'event_id',
-                'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
-                    'useSortable' => 1,
-                ],
-                'default' => 0,
-            ],
-        ],
-        'send_invitation' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.send_invitation',
-            'config' => [
-                'type' => 'check',
-                'default' => 0,
-            ],
-        ],
-        'status' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_attendee.status',
-            'config' => [
-                'renderType' => 'selectSingle',
-                'type' => 'select',
-                'items' => [
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_attendee.status.0',
-                        'value' => '0',
-                    ],
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_attendee.status.NEEDS-ACTION',
-                        'value' => 'NEEDS-ACTION',
-                    ],
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status.COMPLETED',
-                        'value' => 'COMPLETED',
-                    ],
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status.IN-PROGRESS',
-                        'value' => 'IN-PROGRESS',
-                    ],
-                    [
-                        'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status.CANCELLED',
-                        'value' => 'CANCELLED',
-                    ],
-                ],
-                'size' => 1,
-                'minitems' => 1,
-                'maxitems' => 1,
-            ],
-        ],
-        'priority' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.priority',
-            'config' => [
-                'renderType' => 'selectSingle',
-                'type' => 'select',
-                'items' => [
-                    [
-                        'label' => 0,
-                        'value' => 0,
-                    ],
-                    [
-                        'label' => 1,
-                        'value' => 1,
-                    ],
-                    [
-                        'label' => 2,
-                        'value' => 2,
-                    ],
-                    [
-                        'label' => 3,
-                        'value' => 3,
-                    ],
-                    [
-                        'label' => 4,
-                        'value' => 4,
-                    ],
-                    [
-                        'label' => 5,
-                        'value' => 5,
-                    ],
-                    [
-                        'label' => 6,
-                        'value' => 6,
-                    ],
-                    [
-                        'label' => 7,
-                        'value' => 7,
-                    ],
-                    [
-                        'label' => 8,
-                        'value' => 8,
-                    ],
-                    [
-                        'label' => 9,
-                        'value' => 9,
-                    ],
-                ],
-                'size' => 1,
-                'minitems' => 1,
-                'maxitems' => 1,
-                'default' => 0,
-            ],
-        ],
-        'completed' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.completed',
-            'config' => [
-                'type' => 'input',
-                'size' => 3,
-                'eval' => 'num',
-                'default' => 0,
-            ],
-        ],
         'sys_language_uid' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
@@ -813,19 +635,13 @@ return [
     ],
     'types' => [
         '0' => [
-            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,' . ($configuration['useTeaser'] ? 'teaser,' : '') . 'description,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.files_sheet,image,attachment,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt',
+            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,' . ($configuration['useTeaser'] ? 'teaser,' : '') . 'description,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.files_sheet,image,attachment',
         ],
         '1' => [
-            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, page,title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,' . ($configuration['useTeaser'] ? 'teaser,' : '') . '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt',
+            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, page,title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,' . ($configuration['useTeaser'] ? 'teaser,' : '') . '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . '',
         ],
         '2' => [
-            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, ext_url,title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,' . ($configuration['useTeaser'] ? 'teaser,' : '') . '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.other_sheet, monitor_cnt, shared_user_cnt',
-        ],
-        '3' => [
-            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.attendance_sheet,attendee,send_invitation,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link'),
-        ],
-        '4' => [
-            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.due;6,calendar_id,categories,description,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.todo_sheet, status, priority, completed,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt,--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.files_sheet,attachment',
+            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,type, ext_url,title, slug, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,calendar_id,categories,' . ($configuration['useTeaser'] ? 'teaser,' : '') . '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurrence_sheet, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;7, deviation, exception_cnt, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . '',
         ],
     ],
     'palettes' => [

@@ -50,28 +50,28 @@
             </f:if>
           </span>
         </li>
-        <f:if condition="{event.locationObject.name} || {event.location}">
+        <f:if condition="{event.locationObject.name} || {event.location} || {event.locationPid} || {event.locationLink}">
           <li class="p-location">
             <f:render partial="Icon/Icon" arguments="{name: 'location'}" />
             <span>
             <f:if condition="{event.locationObject.name}">
               <f:then>
-                <f:render partial="Event/RecordLink" arguments="{record: event.locationObject, view: 'location', link: viewLinks.location}" /><f:if condition="{event.locationObject.street} || {event.locationObject.city}">, <span class="event-entry__address">{event.locationObject.street}<f:if condition="{event.locationObject.street} && {event.locationObject.city}">, </f:if>{event.locationObject.zip} {event.locationObject.city}</span></f:if>
+                <f:render partial="Event/PlaceLink" arguments="{record: event.locationObject, text: event.location, pageUid: event.locationPid, link: event.locationLink, view: 'location', viewLink: viewLinks.location}" /><f:if condition="{event.locationObject.street} || {event.locationObject.city}">, <span class="event-entry__address">{event.locationObject.street}<f:if condition="{event.locationObject.street} && {event.locationObject.city}">, </f:if>{event.locationObject.zip} {event.locationObject.city}</span></f:if>
               </f:then>
-              <f:else>{event.location}</f:else>
+              <f:else><f:render partial="Event/PlaceLink" arguments="{text: event.location, pageUid: event.locationPid, link: event.locationLink, view: 'location'}" /></f:else>
             </f:if>
             </span>
           </li>
         </f:if>
-        <f:if condition="{event.organizerObject.name} || {event.organizer}">
+        <f:if condition="{event.organizerObject.name} || {event.organizer} || {event.organizerPid} || {event.organizerLink}">
           <li class="p-organizer">
             <f:render partial="Icon/Icon" arguments="{name: 'user'}" />
             <span>
             <f:if condition="{event.organizerObject.name}">
               <f:then>
-                <f:render partial="Event/RecordLink" arguments="{record: event.organizerObject, view: 'organizer', link: viewLinks.organizer}" /><f:if condition="{event.organizerObject.email}"> · <f:link.email email="{event.organizerObject.email}" /></f:if><f:if condition="{event.organizerObject.phone}"> · <a href="tel:{event.organizerObject.phone -> f:replace(search: ' ', replace: '')}">{event.organizerObject.phone}</a></f:if>
+                <f:render partial="Event/PlaceLink" arguments="{record: event.organizerObject, text: event.organizer, pageUid: event.organizerPid, link: event.organizerLink, view: 'organizer', viewLink: viewLinks.organizer}" /><f:if condition="{event.organizerObject.email}"> · <f:link.email email="{event.organizerObject.email}" /></f:if><f:if condition="{event.organizerObject.phone}"> · <a href="tel:{event.organizerObject.phone -> f:replace(search: ' ', replace: '')}">{event.organizerObject.phone}</a></f:if>
               </f:then>
-              <f:else>{event.organizer}</f:else>
+              <f:else><f:render partial="Event/PlaceLink" arguments="{text: event.organizer, pageUid: event.organizerPid, link: event.organizerLink, view: 'organizer'}" /></f:else>
             </f:if>
             </span>
           </li>

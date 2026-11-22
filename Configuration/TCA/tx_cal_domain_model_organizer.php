@@ -175,20 +175,6 @@ $tx_cal_domain_model_organizer =  [
                 'eval' => 'trim',
             ],
         ],
-        'shared_user_cnt' =>  [
-
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.shared_user',
-            'config' =>  [
-
-                'type' => 'group',
-                'allowed' => 'fe_users,fe_groups',
-                'size' => 6,
-                'minitems' => 0,
-                'maxitems' => 100,
-                'MM' => 'tx_cal_domain_model_organizer_shared_user_mm',
-            ],
-        ],
         'sys_language_uid' => [
 
             'exclude' => true,
@@ -238,7 +224,7 @@ $tx_cal_domain_model_organizer =  [
 
         '0' =>  [
 
-            'showitem' => 'name, slug, --palette--;;1, description, street, city, country, country_zone, zip, phone,fax,email,image,link,shared_user_cnt',
+            'showitem' => 'name, slug, --palette--;;1, description, street, city, country, country_zone, zip, phone,fax,email,image,link',
         ],
     ],
     'palettes' =>  [

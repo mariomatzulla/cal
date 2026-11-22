@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Location or organizer of an event: the record (linked to its view if allowed), otherwise the text of the event.
+  If the record view is not linked, the page or external link of the event is used (page title / URL if there is no name).
+  Arguments: record, text, pageUid, link, view (location|organizer), viewLink ({enabled, pageUid})
+</f:comment>
+<f:variable name="name"><f:if condition="{record.name}"><f:then>{record.name}</f:then><f:else>{text}</f:else></f:if></f:variable>
+<f:if condition="{record.name} && {viewLink.enabled}">
+  <f:then><f:render partial="Event/RecordLink" arguments="{record: record, view: view, link: viewLink}" /></f:then>
+  <f:else if="{pageUid}"><f:link.typolink parameter="{pageUid}" class="event-entry__{view}-link">{name}</f:link.typolink></f:else>
+  <f:else if="{link}"><f:link.typolink parameter="{link}" class="event-entry__{view}-link">{name}</f:link.typolink></f:else>
+  <f:else>{name}</f:else>
+</f:if>
+</html>

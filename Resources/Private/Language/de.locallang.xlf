@@ -15,10 +15,6 @@
 				<source>%d entries found</source>
 				<target>%d Einträge gefunden</target>
 			</trans-unit>
-			<trans-unit id="l_category" resname="l_category" approved="yes">
-				<source>Category</source>
-				<target>Kategorie</target>
-			</trans-unit>
 			<trans-unit id="l_list_read_more" resname="l_list_read_more" approved="yes">
 				<source>Read more</source>
 				<target>Weiterlesen</target>
@@ -26,10 +22,6 @@
 			<trans-unit id="l_all_day" resname="l_all_day" approved="yes">
 				<source>All day event</source>
 				<target>Ganztägig</target>
-			</trans-unit>
-			<trans-unit id="l_event_images" resname="l_event_images" approved="yes">
-				<source>Image(s)</source>
-				<target>Bilder</target>
 			</trans-unit>
 			<trans-unit id="l_event_attachments" resname="l_event_attachments" approved="yes">
 				<source>Attachment(s)</source>

@@ -35,6 +35,12 @@ Breaking changes
 *   Removed the unused field `tx_cal_calendar_subscription` of frontend users.
 *   Removed the PHP constant `DATE_CALC_BEGIN_WEEKDAY`, use the setting
     `view.weekStartDay` instead.
+*   Removed the tables of attendees, subscriptions (monitoring) and unknown
+    users, the event types "Meeting" and "Todo" (upgrade wizard
+    `cal_eventTypes`), the fields of shared users, frontend editing, the
+    free / busy view and nearby calendars, unused templates, language labels
+    and the stylesheet `events.css`. Remove the database fields with
+    "Analyze Database Structure".
 *   Removed the extension settings `useLocationStructure` and
     `useOrganizerStructure`: events use the locations and organizers of cal,
     `tt_address` and frontend users are no longer supported as location or
@@ -58,6 +64,9 @@ Features
 *   Category colors with priority.
 *   First day of the week (Monday or Sunday): site setting / TypoScript
     `view.weekStartDay` and field of the plugin.
+*   Events of the types "Shortcut to page" and "Link to external url" link to
+    the page / URL in all views. Locations and organizers without record link
+    to the page or URL of the event.
 *   Storage folders: `plugin.tx_cal.settings.pidList` limits the events,
     locations and organizers to these folders, `recursive` includes their
     subpages.
@@ -76,6 +85,8 @@ Bugfixes
 *   All-day events of several days are exported with the correct `DTEND`, so
     CalDAV clients show them on all days (upgrade wizard `cal_icsData`).
 *   The iCalendar download is only available if the view "ICS" is allowed.
+*   Events without start day (e.g. saved with an invalid date) no longer break the
+    recurrence index, the current day is used instead.
 *   Calendars, events, locations and organizers are found independent of the
     storage page of the plugin (the repositories did not apply the query
     settings of the base repository), use `pidList` to limit them.

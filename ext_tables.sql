@@ -27,11 +27,7 @@ CREATE TABLE tx_cal_domain_model_event (
 	rdate text,
 	rdate_type varchar(10) DEFAULT 'none' NOT NULL,
 	deviation varchar(255) DEFAULT '',
-	monitor_cnt int(11) unsigned DEFAULT '0',
 	exception_cnt int(11) unsigned DEFAULT '0',
-	fe_cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-	fe_crgroup_id int(11) unsigned DEFAULT '0' NOT NULL,
-	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
 	type tinyint(4) DEFAULT '0' NOT NULL,
 	page int(11) DEFAULT '0' NOT NULL,
 	ext_url VARCHAR(255) DEFAULT '' NOT NULL,
@@ -40,43 +36,21 @@ CREATE TABLE tx_cal_domain_model_event (
 	caldav_data text,
 	image VARCHAR(255) DEFAULT '' NOT NULL,
 	attachment text,
-	ref_event_id int(11) unsigned DEFAULT '0',
-	send_invitation tinyint(1) DEFAULT '0' NOT NULL,
-	attendee VARCHAR(255) DEFAULT '' NOT NULL,
-	status varchar(12) DEFAULT '' NOT NULL,
-	priority tinyint(1) DEFAULT '0' NOT NULL,
-	completed tinyint(3) DEFAULT '0' NOT NULL
+	ref_event_id int(11) unsigned DEFAULT '0'
 );
 
 CREATE TABLE tx_cal_domain_model_calendar (
 	title varchar(128) DEFAULT '' NOT NULL,
 	owner int(11) unsigned DEFAULT '0' NOT NULL,
 	timezone varchar(255) DEFAULT 'Europe/Berlin',
-	activate_fnb tinyint(4) unsigned DEFAULT '0' NOT NULL,
-	fnb_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
 	type tinyint(4) DEFAULT '0' NOT NULL,
 	ext_url text,
-	ext_url_notes text,
 	ics_file VARCHAR(255) DEFAULT '' NOT NULL,
 	refresh int(11) unsigned DEFAULT '0' NOT NULL,
 	md5 varchar(32) DEFAULT '' NOT NULL,
 	headerstyle varchar(30) DEFAULT '' NOT NULL,
 	bodystyle varchar(30) DEFAULT '' NOT NULL,
 	schedulerId int(11) unsigned DEFAULT '0' NOT NULL
-
-);
-
-CREATE TABLE tx_cal_domain_model_fe_user_event_monitor_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	tablenames varchar(64) DEFAULT '' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	offset int(11) DEFAULT '0' NOT NULL,
-	schedulerId int(11) DEFAULT '0' NOT NULL
-);
-
-CREATE TABLE tx_cal_domain_model_unknown_users (
-	email varchar(128) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE tx_cal_domain_model_exception_event_group (
@@ -97,9 +71,7 @@ CREATE TABLE tx_cal_domain_model_exception_event (
 	bymonth varchar(128) DEFAULT '',
 	intrval tinyint(4) unsigned DEFAULT '1',
 	rdate text,
-	rdate_type varchar(10) DEFAULT 'none' NOT NULL,
-	monitor_cnt int(11) unsigned DEFAULT '0'
-
+	rdate_type varchar(10) DEFAULT 'none' NOT NULL
 );
 
 CREATE TABLE tx_cal_domain_model_organizer (
@@ -117,10 +89,7 @@ CREATE TABLE tx_cal_domain_model_organizer (
 	imagecaption text,
 	imagealttext text,
 	imagetitletext text,
-	link varchar(255) DEFAULT '' NOT NULL,
-	fe_user_id int(11) unsigned DEFAULT '0' NOT NULL,
-	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL
-
+	link varchar(255) DEFAULT '' NOT NULL
 );
 
 CREATE TABLE tx_cal_domain_model_location (
@@ -139,24 +108,12 @@ CREATE TABLE tx_cal_domain_model_location (
 	imagealttext text,
 	imagetitletext text,
 	link varchar(255) DEFAULT '' NOT NULL,
-	shared_user_cnt int(11) unsigned DEFAULT '0' NOT NULL,
 	latitude double default '0',
 	longitude double default '0'
-
 );
 
 CREATE TABLE fe_users (
 	tx_cal_calendar VARCHAR(255) DEFAULT '' NOT NULL
-);
-
-CREATE TABLE tx_cal_domain_model_attendee (
-	event_id int(11) unsigned DEFAULT '0' NOT NULL,
-	email varchar(128) DEFAULT '',
-	fe_user_id int(11) unsigned DEFAULT '0' NOT NULL,
-	fe_group_id int(11) unsigned DEFAULT '0' NOT NULL,
-	attendance varchar(16) DEFAULT '' NOT NULL,
-	status varchar(12) DEFAULT '' NOT NULL
-
 );
 
 CREATE TABLE tx_cal_domain_model_index (

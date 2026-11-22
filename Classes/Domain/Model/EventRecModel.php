@@ -245,6 +245,41 @@ class EventRecModel
         return $this->parentEvent->getEventType();
     }
 
+    public function getType(): int
+    {
+        return $this->parentEvent->getType();
+    }
+
+    public function getPage(): int
+    {
+        return $this->parentEvent->getPage();
+    }
+
+    public function getExtUrl(): string
+    {
+        return $this->parentEvent->getExtUrl();
+    }
+
+    public function getLocationPid(): int
+    {
+        return $this->parentEvent->getLocationPid();
+    }
+
+    public function getLocationLink(): string
+    {
+        return $this->parentEvent->getLocationLink();
+    }
+
+    public function getOrganizerPid(): int
+    {
+        return $this->parentEvent->getOrganizerPid();
+    }
+
+    public function getOrganizerLink(): string
+    {
+        return $this->parentEvent->getOrganizerLink();
+    }
+
     public function getCnt()
     {
         return $this->parentEvent->getCnt();

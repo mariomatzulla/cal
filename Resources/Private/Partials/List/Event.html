@@ -8,7 +8,6 @@
 <f:variable name="timeFormat" value="{settings.view.list.event.timeFormat}" />
 <f:variable name="startDay" value="{f:format.date(date: event.start, format: 'Ymd')}" />
 <f:variable name="endDay" value="{f:format.date(date: event.end, format: 'Ymd')}" />
-<f:variable name="linkArguments" value="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" />
 
 <article class="event-card {event.headerstyle}{f:if(condition: event.image, else: ' event-card--no-image')}" style="{event.colorStyle}">
   <div class="event-card__media">
@@ -35,10 +34,7 @@
 
   <div class="event-card__body">
     <h3 class="event-card__title summary">
-      <f:if condition="{eventLink.enabled}">
-        <f:then><f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{linkArguments}">{event.title}</f:link.action></f:then>
-        <f:else>{event.title}</f:else>
-      </f:if>
+      <f:render partial="Event/Link" arguments="{event: event, eventLink: eventLink}" contentAs="content">{event.title}</f:render>
     </h3>
 
     <ul class="event-card__meta">
@@ -58,10 +54,10 @@
           </f:else>
         </f:if>
       </li>
-      <f:if condition="{event.locationObject.name} || {event.location}">
+      <f:if condition="{event.locationObject.name} || {event.location} || {event.locationPid} || {event.locationLink}">
         <li>
           <f:render partial="Icon/Icon" arguments="{name: 'location'}" />
-          <f:if condition="{event.locationObject.name}"><f:then><f:render partial="Event/RecordLink" arguments="{record: event.locationObject, view: 'location', link: viewLinks.location}" /></f:then><f:else>{event.location}</f:else></f:if>
+          <f:render partial="Event/PlaceLink" arguments="{record: event.locationObject, text: event.location, pageUid: event.locationPid, link: event.locationLink, view: 'location', viewLink: viewLinks.location}" />
         </li>
       </f:if>
       <f:if condition="{event.categories}">
@@ -81,12 +77,12 @@
       </f:else>
     </f:if>
 
-    <f:if condition="{eventLink.enabled}">
-      <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{linkArguments}" class="event-card__more">
+    <f:if condition="{eventLink.enabled} || ({event.type} == 1 && {event.page}) || ({event.type} == 2 && {event.extUrl})">
+      <f:render partial="Event/Link" arguments="{event: event, eventLink: eventLink, class: 'event-card__more'}" contentAs="content">
         <f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_list_read_more" />
         <f:render partial="Icon/Icon" arguments="{name: 'arrow'}" />
         <span class="visually-hidden">: {event.title}</span>
-      </f:link.action>
+      </f:render>
     </f:if>
 
     <f:if condition="{card.showAllImages} && {event.image.1}">

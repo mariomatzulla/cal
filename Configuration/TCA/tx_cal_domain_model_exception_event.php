@@ -224,7 +224,7 @@ $tx_cal_domain_model_exception_event = [
     ],
     'types' => [
         '0' => [
-            'showitem' => 'title, --palette--;;1,start_date,end_date, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;3, monitor_cnt',
+            'showitem' => 'title, --palette--;;1,start_date,end_date, freq, --palette--;;2, byday, bymonthday, bymonth, rdate_type, --palette--;;3',
         ],
     ],
     'palettes' => [

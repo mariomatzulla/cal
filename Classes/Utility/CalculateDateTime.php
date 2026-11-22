@@ -13,14 +13,6 @@ use MarioMatzulla\Cal\Model\CalendarDateTime;
  */
 class CalculateDateTime
 {
-    public static function getDateFormat(string $separator = '-'): string
-    {
-        if ($GLOBALS ['TYPO3_CONF_VARS'] ['SYS'] ['USdateFormat'] == '1') {
-            return 'MM' . $separator . 'dd' . $separator . 'yyyy';
-        }
-        return 'dd' . $separator . 'MM' . $separator . 'yyyy';
-    }
-
     /**
      * @param CalendarDateTime $dateTime
      * @return CalendarDateTime
@@ -58,26 +50,6 @@ class CalculateDateTime
         $dateTime->modify('+6 days');
         $dateTime->setTime(23, 59, 59);
         return $dateTime;
-    }
-
-    public static function calculateStartOfNextWeek(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        return self::calculateStartOfWeek($dateTime)->modify('+7 days');
-    }
-
-    public static function calculateEndOfNextWeek(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        return self::calculateEndOfWeek($dateTime)->modify('+7 days');
-    }
-
-    public static function calculateStartOfLastWeek(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        return self::calculateStartOfWeek($dateTime)->modify('-7 days');
-    }
-
-    public static function calculateEndOfLastWeek(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        return self::calculateEndOfWeek($dateTime)->modify('-7 days');
     }
 
     /**
@@ -167,37 +139,6 @@ class CalculateDateTime
      * @param CalendarDateTime $dateTime
      * @return CalendarDateTime
      */
-    public static function calculateStartOfNextMonth(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        return $dateTime->modify('first day of next month')->setDay(1);
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
-    public static function calculateEndOfNextMonth(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        $dateTime = $dateTime->modify('first day of next month');
-        $dateTime = self::calculateEndOfMonth($dateTime);
-        $dateTime->setDay(CalculateDateTime::getDaysInMonth($dateTime->getYear(), $dateTime->getMonth()));
-        return $dateTime;
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
-    public static function calculateStartOfLastMonth(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        $dateTime = self::calculateStartOfMonth($dateTime);
-        return $dateTime->modify('-1 day 0:00:00')->setDay(1);
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
     public static function calculateStartOfYear(CalendarDateTime $dateTime): CalendarDateTime
     {
         $dateTime = self::calculateStartOfMonth($dateTime);
@@ -212,48 +153,6 @@ class CalculateDateTime
     {
         $dateTime = self::calculateStartOfYear($dateTime);
         return $dateTime->setYear($dateTime->getYear() + 1)->subtractSeconds(1);
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
-    public static function calculateStartOfNextYear(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        $dateTime = $dateTime->modify('next year');
-        return self::calculateStartOfYear($dateTime);
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
-    public static function calculateEndOfNextYear(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        $dateTime = $dateTime->modify('next year 23:59:59');
-        return self::calculateEndOfYear($dateTime);
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
-    public static function calculateStartOfLastYear(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        $dateTime = $dateTime->modify('last year');
-        $dateTime = self::calculateStartOfYear($dateTime);
-        return $dateTime;
-    }
-
-    /**
-     * @param CalendarDateTime $dateTime
-     * @return CalendarDateTime
-     */
-    public static function calculateEndOfLastYear(CalendarDateTime $dateTime): CalendarDateTime
-    {
-        $dateTime = $dateTime->modify('last year');
-        $dateTime = self::calculateEndOfYear($dateTime);
-        return $dateTime;
     }
 
     /**
@@ -473,82 +372,6 @@ class CalculateDateTime
         }
         $today->setDate((int)$year, (int)$month, 1);
         return (int)($today->format('t'));
-    }
-
-    /**
-     * Returns true for a leap year, else false
-     *
-     * @param int $year
-     *          the year. Use the complete year instead of the
-     *          abbreviated version. E.g. use 2005, not 05.
-     *          Do not add leading 0's for years prior to 1000.
-     *
-     * @return bool
-     *
-     * @static
-     */
-    public static function isLeapYear($year = 0)
-    {
-        $today = new CalendarDateTime();
-        if (empty($year)) {
-            $year = $today->getYear();
-        }
-        if (preg_match('/\D/', (string)$year)) {
-            return false;
-        }
-        if ($year < 1000) {
-            return false;
-        }
-        if ($year < 1582) {
-            // pre Gregorio XIII - 1582
-            return $year % 4 == 0;
-        }
-        // post Gregorio XIII - 1582
-        return (($year % 4 == 0) && ($year % 100 != 0)) || ($year % 400 == 0);
-
-    }
-
-    /**
-     * Returns number of days between two given dates
-     *
-     * @param int $day1
-     *          the day of the month
-     * @param int $month1
-     *          the month
-     * @param int $year1
-     *          the year. Use the complete year instead of the
-     *          abbreviated version. E.g. use 2005, not 05.
-     *          Do not add leading 0's for years prior to 1000.
-     * @param int $day2
-     *          the day of the month
-     * @param int $month2
-     *          the month
-     * @param int $year2
-     *          the year. Use the complete year instead of the
-     *          abbreviated version. E.g. use 2005, not 05.
-     *          Do not add leading 0's for years prior to 1000.
-     *
-     * @return int the absolute number of days between the two dates.
-     *         If an error occurs, -1 is returned.
-     *
-     * @static
-     */
-    public static function dateDiff($day1, $month1, $year1, $day2, $month2, $year2)
-    {
-        if (! self::isValidDate($day1, $month1, $year1)) {
-            return - 1;
-        }
-        if (! self::isValidDate($day2, $month2, $year2)) {
-            return - 1;
-        }
-        $date1 = new CalendarDateTime();
-        $date1->setDate((int)$year1, (int)$month1, (int)$day1);
-        $date1->setTime(0, 0, 0);
-        $date2 = new CalendarDateTime();
-        $date2->setDate((int)$year2, (int)$month2, (int)$day2);
-        $date2->setTime(0, 0, 0);
-        $interval = $date1->diff($date2);
-        return (int)$interval->days;
     }
 
     /**

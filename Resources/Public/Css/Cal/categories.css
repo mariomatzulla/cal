@@ -3,7 +3,7 @@
  *
  * The class comes from the field "headerstyle" of the calendar (e.g. "blue_catheader")
  * and is rendered as "<style>", "<style>_allday" and "<style>_text".
- * Each class only sets the two color tokens, the components use them (events.css).
+ * Each class only sets the two color tokens, the views use them.
  *
  * Own colors can be added the same way:
  *   .tx-cal-controller :is(.mint_catheader, .mint_catheader_allday, .mint_catheader_text) {
@@ -47,9 +47,7 @@
 		--cal-event-border-color: #8c6d3f;
 	}
 
-	/* grey and the "free & busy" view share the same colors */
-	:is(.grey_catheader, .grey_catheader_allday, .grey_catheader_text,
-		.fnb_header, .fnb_header_allday, .fnb_header_text) {
+	:is(.grey_catheader, .grey_catheader_allday, .grey_catheader_text) {
 		--cal-event-color: #8997a5;
 		--cal-event-border-color: #4e5d6c;
 	}

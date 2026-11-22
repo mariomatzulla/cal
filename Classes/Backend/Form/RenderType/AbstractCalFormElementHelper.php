@@ -1,14 +1,15 @@
 <?php
 
-declare(strict_types=1)
-;
+declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Backend\Form\RenderType;
 
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class ElementHelper
@@ -56,29 +57,21 @@ abstract class AbstractCalFormElementHelper extends AbstractFormElement
     }
 
     /**
+     * First weekday of the weekday lists: the site setting plugin.tx_cal.settings.view.weekStartDay
+     * of the site of the page (default Monday)
+     *
      * @param mixed $pageID
-     * @return string
+     * @return string "MO" or "SU"
      */
     public function getWeekStartDay($pageID): string
     {
-
-        $tsConfig = BackendUtility::getPagesTSconfig((int)$pageID) ['options.'] ['tx_cal_controller.'] ['weekStartDay'] ?? 'mo';
-        if ($tsConfig == 'mo') {
-            return 'MO';
+        try {
+            $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId((int)$pageID);
+            $value = (string)$site->getSettings()->get('plugin.tx_cal.settings.view.weekStartDay', 'monday');
+        } catch (SiteNotFoundException) {
+            $value = 'monday';
         }
-        $weekStartDay = strtolower((string)$tsConfig ['value']);
-
-        switch ($weekStartDay) {
-            case 'sunday':
-                $startDay = 'SU';
-                break;
-                /* If there's any value other than sunday, assume we want Monday */
-            default:
-                $startDay = 'MO';
-                break;
-        }
-
-        return $startDay;
+        return strtolower(trim($value)) === 'sunday' ? 'SU' : 'MO';
     }
 
     /**

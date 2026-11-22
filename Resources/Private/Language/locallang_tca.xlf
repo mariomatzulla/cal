@@ -45,87 +45,6 @@
 			<trans-unit id="cal.pi_flexform.weekStartDay.sunday" resname="cal.pi_flexform.weekStartDay.sunday" >
 				<source>Sunday</source>
 			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewRss" resname="cal.pi_flexform.viewRss" >
-				<source>Rss</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewSearchEvent" resname="cal.pi_flexform.viewSearchEvent" >
-				<source>Search Event</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewSearchLocation" resname="cal.pi_flexform.viewSearchLocation" >
-				<source>Search Location</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewSearchOrganizer" resname="cal.pi_flexform.viewSearchOrganizer" >
-				<source>Search Organizer</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewSearchAll" resname="cal.pi_flexform.viewSearchAll" >
-				<source>Search All</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewCreateEvent" resname="cal.pi_flexform.viewCreateEvent" >
-				<source>Create Event</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewEditEvent" resname="cal.pi_flexform.viewEditEvent" >
-				<source>Edit Event</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewDeleteEvent" resname="cal.pi_flexform.viewDeleteEvent" >
-				<source>Delete Event</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewCreateCalendar" resname="cal.pi_flexform.viewCreateCalendar" >
-				<source>Create Calendar</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewEditCalendar" resname="cal.pi_flexform.viewEditCalendar" >
-				<source>Edit Calendar</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewDeleteCalendar" resname="cal.pi_flexform.viewDeleteCalendar" >
-				<source>Delete Calendar</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewCreateCategory" resname="cal.pi_flexform.viewCreateCategory" >
-				<source>Create Category</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewEditCategory" resname="cal.pi_flexform.viewEditCategory" >
-				<source>Edit Category</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewDeleteCategory" resname="cal.pi_flexform.viewDeleteCategory" >
-				<source>Delete Category</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewCreateLocation" resname="cal.pi_flexform.viewCreateLocation" >
-				<source>Create Location</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewEditLocation" resname="cal.pi_flexform.viewEditLocation" >
-				<source>Edit Location</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewDeleteLocation" resname="cal.pi_flexform.viewDeleteLocation" >
-				<source>Delete Location</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewCreateOrganizer" resname="cal.pi_flexform.viewCreateOrganizer" >
-				<source>Create Organizer</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewEditOrganizer" resname="cal.pi_flexform.viewEditOrganizer" >
-				<source>Edit Organizer</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewDeleteOrganizer" resname="cal.pi_flexform.viewDeleteOrganizer" >
-				<source>Delete Organizer</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewSubscriptionManager" resname="cal.pi_flexform.viewSubscriptionManager" >
-				<source>Subscription Manager</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewMeetingManager" resname="cal.pi_flexform.viewMeetingManager" >
-				<source>Meeting Manager</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewTranslation" resname="cal.pi_flexform.viewTranslation" >
-				<source>Translation Options</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewTodo" resname="cal.pi_flexform.viewTodo" >
-				<source>Todo</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewAjax" resname="cal.pi_flexform.viewAjax" >
-				<source>Ajax (requires ext:calajax)</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.viewAdmin" resname="cal.pi_flexform.viewAdmin" >
-				<source>Administration Options</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.defaultCalendarUid" resname="cal.pi_flexform.defaultCalendarUid" >
-				<source>Default calendar</source>
-			</trans-unit>
 			<trans-unit id="cal.pi_flexform.sheetCategory" resname="cal.pi_flexform.sheetCategory" >
 				<source>Filters</source>
 			</trans-unit>
@@ -134,9 +53,6 @@
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.calendar_selection" resname="cal.pi_flexform.calendar_selection" >
 				<source>Calendar selection</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.select_deselect_categories" resname="cal.pi_flexform.select_deselect_categories" >
-				<source>Category mode</source>
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.itemsHeader" resname="cal.pi_flexform.itemsHeader" >
 				<source>Special options:</source>
@@ -176,29 +92,8 @@
 			<trans-unit id="cal.pi_flexform.categoryMode.showMinSelected" resname="cal.pi_flexform.categoryMode.showMinSelected" >
 				<source>Show selected categories (minimum match)</source>
 			</trans-unit>
-			<trans-unit id="cal.pi_flexform.yearTemplate" resname="cal.pi_flexform.yearTemplate" >
-				<source>Year template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.monthTemplate" resname="cal.pi_flexform.monthTemplate" >
-				<source>Month template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.monthSmallTemplate" resname="cal.pi_flexform.monthSmallTemplate" >
-				<source>Month small template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.monthMediumTemplate" resname="cal.pi_flexform.monthMediumTemplate" >
-				<source>Month medium template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.monthLargeTemplate" resname="cal.pi_flexform.monthLargeTemplate" >
-				<source>Month large template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.weekTemplate" resname="cal.pi_flexform.weekTemplate" >
-				<source>Week template</source>
-			</trans-unit>
 			<trans-unit id="cal.pi_flexform.sheetDayView" resname="cal.pi_flexform.sheetDayView" >
 				<source>Day and Week View</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.dayTemplate" resname="cal.pi_flexform.dayTemplate" >
-				<source>Day template</source>
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.dayStart" resname="cal.pi_flexform.dayStart" >
 				<source>Day start time</source>
@@ -211,9 +106,6 @@
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.sheetListView" resname="cal.pi_flexform.sheetListView" >
 				<source>List View</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.listTemplate" resname="cal.pi_flexform.listTemplate" >
-				<source>List template</source>
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.starttime" resname="cal.pi_flexform.starttime" >
 				<source>Start time</source>
@@ -290,62 +182,11 @@
 			<trans-unit id="cal.pi_flexform.eventViewPid" resname="cal.pi_flexform.eventViewPid" >
 				<source>Event view page</source>
 			</trans-unit>
-			<trans-unit id="cal.pi_flexform.eventTemplate" resname="cal.pi_flexform.eventTemplate" >
-				<source>Event template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.createEventTemplate" resname="cal.pi_flexform.createEventTemplate" >
-				<source>Create event template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.confirmEventTemplate" resname="cal.pi_flexform.confirmEventTemplate" >
-				<source>Confirm event template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.deleteEventTemplate" resname="cal.pi_flexform.deleteEventTemplate" >
-				<source>Delete event template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.sheetLocationView" resname="cal.pi_flexform.sheetLocationView" >
-				<source>Location View</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.locationViewPid" resname="cal.pi_flexform.locationViewPid" >
-				<source>Location view page</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.locationTemplate" resname="cal.pi_flexform.locationTemplate" >
-				<source>Location template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.createLocationTemplate" resname="cal.pi_flexform.createLocationTemplate" >
-				<source>Create location template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.confirmLocationTemplate" resname="cal.pi_flexform.confirmLocationTemplate" >
-				<source>Confirm location template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.sheetOrganizerView" resname="cal.pi_flexform.sheetOrganizerView" >
-				<source>Organizer View</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.organizerViewPid" resname="cal.pi_flexform.organizerViewPid" >
-				<source>Organizer view page</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.organizerTemplate" resname="cal.pi_flexform.organizerTemplate" >
-				<source>Organizer template</source>
-			</trans-unit>
 			<trans-unit id="cal.pi_flexform.sheetIcsView" resname="cal.pi_flexform.sheetIcsView" >
 				<source>Ics View</source>
 			</trans-unit>
-			<trans-unit id="cal.pi_flexform.icsViewPid" resname="cal.pi_flexform.icsViewPid" >
-				<source>Ics view page</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.icsTemplate" resname="cal.pi_flexform.icsTemplate" >
-				<source>Ics template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.calUid" resname="cal.pi_flexform.calUid" >
-				<source>Calendar id</source>
-			</trans-unit>
 			<trans-unit id="cal.pi_flexform.showIcsLinks" resname="cal.pi_flexform.showIcsLinks" >
 				<source>Show ics links</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.sidebarTemplate" resname="cal.pi_flexform.sidebarTemplate" >
-				<source>Sidebar template</source>
-			</trans-unit>
-			<trans-unit id="cal.pi_flexform.searchBoxTemplate" resname="cal.pi_flexform.searchBoxTemplate" >
-				<source>Searchbox template</source>
 			</trans-unit>
 			<trans-unit id="cal.pi_flexform.sheetTSView" resname="cal.pi_flexform.sheetTSView" >
 				<source>Typoscript</source>

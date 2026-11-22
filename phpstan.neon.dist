@@ -1,8 +1,5 @@
 # Static analysis of the extension.
 # Run from the project root: vendor/bin/phpstan analyse -c packages/cal/phpstan.neon.dist
-includes:
-  - Build/phpstan-baseline.neon
-
 parameters:
   level: 5
   paths:

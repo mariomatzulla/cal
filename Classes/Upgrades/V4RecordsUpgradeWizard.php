@@ -44,7 +44,6 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
     private const MM_TABLENAMES = [
         'tx_cal_exception_event' => 'tx_cal_domain_model_exception_event',
         'tx_cal_exception_event_group' => 'tx_cal_domain_model_exception_event_group',
-        'tx_cal_unknown_users' => 'tx_cal_domain_model_unknown_users',
     ];
 
     /**
@@ -168,7 +167,6 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
             $this->insertRows($newTable, $rows);
             $this->write(sprintf('%s => %s: %d relations copied', $source, $newTable, count($rows)));
         }
-        $this->renameTablenames();
         $this->migrateFileReferences();
         $this->updateFileCounters();
         $this->reportLegacyFiles();
@@ -382,6 +380,10 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
             if ($targetColumn === 'tablenames' && is_string($value)) {
                 $value = self::MM_TABLENAMES[$value] ?? $value;
             }
+            if ($target === 'tx_cal_domain_model_event' && $targetColumn === 'type' && in_array((int)$value, [3, 4], true)) {
+                // meetings and todos of cal 1.x are normal events in cal 4
+                $value = 0;
+            }
             if ($targetColumn === 'ics_uid' && is_string($value)) {
                 // EXT:caldav stored the object URI ("<uid>.ics"), cal 4 stores the UID only
                 $value = preg_replace('/\.ics$/i', '', $value);
@@ -525,22 +527,6 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
             }
         }
         return $missing;
-    }
-
-    /**
-     * Relations in the MM tables which kept their name (fe_users / fe_groups need no change) and the
-     * subscriptions to unknown users.
-     */
-    private function renameTablenames(): void
-    {
-        foreach (['tx_cal_domain_model_fe_user_event_monitor_mm', 'tx_cal_event_shared_user_mm'] as $table) {
-            if (!$this->legacySchema->tableExists($table) || $this->legacySchema->findColumn($table, 'tablenames') === null) {
-                continue;
-            }
-            foreach (self::MM_TABLENAMES as $old => $new) {
-                $this->legacySchema->getConnection($table)->update($table, ['tablenames' => $new], ['tablenames' => $old]);
-            }
-        }
     }
 
     private function migrateFileReferences(): void

@@ -176,7 +176,7 @@ final class EventService extends BaseService
                 $resultList = $this->findRecurringEventsForEvent($event->getDate(), $end, $foundEvent[0]);
                 $ymd = $event->getDate()->format('Ymd');
                 foreach ($resultList as $result) {
-                    if ($result->getStartDate()->format('Ymd') == $ymd) {
+                    if ($result->getStart()->format('Ymd') == $ymd) {
                         $event->setEvent($result);
                         $event->stopPropagation();
                         return;

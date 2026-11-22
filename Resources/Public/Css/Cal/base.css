@@ -6,80 +6,7 @@
 		text-align: center;
 	}
 
-	/* Year / month / week / day / today buttons above every view */
-	.header-buttons {
-		display: flex;
-		flex-direction: row-reverse;
-		flex-wrap: wrap;
-		gap: var(--cal-space-2xs);
-
-		> div {
-			inline-size: var(--cal-nav-button-width);
-			block-size: var(--cal-nav-button-height);
-			background: url(../../img/calendar-icon_bg.png) no-repeat center bottom;
-			text-align: center;
-		}
-
-		a {
-			line-height: 29px;
-			font-size: xx-small;
-		}
-	}
-
-	/* Previous / title / next */
-	.view-header {
-		display: grid;
-		grid-template-columns: var(--cal-nav-button-width) 1fr var(--cal-nav-button-width);
-		align-items: center;
-		text-align: center;
-
-		> * {
-			grid-column: 1 / -1;
-		}
-
-		> .previous-button {
-			grid-area: 1 / 1;
-		}
-
-		> h1 {
-			grid-area: 1 / 2;
-		}
-
-		> .next-button {
-			grid-area: 1 / 3;
-		}
-	}
-
 	.previous-button,
-	.next-button {
-		inline-size: var(--cal-nav-button-width);
-		block-size: var(--cal-nav-button-height);
-		margin-block-end: var(--cal-space-2xs);
-		background-position: center;
-		background-repeat: no-repeat;
-
-		a {
-			display: block;
-			block-size: 100%;
-			padding: var(--cal-space-2xs) 7px 0;
-			line-height: 29px;
-			font-size: xx-small;
-		}
-	}
-
-	.previous-button {
-		background-image: url(../../img/control-180.png);
-	}
-
-	.next-button {
-		background-image: url(../../img/control.png);
-		justify-self: end;
-	}
-
-	.timeborder {
-		border-block-end: var(--cal-border-width) solid var(--cal-color-line);
-		padding-inline-end: var(--cal-space-2xs);
-	}
 
 	.even {
 		background-color: var(--cal-color-surface-subtle);
@@ -87,72 +14,8 @@
 
 	/* --- Image thumbnails with a white frame, slightly rotated ("polaroids") --
 	   Used in the event view (further images) and the list view (--small). */
-	.polaroids {
-		--_width: var(--cal-polaroid-width);
-
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: var(--cal-space-lg);
-		margin: 0;
-		padding: var(--cal-space-sm) 0;
-		list-style: none;
-
-		&.polaroids--small {
-			--_width: var(--cal-polaroid-width-small);
-		}
-	}
-
-	.polaroids__item {
-		rotate: calc(var(--cal-polaroid-rotation) * -1);
-
-		&:nth-child(even) {
-			rotate: var(--cal-polaroid-rotation);
-		}
-
-		&:nth-child(3n) {
-			rotate: 0deg;
-		}
-
-		a {
-			display: block;
-			padding: var(--cal-polaroid-frame) var(--cal-polaroid-frame) calc(var(--cal-polaroid-frame) * 2.5);
-			background-color: var(--cal-color-surface);
-			box-shadow: var(--cal-shadow-photo);
-			color: var(--cal-color-text-muted);
-			text-decoration: none;
-			transition: rotate 0.2s, scale 0.2s, box-shadow 0.2s;
-		}
-
-		a:is(:hover, :focus-visible) {
-			rotate: calc(var(--cal-polaroid-rotation) * -1);
-			scale: 1.06;
-			box-shadow: var(--cal-shadow-photo-raised);
-		}
-
-		figure {
-			margin: 0;
-		}
-
-		img {
-			display: block;
-			inline-size: var(--_width);
-			block-size: auto;
-			max-inline-size: 100%;
-		}
-
-		figcaption {
-			max-inline-size: var(--_width);
-			margin-block-start: var(--cal-space-xs);
-			font-size: 0.8em;
-			text-align: center;
-		}
-	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.polaroids__item a {
-			transition: none;
-		}
 	}
 
 	/* --- Helpers ---------------------------------------------------------- */

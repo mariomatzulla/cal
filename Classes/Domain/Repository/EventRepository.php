@@ -191,8 +191,7 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $queryBuilder->getRestrictions()->removeAll();
         $conditions = [];
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.type', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.nearby', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->in('tx_cal_domain_model_event.type', $queryBuilder->createNamedParameter([0, 1, 2, 3], Connection::PARAM_INT_ARRAY));
+        $conditions[] = $queryBuilder->expr()->in('tx_cal_domain_model_event.type', $queryBuilder->createNamedParameter([0, 1, 2], Connection::PARAM_INT_ARRAY));
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.deleted', $queryBuilder->createNamedParameter(0));
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_event.deleted', $queryBuilder->createNamedParameter(0));
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.hidden', $queryBuilder->createNamedParameter(0));
@@ -220,8 +219,7 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $queryBuilder->getRestrictions()->removeAll();
         $conditions = [];
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.type', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.nearby', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->in('tx_cal_domain_model_event.type', $queryBuilder->createNamedParameter([0, 1, 2, 3], Connection::PARAM_INT_ARRAY));
+        $conditions[] = $queryBuilder->expr()->in('tx_cal_domain_model_event.type', $queryBuilder->createNamedParameter([0, 1, 2], Connection::PARAM_INT_ARRAY));
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.deleted', $queryBuilder->createNamedParameter(0));
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_event.deleted', $queryBuilder->createNamedParameter(0));
         $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.hidden', $queryBuilder->createNamedParameter(0));

@@ -6,9 +6,6 @@
 			<trans-unit id="tx_cal_event" resname="tx_cal_event" >
 				<source>Calendar Event</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event_label" resname="tx_cal_event_label" >
-				<source>Start: Title</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.general_sheet" resname="tx_cal_event.general_sheet" >
 				<source>General</source>
 			</trans-unit>
@@ -24,18 +21,6 @@
 			<trans-unit id="tx_cal_event.files_sheet" resname="tx_cal_event.files_sheet" >
 				<source>Files</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event.other_sheet" resname="tx_cal_event.other_sheet" >
-				<source>Other</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.attendance_sheet" resname="tx_cal_event.attendance_sheet" >
-				<source>Attendance</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.todo_sheet" resname="tx_cal_event.todo_sheet" >
-				<source>Todo</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.category" resname="tx_cal_event.category" >
-				<source>Category</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.calendar" resname="tx_cal_event.calendar" >
 				<source>Calendar</source>
 			</trans-unit>
@@ -48,17 +33,8 @@
 			<trans-unit id="tx_cal_event.orig_start" resname="tx_cal_event.orig_start" >
 				<source>Start (original recurrence instance would occur)</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event.starttime" resname="tx_cal_event.starttime" >
-				<source>Starttime</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.endtime" resname="tx_cal_event.endtime" >
-				<source>Endtime</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.end" resname="tx_cal_event.end" >
 				<source>End</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.due" resname="tx_cal_event.due" >
-				<source>Due</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.start_date" resname="tx_cal_event.start_date" >
 				<source>Event Start Day</source>
@@ -81,9 +57,6 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_event.allday" resname="tx_cal_event.allday" >
 				<source>All Day Event</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.timezone" resname="tx_cal_event.timezone" >
-				<source>Timezone</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.organizer" resname="tx_cal_event.organizer" >
 				<source>Organizer, or...</source>
@@ -118,25 +91,14 @@
 			<trans-unit id="tx_cal_event.remove_recurrence" resname="tx_cal_event.remove_recurrence" >
 				<source>Remove Recurrence</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event.recurs_day" resname="tx_cal_event.recurs_day" >
-				<source>Day</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.recurs_every_month" resname="tx_cal_event.recurs_every_month" >
 				<source>of every month.</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.recurs_selected_months" resname="tx_cal_event.recurs_selected_months" >
 				<source>of selected months.</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event.byday" resname="tx_cal_event.byday" xml:space="preserve">
-				<source>By Day (a combination of:
-				&quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot;
-				und &quot;su&quot;, or &quot;all&quot;)</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.byday_short" resname="tx_cal_event.byday_short" >
 				<source>By Day of the Week</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.byday_all" resname="tx_cal_event.byday_all" >
-				<source>All Days</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.byday_count_first" resname="tx_cal_event.byday_count_first" >
 				<source>First</source>
@@ -194,9 +156,6 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_event.bymonth_short" resname="tx_cal_event.bymonth_short" >
 				<source>By Month</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.bymonth_all" resname="tx_cal_event.bymonth_all" >
-				<source>All Months</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.bymonth_january" resname="tx_cal_event.bymonth_january" >
 				<source>January</source>
@@ -261,18 +220,6 @@
 			<trans-unit id="tx_cal_event.exception" resname="tx_cal_event.exception" >
 				<source>Exceptions</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event.fe_cruser_id" resname="tx_cal_event.fe_cruser_id" >
-				<source>Creator</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.shared_user" resname="tx_cal_event.shared_user" >
-				<source>Shared Users</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.fe_crgroup_id" resname="tx_cal_event.fe_crgroup_id" >
-				<source>Creator Group</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.none" resname="tx_cal_event.none" >
-				<source>None</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.type" resname="tx_cal_event.type" >
 				<source>Event type</source>
 			</trans-unit>
@@ -285,44 +232,11 @@
 			<trans-unit id="tx_cal_event.type.I.2" resname="tx_cal_event.type.I.2" >
 				<source>Link to external url</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_event.type.I.3" resname="tx_cal_event.type.I.3" >
-				<source>Meeting</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.type.I.4" resname="tx_cal_event.type.I.4" >
-				<source>Todo</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_event.external" resname="tx_cal_event.external" >
 				<source>External URL</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_event.shortcut_page" resname="tx_cal_event.shortcut_page" >
 				<source>Shortcut to page</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.imagealttext" resname="tx_cal_event.imagealttext" >
-				<source>alt-text</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.imagetitletext" resname="tx_cal_event.imagetitletext" >
-				<source>title-text</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.attendee" resname="tx_cal_event.attendee" >
-				<source>Attendance</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.send_invitation" resname="tx_cal_event.send_invitation" >
-				<source>Send out invitations</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.status.COMPLETED" resname="tx_cal_event.status.COMPLETED" >
-				<source>Completed</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.status.IN-PROGRESS" resname="tx_cal_event.status.IN-PROGRESS" >
-				<source>In progress</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.status.CANCELLED" resname="tx_cal_event.status.CANCELLED" >
-				<source>Cancelled</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.priority" resname="tx_cal_event.priority" >
-				<source>Priority</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_event.completed" resname="tx_cal_event.completed" >
-				<source>Completed (%)</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_exception_event" resname="tx_cal_exception_event" >
 				<source>Calendar Exception Event</source>
@@ -330,55 +244,11 @@
 			<trans-unit id="tx_cal_exception_event.title" resname="tx_cal_exception_event.title" >
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.starttime" resname="tx_cal_exception_event.starttime" >
-				<source>Starttime</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.endtime" resname="tx_cal_exception_event.endtime" >
-				<source>Endtime</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.start" resname="tx_cal_exception_event.start" >
-				<source>Start</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_exception_event.start_date" resname="tx_cal_exception_event.start_date" >
 				<source>Exception Day</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.start_time" resname="tx_cal_exception_event.start_time" >
-				<source>Exception Start Time</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.end" resname="tx_cal_exception_event.end" >
-				<source>End</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.end_date" resname="tx_cal_exception_event.end_date" >
-				<source>Exception End Day</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.end_time" resname="tx_cal_exception_event.end_time" >
-				<source>Exception End Time</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.allday" resname="tx_cal_exception_event.allday" >
-				<source>All Day Exception</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_exception_event.freq" resname="tx_cal_exception_event.freq" >
 				<source>Exception Frequency</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.byday" resname="tx_cal_exception_event.byday" xml:space="preserve">
-				<source>By Day (a combination of:
-				&quot;mo&quot;,&quot;tu&quot;,&quot;we&quot;,&quot;th&quot;,&quot;fr&quot;,&quot;sa&quot;
-				und &quot;su&quot;, or &quot;all&quot;)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.byday_short" resname="tx_cal_exception_event.byday_short" >
-				<source>By Day of the Week</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.bymonthday" resname="tx_cal_exception_event.bymonthday" >
-				<source>By Monthday (e.g.: 1,2,30 or all)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.bymonthday_short" resname="tx_cal_exception_event.bymonthday_short" >
-				<source>By Day of the Month</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.bymonth" resname="tx_cal_exception_event.bymonth" >
-				<source>By Month (e.g.: 1,2,3,4,12 or all)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.bymonth_short" resname="tx_cal_exception_event.bymonth_short" >
-				<source>By Month</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_exception_event.rdate" resname="tx_cal_exception_event.rdate" >
 				<source>Dates</source>
@@ -395,9 +265,6 @@
 			<trans-unit id="tx_cal_exception_event.interval" resname="tx_cal_exception_event.interval" >
 				<source>Interval</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_exception_event.description" resname="tx_cal_exception_event.description" >
-				<source>Description</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_exception_event_group" resname="tx_cal_exception_event_group" >
 				<source>Calendar Exception Event Group</source>
 			</trans-unit>
@@ -406,33 +273,6 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_exception_event_group.exception_event_cnt" resname="tx_cal_exception_event_group.exception_event_cnt" >
 				<source>Exception Events</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_user_event" resname="tx_cal_fe_user_event" >
-				<source>Frontend User - Event Relation</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_user_event.fe_user" resname="tx_cal_fe_user_event.fe_user" >
-				<source>User</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_user_event.event" resname="tx_cal_fe_user_event.event" >
-				<source>Event</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_group_event" resname="tx_cal_fe_group_event" >
-				<source>Frontend Group - Event Relation</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_group_event.fe_group" resname="tx_cal_fe_group_event.fe_group" >
-				<source>Group</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_group_event.event" resname="tx_cal_fe_group_event.event" >
-				<source>Event</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_user_event.monitor" resname="tx_cal_fe_user_event.monitor" >
-				<source>Monitoring Users</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_user_event.offset" resname="tx_cal_fe_user_event.offset" >
-				<source>Notification offset</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_fe_user_event.schedulerId" resname="tx_cal_fe_user_event.schedulerId" >
-				<source>Scheduler ID</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar" resname="tx_cal_calendar" >
 				<source>Calendar</source>
@@ -458,15 +298,6 @@
 			<trans-unit id="tx_cal_calendar.ext_url" resname="tx_cal_calendar.ext_url" >
 				<source>External Calendar URL</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_calendar.add_url" resname="tx_cal_calendar.add_url" >
-				<source>Add URL</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_calendar.ext_url_url" resname="tx_cal_calendar.ext_url_url" >
-				<source>URL</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_calendar.ext_url_notes" resname="tx_cal_calendar.ext_url_notes" >
-				<source>External Calendar Notes</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_calendar.ics_file" resname="tx_cal_calendar.ics_file" >
 				<source>ICS File</source>
 			</trans-unit>
@@ -476,22 +307,11 @@
 			<trans-unit id="tx_cal_calendar.owner" resname="tx_cal_calendar.owner" >
 				<source>Owner</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_calendar.activate_fnb" resname="tx_cal_calendar.activate_fnb" >
-				<source>Enable free and busy view</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_calendar.fb_users_groups" resname="tx_cal_calendar.fb_users_groups" xml:space="preserve">
-				<source>Limit the free and busy view to these users and/or
-				Groups (else public)</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_calendar.createNew" resname="tx_cal_calendar.createNew" >
 				<source>create a new calendar</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar.edit" resname="tx_cal_calendar.edit" >
 				<source>edit selected calendar</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_calendar.nearby" resname="tx_cal_calendar.nearby" xml:space="preserve">
-				<source>Show only events within a certain distance of a
-				user (wec_map needed)</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_calendar_private" resname="tx_cal_calendar_private" >
 				<source>The users private calendar</source>
@@ -501,9 +321,6 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_category" resname="tx_cal_category" >
 				<source>Calendar Category</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.title" resname="tx_cal_category.title" >
-				<source>Category title</source>
 			</trans-unit>
 			<trans-unit id="sys_category.tx_cal_color" resname="sys_category.tx_cal_color">
 				<source>Color in the calendar</source>
@@ -550,42 +367,6 @@
 			<trans-unit id="tx_cal_category.bodystyle" resname="tx_cal_category.bodystyle" >
 				<source>Body style</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_category.headercolor" resname="tx_cal_category.headercolor" >
-				<source>Header Color (e.g. green or #15E337)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.bodycolor" resname="tx_cal_category.bodycolor" >
-				<source>Body Color (e.g. green or #15E337)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.calendar" resname="tx_cal_category.calendar" >
-				<source>Calendar</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.none" resname="tx_cal_category.none" >
-				<source>None</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.parent_category" resname="tx_cal_category.parent_category" >
-				<source>Parent category</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.shared_user_allowed" resname="tx_cal_category.shared_user_allowed" >
-				<source>Allow shared user to select this category</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.single_pid" resname="tx_cal_category.single_pid" >
-				<source>Event view page for events from this category</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.createNew" resname="tx_cal_category.createNew" >
-				<source>create a new category</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.edit" resname="tx_cal_category.edit" >
-				<source>edit selected category</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.notification_emails" resname="tx_cal_category.notification_emails" >
-				<source>Notification emails (comma separated)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.icon" resname="tx_cal_category.icon" >
-				<source>Icon</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category.global" resname="tx_cal_category.global" >
-				<source>Global categories</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_organizer" resname="tx_cal_organizer" >
 				<source>Calendar Event Organizer</source>
 			</trans-unit>
@@ -619,20 +400,8 @@
 			<trans-unit id="tx_cal_organizer.email" resname="tx_cal_organizer.email" >
 				<source>E-mail</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_organizer.image" resname="tx_cal_organizer.image" >
-				<source>Logo/Image</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_organizer.imagealttext" resname="tx_cal_organizer.imagealttext" >
-				<source>alt-text</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_organizer.imagetitletext" resname="tx_cal_organizer.imagetitletext" >
-				<source>title-text</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_organizer.link" resname="tx_cal_organizer.link" >
 				<source>Homepage</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_organizer.isorganizer" resname="tx_cal_organizer.isorganizer" >
-				<source>Is Cal Organizer</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_organizer.createNew" resname="tx_cal_organizer.createNew" >
 				<source>create a new organizer</source>
@@ -642,9 +411,6 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_location" resname="tx_cal_location" >
 				<source>Calendar Event Location</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_location.location" resname="tx_cal_location.location" >
-				<source>Location</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_location.description" resname="tx_cal_location.description" >
 				<source>Description</source>
@@ -682,20 +448,8 @@
 			<trans-unit id="tx_cal_location.email" resname="tx_cal_location.email" >
 				<source>E-mail</source>
 			</trans-unit>
-			<trans-unit id="tx_cal_location.image" resname="tx_cal_location.image" >
-				<source>Logo/Image</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_location.imagealttext" resname="tx_cal_location.imagealttext" >
-				<source>alt-text</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_location.imagetitletext" resname="tx_cal_location.imagetitletext" >
-				<source>title-text</source>
-			</trans-unit>
 			<trans-unit id="tx_cal_location.link" resname="tx_cal_location.link" >
 				<source>Homepage</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_location.islocation" resname="tx_cal_location.islocation" >
-				<source>Is Cal Location</source>
 			</trans-unit>
 			<trans-unit id="tx_cal_location.createNew" resname="tx_cal_location.createNew" >
 				<source>create a new location</source>
@@ -708,93 +462,6 @@
 			</trans-unit>
 			<trans-unit id="tx_cal_location.longitude" resname="tx_cal_location.longitude" >
 				<source>Longitude</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_unknown_users" resname="tx_cal_unknown_users" >
-				<source>Unregistered users monitoring events</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_unknown_users.email" resname="tx_cal_unknown_users.email" >
-				<source>Email</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general" resname="tx_cal_controller_flexform.sheet_general" >
-				<source>[ General Settings ]</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode" resname="tx_cal_controller_flexform.sheet_general-mode" >
-				<source>Plugin Mode:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.1" resname="tx_cal_controller_flexform.sheet_general-mode2.1" >
-				<source>search data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.11" resname="tx_cal_controller_flexform.sheet_general-mode2.11" >
-				<source>select data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.2" resname="tx_cal_controller_flexform.sheet_general-mode2.2" >
-				<source>list data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.3" resname="tx_cal_controller_flexform.sheet_general-mode2.3" >
-				<source>view/edit data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.4" resname="tx_cal_controller_flexform.sheet_general-mode2.4" >
-				<source>import data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.30" resname="tx_cal_controller_flexform.sheet_general-mode2.30" >
-				<source>search+list data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.31" resname="tx_cal_controller_flexform.sheet_general-mode2.31" >
-				<source>list+view/edit data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.32" resname="tx_cal_controller_flexform.sheet_general-mode2.32" >
-				<source>search+list+view/edit data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.33" resname="tx_cal_controller_flexform.sheet_general-mode2.33" >
-				<source>select+list data</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-mode2.99" resname="tx_cal_controller_flexform.sheet_general-mode2.99" >
-				<source>show info for plugin</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode" resname="tx_cal_controller_flexform.sheet_general-debugmode" >
-				<source>Plugins Debug-Mode:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.0" resname="tx_cal_controller_flexform.sheet_general-debugmode.0" >
-				<source>Debug Off</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.1" resname="tx_cal_controller_flexform.sheet_general-debugmode.1" >
-				<source>Debug On</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-debugmode.2" resname="tx_cal_controller_flexform.sheet_general-debugmode.2" >
-				<source>Debug Verbose</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-template" resname="tx_cal_controller_flexform.sheet_general-template" >
-				<source>Template:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-listpage" resname="tx_cal_controller_flexform.sheet_general-listpage" >
-				<source>PageID of Result ListPage:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-editpage" resname="tx_cal_controller_flexform.sheet_general-editpage" >
-				<source>PageID of EditPage:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-editpopup" resname="tx_cal_controller_flexform.sheet_general-editpopup" >
-				<source>Edit in Popup-Window:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_general-backpage" resname="tx_cal_controller_flexform.sheet_general-backpage" >
-				<source>PageID for BackButton:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_more" resname="tx_cal_controller_flexform.sheet_more" >
-				<source>[ More Settings ]</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_statistics" resname="tx_cal_controller_flexform.sheet_statistics" >
-				<source>[ Template Settings ]</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_statistics-template" resname="tx_cal_controller_flexform.sheet_statistics-template" >
-				<source>Template:</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_localconf" resname="tx_cal_controller_flexform.sheet_localconf" >
-				<source>[ Local Config ]</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_controller_flexform.sheet_localconf-data" resname="tx_cal_controller_flexform.sheet_localconf-data" >
-				<source>LocalConf (TS-Style)</source>
-			</trans-unit>
-			<trans-unit id="tt_content.list_type" resname="tt_content.list_type" >
-				<source>TYPO3 Calendar</source>
 			</trans-unit>
 			<trans-unit id="frequency.none" resname="frequency.none" >
 				<source>None</source>
@@ -822,69 +489,6 @@
 			</trans-unit>
 			<trans-unit id="rdate_type.period" resname="rdate_type.period" >
 				<source>Period</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_enable_accesscontroll" resname="tx_cal_enable_accesscontroll" >
-				<source>Enable Cal Access Control</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_calendar_accesscontroll" resname="tx_cal_calendar_accesscontroll" >
-				<source>Select allowed Calendar</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_category_accesscontroll" resname="tx_cal_category_accesscontroll" >
-				<source>Select allowed Categories (attention)</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee" resname="tx_cal_attendee" >
-				<source>Event attendee</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.attendance.NON" resname="tx_cal_attendee.attendance.NON" >
-				<source>-</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.attendance.OPT-PARTICIPANT" resname="tx_cal_attendee.attendance.OPT-PARTICIPANT" >
-				<source>Optional</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.attendance.REQ-PARTICIPANT" resname="tx_cal_attendee.attendance.REQ-PARTICIPANT" >
-				<source>Required</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.attendance.CHAIR" resname="tx_cal_attendee.attendance.CHAIR" >
-				<source>Chairman</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status.0" resname="tx_cal_attendee.status.0" >
-				<source>No action</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status.NEEDS-ACTION" resname="tx_cal_attendee.status.NEEDS-ACTION" >
-				<source>Needs action</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status.ACCEPTED" resname="tx_cal_attendee.status.ACCEPTED" >
-				<source>Accepted</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status.DECLINE" resname="tx_cal_attendee.status.DECLINE" >
-				<source>Declined</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status.TENTATIVE" resname="tx_cal_attendee.status.TENTATIVE" >
-				<source>Tentative</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status.DELEGATED" resname="tx_cal_attendee.status.DELEGATED" >
-				<source>Delegated</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.fe_user_id" resname="tx_cal_attendee.fe_user_id" >
-				<source>FE User or</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.fe_group_id" resname="tx_cal_attendee.fe_group_id" >
-				<source>FE Group or</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.email" resname="tx_cal_attendee.email" >
-				<source>Email</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.attendance" resname="tx_cal_attendee.attendance" >
-				<source>Attendance</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.status" resname="tx_cal_attendee.status" >
-				<source>Status</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.createNew" resname="tx_cal_attendee.createNew" >
-				<source>create a new attendee</source>
-			</trans-unit>
-			<trans-unit id="tx_cal_attendee.edit" resname="tx_cal_attendee.edit" >
-				<source>edit selected attendee</source>
 			</trans-unit>
 			<trans-unit id="l_day" resname="l_day" >
 				<source>Day</source>

@@ -25,7 +25,6 @@ final class MonthWeekViewHelper extends BaseWeekViewHelper
 
         // registerArgument($name, $type, $description, $required, $defaultValue, $escape)
         $this->registerArgument('month', '\MarioMatzulla\Cal\Model\MonthView', 'The month view object', true);
-        $this->registerArgument('type', 'string', 'the size [small|medium|large]', false, 'large');
     }
 
     public function render()

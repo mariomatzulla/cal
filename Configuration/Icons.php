@@ -41,12 +41,4 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:cal/Resources/Public/Icons/tx_cal_event_link.svg',
     ],
-    'cal-eventtype-meeting' => [
-        'provider' => SvgIconProvider::class,
-        'source' => 'EXT:cal/Resources/Public/Icons/tx_cal_event_meeting.svg',
-    ],
-    'cal-eventtype-todo' => [
-        'provider' => SvgIconProvider::class,
-        'source' => 'EXT:cal/Resources/Public/Icons/tx_cal_event_todo.svg',
-    ],
 ];

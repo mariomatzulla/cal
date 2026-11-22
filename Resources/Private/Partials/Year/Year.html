@@ -65,10 +65,7 @@
           <f:for each="{day.events}" as="event">
             <li class="cal-year__event" style="{event.colorStyle}">
               <span class="cal-year__event-time"><f:if condition="{event.allday}"><f:then><f:translate key="l_all_day" /></f:then><f:else>{f:format.date(date: event.start, pattern: settings.view.year.timeFormat, locale: settings.dateConfig.locale)}</f:else></f:if></span>
-              <f:if condition="{eventLink.enabled}">
-                <f:then><f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="cal-year__event-title">{event.title}</f:link.action></f:then>
-                <f:else><span class="cal-year__event-title">{event.title}</span></f:else>
-              </f:if>
+              <f:render partial="Event/Link" arguments="{event: event, eventLink: eventLink, class: 'cal-year__event-title'}" contentAs="content">{event.title}</f:render>
             </li>
           </f:for>
         </ul>

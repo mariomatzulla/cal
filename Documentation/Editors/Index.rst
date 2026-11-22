@@ -70,10 +70,15 @@ Tab "General"
         A normal event with a detail view.
 
     Shortcut to page
-        The event links to a page.
+        The event links to the page in :guilabel:`Shortcut to page` in all
+        views, e.g. a page with more information about the event.
 
     Link to external url
-        The event links to an URL.
+        The event links to the :guilabel:`External URL` in all views. The link
+        can open in a new window (target of the link field).
+
+    The links of these types are rendered even if the event view is not
+    allowed in the plugin.
 
 :guilabel:`Title`
     Title of the event.
@@ -154,9 +159,17 @@ when an event is saved, and can be rebuilt with the backend module
 Tabs "Location" and "Organizer"
 -------------------------------
 
-The location and the organizer are either a text, a location / organizer
-record, a page or an external link. With a record, the event view links to the
-location or organizer view, if this view is allowed in the plugin.
+The location and the organizer are a text or a location / organizer record.
+In the event and list view they are linked:
+
+#.  A record links to the location / organizer view, if this view is allowed in
+    the plugin.
+#.  Otherwise :guilabel:`Page to link the location to` (or organizer) links to
+    a page,
+#.  otherwise :guilabel:`External link to the location` (or organizer) to an
+    URL.
+
+Without text and record the title of the page or the URL is shown.
 
 ..  figure:: /Images/EventViewLinks.png
     :alt: Event view with links to the location and the organizer
@@ -173,11 +186,6 @@ Tab "Files"
 
 Images and files of the event. The first image is shown in the list and event
 view.
-
-Tab "Other"
------------
-
-Attendees and the frontend users / groups that created the event.
 
 ..  _editors-exception:
 

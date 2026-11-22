@@ -31,6 +31,32 @@ class Event extends AbstractEntity
      */
     protected $title;
 
+    /**
+     * Event type: 0 = event with description, 1 = shortcut to a page, 2 = link to an external URL
+     */
+    protected int $type = 0;
+
+    /**
+     * Page of a shortcut event (type 1)
+     */
+    protected int $page = 0;
+
+    /**
+     * URL of an external link event (type 2), a typolink parameter
+     */
+    protected string $extUrl = '';
+
+    /**
+     * Page and external link of the location / organizer (used if there is no location / organizer record)
+     */
+    protected int $locationPid = 0;
+
+    protected string $locationLink = '';
+
+    protected int $organizerPid = 0;
+
+    protected string $organizerLink = '';
+
     // TODO This property comes from rendering -> WeekView;
     public $matrixValue;
 
@@ -808,10 +834,15 @@ class Event extends AbstractEntity
         return $this->modelType;
     }
 
+    /**
+     * Start of the event. Without start day (e.g. a record saved without date) the current day is used,
+     * so the recurrence index and the views can still be generated.
+     */
     public function getStart()
     {
+        $startDate = $this->getStartDate() ?? new \DateTime('today');
         $start = new \MarioMatzulla\Cal\Model\CalendarDateTime();
-        $start->setDate((int)$this->getStartDate()->format('Y'), (int)$this->getStartDate()->format('m'), (int)$this->getStartDate()->format('d'));
+        $start->setDate((int)$startDate->format('Y'), (int)$startDate->format('m'), (int)$startDate->format('d'));
         if ($this->getStartTime() !== null) {
             $start->setTime((int)$this->getStartTime()->format('H'), (int)$this->getStartTime()->format('i'));
         } else {
@@ -820,10 +851,14 @@ class Event extends AbstractEntity
         return $start;
     }
 
+    /**
+     * End of the event. Without end day the start day is used (without start day the current day).
+     */
     public function getEnd()
     {
+        $endDate = $this->getEndDate() ?? $this->getStartDate() ?? new \DateTime('today');
         $end = new \MarioMatzulla\Cal\Model\CalendarDateTime();
-        $end->setDate((int)$this->getEndDate()->format('Y'), (int)$this->getEndDate()->format('m'), (int)$this->getEndDate()->format('d'));
+        $end->setDate((int)$endDate->format('Y'), (int)$endDate->format('m'), (int)$endDate->format('d'));
         if ($this->getEndTime() !== null) {
             $end->setTime((int)$this->getEndTime()->format('H'), (int)$this->getEndTime()->format('i'));
         } else {
@@ -1002,5 +1037,83 @@ class Event extends AbstractEntity
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * Alias of getType()
+     */
+    public function getEventType(): int
+    {
+        return $this->type;
+    }
+
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    public function setPage(int $page): void
+    {
+        $this->page = $page;
+    }
+
+    public function getExtUrl(): string
+    {
+        return $this->extUrl;
+    }
+
+    public function setExtUrl(?string $extUrl): void
+    {
+        $this->extUrl = (string)$extUrl;
+    }
+
+    public function getLocationPid(): int
+    {
+        return $this->locationPid;
+    }
+
+    public function setLocationPid(int $locationPid): void
+    {
+        $this->locationPid = $locationPid;
+    }
+
+    public function getLocationLink(): string
+    {
+        return $this->locationLink;
+    }
+
+    public function setLocationLink(?string $locationLink): void
+    {
+        $this->locationLink = (string)$locationLink;
+    }
+
+    public function getOrganizerPid(): int
+    {
+        return $this->organizerPid;
+    }
+
+    public function setOrganizerPid(int $organizerPid): void
+    {
+        $this->organizerPid = $organizerPid;
+    }
+
+    public function getOrganizerLink(): string
+    {
+        return $this->organizerLink;
+    }
+
+    public function setOrganizerLink(?string $organizerLink): void
+    {
+        $this->organizerLink = (string)$organizerLink;
     }
 }

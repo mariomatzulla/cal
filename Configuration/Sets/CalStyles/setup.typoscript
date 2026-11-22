@@ -6,7 +6,6 @@ page.includeCSS {
 	tx_cal_20_month = EXT:cal/Resources/Public/Css/Cal/month.css
 	tx_cal_30_year = EXT:cal/Resources/Public/Css/Cal/year.css
 	tx_cal_40_timegrid = EXT:cal/Resources/Public/Css/Cal/timegrid.css
-	tx_cal_50_events = EXT:cal/Resources/Public/Css/Cal/events.css
 	tx_cal_60_categories = EXT:cal/Resources/Public/Css/Cal/categories.css
 	tx_cal_70_list = EXT:cal/Resources/Public/Css/Cal/list.css
 	tx_cal_80_detail = EXT:cal/Resources/Public/Css/Cal/detail.css

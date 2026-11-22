@@ -15,8 +15,5 @@
 .DS_Store
 Thumbs.db
 
-# Local notes
-/REVIEW_TYPO3_14.md
-
 # Rendered documentation
 /Documentation-GENERATED-temp/

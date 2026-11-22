@@ -41,20 +41,15 @@ final class LegacySchema
         'tx_cal_event_deviation' => 'tx_cal_domain_model_eventdeviation',
         'tx_cal_exception_event' => 'tx_cal_domain_model_exception_event',
         'tx_cal_exception_event_group' => 'tx_cal_domain_model_exception_event_group',
-        'tx_cal_attendee' => 'tx_cal_domain_model_attendee',
-        'tx_cal_unknown_users' => 'tx_cal_domain_model_unknown_users',
-        'tx_cal_fe_user_event_monitor_mm' => 'tx_cal_domain_model_fe_user_event_monitor_mm',
     ];
 
     /**
-     * MM tables which got a new name. The MM tables tx_cal_calendar_user_group_mm,
-     * tx_cal_calendar_fnb_user_group_mm and tx_cal_event_shared_user_mm keep their names.
+     * MM tables which got a new name. The MM table tx_cal_calendar_user_group_mm keeps its name.
+     * Attendees, subscriptions (monitoring), shared users and the free/busy view of cal 1.x are not migrated.
      */
     public const MM_TABLES = [
         'tx_cal_exception_event_mm' => 'tx_cal_domain_model_exception_event_mm',
         'tx_cal_exception_event_group_mm' => 'tx_cal_domain_model_exception_event_group_mm',
-        'tx_cal_location_shared_user_mm' => 'tx_cal_domain_model_location_shared_user_mm',
-        'tx_cal_organizer_shared_user_mm' => 'tx_cal_domain_model_organizer_shared_user_mm',
     ];
 
     /**

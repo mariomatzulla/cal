@@ -5,16 +5,7 @@
 <f:variable name="location"><f:if condition="{event.locationObject}"><f:then>{event.locationObject.name}</f:then><f:else>{event.location}</f:else></f:if></f:variable>
 <f:variable name="classes">cal-timegrid__event{f:if(condition: '{eventValues.duration} < 45', then: ' cal-timegrid__event--short')}</f:variable>
 <f:variable name="style">--cal-timegrid-start: {eventValues.offset}; --cal-timegrid-duration: {eventValues.duration}; --cal-timegrid-left: {eventValues.columnLeft}%; --cal-timegrid-width: {eventValues.columnWidth}%; {event.colorStyle}</f:variable>
-<f:if condition="{eventLink.enabled}">
-  <f:then>
-    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{classes}" additionalAttributes="{style: style, title: '{time} {event.title}'}">
-      <f:render section="content" arguments="{event: event, time: time, location: location}" />
-    </f:link.action>
-  </f:then>
-  <f:else>
-    <div class="{classes}" style="{style}" title="{time} {event.title}"><f:render section="content" arguments="{event: event, time: time, location: location}" /></div>
-  </f:else>
-</f:if>
+<f:render partial="Event/Link" arguments="{event: event, eventLink: eventLink, class: classes, style: style, title: '{time} {event.title}', tag: 'div'}" contentAs="content"><f:render section="content" arguments="{event: event, time: time, location: location}" /></f:render>
 
 <f:section name="content">
   <span class="cal-timegrid__event-time">{time}</span>

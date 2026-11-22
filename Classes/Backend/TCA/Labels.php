@@ -64,57 +64,6 @@ class Labels
         }
     }
 
-    public function getAttendeeRecordLabel(array &$params): void
-    {
-        if (($params['table'] ?? '') !== 'tx_cal_domain_model_attendee') {
-            return;
-        }
-        $record = $this->getRecord($params['table'], $params['row'] ?? [], ['email', 'fe_user_id', 'attendance', 'status']);
-        if ($record === null) {
-            return;
-        }
-
-        $label = (string)($record['email'] ?? '');
-        if (!empty($record['fe_user_id'])) {
-            $feUser = BackendUtility::getRecord('fe_users', (int)$record['fe_user_id']);
-            if ($feUser !== null) {
-                $label = ($feUser['name'] ?? '') !== '' ? $feUser['name'] : $feUser['username'];
-            }
-        }
-        $attendance = $this->translate('tx_cal_attendee.attendance.' . ($record['attendance'] ?? ''));
-        $params['title'] = $label . ' (' . $attendance . ' -> ' . ($record['status'] ?? '') . ')';
-    }
-
-    public function getMonitoringRecordLabel(array &$params): void
-    {
-        if (($params['table'] ?? '') !== 'tx_cal_domain_model_fe_user_event_monitor_mm') {
-            return;
-        }
-        $record = $this->getRecord($params['table'], $params['row'] ?? [], ['uid_foreign', 'tablenames', 'offset']);
-        if ($record === null) {
-            return;
-        }
-
-        $label = '';
-        $foreignUid = (int)($record['uid_foreign'] ?? 0);
-        switch ($record['tablenames'] ?? '') {
-            case 'fe_users':
-                $feUser = BackendUtility::getRecord('fe_users', $foreignUid);
-                $label = $feUser === null ? '' : (($feUser['name'] ?? '') !== '' ? $feUser['name'] : $feUser['username']);
-                break;
-            case 'fe_groups':
-                $feGroup = BackendUtility::getRecord('fe_groups', $foreignUid);
-                $label = (string)($feGroup['title'] ?? '');
-                break;
-            case 'tx_cal_domain_model_unknown_users':
-                $unknownUser = BackendUtility::getRecord('tx_cal_domain_model_unknown_users', $foreignUid);
-                $label = (string)($unknownUser['email'] ?? '');
-                break;
-        }
-
-        $params['title'] = $label . ' (' . $this->translate('tx_cal_fe_user_event.offset') . ': ' . (int)($record['offset'] ?? 0) . ')';
-    }
-
     public function getDeviationRecordLabel(array &$params): void
     {
         if (($params['table'] ?? '') !== 'tx_cal_domain_model_eventdeviation') {

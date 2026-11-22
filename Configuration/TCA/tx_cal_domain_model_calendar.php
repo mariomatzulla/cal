@@ -112,33 +112,6 @@ return [
                 'default' => 'Europe/Berlin',
             ],
         ],
-        'activate_fnb' => [
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.activate_fnb',
-            'onChange' => 'reload',
-            'config' => [
-                'type' => 'check',
-                'default' => 0,
-            ],
-        ],
-        'fnb_user_cnt' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.fb_users_groups',
-            'displayCond' => 'FIELD:activate_fnb:=:1',
-            'config' => [
-                'type' => 'group',
-                'MM' => 'tx_cal_calendar_fnb_user_group_mm',
-                'size' => 6,
-                'minitems' => 0,
-                'maxitems' => 100,
-                'allowed' => 'fe_users,fe_groups',
-            ],
-        ],
-        'nearby' => [
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.nearby',
-            'config' => [
-                'type' => 'check',
-            ],
-        ],
         'type' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.type',
@@ -172,13 +145,6 @@ return [
             ],
         ],
 
-        'ext_url_notes' => [
-            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.ext_url_notes',
-            'config' => [
-                'type' => 'text',
-                'default' => '',
-            ],
-        ],
 
         'ics_file' => [
             'exclude' => 1,
@@ -275,13 +241,13 @@ return [
     ],
     'types' => [
         '0' => [
-            'showitem' => 'type,title, --palette--;;1,timezone,owner,headerstyle,bodystyle,activate_fnb,fnb_user_cnt,nearby',
+            'showitem' => 'type,title, --palette--;;1,timezone,owner,headerstyle,bodystyle',
         ],
         '1' => [
-            'showitem' => 'type,title, --palette--;;1,timezone,owner,headerstyle,bodystyle,activate_fnb,fnb_user_cnt,nearby,ext_url,ext_url_notes,refresh,schedulerId',
+            'showitem' => 'type,title, --palette--;;1,timezone,owner,headerstyle,bodystyle,ext_url,refresh,schedulerId',
         ],
         '2' => [
-            'showitem' => 'type,title, --palette--;;1,timezone,owner,headerstyle,bodystyle,activate_fnb,fnb_user_cnt,nearby,ics_file,refresh,schedulerId',
+            'showitem' => 'type,title, --palette--;;1,timezone,owner,headerstyle,bodystyle,ics_file,refresh,schedulerId',
         ],
     ],
     'palettes' => [

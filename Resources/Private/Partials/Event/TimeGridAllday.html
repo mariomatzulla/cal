@@ -1,12 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:comment>All-day event in the time grid of the week / day view (column, span: days, row: line of the all-day area)</f:comment>
 <f:variable name="style">--cal-timegrid-col: {column}; --cal-timegrid-span: {span}; --cal-timegrid-row: {row}; {event.colorStyle}</f:variable>
-<f:if condition="{eventLink.enabled}">
-  <f:then>
-    <f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="cal-timegrid__allday-event" additionalAttributes="{style: style, title: event.title}">{event.title}</f:link.action>
-  </f:then>
-  <f:else>
-    <span class="cal-timegrid__allday-event" style="{style}" title="{event.title}">{event.title}</span>
-  </f:else>
-</f:if>
+<f:render partial="Event/Link" arguments="{event: event, eventLink: eventLink, class: 'cal-timegrid__allday-event', style: style, title: event.title}" contentAs="content">{event.title}</f:render>
 </html>

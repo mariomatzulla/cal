@@ -22,7 +22,6 @@ File              Content
 `month.css`       Month view
 `year.css`        Year view
 `timegrid.css`    Time grid of the week and day view
-`events.css`      Events in the views
 `categories.css`  Colors of the calendar styles (`*_catheader`)
 `list.css`        List view
 `detail.css`      Event, location and organizer view

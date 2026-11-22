@@ -81,6 +81,9 @@ Further upgrade wizards
 `cal_l10nParent`
     Migrates the field `l18n_parent` to `l10n_parent`.
 
+`cal_eventTypes`
+    Converts events of the removed types "Meeting" and "Todo" to normal events.
+
 ..  _upgrade-typoscript:
 
 TypoScript and templates
@@ -104,8 +107,11 @@ The following features of cal 1.x do not exist in cal 4:
     organizers and categories in the frontend) and the rights management.
 *   Search views, the search box and the sidebar.
 *   RSS feed (use the iCalendar download or CalDAV instead).
-*   Subscription and meeting manager, todo views, notifications and reminders
-    by e-mail.
+*   Subscription and meeting manager, attendees, todo views, notifications and
+    reminders by e-mail. Events of the types "Meeting" and "Todo" become normal
+    events.
+*   Shared users of events, locations and organizers, the creator fields of
+    frontend editing and the free / busy view of calendars.
 *   Mini calendar and the AJAX views (`calajax`).
 *   Marker based templates, the Constant Editor templates and the PEAR date
     formats. Date formats are ICU patterns now (e.g. `dd.MM.yyyy`).

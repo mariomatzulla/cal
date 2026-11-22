@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:mmcal="http://typo3.org/ns/MarioMatzulla/Cal/ViewHelpers" data-namespace-typo3-fluid="true">
-<mmcal:month offset="{offset}" dateObject="{getdate}" events="{events}">
+<mmcal:month dateObject="{getdate}" events="{events}">
 <div class="cal-month__grid{f:if(condition: calendarViews.week, then: ' cal-month__grid--weeknums')}">
   <div class="cal-month__weekdays" aria-hidden="true">
     <f:if condition="{calendarViews.week}">
@@ -9,7 +9,7 @@
       <div class="cal-month__weekday">{f:format.date(date: weekday, pattern: settings.view.month.weekdayFormatLargeMonth, locale: settings.dateConfig.locale) -> f:replace(search: '.', replace: '')}</div>
     </f:for>
   </div>
-  <mmcal:monthWeek type="large" month="{monthObject}">
+  <mmcal:monthWeek month="{monthObject}">
     <div class="cal-month__week {weekClasses}" style="--cal-month-rows: {rowspan}">
       <f:if condition="{calendarViews.week}">
         <f:link.action action="{settings.view.weekLinkTarget}" arguments="{year: week.year, week: week.week}" class="cal-month__weeknum" title="{f:translate(key: 'l_week')} {week.week}">{week.week}</f:link.action>
