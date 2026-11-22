@@ -8,6 +8,7 @@ class LocationRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseReposi
 {
     public function initializeObject()
     {
+        parent::initializeObject();
         $this->objectType = 'MarioMatzulla\Cal\Domain\Model\Location';
     }
 

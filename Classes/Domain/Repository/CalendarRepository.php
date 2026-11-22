@@ -11,6 +11,7 @@ class CalendarRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseReposi
 {
     public function initializeObject()
     {
+        parent::initializeObject();
         $this->objectType = 'MarioMatzulla\Cal\Domain\Model\Calendar';
         $this->tableName = 'tx_cal_domain_model_calendar';
     }

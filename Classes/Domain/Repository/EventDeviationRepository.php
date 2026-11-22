@@ -20,6 +20,7 @@ class EventDeviationRepository extends \MarioMatzulla\Cal\Domain\Repository\Base
 
     public function initializeObject()
     {
+        parent::initializeObject();
         $this->objectType = 'MarioMatzulla\Cal\Domain\Model\EventDeviation';
         $this->tableName = 'tx_cal_domain_model_eventdeviation';
     }

@@ -10,22 +10,6 @@ $configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->ge
 
 $sPid = '###CURRENT_PID###'; // storage pid????
 
-$useLocationStructure = $configuration['useLocationStructure'] ?: 'tx_cal_domain_model_location';
-$useOrganizerStructure = $configuration['useOrganizerStructure'] ?: 'tx_cal_domain_model_organizer';
-
-switch ($useLocationStructure) {
-    case 'tx_tt_address':
-        $useLocationStructure = 'tt_address';
-        break;
-}
-switch ($useOrganizerStructure) {
-    case 'tx_tt_address':
-        $useOrganizerStructure = 'tt_address';
-        break;
-    case 'tx_feuser':
-        $useOrganizerStructure = 'fe_users';
-        break;
-}
 
 return [
     'ctrl' =>  [
@@ -185,14 +169,14 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'default' => 0,
-                'allowed' => $useOrganizerStructure,
+                'allowed' => 'tx_cal_domain_model_organizer',
                 'fieldControl' => [
                     'addRecord' => [
                         'disabled' => '',
                         'options' => [
                             'pid' => $sPid,
                             'setValue' => 'set',
-                            'table' => $useOrganizerStructure,
+                            'table' => 'tx_cal_domain_model_organizer',
                             'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_organizer.createNew',
                         ],
                     ],
@@ -244,14 +228,14 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'default' => 0,
-                'allowed' => $useLocationStructure,
+                'allowed' => 'tx_cal_domain_model_location',
                 'fieldControl' => [
                     'addRecord' => [
                         'disabled' => '',
                         'options' => [
                             'pid' => $sPid,
                             'setValue' => 'set',
-                            'table' => $useLocationStructure,
+                            'table' => 'tx_cal_domain_model_location',
                             'title' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_location.createNew',
                         ],
                     ],

@@ -13,6 +13,7 @@ class CalendarOwnerRelationRepository extends \MarioMatzulla\Cal\Domain\Reposito
 {
     public function initializeObject()
     {
+        parent::initializeObject();
         $this->connection = $this->getConnectionForTable($this->table);
     }
 

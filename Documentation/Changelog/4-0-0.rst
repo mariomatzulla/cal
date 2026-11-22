@@ -33,6 +33,11 @@ Breaking changes
     "Year View", "Month View" and "Week View" are removed, the tab "Day View"
     is now "Day and Week View". Values stored in existing plugins are ignored.
 *   Removed the unused field `tx_cal_calendar_subscription` of frontend users.
+*   Removed the extension settings `useLocationStructure` and
+    `useOrganizerStructure`: events use the locations and organizers of cal,
+    `tt_address` and frontend users are no longer supported as location or
+    organizer. Other record types can still be added with own listeners of
+    `GetLocationEvent` / `GetOrganizerEvent`.
     Remove the column with "Analyze Database Structure".
 
 Features
@@ -67,3 +72,6 @@ Bugfixes
 *   All-day events of several days are exported with the correct `DTEND`, so
     CalDAV clients show them on all days (upgrade wizard `cal_icsData`).
 *   The iCalendar download is only available if the view "ICS" is allowed.
+*   Calendars, events, locations and organizers are found independent of the
+    storage page of the plugin (the repositories did not apply the query
+    settings of the base repository), use `pidList` to limit them.

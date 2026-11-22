@@ -8,6 +8,7 @@ class OrganizerRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepos
 {
     public function initializeObject()
     {
+        parent::initializeObject();
         $this->objectType = 'MarioMatzulla\Cal\Domain\Model\Organizer';
     }
 
