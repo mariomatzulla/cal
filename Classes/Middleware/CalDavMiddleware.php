@@ -89,16 +89,22 @@ final class CalDavMiddleware implements MiddlewareInterface
     }
 
     /**
-     * The PSR-7 request as request of SabreDAV. Basic authentication handled by the web server
-     * (PHP_AUTH_USER, e.g. Apache with mod_php) is passed as Authorization header.
+     * The PSR-7 request as request of SabreDAV. TYPO3 takes the headers from the HTTP_* server variables
+     * only, the credentials can be elsewhere (like Sabre\HTTP\Sapi handles it):
+     * - REDIRECT_HTTP_AUTHORIZATION: Apache with PHP as CGI / FPM after the rewrite to index.php
+     * - PHP_AUTH_USER / PHP_AUTH_PW: Apache with mod_php
      */
     private function createSabreRequest(ServerRequestInterface $request): SabreRequest
     {
         $uri = $request->getUri();
         $headers = $request->getHeaders();
         $serverParams = $request->getServerParams();
-        if (!$request->hasHeader('Authorization') && isset($serverParams['PHP_AUTH_USER'])) {
-            $headers['Authorization'] = ['Basic ' . base64_encode($serverParams['PHP_AUTH_USER'] . ':' . ($serverParams['PHP_AUTH_PW'] ?? ''))];
+        if (!$request->hasHeader('Authorization')) {
+            if ((string)($serverParams['REDIRECT_HTTP_AUTHORIZATION'] ?? '') !== '') {
+                $headers['Authorization'] = [(string)$serverParams['REDIRECT_HTTP_AUTHORIZATION']];
+            } elseif (isset($serverParams['PHP_AUTH_USER'])) {
+                $headers['Authorization'] = ['Basic ' . base64_encode($serverParams['PHP_AUTH_USER'] . ':' . ($serverParams['PHP_AUTH_PW'] ?? ''))];
+            }
         }
         $sabreRequest = new SabreRequest(
             $request->getMethod(),

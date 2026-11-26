@@ -124,6 +124,16 @@ final class CalDavMiddlewareTest extends FunctionalTestCase
         )->withAttribute('site', $site));
         self::assertSame(207, $response->getStatusCode());
         self::assertStringContainsString('/club/caldav/principals/anna/', (string)$response->getBody());
+
+        // PHP as CGI / FPM: the Authorization header is only available after the rewrite to index.php
+        $response = $this->process($this->request(
+            'https://example.org/caldav/principals/anna/',
+            'PROPFIND',
+            ['Depth' => '0'],
+            self::PROPFIND,
+            ['REDIRECT_HTTP_AUTHORIZATION' => 'Basic ' . base64_encode('anna:secret')],
+        ));
+        self::assertSame(207, $response->getStatusCode());
     }
 
     #[Test]
