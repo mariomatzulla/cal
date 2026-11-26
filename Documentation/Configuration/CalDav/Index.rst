@@ -195,6 +195,14 @@ Changes of a series in the client are taken over:
     cal stores the end of a recurrence as day (:guilabel:`Until`) or as number
     of dates (:guilabel:`Count`). A rule with both is exported with `UNTIL`.
 
+..  note::
+    The start of an event should be a date of its rule. RFC 5545 leaves the
+    dates of a start not matching the rule undefined. Like Thunderbird and most
+    other clients, cal shows the start as additional date and does not include
+    it in :guilabel:`Count`: a monthly event on the last day, 5 times, starting
+    on December 1st has the dates December 1st, 31st and the last days of
+    January to April.
+
 Rules the recurrence fields cannot store
 ----------------------------------------
 

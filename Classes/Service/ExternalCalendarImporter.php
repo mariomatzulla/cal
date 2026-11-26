@@ -58,6 +58,7 @@ final class ExternalCalendarImporter
         private readonly IndexRepository $indexRepository,
         private readonly FileRepository $fileRepository,
         private readonly SlugService $slugService,
+        private readonly PageCacheService $pageCacheService,
     ) {}
 
     /**
@@ -134,6 +135,8 @@ final class ExternalCalendarImporter
         $this->eventRepository->insertRows($rows);
         $this->slugService->fillMissing(self::EVENT_TABLE, $calendarId);
         $this->calendarRepository->updateMd5($calendarId, $md5);
+        // the events are written without DataHandler
+        $this->pageCacheService->flush();
 
         return ['status' => self::STATUS_IMPORTED, 'count' => count($rows)];
     }
@@ -147,6 +150,7 @@ final class ExternalCalendarImporter
         if ($uids !== []) {
             $this->indexRepository->deleteByEventUidsAndTablename($uids, 'tx_cal_event');
             $this->calendarRepository->updateMd5($calendarId, '');
+            $this->pageCacheService->flush();
         }
         return count($uids);
     }

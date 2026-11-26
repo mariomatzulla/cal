@@ -21,6 +21,7 @@ class CalDavBackend extends AbstractBackend
         private readonly FrontendUserRepository $feuserRepository,
         private readonly SlugService $slugService,
         private readonly CalDavRecurrenceWriter $recurrenceWriter,
+        private readonly PageCacheService $pageCacheService,
     ) {}
 
     public function getCalendarsForUser($principalUri)
@@ -96,7 +97,7 @@ class CalDavBackend extends AbstractBackend
         $this->slugService->fillMissing('tx_cal_domain_model_event', $calendarId);
         $this->writeRecurrence($calendarId, (string)$objectUri, $calendarData, $calendar);
 
-        $this->calendarRepository->touch($calendarId);
+        $this->calendarChanged($calendarId);
         return self::etag($calendarData);
     }
 
@@ -112,7 +113,7 @@ class CalDavBackend extends AbstractBackend
 
         $this->eventRepository->updateEvent($calendarId, (string)$record['ics_uid'], $this->buildValues($calendarData, $calendar));
         $this->writeRecurrence($calendarId, (string)$objectUri, $calendarData, $calendar);
-        $this->calendarRepository->touch($calendarId);
+        $this->calendarChanged($calendarId);
         return self::etag($calendarData);
     }
 
@@ -126,7 +127,7 @@ class CalDavBackend extends AbstractBackend
         }
         // Soft delete (deleted = 1), so the record can still be restored in the backend recycler
         $this->eventRepository->updateEvent($calendarId, (string)$record['ics_uid'], ['deleted' => 1, 'tstamp' => time()]);
-        $this->calendarRepository->touch($calendarId);
+        $this->calendarChanged($calendarId);
     }
 
     /**
@@ -188,6 +189,15 @@ class CalDavBackend extends AbstractBackend
         if ($record) {
             $this->recurrenceWriter->write((int)$record['uid'], IcsParser::parseRecurrenceDetails($calendarData, (string)($calendar['timezone'] ?? '')));
         }
+    }
+
+    /**
+     * The calendar was changed by a client: new timestamp (sync token) and the pages show the change
+     */
+    private function calendarChanged(int $calendarId): void
+    {
+        $this->calendarRepository->touch($calendarId);
+        $this->pageCacheService->flush();
     }
 
     private static function etag(string $calendarData): string

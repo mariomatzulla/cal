@@ -121,6 +121,11 @@ Bugfixes
 
 *   Recurring events follow RFC 5545: yearly rules with `BYMONTH`,
     `BYMONTHDAY` (also negative values), `BYDAY` with ordinal and `INTERVAL`.
+*   A start not matching the recurrence rule is an additional date, `COUNT`
+    does not include it (like Thunderbird and most CalDAV clients).
+*   Pages with calendar plugins show changes at once: they get the cal tables
+    as cache tags (flushed by the backend), changes of CalDAV clients and
+    imports flush them as well, see :ref:`caching`.
 *   All-day events of several days are exported with the correct `DTEND`, so
     CalDAV clients show them on all days (upgrade wizard `cal_icsData`).
 *   The iCalendar download is only available if the view "ICS" is allowed.

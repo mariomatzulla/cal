@@ -18,6 +18,7 @@ use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use MarioMatzulla\Cal\Service\ExternalCalendarImporter;
+use MarioMatzulla\Cal\Service\PageCacheService;
 use MarioMatzulla\Cal\Service\SlugService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -92,7 +93,12 @@ final class ExternalCalendarImporterTest extends UnitTestCase
         $fileRepository = $this->createStub(FileRepository::class);
         $fileRepository->method('findByRelation')->willReturn($files);
 
-        return new ExternalCalendarImporter($requestFactory, $extensionConfiguration, $calendarRepository, $eventRepository, $indexRepository, $fileRepository, new SlugService($this->createStub(ConnectionPool::class)));
+        $pageCacheService = $this->createStub(PageCacheService::class);
+        $pageCacheService->method('flush')->willReturnCallback(function (): void {
+            $this->calls[] = 'flush';
+        });
+
+        return new ExternalCalendarImporter($requestFactory, $extensionConfiguration, $calendarRepository, $eventRepository, $indexRepository, $fileRepository, new SlugService($this->createStub(ConnectionPool::class)), $pageCacheService);
     }
 
     private static function response(string $body, int $status = 200): ResponseInterface
@@ -154,7 +160,8 @@ final class ExternalCalendarImporterTest extends UnitTestCase
         // deleted calendar: the imported events and the hash are removed
         $this->calls = [];
         self::assertSame(['status' => 'removed', 'count' => 2], $this->createImporter(self::calendar(['deleted' => 1, 'md5' => 'x']), [], [], [7, 8])->importCalendar(3));
-        self::assertSame(['remove 3', 'index 7,8 tx_cal_event', 'md5 3 empty', 'md5 3 empty'], $this->calls);
+        // the pages with calendar plugins show the change at once
+        self::assertSame(['remove 3', 'index 7,8 tx_cal_event', 'md5 3 empty', 'flush', 'md5 3 empty'], $this->calls);
     }
 
     #[Test]
@@ -166,7 +173,7 @@ final class ExternalCalendarImporterTest extends UnitTestCase
         ]);
         self::assertSame(['status' => 'imported', 'count' => 4], $importer->importCalendar(3));
         self::assertSame(['https://example.org/a.ics', 'https://example.org/b.ics'], $this->requests);
-        self::assertSame(['remove 3', 'md5 3 set'], $this->calls);
+        self::assertSame(['remove 3', 'md5 3 set', 'flush'], $this->calls);
         self::assertSame(['a', 'b', 'c', 'd'], array_column($this->inserted, 'ics_uid'));
         $first = $this->inserted[0];
         self::assertSame(['First', 5, 3, 1, 0], [$first['title'], $first['pid'], $first['calendar_id'], $first['isTemp'], $first['type']]);
@@ -207,7 +214,7 @@ final class ExternalCalendarImporterTest extends UnitTestCase
         $requestFactory->method('request')->willReturn(self::response($ics));
         $eventRepository = $this->createStub(EventRepository::class);
         $eventRepository->method('removeTempEventsOfCalendar')->willReturn([]);
-        (new ExternalCalendarImporter($requestFactory, $this->createStub(ExtensionConfiguration::class), $calendarRepository, $eventRepository, $this->createStub(IndexRepository::class), $this->createStub(FileRepository::class), new SlugService($this->createStub(ConnectionPool::class))))->importCalendar(3);
+        (new ExternalCalendarImporter($requestFactory, $this->createStub(ExtensionConfiguration::class), $calendarRepository, $eventRepository, $this->createStub(IndexRepository::class), $this->createStub(FileRepository::class), new SlugService($this->createStub(ConnectionPool::class)), $this->createStub(PageCacheService::class)))->importCalendar(3);
         return $hash;
     }
 

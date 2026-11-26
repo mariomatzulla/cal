@@ -16,4 +16,5 @@ Configuration
     ExternalCalendars/Index
     CalDav/Index
     BackendModules/Index
+    Caching/Index
     Styling/Index

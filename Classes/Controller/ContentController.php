@@ -11,6 +11,7 @@ use MarioMatzulla\Cal\Events\GetLocationEvent;
 use MarioMatzulla\Cal\Events\GetOrganizerEvent;
 use MarioMatzulla\Cal\Events\SearchEventsEvent;
 use MarioMatzulla\Cal\Model\CalendarDateTime;
+use MarioMatzulla\Cal\Service\PageCacheService;
 use MarioMatzulla\Cal\Utility\CalculateDateTime;
 use MarioMatzulla\Cal\Utility\HelperFunctions;
 use Psr\Http\Message\ResponseInterface;
@@ -42,6 +43,13 @@ class ContentController extends ActionController
      */
     private ?array $storagePageIds = null;
 
+    private PageCacheService $pageCacheService;
+
+    public function injectPageCacheService(PageCacheService $pageCacheService): void
+    {
+        $this->pageCacheService = $pageCacheService;
+    }
+
     /**
      * Initializes the settings for every action. Runs after the request has been set,
      * so TypoScript and FlexForm can be resolved for the current page.
@@ -51,6 +59,8 @@ class ContentController extends ActionController
         // FlexForm of the rendered content element, without content element (page type of the iCalendar
         // export) the FlexForms of the calendar plugins of the page
         $this->initSettings($this->getContentElement(), (int)$this->request->getAttribute('frontend.page.information')?->getId());
+        // the page cache is flushed when the records of cal change (see PageCacheService)
+        $this->pageCacheService->addCacheTags($this->request);
         // First day of the week of all views (monday / sunday)
         WeekStart::set($this->settings ['view'] ['weekStartDay'] ?? WeekStart::MONDAY);
         $this->settings ['view'] ['allowedViewsToLinkTo'] = array_unique(array_merge(HelperFunctions::trimExplode($this->settings ['view'] ['allowedViews'] ?? ''), $this->getAllowedViewsByViewPid()));

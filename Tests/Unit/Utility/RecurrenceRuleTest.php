@@ -110,7 +110,9 @@ final class RecurrenceRuleTest extends UnitTestCase
     public static function furtherRulesDataProvider(): array
     {
         return [
-            'the start counts as first occurrence, also if it does not match the rule' => ['FREQ=MONTHLY;BYMONTHDAY=1;COUNT=3', '2026-01-15 10:00', '2026-12-31', ['20260115T1000', '20260201T1000', '20260301T1000']],
+            'a start not matching the rule is an additional date (like Thunderbird)' => ['FREQ=MONTHLY;BYMONTHDAY=1;COUNT=3', '2026-01-15 10:00', '2026-12-31', ['20260115T1000', '20260201T1000', '20260301T1000', '20260401T1000']],
+            'the last day of the month, start on the 1st' => ['FREQ=MONTHLY;BYMONTHDAY=-1;COUNT=5', '2026-12-01 14:00', '2027-12-31', ['20261201T1400', '20261231T1400', '20270131T1400', '20270228T1400', '20270331T1400', '20270430T1400']],
+            'a matching start counts as first occurrence' => ['FREQ=MONTHLY;BYMONTHDAY=-1;COUNT=3', '2026-12-31 14:00', '2027-12-31', ['20261231T1400', '20270131T1400', '20270228T1400']],
             'COUNT=1' => ['FREQ=DAILY;COUNT=1', '2026-01-15 10:00', '2026-12-31', ['20260115T1000']],
             'the last workday of a quarter (yearly BYSETPOS)' => ['FREQ=YEARLY;BYMONTH=3,6,9,12;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1', '2026-03-31 10:00', '2026-12-31', ['20260331T1000']],
             'the last workday of every month' => ['FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1,-1,99', '2026-01-30 10:00', '2026-04-30 23:00', ['20260130T1000', '20260227T1000', '20260331T1000', '20260430T1000']],
@@ -126,7 +128,7 @@ final class RecurrenceRuleTest extends UnitTestCase
             'daily on the 1st of the month' => ['FREQ=DAILY;BYMONTHDAY=1;COUNT=3', '2026-01-01 10:00', '2026-12-31', ['20260101T1000', '20260201T1000', '20260301T1000']],
             'weekly in summer' => ['FREQ=WEEKLY;BYMONTH=7;BYDAY=WE;COUNT=3', '2026-07-01 10:00', '2026-12-31', ['20260701T1000', '20260708T1000', '20260715T1000']],
             'ordinals of a weekly rule are ignored' => ['FREQ=WEEKLY;BYDAY=1MO;COUNT=2', '2026-11-02 10:00', '2026-12-31', ['20261102T1000', '20261109T1000']],
-            'monthly with BYYEARDAY' => ['FREQ=MONTHLY;BYYEARDAY=32;COUNT=2', '2026-01-01 10:00', '2027-12-31', ['20260101T1000', '20260201T1000']],
+            'monthly with BYYEARDAY' => ['FREQ=MONTHLY;BYYEARDAY=32;COUNT=2', '2026-01-01 10:00', '2027-12-31', ['20260101T1000', '20260201T1000', '20270201T1000']],
             'UNTIL as date' => ['FREQ=DAILY;UNTIL=20260103', '2026-01-01 10:00', '2026-12-31', ['20260101T1000', '20260102T1000', '20260103T1000']],
             'UNTIL as wall clock time' => ['FREQ=DAILY;UNTIL=20260103T095959', '2026-01-01 10:00', '2026-12-31', ['20260101T1000', '20260102T1000']],
             'the range ends before UNTIL' => ['FREQ=DAILY;UNTIL=20260110', '2026-01-01 10:00', '2026-01-02 10:00', ['20260101T1000', '20260102T1000']],
@@ -166,6 +168,16 @@ final class RecurrenceRuleTest extends UnitTestCase
         $dates = iterator_to_array((new RecurrenceRule('FREQ=WEEKLY;COUNT=2'))->getOccurrences($start, new \DateTimeImmutable('2026-12-31')), false);
         self::assertSame(['20261102143000', '20261109143000'], array_map(static fn(\DateTimeImmutable $date): string => $date->format('YmdHis'), $dates));
         self::assertSame('UTC', $dates[0]->getTimezone()->getName());
+    }
+
+    #[Test]
+    public function theStartMatchesTheRule(): void
+    {
+        self::assertTrue((new RecurrenceRule('FREQ=WEEKLY;BYDAY=MO,WE'))->matches(new \DateTimeImmutable('2026-11-30 10:00')));
+        self::assertFalse((new RecurrenceRule('FREQ=WEEKLY;BYDAY=MO,WE'))->matches(new \DateTimeImmutable('2026-12-01 10:00')));
+        // values of the start (here the weekday) are used if the rule has none
+        self::assertTrue((new RecurrenceRule('FREQ=WEEKLY'))->matches(new \DateTimeImmutable('2026-12-01 10:00')));
+        self::assertFalse((new RecurrenceRule('FREQ=DAILY;BYHOUR=9'))->matches(new \DateTimeImmutable('2026-12-01 10:00')));
     }
 
     #[Test]

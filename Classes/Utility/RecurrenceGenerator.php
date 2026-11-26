@@ -259,11 +259,13 @@ class RecurrenceGenerator
 
         $maxRecurringEvents = $count;
 
-        $counter = 1;
+        // a start not matching the rule is an additional date, COUNT does not include it (see RecurrenceRule)
+        $startMatches = self::startMatchesRule($event);
+        $counter = $startMatches ? 1 : 0;
         $total = 1;
 
         // if the 'parent' event is still in future, set $added to 1 (true), because we already have one instance of this event
-        $added = (int)$eventStart->isFuture();
+        $added = (int)($eventStart->isFuture() && $startMatches);
         $nextOccuranceTime = new CalendarDateTime();
         $nextOccuranceTime->copy($event->getStart());
         $nextOccuranceTime->modify('+1 day');
@@ -547,6 +549,34 @@ class RecurrenceGenerator
             $eventData->setEventDeviationUid((int)$deviation->getUid());
             $eventData->setStartDatetime((float)$startDate->format('YmdHis'));
             $eventData->setEndDatetime((float)$endDate->format('YmdHis'));
+        }
+    }
+
+    /**
+     * The start of the event is a date of its rule (validated fields)
+     */
+    private static function startMatchesRule(Event $event): bool
+    {
+        $frequencies = ['day' => 'DAILY', 'week' => 'WEEKLY', 'month' => 'MONTHLY', 'year' => 'YEARLY'];
+        $frequency = $frequencies[(string)$event->getFreq()] ?? null;
+        if ($frequency === null || $frequency === 'DAILY') {
+            return true;
+        }
+        $parts = ['FREQ=' . $frequency];
+        $byDay = (string)$event->getByday();
+        if ($frequency === 'WEEKLY') {
+            // ordinals are not used by weekly rules
+            $byDay = (string)preg_replace('/[-+]?\d+/', '', $byDay);
+        }
+        foreach (['BYDAY' => $byDay, 'BYMONTHDAY' => (string)$event->getBymonthday(), 'BYMONTH' => (string)$event->getBymonth()] as $key => $value) {
+            if (trim($value) !== '') {
+                $parts[] = $key . '=' . str_replace(' ', '', strtoupper($value));
+            }
+        }
+        try {
+            return (new RecurrenceRule(implode(';', $parts)))->matches($event->getStart());
+        } catch (\InvalidArgumentException) {
+            return true;
         }
     }
 

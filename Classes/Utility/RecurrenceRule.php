@@ -181,11 +181,14 @@ final class RecurrenceRule
             return;
         }
         yield $start;
-        $count = 1;
+        $defaults = $this->getDefaults($start);
+        // RFC 5545 3.3.10: DTSTART counts as first occurrence. A start not matching the rule has an undefined
+        // result (3.8.5.3): like most clients (e.g. Thunderbird) it is an additional date then, COUNT does not
+        // include it.
+        $count = $this->matchesStart($start, $defaults) ? 1 : 0;
         if ($this->count !== null && $count >= $this->count) {
             return;
         }
-        $defaults = $this->getDefaults($start);
         $period = $this->getPeriodStart($start);
         for ($i = 0; $i < self::MAX_PERIODS && $period <= $limit; $i++, $period = $this->getNextPeriod($period)) {
             foreach ($this->expandPeriod($period, $defaults) as $occurrence) {
@@ -202,6 +205,28 @@ final class RecurrenceRule
                 }
             }
         }
+    }
+
+    /**
+     * The start is a date of the rule (without COUNT and UNTIL)
+     */
+    public function matches(\DateTimeInterface $start): bool
+    {
+        $start = self::wallClock($start);
+        return $this->matchesStart($start, $this->getDefaults($start));
+    }
+
+    /**
+     * @param array{byMonth: list<int>, byMonthDay: list<int>, byDay: list<array{0: int, 1: int}>, byHour: list<int>, byMinute: list<int>, bySecond: list<int>} $defaults
+     */
+    private function matchesStart(\DateTimeImmutable $start, array $defaults): bool
+    {
+        foreach ($this->expandPeriod($this->getPeriodStart($start), $defaults) as $date) {
+            if ($date == $start) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

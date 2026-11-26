@@ -19,6 +19,7 @@ use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Domain\Repository\FrontendUserRepository;
 use MarioMatzulla\Cal\Service\CalDavBackend;
 use MarioMatzulla\Cal\Service\CalDavRecurrenceWriter;
+use MarioMatzulla\Cal\Service\PageCacheService;
 use MarioMatzulla\Cal\Service\SlugService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -72,8 +73,13 @@ final class CalDavBackendTest extends UnitTestCase
             $this->calls[] = 'recurrence ' . $uid . ' ' . json_encode($details);
         });
 
+        $pageCacheService = $this->createStub(PageCacheService::class);
+        $pageCacheService->method('flush')->willReturnCallback(function (): void {
+            $this->calls[] = 'flush';
+        });
+
         // without TCA the slug service does nothing
-        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService($this->createStub(ConnectionPool::class)), $recurrenceWriter);
+        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService($this->createStub(ConnectionPool::class)), $recurrenceWriter, $pageCacheService);
     }
 
     private const CALENDARS = [
@@ -139,11 +145,12 @@ final class CalDavBackendTest extends UnitTestCase
         // a deleted event with the same uid is restored
         $backend->createCalendarObject(1, 'old.ics', self::ICS);
         self::assertSame('persist pid=5 calendar=1 uid=new title=Meeting crdate=tstamp', $this->calls[0]);
-        self::assertSame('touch 1', $this->calls[1]);
-        self::assertStringStartsWith('update 1 old ', $this->calls[2]);
-        self::assertStringEndsWith(' deleted=0', $this->calls[2]);
-        self::assertStringContainsString('caldav_data', $this->calls[2]);
-        self::assertStringNotContainsString('ics_uid', $this->calls[2]);
+        // the pages with calendar plugins show the change at once
+        self::assertSame(['touch 1', 'flush'], [$this->calls[1], $this->calls[2]]);
+        self::assertStringStartsWith('update 1 old ', $this->calls[3]);
+        self::assertStringEndsWith(' deleted=0', $this->calls[3]);
+        self::assertStringContainsString('caldav_data', $this->calls[3]);
+        self::assertStringNotContainsString('ics_uid', $this->calls[3]);
     }
 
     #[Test]
@@ -174,7 +181,7 @@ final class CalDavBackendTest extends UnitTestCase
         self::assertSame('"' . md5(rtrim(self::ICS)) . '"', $backend->updateCalendarObject(1, 'abc.ics', self::ICS));
         self::assertStringStartsWith('update 1 abc ', $this->calls[0]);
         self::assertSame('recurrence 9 {"exdates":[],"overrides":[]}', $this->calls[1]);
-        self::assertSame('touch 1', $this->calls[2]);
+        self::assertSame(['touch 1', 'flush'], array_slice($this->calls, 2));
 
         $this->expectException(NotFound::class);
         $backend->updateCalendarObject(1, 'missing.ics', self::ICS);
@@ -187,7 +194,7 @@ final class CalDavBackendTest extends UnitTestCase
         $backend->deleteCalendarObject(1, 'missing.ics');
         self::assertSame([], $this->calls);
         $backend->deleteCalendarObject(1, 'abc.ics');
-        self::assertSame(['update 1 abc deleted,tstamp deleted=1', 'touch 1'], $this->calls);
+        self::assertSame(['update 1 abc deleted,tstamp deleted=1', 'touch 1', 'flush'], $this->calls);
     }
 
     #[Test]

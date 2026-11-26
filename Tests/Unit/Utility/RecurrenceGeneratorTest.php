@@ -496,4 +496,24 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         self::assertCount(RecurrenceGenerator::MAX_RULE_OCCURRENCES + 1, $entries);
         self::assertSame('202611090840-202611090841', end($entries));
     }
+
+    #[Test]
+    public function aStartNotMatchingTheRuleIsAnAdditionalDate(): void
+    {
+        // the last day of the month, 5 times, start on the 1st: like Thunderbird, COUNT does not include the start
+        $event = self::createEvent('2026-12-01 14:00', '2026-12-01 15:00', ['freq' => 'month', 'bymonthday' => '-1', 'cnt' => 5]);
+        self::assertSame(
+            [self::first($event), '202612311400-202612311500', '202701311400-202701311500', '202702281400-202702281500', '202703311400-202703311500', '202704301400-202704301500'],
+            $this->generate($event),
+        );
+        // weekly on Monday and Wednesday, start on a Tuesday
+        $event = self::createEvent('2026-12-01 14:00', '2026-12-01 15:00', ['freq' => 'week', 'byday' => '1MO,WE', 'cnt' => 2]);
+        self::assertSame([self::first($event), '202612021400-202612021500', '202612071400-202612071500'], $this->generate($event));
+        // a matching start counts as first date
+        $event = self::createEvent('2026-12-02 14:00', '2026-12-02 15:00', ['freq' => 'week', 'byday' => 'MO,WE', 'cnt' => 2]);
+        self::assertSame([self::first($event), '202612071400-202612071500'], $this->generate($event));
+        // an ordinal the rule does not allow: the start counts
+        $event = self::createEvent('2026-12-02 14:00', '2026-12-02 15:00', ['freq' => 'month', 'byday' => '99WE', 'cnt' => 1]);
+        self::assertSame([self::first($event)], $this->generate($event));
+    }
 }
