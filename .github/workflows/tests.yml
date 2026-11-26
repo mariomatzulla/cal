@@ -1,0 +1,91 @@
+# Tests of cal for every push and pull request.
+# The jobs "Tests (PHP …)" and "Coverage" can be required in a ruleset of the branch master,
+# so a pull request can only be merged when everything is green.
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Tests (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # the tests use PHPUnit 13 (PHP 8.4), add further versions here when the tests run with them
+        php: ['8.4']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl, pdo_sqlite, sqlite3, zip
+          coverage: none
+          tools: composer:v2
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-${{ matrix.php }}-${{ hashFiles('composer.json') }}
+          restore-keys: composer-${{ matrix.php }}-
+
+      - run: composer install --no-progress --no-interaction
+
+      - name: Code style
+        run: composer cs:check
+
+      - name: Unit tests
+        run: composer test:unit
+
+      - name: Functional tests
+        run: composer test:functional
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: intl, pdo_sqlite, sqlite3, zip
+          coverage: pcov
+          tools: composer:v2
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-8.4-${{ hashFiles('composer.json') }}
+          restore-keys: composer-8.4-
+
+      - run: composer install --no-progress --no-interaction
+
+      - name: Coverage
+        shell: bash
+        run: composer test:coverage | tee .Build/coverage.txt
+
+      - name: Require 100 % line coverage
+        run: |
+          lines=$(grep -m1 -E '^\s*Lines:' .Build/coverage.txt)
+          echo "$lines"
+          echo "$lines" | grep -q '100.00%' || { echo "::error::The line coverage is below 100 %"; exit 1; }
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: .Build/coverage/html
+          if-no-files-found: ignore
