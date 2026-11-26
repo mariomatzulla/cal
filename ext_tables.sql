@@ -34,6 +34,7 @@ CREATE TABLE tx_cal_domain_model_event (
 	isTemp tinyint(1) DEFAULT '0' NOT NULL,
 	ics_uid text,
 	caldav_data text,
+	ics_sequence int(11) unsigned DEFAULT '0' NOT NULL,
 	image VARCHAR(255) DEFAULT '' NOT NULL,
 	attachment text,
 	ref_event_id int(11) unsigned DEFAULT '0'

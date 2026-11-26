@@ -211,7 +211,29 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         return $this->dataMapper->map(Event::class, $rows);
     }
 
-    public function updateWithCaldavData(int $uid, string $caldavData)
+    /**
+     * Creation, last change, SEQUENCE and iCalendar data of an event (also hidden events)
+     *
+     * @return array{crdate: int, tstamp: int, sequence: int, data: string}
+     */
+    public function findIcsMetaData(int $uid): array
+    {
+        $queryBuilder = $this->getQueryBuilder();
+        $queryBuilder->getRestrictions()->removeAll();
+        $row = $queryBuilder->select('crdate', 'tstamp', 'ics_sequence', 'caldav_data')
+            ->from($this->tableName)
+            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
+            ->executeQuery()
+            ->fetchAssociative() ?: [];
+        return [
+            'crdate' => (int)($row['crdate'] ?? 0),
+            'tstamp' => (int)($row['tstamp'] ?? 0),
+            'sequence' => (int)($row['ics_sequence'] ?? 0),
+            'data' => (string)($row['caldav_data'] ?? ''),
+        ];
+    }
+
+    public function updateWithCaldavData(int $uid, string $caldavData, ?int $sequence = null)
     {
         $queryBuilder = $this->getQueryBuilder();
         $queryBuilder
@@ -219,8 +241,11 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         ->set('caldav_data', $caldavData)
         ->where(
             $queryBuilder->expr()->eq('uid', $uid),
-        )
-            ->executeStatement();
+        );
+        if ($sequence !== null) {
+            $queryBuilder->set('ics_sequence', $sequence);
+        }
+        $queryBuilder->executeStatement();
     }
 
     public function updateWithIcsUid(int $uid, string $caldavUid)

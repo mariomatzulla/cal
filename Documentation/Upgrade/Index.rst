@@ -68,11 +68,13 @@ Further upgrade wizards
     organizers, which are needed for the :ref:`speaking-urls`.
 
 `cal_icsData`
-    Earlier versions of cal 4 created a wrong end of all-day events in the
-    iCalendar data: CalDAV clients showed events of several days on their
-    first day only. The wizard removes the iCalendar data created by cal,
-    create it again with the backend module :guilabel:`Cal ICS Generator`.
-    Data of CalDAV clients and imported events are kept.
+    Earlier versions of cal 4 created invalid iCalendar data: a wrong end of
+    all-day events (CalDAV clients showed events of several days on their
+    first day only), no `DTSTAMP`, texts and URLs escaped as HTML instead of
+    iCalendar, no line folding. The wizard removes the iCalendar data created
+    by cal, create it again with the backend module
+    :guilabel:`Cal ICS Generator`. Data of CalDAV clients and imported events
+    are kept.
 
 `cal_recurrence`
     The recurrence index contains the first date of a recurring event and

@@ -109,6 +109,9 @@ final class SmallUpgradeWizardsTest extends FunctionalTestCase
         self::assertSame([1 => '', 2 => $client, 3 => $cal, 4 => ''], $this->values('tx_cal_domain_model_event', 'caldav_data'));
         self::assertStringContainsString('1 events', $output->fetch());
         self::assertFalse($wizard->updateNecessary());
+        // the data created again (backend module "Cal ICS Generator") is not removed again
+        $this->connection('tx_cal_domain_model_event')->update('tx_cal_domain_model_event', ['caldav_data' => $cal], ['uid' => 1]);
+        self::assertFalse($wizard->updateNecessary());
     }
 
     #[Test]

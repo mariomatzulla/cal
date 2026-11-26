@@ -107,6 +107,13 @@ final class EventRepositoryTest extends FunctionalTestCase
         $this->subject->updateWithCaldavData(1, 'DATA');
         $row = $this->subject->findAllForCalendarAndUri(1, 'new-uid');
         self::assertSame(['Single', 'DATA'], [$row['title'], $row['caldav_data']]);
+        self::assertSame(0, $this->subject->findIcsMetaData(1)['sequence']);
+        $this->subject->updateWithCaldavData(1, 'DATA 2', 4);
+        $meta = $this->subject->findIcsMetaData(1);
+        self::assertSame([4, 'DATA 2'], [$meta['sequence'], $meta['data']]);
+        self::assertIsInt($meta['crdate']);
+        self::assertIsInt($meta['tstamp']);
+        self::assertSame(['crdate' => 0, 'tstamp' => 0, 'sequence' => 0, 'data' => ''], $this->subject->findIcsMetaData(999));
 
         self::assertFalse($this->subject->findAllForCalendarAndUri(1, 'd'));
         self::assertSame('Deleted', $this->subject->findAllForCalendarAndUri(1, 'd', true)['title']);

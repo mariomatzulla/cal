@@ -58,6 +58,11 @@ Breaking changes
     `findCalendarListForFeUser()` takes the user groups and returns a list of
     calendar uids.
 
+*   The iCalendar data is created with `sabre/vobject` (class `IcsBuilder`), the
+    template `Resources/Private/Templates/Admin/Ics.html` and the view helper
+    `mm:zuluDateTime` are removed. New field
+    `ics_sequence` of events: run "Analyze Database Structure".
+
 Features
 ========
 
@@ -91,6 +96,10 @@ Features
     deviations as `VEVENT` with `RECURRENCE-ID`. Changes of a series in a CalDAV
     client are stored as exception events and deviations, see
     :ref:`caldav-recurrence`. Upgrade wizard `cal_recurrence`.
+*   The iCalendar data contains `CREATED`, `LAST-MODIFIED`, `SEQUENCE`
+    (increased with every change), the coordinates of the location (`GEO`), the
+    color of the categories (`COLOR`, nearest CSS3 color name) and the images
+    (`IMAGE`, RFC 7986).
 *   Unit and functional tests with 100 % code coverage, scripts
     `composer test:unit`, `test:functional`, `test:coverage`, and a release
     script for the TER (with or without the bundled Sabre libraries), see
@@ -138,3 +147,9 @@ Bugfixes
     shown.
 *   Recurring events written by a CalDAV client are added to the recurrence
     index, removing the recurrence in the client resets the rule of the event.
+*   Valid iCalendar data: `DTSTAMP` was empty, texts and URLs were escaped as
+    HTML (`&amp;`) instead of iCalendar (commas, semicolons, line breaks), long
+    lines were not folded and `ORGANIZER` had no `mailto:` (without e-mail the
+    organizer is left out now). The description is exported as plain text,
+    the HTML version as `X-ALT-DESC`. Upgrade wizard `cal_icsData`.
+*   The upgrade wizard `cal_icsData` is executed only once.

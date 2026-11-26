@@ -50,7 +50,7 @@ class IcsGenerator
         private readonly CalendarRepository $calendarRepository,
         private readonly SiteFinder $siteFinder,
         private readonly PackageManager $packageManager,
-        private readonly IcsRecurrence $icsRecurrence,
+        private readonly IcsBuilder $icsBuilder,
     ) {}
 
     /**
@@ -110,27 +110,68 @@ class IcsGenerator
             $event->setIcsUid(md5($calendar->getTitle() . '_' . $calendar->getUid() . '_' . $event->getUid()));
             $this->eventRepository->updateWithIcsUid((int)$event->getUid(), (string)$event->getIcsUid());
         }
+        // the description with resolved links and the URLs of the files are rendered by Fluid (typolink)
         $view = $this->viewFactory->create(
             new ViewFactoryData(
-                templatePathAndFilename: 'EXT:cal/Resources/Private/Templates/Admin/Ics.html',
+                templatePathAndFilename: 'EXT:cal/Resources/Private/Templates/Admin/IcsResources.html',
                 request: $request,
             ),
         );
-        $timezone = (string)$calendar->getTimezone();
-        $view->assignMultiple([
-            'event' => $event,
-            'calVersion' => $this->getVersion(),
-            'eventUrl' => $this->generateEventUrl($event),
-            'vTimeZone' => self::generateVTimeZone($timezone),
-            // RRULE, RDATE, EXDATE and the deviations as VEVENTs with RECURRENCE-ID
-            'recurrence' => $this->icsRecurrence->getRecurrenceLines($event, $timezone),
-            'overrides' => $this->icsRecurrence->getOverrides($event, $timezone),
-        ]);
-        // without empty lines (of the conditions of the template), lines end with CRLF (RFC 5545)
-        $lines = explode("\n", str_replace("\r\n", "\n", rtrim($view->render())));
-        $event->setCaldavData(implode("\r\n", array_filter($lines, static fn(string $line): bool => trim($line) !== '')));
-        $this->eventRepository->updateWithCaldavData((int)$event->getUid(), (string)$event->getCaldavData());
+        $view->assign('event', $event);
+        $resources = self::parseResources($view->render());
+
+        $meta = $this->eventRepository->findIcsMetaData((int)$event->getUid());
+        $vcalendar = $this->icsBuilder->build(
+            $event,
+            $this->getVersion(),
+            $this->generateEventUrl($event),
+            ['crdate' => $meta['crdate'], 'tstamp' => $meta['tstamp'], 'sequence' => $meta['sequence']],
+            $resources,
+            self::generateVTimeZone((string)$calendar->getTimezone()),
+        );
+        // SEQUENCE (RFC 5545 3.8.7.4) is incremented when the data changes
+        $sequence = $meta['sequence'];
+        if ($meta['data'] !== '' && self::withoutRevision($meta['data']) !== self::withoutRevision($vcalendar->serialize())) {
+            $sequence++;
+            foreach ($vcalendar->select('VEVENT') as $vEvent) {
+                $vEvent->remove('SEQUENCE');
+                $vEvent->add('SEQUENCE', $sequence);
+            }
+        }
+        $event->setCaldavData(rtrim($vcalendar->serialize()));
+        $this->eventRepository->updateWithCaldavData((int)$event->getUid(), (string)$event->getCaldavData(), $sequence);
         $this->calendarRepository->touch((int)$calendar->getUid());
+    }
+
+    /**
+     * Rendered template IcsResources.html => description (HTML) and URLs of the attachments and images
+     *
+     * @return array{description: string, attachments: list<string>, images: list<string>}
+     */
+    public static function parseResources(string $rendered): array
+    {
+        $parts = explode('<!--cal:', $rendered);
+        $result = ['description' => '', 'attachments' => [], 'images' => []];
+        foreach ($parts as $part) {
+            [$name, $content] = array_pad(explode('-->', $part, 2), 2, '');
+            if ($name === 'description') {
+                $result['description'] = trim($content);
+            } elseif ($name === 'attachments' || $name === 'images') {
+                $urls = array_map(static fn(string $url): string => html_entity_decode(trim($url), ENT_QUOTES | ENT_HTML5), explode("\n", $content));
+                $result[$name] = array_values(array_filter($urls, static fn(string $url): bool => $url !== ''));
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * iCalendar data without the properties which change with every save (DTSTAMP, LAST-MODIFIED, SEQUENCE)
+     */
+    private static function withoutRevision(string $data): string
+    {
+        $lines = explode("\n", str_replace(["\r\n ", "\r\n\t", "\r\n"], ['', '', "\n"], $data));
+        $lines = array_filter($lines, static fn(string $line): bool => !preg_match('/^(DTSTAMP|LAST-MODIFIED|SEQUENCE)[;:]/', $line));
+        return trim(implode("\n", $lines));
     }
 
     private function getVersion(): string

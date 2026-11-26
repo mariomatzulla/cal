@@ -18,6 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Attribute\UpgradeWizard;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Upgrades\ChattyInterface;
 use TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
@@ -33,11 +34,20 @@ final class IcsDataUpgradeWizard implements UpgradeWizardInterface, ChattyInterf
 {
     private const EVENT_TABLE = 'tx_cal_domain_model_event';
     private const PRODID = 'PRODID:-//TYPO3/NONSGML Calendar Base (cal)';
+    private const REGISTRY_NAMESPACE = 'tx_cal';
+    private const REGISTRY_KEY = 'icsDataVersion';
+
+    /**
+     * Version of the iCalendar data created by cal. Increase it when the data has to be created again.
+     * 2: escaping, line folding, DTSTAMP, ORGANIZER with "mailto:" (data created with sabre/vobject)
+     */
+    private const VERSION = 2;
 
     private ?OutputInterface $output = null;
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
+        private readonly Registry $registry,
     ) {}
 
     public function setOutput(OutputInterface $output): void
@@ -52,10 +62,10 @@ final class IcsDataUpgradeWizard implements UpgradeWizardInterface, ChattyInterf
 
     public function getDescription(): string
     {
-        return 'The iCalendar data (CalDAV) created by cal had a wrong end of all-day events: CalDAV clients showed '
-            . 'events of several days on their first day only. The wizard removes the data created by cal, afterwards '
-            . 'create it again in the backend module "Cal ICS Generator". Data of CalDAV clients and imported events '
-            . 'are kept.';
+        return 'The iCalendar data (download, CalDAV) created by earlier versions of cal was not valid: wrong end of '
+            . 'all-day events, missing DTSTAMP, texts and URLs escaped as HTML instead of iCalendar, no line folding. '
+            . 'The wizard removes the data created by cal, afterwards create it again in the backend module "Cal ICS '
+            . 'Generator". Data of CalDAV clients and imported events are kept.';
     }
 
     public function getPrerequisites(): array
@@ -65,6 +75,9 @@ final class IcsDataUpgradeWizard implements UpgradeWizardInterface, ChattyInterf
 
     public function updateNecessary(): bool
     {
+        if ((int)$this->registry->get(self::REGISTRY_NAMESPACE, self::REGISTRY_KEY, 0) >= self::VERSION) {
+            return false;
+        }
         $queryBuilder = $this->createQueryBuilder();
         return (int)$queryBuilder->count('uid')
             ->from(self::EVENT_TABLE)
@@ -84,6 +97,7 @@ final class IcsDataUpgradeWizard implements UpgradeWizardInterface, ChattyInterf
             '%d events: iCalendar data removed, create it again in the backend module "Cal ICS Generator".',
             $count,
         ));
+        $this->registry->set(self::REGISTRY_NAMESPACE, self::REGISTRY_KEY, self::VERSION);
         return true;
     }
 

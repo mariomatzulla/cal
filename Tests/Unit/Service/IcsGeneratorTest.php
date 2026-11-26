@@ -19,7 +19,8 @@ use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Service\IcsGenerator;
-use MarioMatzulla\Cal\Service\IcsRecurrence;
+use MarioMatzulla\Cal\Service\IcsBuilder;
+use Sabre\VObject\Component\VCalendar;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -42,9 +43,16 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 final class IcsGeneratorTest extends UnitTestCase
 {
     /**
-     * @var array<string, mixed>
+     * @var array<string, mixed> arguments of IcsBuilder::build()
      */
     private array $assigned = [];
+
+    /**
+     * @var array{crdate: int, tstamp: int, sequence: int, data: string}
+     */
+    private array $meta = ['crdate' => 1, 'tstamp' => 2, 'sequence' => 3, 'data' => ''];
+
+    private string $summary = 'Test';
 
     /**
      * @var list<string>
@@ -57,14 +65,10 @@ final class IcsGeneratorTest extends UnitTestCase
     private function createGenerator(?EventRepository $eventRepository = null, string $version = '4.1.0', string $site = 'page'): IcsGenerator
     {
         $view = $this->createStub(ViewInterface::class);
-        $view->method('assignMultiple')->willReturnCallback(function (array $values) use ($view): ViewInterface {
-            $this->assigned = $values;
-            return $view;
-        });
-        $view->method('render')->willReturn("BEGIN:VCALENDAR\n\n  \nSUMMARY:Test\r\nEND:VCALENDAR\n\n");
+        $view->method('render')->willReturn("\n<!--cal:description--><p>Text</p>\n<!--cal:attachments-->\nhttps://example.org/a.pdf?x=1&amp;y=2\n\n<!--cal:images-->\nhttps://example.org/i.jpg\n");
         $viewFactory = $this->createStub(ViewFactoryInterface::class);
         $viewFactory->method('create')->willReturnCallback(function (ViewFactoryData $data) use ($view): ViewInterface {
-            self::assertSame('EXT:cal/Resources/Private/Templates/Admin/Ics.html', $data->templatePathAndFilename);
+            self::assertSame('EXT:cal/Resources/Private/Templates/Admin/IcsResources.html', $data->templatePathAndFilename);
             return $view;
         });
 
@@ -73,9 +77,10 @@ final class IcsGeneratorTest extends UnitTestCase
             $eventRepository->method('updateWithIcsUid')->willReturnCallback(function (int $uid, string $icsUid): void {
                 $this->calls[] = 'ics_uid ' . $uid . ' ' . $icsUid;
             });
-            $eventRepository->method('updateWithCaldavData')->willReturnCallback(function (int $uid, string $data): void {
-                $this->calls[] = 'caldav_data ' . $uid . ' ' . json_encode($data);
+            $eventRepository->method('updateWithCaldavData')->willReturnCallback(function (int $uid, string $data, ?int $sequence = null): void {
+                $this->calls[] = 'caldav_data ' . $uid . ' ' . $sequence . ' ' . json_encode($data);
             });
+            $eventRepository->method('findIcsMetaData')->willReturnCallback(fn(): array => $this->meta);
         }
         $calendarRepository = $this->createStub(CalendarRepository::class);
         $calendarRepository->method('touch')->willReturnCallback(function (int $uid): void {
@@ -105,10 +110,19 @@ final class IcsGeneratorTest extends UnitTestCase
         $packageManager->method('isPackageActive')->willReturn($version !== 'inactive');
         $packageManager->method('getPackage')->willReturn($package);
 
-        $icsRecurrence = $this->createStub(IcsRecurrence::class);
-        $icsRecurrence->method('getRecurrenceLines')->willReturnCallback(static fn(Event $event, string $timezone): string => 'RRULE:FREQ=DAILY ' . $timezone);
-        $icsRecurrence->method('getOverrides')->willReturn([['title' => 'Moved']]);
-        return new IcsGenerator($viewFactory, $eventRepository, $calendarRepository, $siteFinder, $packageManager, $icsRecurrence);
+        $icsBuilder = $this->createStub(IcsBuilder::class);
+        $icsBuilder->method('build')->willReturnCallback(function (Event $event, string $version, string $eventUrl, array $meta, array $resources, string $vTimeZone): VCalendar {
+            $this->assigned = ['event' => $event, 'calVersion' => $version, 'eventUrl' => $eventUrl, 'meta' => $meta, 'resources' => $resources, 'vTimeZone' => $vTimeZone];
+            $vcalendar = new VCalendar(['PRODID' => '-//test//EN']);
+            $vEvent = $vcalendar->createComponent('VEVENT', null, false);
+            $vEvent->add('UID', 'x');
+            $vEvent->add('DTSTAMP', new \DateTimeImmutable('@' . time()));
+            $vEvent->add('SEQUENCE', $meta['sequence']);
+            $vEvent->add('SUMMARY', $this->summary);
+            $vcalendar->add($vEvent);
+            return $vcalendar;
+        });
+        return new IcsGenerator($viewFactory, $eventRepository, $calendarRepository, $siteFinder, $packageManager, $icsBuilder);
     }
 
     private static function event(string $timezone = 'Europe/Berlin', string $icsUid = ''): Event
@@ -136,16 +150,44 @@ final class IcsGeneratorTest extends UnitTestCase
         $this->createGenerator()->updateIcs($event, $this->createStub(ServerRequestInterface::class));
         $icsUid = md5('Calendar_3_7');
         self::assertSame($icsUid, $event->getIcsUid());
-        self::assertSame("BEGIN:VCALENDAR\r\nSUMMARY:Test\r\nEND:VCALENDAR", $event->getCaldavData());
-        self::assertSame(['ics_uid 7 ' . $icsUid, 'caldav_data 7 ' . json_encode($event->getCaldavData()), 'touch 3'], $this->calls);
+        self::assertStringStartsWith("BEGIN:VCALENDAR\r\n", $event->getCaldavData());
+        self::assertStringEndsWith("SUMMARY:Test\r\nEND:VEVENT\r\nEND:VCALENDAR", $event->getCaldavData());
+        // without previous data the sequence is not changed
+        self::assertSame(['ics_uid 7 ' . $icsUid, 'caldav_data 7 3 ' . json_encode($event->getCaldavData()), 'touch 3'], $this->calls);
 
         self::assertSame($event, $this->assigned['event']);
         self::assertSame('4.1.0', $this->assigned['calVersion']);
         self::assertStringStartsWith('https://example.org/1?tx_cal_controller', $this->assigned['eventUrl']);
         self::assertStringContainsString('uid%5D=7', $this->assigned['eventUrl']);
         self::assertStringContainsString("TZID:Europe/Berlin\r\n", $this->assigned['vTimeZone']);
-        self::assertSame('RRULE:FREQ=DAILY Europe/Berlin', $this->assigned['recurrence']);
-        self::assertSame([['title' => 'Moved']], $this->assigned['overrides']);
+        self::assertSame(['crdate' => 1, 'tstamp' => 2, 'sequence' => 3], $this->assigned['meta']);
+        self::assertSame(['description' => '<p>Text</p>', 'attachments' => ['https://example.org/a.pdf?x=1&y=2'], 'images' => ['https://example.org/i.jpg']], $this->assigned['resources']);
+    }
+
+    #[Test]
+    public function theSequenceIsIncrementedWhenTheDataChanges(): void
+    {
+        $generator = $this->createGenerator();
+        $event = self::event();
+        $generator->updateIcs($event, null);
+        // the same data (except DTSTAMP, LAST-MODIFIED, SEQUENCE)
+        $this->meta['data'] = str_replace('SEQUENCE:3', "SEQUENCE:3\r\nLAST-MODIFIED:20260101T000000Z", (string)$event->getCaldavData());
+        $this->calls = [];
+        $generator->updateIcs($event, null);
+        self::assertStringStartsWith('caldav_data 7 3 ', $this->calls[0]);
+
+        $this->summary = 'Changed';
+        $this->calls = [];
+        $generator->updateIcs($event, null);
+        self::assertStringStartsWith('caldav_data 7 4 ', $this->calls[0]);
+        self::assertStringContainsString("SEQUENCE:4\r\n", (string)$event->getCaldavData());
+    }
+
+    #[Test]
+    public function parseResources(): void
+    {
+        self::assertSame(['description' => '', 'attachments' => [], 'images' => []], IcsGenerator::parseResources(''));
+        self::assertSame(['description' => 'Text', 'attachments' => [], 'images' => []], IcsGenerator::parseResources("<!--cal:description-->Text\n<!--cal:other-->x"));
     }
 
     #[Test]
@@ -154,7 +196,7 @@ final class IcsGeneratorTest extends UnitTestCase
         $event = self::event('', 'existing@example.org');
         $this->createGenerator(null, '', 'none')->updateIcs($event, null);
         self::assertSame('existing@example.org', $event->getIcsUid());
-        self::assertSame(['caldav_data 7 ' . json_encode($event->getCaldavData()), 'touch 3'], $this->calls);
+        self::assertSame(['caldav_data 7 3 ' . json_encode($event->getCaldavData()), 'touch 3'], $this->calls);
         // fallbacks: version of cal 4, no URL without site, no time zone
         self::assertSame(['4.0.0', '', ''], [$this->assigned['calVersion'], $this->assigned['eventUrl'], $this->assigned['vTimeZone']]);
 
@@ -193,6 +235,7 @@ final class IcsGeneratorTest extends UnitTestCase
         $eventRepository = $this->createMock(EventRepository::class);
         $eventRepository->expects(self::exactly(3))->method('check')->willReturnOnConsecutiveCalls([self::event(), self::event()], [], [self::event()]);
         $eventRepository->expects(self::exactly(2))->method('updateWithCaldavData');
+        $eventRepository->expects(self::exactly(2))->method('findIcsMetaData')->willReturn($this->meta);
         $generator = $this->createGenerator($eventRepository);
         $generator->generate($this->createStub(ServerRequestInterface::class));
         self::assertSame([], $generator->check());
