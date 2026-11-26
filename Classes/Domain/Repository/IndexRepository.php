@@ -25,12 +25,6 @@ class IndexRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $this->tableName = 'tx_cal_domain_model_index';
     }
 
-    public function deleteAllByEventUid(array $uids)
-    {
-        // The index stores the model type (tx_cal_event), not the table name
-        $this->deleteByEventUidsAndTablename($uids, 'tx_cal_event');
-    }
-
     public function deleteByEventUidsAndTablename(array $uids, string $tablename)
     {
         if (empty($uids)) {
@@ -46,7 +40,7 @@ class IndexRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         )->executeStatement();
     }
 
-    public function findEventUids(\DateTime $start, \DateTime $end)
+    public function findEventUids(\DateTime $start, \DateTime $end, string $tablename = 'tx_cal_event')
     {
         $queryBuilder = $this->getQueryBuilder();
         $conditions = [ ];
@@ -54,6 +48,8 @@ class IndexRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $conditionEndIsWithin = $queryBuilder->expr()->and($queryBuilder->expr()->lte('end_datetime', $end->format('YmdHis')), $queryBuilder->expr()->gte('end_datetime', $start->format('YmdHis')));
         $conditionStartIsBeforeAndEndIsAfter = $queryBuilder->expr()->and($queryBuilder->expr()->gte('end_datetime', $end->format('YmdHis')), $queryBuilder->expr()->lte('start_datetime', $start->format('YmdHis')));
         $conditions [] = $queryBuilder->expr()->and($queryBuilder->expr()->or($conditionStartIsWithin, $conditionEndIsWithin, $conditionStartIsBeforeAndEndIsAfter));
+        // events and exception events have their own uids
+        $conditions [] = $queryBuilder->expr()->eq('tablename', $queryBuilder->createNamedParameter($tablename));
         $result = $queryBuilder->select('event_uid')->distinct()->from($this->tableName)->where($queryBuilder->expr()->and(...$conditions))->executeQuery()->fetchAllAssociative();
         $list = [];
         foreach ($result as $uidArray) {
@@ -62,7 +58,7 @@ class IndexRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         return $list;
     }
 
-    public function findByEventUidStartAndEnd(int $uid, \DateTime $start, \DateTime $end)
+    public function findByEventUidStartAndEnd(int $uid, \DateTime $start, \DateTime $end, string $tablename = 'tx_cal_event')
     {
         $queryBuilder = $this->getQueryBuilder();
         $conditions = [ ];
@@ -70,7 +66,8 @@ class IndexRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $conditionEndIsWithin = $queryBuilder->expr()->and($queryBuilder->expr()->lte('end_datetime', $end->format('YmdHis')), $queryBuilder->expr()->gte('end_datetime', $start->format('YmdHis')));
         $conditionStartIsBeforeAndEndIsAfter = $queryBuilder->expr()->and($queryBuilder->expr()->gte('end_datetime', $end->format('YmdHis')), $queryBuilder->expr()->lte('start_datetime', $start->format('YmdHis')));
         $conditions [] = $queryBuilder->expr()->or($conditionStartIsWithin, $conditionEndIsWithin, $conditionStartIsBeforeAndEndIsAfter);
-        $conditions [] = $queryBuilder->expr()->eq('event_uid', $uid);
+        $conditions [] = $queryBuilder->expr()->eq('event_uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT));
+        $conditions [] = $queryBuilder->expr()->eq('tablename', $queryBuilder->createNamedParameter($tablename));
         $rows = $queryBuilder->select('*')->distinct()->from($this->tableName)->where($queryBuilder->expr()->and(...$conditions))->executeQuery()->fetchAllAssociative();
 
         return $this->dataMapper->map(Index::class, $rows);

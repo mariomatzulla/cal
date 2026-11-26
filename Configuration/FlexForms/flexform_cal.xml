@@ -169,8 +169,8 @@
 								<itemsHeader>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.itemsHeader</itemsHeader>
 								<items type="array">
 									<numIndex index="100">
-										<numIndex index="0">LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.category_selection_notCategorized</numIndex>
-										<numIndex index="1">0</numIndex>
+										<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.category_selection_notCategorized</label>
+										<value>0</value>
 									</numIndex>
 								</items>
 								<allowNonIdValues>1</allowNonIdValues>
@@ -192,8 +192,8 @@
 								<default>070000</default>
 								<items>
 									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
+										<label></label>
+										<value></value>
 									</numIndex>
 								</items>
 								<itemsProcFunc>MarioMatzulla\Cal\Backend\TCA\ItemsProcFunc->getDayTimes</itemsProcFunc>
@@ -208,8 +208,8 @@
 								<default>230000</default>
 								<items>
 									<numIndex index="0" type="array">
-										<numIndex index="0"></numIndex>
-										<numIndex index="1"></numIndex>
+										<label></label>
+										<value></value>
 									</numIndex>
 								</items>
 								<itemsProcFunc>MarioMatzulla\Cal\Backend\TCA\ItemsProcFunc->getDayTimes</itemsProcFunc>
@@ -417,7 +417,6 @@
 							<label>LLL:EXT:cal/Resources/Private/Language/locallang_tca.xlf:cal.pi_flexform.eventViewPid</label>
 							<config>
 								<type>group</type>
-								<internal_type>db</internal_type>
 								<allowed>pages</allowed>
 								<size>1</size>
 								<maxitems>1</maxitems>

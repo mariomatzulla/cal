@@ -29,8 +29,6 @@ class FrontendUserRepository
 {
     protected readonly Connection $connection;
 
-    protected array $settings;
-
     public function __construct(
     ) {
         $this->connection = $this->getConnectionForTable('fe_users');
@@ -70,24 +68,6 @@ class FrontendUserRepository
         ->setMaxResults(1);
         $row = $query->executeQuery()->fetchAssociative();
         return is_array($row) ? $row : null;
-    }
-
-    public function findByCalendarId(int $calendarId)
-    {
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->getRestrictions()->removeAll();
-        $query = $queryBuilder
-        ->select('*')
-        ->from('fe_users')
-        ->where($queryBuilder->expr()->inSet('tx_cal_calendar', $queryBuilder->createNamedParameter($calendarId)))
-        ->setMaxResults(1);
-        $row = $query->executeQuery()->fetchAssociative();
-        return is_array($row) ? $row : null;
-    }
-
-    public function setSettings($settings = [])
-    {
-        $this->settings = $settings;
     }
 
 }

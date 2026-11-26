@@ -17,8 +17,12 @@ Composer based installations:
 
     composer require mariomatzulla/cal
 
-Installations without Composer: install the extension from the TYPO3 Extension
-Repository (TER) with the module :guilabel:`Admin Tools > Extensions`.
+Installations without Composer (classic mode): cal needs the libraries
+`sabre/dav` and `sabre/vobject`. The package in the TYPO3 Extension Repository
+(TER) does not contain them, use the package with the bundled libraries
+:file:`cal_<version>-bundled.zip` instead (see :ref:`developer-release`) and
+upload it with the module :guilabel:`Admin Tools > Extensions`. This package
+requires TYPO3 14.2 or newer.
 
 Afterwards run :guilabel:`Admin Tools > Maintenance > Analyze Database Structure`
 to create the tables and fields of cal.

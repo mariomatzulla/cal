@@ -30,7 +30,9 @@
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^3.64",
 		"phpstan/phpstan": "^2.1",
+		"phpunit/phpcov": "^13.2",
 		"ssch/typo3-rector": "^3.0",
+		"typo3/cms-scheduler": "^14.0",
 		"typo3/coding-standards": "^0.8",
 		"typo3/testing-framework": "^9.0"
 	},
@@ -56,13 +58,29 @@
 	"extra": {
 		"typo3/cms": {
 			"extension-key": "cal",
-			"web-dir": ".Build/public"
+			"version": "4.0.0",
+			"web-dir": ".Build/public",
+			"Package": {
+				"providesPackages": {}
+			}
 		}
 	},
 	"scripts": {
 		"cs:check": "php-cs-fixer fix --dry-run --diff",
 		"cs:fix": "php-cs-fixer fix",
-		"stan": "phpstan analyse"
+		"stan": "phpstan analyse",
+		"test:unit": "phpunit -c Build/phpunit/UnitTests.xml",
+		"test:functional": "phpunit -c Build/phpunit/FunctionalTests.xml",
+		"test": [
+			"@test:unit",
+			"@test:functional"
+		],
+		"test:coverage": [
+			"@putenv XDEBUG_MODE=coverage",
+			"phpunit -c Build/phpunit/UnitTests.xml --coverage-php .Build/coverage/unit.cov",
+			"phpunit -c Build/phpunit/FunctionalTests.xml --coverage-php .Build/coverage/functional.cov",
+			"phpcov merge --text php://stdout --html .Build/coverage/html .Build/coverage"
+		]
 	},
 	"support": {
 		"email": "mario@matzullas.de",

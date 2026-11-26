@@ -26,13 +26,19 @@ class CalendarRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseReposi
 
     public function findByUids(string $uids)
     {
+        $uidList = array_values(array_filter(array_map('intval', explode(',', $uids)), static fn(int $uid): bool => $uid > 0));
+        if ($uidList === []) {
+            return [];
+        }
         $queryBuilder = $this->getQueryBuilder();
-        $conditions = [ ];
-
-        $conditions [] = $queryBuilder->expr()->eq('deleted', 0);
-        $conditions [] = $queryBuilder->expr()->or($queryBuilder->expr()->in('uid', explode(',', $uids)));
-        return $queryBuilder->select('*')->from($this->tableName)->where($queryBuilder->expr()->and(...$conditions))->executeQuery()->fetchAllAssociative();
-
+        return $queryBuilder->select('*')
+            ->from($this->tableName)
+            ->where(
+                $queryBuilder->expr()->eq('deleted', 0),
+                $queryBuilder->expr()->in('uid', $queryBuilder->createNamedParameter($uidList, \TYPO3\CMS\Core\Database\Connection::PARAM_INT_ARRAY)),
+            )
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     public function touch(int $calendarId)

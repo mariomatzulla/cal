@@ -219,41 +219,6 @@ class Event extends AbstractEntity
     protected $rdateType;
 
     /**
-     * @var string
-     */
-    protected $byweekno;
-
-    /**
-     * @var string
-     */
-    protected $byyearday;
-
-    /**
-     * @var string
-     */
-    protected $byhour;
-
-    /**
-     * @var string
-     */
-    protected $byminute;
-
-    /**
-     * @var string
-     */
-    protected $bysecond;
-
-    /**
-     * @var string
-     */
-    protected $bysetpos;
-
-    /**
-     * @var string
-     */
-    protected $wkst = '';
-
-    /**
      * @var bool
      */
     protected $exception = false;
@@ -338,123 +303,11 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return string
-     */
-    public function getWkst()
-    {
-        return $this->wkst;
-    }
-
-    /**
-     * @param string $wkst
-     */
-    public function setWkst($wkst)
-    {
-        $this->wkst = $wkst;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBysetpos()
-    {
-        return $this->bysetpos;
-    }
-
-    /**
-     * @param string $bysetpos
-     */
-    public function setBysetpos($bysetpos)
-    {
-        $this->bysetpos = $bysetpos;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBysecond()
-    {
-        return $this->bysecond;
-    }
-
-    /**
-     * @param string $bysecond
-     */
-    public function setBysecond($bysecond)
-    {
-        $this->bysecond = $bysecond;
-    }
-
-    /**
-     * @return string
-     */
-    public function getByhour()
-    {
-        return $this->byhour;
-    }
-
-    /**
-     * @return string
-     */
-    public function getByminute()
-    {
-        return $this->byminute;
-    }
-
-    /**
-     * @param string $byhour
-     */
-    public function setByhour($byhour)
-    {
-        $this->byhour = $byhour;
-    }
-
-    /**
-     * @param string $byminute
-     */
-    public function setByminute($byminute)
-    {
-        $this->byminute = $byminute;
-    }
-
-    /**
-     * @return string
-     */
-    public function getByyearday()
-    {
-        return $this->byyearday;
-    }
-
-    /**
-     * @param string $byyearday
-     */
-    public function setByyearday($byyearday)
-    {
-        $this->byyearday = $byyearday;
-    }
-
-    /**
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MarioMatzulla\Cal\Domain\Model\EventDeviation> $deviation
      */
     public function setDeviation($deviation)
     {
         $this->deviation = $deviation;
-    }
-
-    /**
-     * @return string
-     */
-    public function getByweekno()
-    {
-        return $this->byweekno;
-    }
-
-    /**
-     * @param string $byweekno
-     */
-    public function setByweekno($byweekno)
-    {
-        $this->byweekno = $byweekno;
     }
 
     /**

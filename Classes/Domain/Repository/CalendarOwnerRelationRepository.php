@@ -6,52 +6,45 @@ namespace MarioMatzulla\Cal\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class CalendarOwnerRelationRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepository
+/**
+ * Owners (frontend users and groups) of the calendars, field "owner" of tx_cal_domain_model_calendar
+ */
+class CalendarOwnerRelationRepository
 {
-    public function initializeObject()
+    private const TABLE = 'tx_cal_calendar_user_group_mm';
+
+    public function __construct(
+        private readonly ConnectionPool $connectionPool,
+    ) {}
+
+    /**
+     * Uids of the calendars owned by the frontend user or one of the groups
+     *
+     * @param list<int> $groupUids
+     * @return list<int>
+     */
+    public function findCalendarListForFeUser(int $feUserUid, array $groupUids = []): array
     {
-        parent::initializeObject();
-        $this->connection = $this->getConnectionForTable($this->table);
-    }
-
-    protected Connection $connection;
-
-    protected array $settings;
-
-    private string $table = 'tx_cal_calendar_user_group_mm';
-
-    private function getConnectionForTable(string $table): Connection
-    {
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
-    }
-
-    private function getQueryBuilder(): QueryBuilder
-    {
-        return $this->connection->createQueryBuilder();
-    }
-
-    public function findCalendarListForFeUser(int $feUserUid)
-    {
-        $queryBuilder = $this->getQueryBuilder();
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
         $queryBuilder->getRestrictions()->removeAll();
-        $query = $queryBuilder
-        ->select('uid_local')
-        ->from($this->table)
-        ->where(
+        $owners = [
             $queryBuilder->expr()->and(
-                $queryBuilder->expr()->eq('uid_foreign', $queryBuilder->createNamedParameter($feUserUid)),
-                $queryBuilder->expr()->eq('tablenames', "'fe_users'"),
+                $queryBuilder->expr()->eq('tablenames', $queryBuilder->createNamedParameter('fe_users')),
+                $queryBuilder->expr()->eq('uid_foreign', $queryBuilder->createNamedParameter($feUserUid, Connection::PARAM_INT)),
             ),
-        );
-        $rows = $query->executeQuery()->fetchAssociative();
-        return is_array($rows) ? $rows : null;
-    }
-
-    public function setSettings($settings = [])
-    {
-        $this->settings = $settings;
+        ];
+        if ($groupUids !== []) {
+            $owners[] = $queryBuilder->expr()->and(
+                $queryBuilder->expr()->eq('tablenames', $queryBuilder->createNamedParameter('fe_groups')),
+                $queryBuilder->expr()->in('uid_foreign', $queryBuilder->createNamedParameter(array_map('intval', $groupUids), Connection::PARAM_INT_ARRAY)),
+            );
+        }
+        $uids = $queryBuilder->select('uid_local')
+            ->from(self::TABLE)
+            ->where($queryBuilder->expr()->or(...$owners))
+            ->executeQuery()
+            ->fetchFirstColumn();
+        return array_values(array_unique(array_map('intval', $uids)));
     }
 }

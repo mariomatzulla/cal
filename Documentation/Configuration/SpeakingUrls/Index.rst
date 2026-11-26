@@ -42,8 +42,11 @@ URL segments
 
 Events, locations and organizers have the field "URL segment" (``slug``). It is created from the
 title / name when the record is saved in the backend, by the import of external calendars and by
-CalDAV. Existing records get it from the upgrade wizard "Calendar Base (cal): create the URL segments
-of events, locations and organizers". Records without URL segment are linked with the uid as
+CalDAV. The URL segment is unique in the table (``eval = unique``), records with the same title get a
+number, e.g. ``meeting-1``. Existing records get it from the upgrade wizard "Calendar Base (cal):
+create the URL segments of events, locations and organizers, make them unique". The wizard also
+replaces URL segments used by another record of the same language, e.g. created by older versions
+for records in a folder outside of a site. Records without URL segment are linked with the uid as
 parameter.
 
 Own words

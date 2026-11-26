@@ -21,6 +21,7 @@ use MarioMatzulla\Cal\Utility\RecurrenceGenerator;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Attribute\UpgradeWizard;
 use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Upgrades\ChattyInterface;
 use TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
@@ -37,6 +38,8 @@ use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
 final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInterface
 {
     private const BATCH_SIZE = 500;
+    private const REGISTRY_NAMESPACE = 'tx_cal';
+    private const REGISTRY_IMPORTED_CALENDARS = 'v4ImportedCalendars';
 
     /**
      * Values of the column "tablenames" in MM tables
@@ -83,6 +86,7 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
         private readonly RecurrenceGenerator $recurrenceGenerator,
         private readonly IcsFileMigration $icsFileMigration,
         private readonly ExternalCalendarImporter $importer,
+        private readonly Registry $registry,
     ) {}
 
     public function setOutput(OutputInterface $output): void
@@ -222,6 +226,9 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
         if ($calendarUids === []) {
             return [];
         }
+        // The import replaces the migrated events of these calendars, they must not be copied again
+        $imported = array_map('intval', (array)$this->registry->get(self::REGISTRY_NAMESPACE, self::REGISTRY_IMPORTED_CALENDARS, []));
+        $this->registry->set(self::REGISTRY_NAMESPACE, self::REGISTRY_IMPORTED_CALENDARS, array_values(array_unique([...$imported, ...$calendarUids])));
         $oldUids = array_flip($this->fetchUids($oldEvents));
         $queryBuilder = $this->legacySchema->createQueryBuilder($events);
         $candidates = $queryBuilder->select('uid')
@@ -319,12 +326,15 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
         if (!$connection->getDatabasePlatform() instanceof \Doctrine\DBAL\Platforms\PostgreSQLPlatform) {
             return;
         }
+        // The functional tests run with SQLite
+        // @codeCoverageIgnoreStart
         $connection->executeQuery(sprintf(
             'SELECT setval(pg_get_serial_sequence(%s, %s), (SELECT COALESCE(MAX(uid), 1) FROM %s))',
             $connection->quote($table),
             $connection->quote('uid'),
             $connection->quoteIdentifier($table),
         ));
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -455,7 +465,25 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
     private function findMissingUids(string $source, string $target): array
     {
         $existing = array_flip($this->fetchUids($target));
-        return array_values(array_filter($this->fetchUids($source), static fn(int $uid): bool => !isset($existing[$uid])));
+        $missing = array_values(array_filter($this->fetchUids($source), static fn(int $uid): bool => !isset($existing[$uid])));
+        $importedCalendars = array_map('intval', (array)$this->registry->get(self::REGISTRY_NAMESPACE, self::REGISTRY_IMPORTED_CALENDARS, []));
+        if ($missing === [] || $importedCalendars === [] || $target !== 'tx_cal_domain_model_event') {
+            return $missing;
+        }
+        // Events of external / ICS file calendars which were replaced by an import of the wizard
+        $replaced = [];
+        foreach (array_chunk($missing, self::BATCH_SIZE) as $uids) {
+            $queryBuilder = $this->legacySchema->createQueryBuilder($source);
+            $replaced = [...$replaced, ...array_map('intval', $queryBuilder->select('uid')
+                ->from($source)
+                ->where(
+                    $queryBuilder->expr()->in('uid', $queryBuilder->createNamedParameter($uids, Connection::PARAM_INT_ARRAY)),
+                    $queryBuilder->expr()->in('calendar_id', $queryBuilder->createNamedParameter($importedCalendars, Connection::PARAM_INT_ARRAY)),
+                )
+                ->executeQuery()
+                ->fetchFirstColumn())];
+        }
+        return array_values(array_diff($missing, $replaced));
     }
 
     /**
@@ -548,9 +576,6 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
     {
         foreach (self::FILE_REFERENCE_TABLES as $oldTable) {
             $table = LegacySchema::RECORD_TABLES[$oldTable];
-            if (!$this->legacySchema->tableExists($table)) {
-                continue;
-            }
             $connection = $this->legacySchema->getConnection($table);
             foreach (self::FILE_COLUMNS as $field) {
                 if ($this->legacySchema->findColumn($table, $field) !== $field) {
@@ -621,9 +646,6 @@ final class V4RecordsUpgradeWizard implements UpgradeWizardInterface, ChattyInte
     private function updateCategoryCounters(): void
     {
         $table = 'tx_cal_domain_model_event';
-        if ($this->legacySchema->findColumn($table, 'categories') === null) {
-            return;
-        }
         $queryBuilder = $this->legacySchema->createQueryBuilder('sys_category_record_mm');
         $rows = $queryBuilder->select('uid_foreign')
             ->addSelectLiteral('COUNT(*) AS ' . $queryBuilder->quoteIdentifier('cnt'))

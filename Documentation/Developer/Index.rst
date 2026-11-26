@@ -96,6 +96,54 @@ Code quality
     composer cs:fix
     composer stan       # PHPStan, configuration in phpstan.neon.dist
 
+..  _developer-tests:
+
+Tests
+=====
+
+Unit tests and functional tests (SQLite) with PHPUnit and the TYPO3 testing
+framework:
+
+..  code-block:: bash
+
+    composer test:unit
+    composer test:functional
+    composer test            # both
+    composer test:coverage   # both with code coverage, needs PCOV or Xdebug
+
+The coverage report is written to :file:`.Build/coverage/html`. The
+configurations are in :file:`Build/phpunit/`.
+
+..  _developer-release:
+
+Release
+=======
+
+:file:`Build/Scripts/release.sh` creates the extension package (zip) of a git
+revision. Files marked with `export-ignore` in :file:`.gitattributes` are not
+part of it. The versions in :file:`composer.json` (`extra.typo3/cms.version`)
+and :file:`ext_emconf.php` must be equal.
+
+..  code-block:: bash
+
+    # cal_<version>.zip for the TER and Composer installations
+    Build/Scripts/release.sh
+
+    # cal_<version>-bundled.zip for installations without Composer
+    Build/Scripts/release.sh --bundle
+
+    # another git revision or target directory (default: HEAD, .Build/release)
+    Build/Scripts/release.sh --bundle --ref v4.0.0 --output ~/Desktop
+
+With `--bundle` the script installs the Composer packages of `require` that are
+no TYPO3 packages (`sabre/dav`, `sabre/vobject` and their dependencies) into
+:file:`Resources/Private/Php/ComposerVendor` and declares them in
+`extra.typo3/cms.Package.providesPackages` of the packaged
+:file:`composer.json`. TYPO3 loads their :file:`autoload.php` in classic mode.
+`psr/log` is shipped by TYPO3 and not bundled. The packages are resolved for the
+lowest supported PHP version (8.2). The git repository itself contains no
+bundled libraries, an update of them is a new release with `--bundle`.
+
 ..  _developer-docs:
 
 Documentation

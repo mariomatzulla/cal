@@ -8,33 +8,25 @@ use MarioMatzulla\Cal\Domain\Repository\OrganizerRepository;
 use MarioMatzulla\Cal\Events\GetOrganizerEvent;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
 
+/**
+ * Finds the organizer record of the organizer view
+ */
 #[AsEventListener(identifier: 'cal/organizer-service')]
-final class OrganizerService extends BaseService
+final class OrganizerService
 {
-    /**
-     * @var \MarioMatzulla\Cal\Domain\Repository\OrganizerRepository
-     */
-    protected $organizerRepository;
-
-    public function __construct(OrganizerRepository $organizerRepository)
-    {
-        $this->organizerRepository = $organizerRepository;
-    }
+    public function __construct(
+        private readonly OrganizerRepository $organizerRepository,
+    ) {}
 
     public function __invoke(GetOrganizerEvent $event): void
     {
-        $this->getOrganizer($event);
-    }
-
-    private function getOrganizer(GetOrganizerEvent $event): void
-    {
-        if ($event->getType() == 'tx_cal_organizer') {
-            $foundOrganizer = $this->organizerRepository->findOrganizer($event->getUid(), $event->getStoragePageIds())->toArray();
-            if (!empty($foundOrganizer)) {
-                $event->setOrganizer($foundOrganizer[0]);
-                $event->stopPropagation();
-            }
+        if ($event->getType() !== 'tx_cal_organizer') {
+            return;
+        }
+        $found = $this->organizerRepository->findOrganizer($event->getUid(), $event->getStoragePageIds())->toArray();
+        if ($found !== []) {
+            $event->setOrganizer($found[0]);
+            $event->stopPropagation();
         }
     }
-
 }

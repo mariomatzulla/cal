@@ -61,7 +61,6 @@ final class WeekViewHelper extends BaseWeekViewHelper
                 if ($day->getYmd() == $weekDate->format('Ymd')) {
                     $eventColumns[] = $this->getEventsColumn($day);
                     $this->renderingContext->getVariableProvider()->add('day', $day);
-                    $this->renderingContext->getVariableProvider()->add('dayIndex', $day->getTime()->getDayOfWeek());
                 }
             } else {
                 $eventColumns[] = $this->getEventsColumn($day);
@@ -73,7 +72,6 @@ final class WeekViewHelper extends BaseWeekViewHelper
             $rowspanArray[] = $i;
         }
         $this->renderingContext->getVariableProvider()->add('rowspanArray', $rowspanArray);
-        $this->renderingContext->getVariableProvider()->add('hourCells', $this->getHourCells());
         $this->renderingContext->getVariableProvider()->add('timeCells', $this->getTimeCells('week'));
 
         return $this->renderChildren();

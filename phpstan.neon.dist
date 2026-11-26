@@ -6,7 +6,6 @@ parameters:
     - Classes
     - Configuration
     - ext_localconf.php
-    - ext_tables.php
   excludePaths:
     # depends on the optional extension "scheduler"
     - Classes/Task/*

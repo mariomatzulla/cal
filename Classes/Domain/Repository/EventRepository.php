@@ -13,10 +13,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepository
 {
-    /**
-     * @var \TYPO3\CMS\Core\Http\Dispatcher
-     */
-    protected $dispatcher;
 
     public function __construct(
         private readonly DataMapper $dataMapper,
@@ -151,7 +147,8 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
                 $queryBuilder->createNamedParameter(['day', 'week', 'month', 'year'], Connection::PARAM_STR_ARRAY),
             ),
             $queryBuilder->expr()->and(
-                $queryBuilder->expr()->eq('rdate', '1'),
+                // events with additional dates only
+                $queryBuilder->expr()->neq('rdate', $queryBuilder->createNamedParameter('')),
                 $queryBuilder->expr()->in(
                     'rdate_type',
                     $queryBuilder->createNamedParameter(['date_time', 'date', 'period'], Connection::PARAM_STR_ARRAY),
@@ -175,7 +172,8 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
                 $queryBuilder->createNamedParameter(['day', 'week', 'month', 'year'], Connection::PARAM_STR_ARRAY),
             ),
             $queryBuilder->expr()->and(
-                $queryBuilder->expr()->eq('rdate', '1'),
+                // events with additional dates only
+                $queryBuilder->expr()->neq('rdate', $queryBuilder->createNamedParameter('')),
                 $queryBuilder->expr()->in(
                     'rdate_type',
                     $queryBuilder->createNamedParameter(['date_time', 'date', 'period'], Connection::PARAM_STR_ARRAY),
@@ -211,32 +209,6 @@ class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepositor
         $rows = $query->executeQuery()->fetchAllAssociative();
 
         return $this->dataMapper->map(Event::class, $rows);
-    }
-
-    public function countEventsWithoutIcs()
-    {
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->getRestrictions()->removeAll();
-        $conditions = [];
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.type', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->in('tx_cal_domain_model_event.type', $queryBuilder->createNamedParameter([0, 1, 2], Connection::PARAM_INT_ARRAY));
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.deleted', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_event.deleted', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_calendar.hidden', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->eq('tx_cal_domain_model_event.hidden', $queryBuilder->createNamedParameter(0));
-        $conditions[] = $queryBuilder->expr()->or(
-            $queryBuilder->expr()->eq('tx_cal_domain_model_event.caldav_data', $queryBuilder->createNamedParameter('')),
-            $queryBuilder->expr()->isNull('tx_cal_domain_model_event.caldav_data'),
-            $queryBuilder->expr()->eq('tx_cal_domain_model_event.ics_uid', $queryBuilder->createNamedParameter('')),
-            $queryBuilder->expr()->isNull('tx_cal_domain_model_event.ics_uid'),
-        );
-
-        $joinCondition = $queryBuilder->expr()->eq('tx_cal_domain_model_event.calendar_id', $queryBuilder->quoteIdentifier('tx_cal_domain_model_calendar.uid'));
-        $query = $queryBuilder->select('count(*)')
-        ->from($this->tableName)
-        ->join('tx_cal_domain_model_event', 'tx_cal_domain_model_calendar', 'tx_cal_domain_model_calendar', $joinCondition)
-        ->where($queryBuilder->expr()->and(...$conditions));
-        return $query->executeQuery()->fetchAssociative();
     }
 
     public function updateWithCaldavData(int $uid, string $caldavData)

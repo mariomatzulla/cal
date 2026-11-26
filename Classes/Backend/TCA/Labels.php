@@ -52,13 +52,13 @@ class Labels
             return;
         }
 
-        $label = $this->formatDate((int)($record['start_date'] ?? 0));
-        if ($this->showTimes() && empty($record['allday']) && $table === 'tx_cal_domain_model_event') {
+        $label = $this->formatDate(self::toTimestamp($record['start_date'] ?? 0));
+        if ($label !== '' && $this->showTimes() && empty($record['allday']) && $table === 'tx_cal_domain_model_event') {
             // gmdate is ok, start_time only holds the seconds of one day
-            $label .= ' ' . gmdate($this->getTimeFormat(), (int)($record['start_time'] ?? 0));
+            $label .= ' ' . gmdate($this->getTimeFormat(), self::toTimestamp($record['start_time'] ?? 0));
         }
 
-        $params['title'] = trim($label . ': ' . ($record['title'] ?? ''));
+        $params['title'] = $label !== '' ? $label . ': ' . ($record['title'] ?? '') : (string)($record['title'] ?? '');
         if ($cacheKey !== '') {
             self::$eventLabels[$cacheKey] = $params['title'];
         }
@@ -76,10 +76,10 @@ class Labels
 
         $label = $this->translate('tx_cal_event.deviation') . ': ';
         if (!empty($record['orig_start_date'])) {
-            $label .= $this->formatDate((int)$record['orig_start_date']);
+            $label .= $this->formatDate(self::toTimestamp($record['orig_start_date']));
         }
         if (!empty($record['orig_start_time'])) {
-            $label .= ' (' . gmdate($this->getTimeFormat(), (int)$record['orig_start_time']) . ')';
+            $label .= ' (' . gmdate($this->getTimeFormat(), self::toTimestamp($record['orig_start_time'])) . ')';
         }
         $params['title'] = $label;
     }
@@ -116,11 +116,22 @@ class Labels
         return true;
     }
 
+    private ?bool $showTimes = null;
+
     private function showTimes(): bool
     {
-        static $showTimes = null;
-        $showTimes ??= (bool)(GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cal', 'showTimes') ?? false);
-        return $showTimes;
+        return $this->showTimes ??= (bool)(GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cal', 'showTimes') ?? false);
+    }
+
+    /**
+     * Timestamp of a database value or of an ISO date of FormEngine (new records), e.g. "2026-11-25T00:00:00Z"
+     */
+    private static function toTimestamp(mixed $value): int
+    {
+        if (is_numeric($value)) {
+            return (int)$value;
+        }
+        return is_string($value) && $value !== '' ? (int)strtotime($value) : 0;
     }
 
     private function formatDate(int $timestamp): string

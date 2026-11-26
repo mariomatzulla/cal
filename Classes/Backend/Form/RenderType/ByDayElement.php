@@ -7,143 +7,88 @@ namespace MarioMatzulla\Cal\Backend\Form\RenderType;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 
 /**
- * Class ByDayElement
+ * Weekdays of the recurrence rule (BYDAY): checkboxes for weekly rules, weekday with ordinal number for monthly and yearly rules
  */
 class ByDayElement extends AbstractCalFormElementHelper
 {
-    /**
-     * @return array
-     */
+    private const ALL_WEEKDAYS = 'MO,TU,WE,TH,FR,SA,SU';
+
     public function render(): array
     {
-
         $result = $this->initializeResultArray();
-
-        $table = $this->data ['tableName'];
-        $row = $this->data ['databaseRow'];
-
-        $uid = $row ['uid'];
-        $html = '';
+        $row = $this->data['databaseRow'];
+        // only weekdays with an optional ordinal number, the JavaScript writes e.g. "3null" for an ordinal without weekday
+        $byDay = implode(',', array_filter(explode(',', strtoupper(self::getListValue($row, 'byday'))), static fn(string $value): bool => preg_match('/^[-+]?\d{0,2}(MO|TU|WE|TH|FR|SA|SU)$/', $value) === 1));
+        $startDay = $this->getWeekStartDay((int)($row['pid'] ?? 0));
         $dayRow = '';
-
-        $row ['byday'] = implode(',', array_filter(explode(',', (string)$row ['byday']), fn($value) => $value != 'null'));
-
-        $startDay = $this->getWeekStartDay($row ['pid']);
-
-        $startdate = $row ['start_date'];
-        $formatter = new \IntlDateFormatter(
-            'en_US', // English Locale
-            \IntlDateFormatter::FULL,
-            \IntlDateFormatter::FULL,
-            null,
-            \IntlDateFormatter::GREGORIAN,
-            'EEEEEE', // 2 Letters
-        );
-
-        switch ($row ['freq'] [0]) {
-            case 'day':
-                break;
+        $addLink = '';
+        switch (self::getSelectValue($row, 'freq')) {
             case 'week':
-                $dayRow = $this->byDay_checkbox($startDay);
-                if ($row ['byday'] == '') {
-                    $row ['byday'] = mb_strtoupper((string)$formatter->format($startdate));
+                $dayRow = $this->renderCheckboxes($startDay);
+                if ($byDay === '') {
+                    $byDay = strtoupper(substr(self::getStartDate($row)->format('D'), 0, 2));
                 }
                 break;
             case 'month':
-                $dayRow = $this->getByDayRow($startDay, $this->getEveryMonthText());
-                $html = $this->byDay_select();
-                if ($row ['byday'] == '') {
-                    $row ['byday'] = 'MO,TU,WE,TH,FR,SA,SU';
-                }
+                $dayRow = $this->renderByDayRow($startDay, $this->translate('tx_cal_event.recurs_every_month'));
+                $addLink = $this->renderAddLink();
+                $byDay = $byDay === '' ? self::ALL_WEEKDAYS : $byDay;
                 break;
             case 'year':
-                $dayRow = $this->getByDayRow($startDay, $this->getSelectedMonthText());
-                $html = $this->byDay_select();
-                if ($row ['byday'] == '') {
-                    $row ['byday'] = 'MO,TU,WE,TH,FR,SA,SU';
-                }
+                $dayRow = $this->renderByDayRow($startDay, $this->translate('tx_cal_event.recurs_selected_months'));
+                $addLink = $this->renderAddLink();
+                $byDay = $byDay === '' ? self::ALL_WEEKDAYS : $byDay;
                 break;
         }
-
-        $out = [ ];
-        $out [] = '<label class="form-label t3js-formengine-label">' . $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_short') . '</label>';
-        $out [] = '<div id="byday-container">';
-        $out [] = '<input type="hidden" name="data[' . $table . '][' . $uid . '][byday]" id="data[' . $table . '][' . $uid . '][byday]" value="' . $row ['byday'] . '" />';
-        $out [] = $dayRow;
-        $out [] = '</div>';
-        $out [] = $html;
-
-        $result ['html'] = implode("\n", $out);
+        $result['html'] = implode("\n", [
+            '<label class="form-label t3js-formengine-label">' . htmlspecialchars($this->translate('tx_cal_event.byday_short')) . '</label>',
+            '<div id="byday-container">',
+            $this->renderHiddenField('byday', $byDay),
+            $dayRow,
+            '</div>',
+            $addLink,
+        ]);
         $result['javaScriptModules'] = [
             JavaScriptModuleInstruction::create('@MarioMatzulla/Cal/RegisterByDayChangeListener.js'),
             JavaScriptModuleInstruction::create('@MarioMatzulla/Cal/RecurUI/ByDayUI.js'),
         ];
-
         return $result;
     }
 
     /**
-     * @param mixed $startDay
-     * @param mixed $endString
-     * @return mixed
+     * Template of a row "ordinal number, weekday" (copied by the JavaScript for each value)
      */
-    public function getByDayRow($startDay, $endString)
+    private function renderByDayRow(string $startDay, string $endString): string
     {
-
         $html = '<div class="cal-row">';
-
-        $html .= '<select class="form-control count byday-select-change-action" style="width: 48px; display: inline;">';
-        $html .= '<option value="" />';
+        $html .= '<select class="form-control count byday-select-change-action" style="width: 48px; display: inline;"><option value="" />';
         foreach ($this->getCountsArray() as $value => $label) {
-            $html .= '<option value="' . $value . '">' . $label . '</option>';
+            $html .= '<option value="' . $value . '">' . htmlspecialchars($label) . '</option>';
         }
         $html .= '</select>&nbsp;&nbsp;';
-
-        $html .= '<select class="form-control day byday-select-change-action" style="width: 48px; display: inline;">';
-        $html .= '<option value="" />';
-
+        $html .= '<select class="form-control day byday-select-change-action" style="width: 48px; display: inline;"><option value="" />';
         foreach ($this->getWeekdaysArray($startDay) as $value => $label) {
-            $html .= '<option value="' . $value . '">' . $label . '</option>';
+            $html .= '<option value="' . $value . '">' . htmlspecialchars($label) . '</option>';
         }
-        $html .= '</select>';
-
-        $html .= ' ' . $endString;
-        $html .= '<a href="#" class="remove-byday">' . $this->getGarbageIcon() . $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.remove_recurrence') . '</a>';
-        $html .= '</div>';
-
-        return $this->removeNewlines($html);
+        $html .= '</select> ' . htmlspecialchars($endString);
+        $html .= '<a href="#" class="remove-byday">' . $this->getGarbageIcon() . htmlspecialchars($this->translate('tx_cal_event.remove_recurrence')) . '</a>';
+        return $html . '</div>';
     }
 
-    /**
-     * @param mixed $startDay
-     * @return string
-     */
-    public function byDay_checkbox($startDay): string
+    private function renderCheckboxes(string $startDay): string
     {
-
-        $out = [ ];
-
+        $out = [];
         foreach ($this->getWeekdaysArray($startDay) as $value => $label) {
-            $name = 'byday_' . $value;
-
-            $out [] = '<div class="cal-row">';
-            $out [] = '<input class="byday-change-action" style="padding: 0; margin: 0;" type="checkbox" name="' . $name . '" value="' . $value . '" />';
-            $out [] = '<label style="padding-left: 2px;" for="' . $name . '">' . $label . '</label>';
-            $out [] = '</div>';
+            $out[] = '<div class="cal-row">';
+            $out[] = '<input class="byday-change-action" style="padding: 0; margin: 0;" type="checkbox" name="byday_' . $value . '" value="' . $value . '" />';
+            $out[] = '<label style="padding-left: 2px;" for="byday_' . $value . '">' . htmlspecialchars($label) . '</label>';
+            $out[] = '</div>';
         }
-
         return implode("\n", $out);
     }
 
-    /**
-     * @return string
-     */
-    public function byDay_select(): string
+    private function renderAddLink(): string
     {
-
-        $out = [ ];
-        $out [] = '<div style="padding: 5px 0"><a href="#" class="add-byday">' . $this->getNewIcon() . $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.add_recurrence') . '</a></div>';
-
-        return implode("\n", $out);
+        return '<div style="padding: 5px 0"><a href="#" class="add-byday">' . $this->getNewIcon() . htmlspecialchars($this->translate('tx_cal_event.add_recurrence')) . '</a></div>';
     }
 }

@@ -1,0 +1,18 @@
+"pages"
+,"uid","pid","title","doktype","is_siteroot","slug"
+,1,0,"Root",1,1,"/"
+,2,1,"Events",1,0,"/events"
+,5,1,"Calendar records",254,0,"/calendar-records"
+"tt_content"
+,"uid","pid","CType","colPos","header","pi_flexform"
+,10,2,"cal_controller",0,"Calendar",""
+"tx_cal_domain_model_calendar"
+,"uid","pid","title","type"
+,1,5,"Club",0
+,2,5,"Other",0
+"tx_cal_domain_model_location"
+,"uid","pid","name","city"
+,1,5,"Town hall","Springfield"
+"tx_cal_domain_model_organizer"
+,"uid","pid","name","email"
+,1,5,"Music club","club@example.org"

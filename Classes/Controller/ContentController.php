@@ -48,9 +48,9 @@ class ContentController extends ActionController
      */
     protected function initializeAction(): void
     {
-        // inject repositories and init data, FlexForm of the rendered plugin
-        $contentObject = $this->request->getAttribute('currentContentObject');
-        $this->initSettings($contentObject instanceof ContentObjectRenderer ? $contentObject->data : null);
+        // FlexForm of the rendered content element, without content element (page type of the iCalendar
+        // export) the FlexForms of the calendar plugins of the page
+        $this->initSettings($this->getContentElement(), (int)$this->request->getAttribute('frontend.page.information')?->getId());
         // First day of the week of all views (monday / sunday)
         WeekStart::set($this->settings ['view'] ['weekStartDay'] ?? WeekStart::MONDAY);
         $this->settings ['view'] ['allowedViewsToLinkTo'] = array_unique(array_merge(HelperFunctions::trimExplode($this->settings ['view'] ['allowedViews'] ?? ''), $this->getAllowedViewsByViewPid()));
@@ -264,8 +264,16 @@ class ContentController extends ActionController
      */
     protected function getContentUid(): int
     {
+        return (int)($this->getContentElement()['uid'] ?? 0);
+    }
+
+    /**
+     * The tt_content record of the plugin, null if the plugin is rendered by TypoScript
+     */
+    protected function getContentElement(): ?array
+    {
         $contentObject = $this->request->getAttribute('currentContentObject');
-        return $contentObject instanceof ContentObjectRenderer ? (int)($contentObject->data['uid'] ?? 0) : 0;
+        return $contentObject instanceof ContentObjectRenderer && $contentObject->getCurrentTable() === 'tt_content' ? $contentObject->data : null;
     }
 
     /**
@@ -324,10 +332,7 @@ class ContentController extends ActionController
         }
         $byDay = [];
         foreach ($unique as $event) {
-            $start = \DateTimeImmutable::createFromFormat('!Ymd', $event->getStart()->format('Ymd'));
-            if ($start === false) {
-                continue;
-            }
+            $start = new \DateTimeImmutable($event->getStart()->format('Y-m-d'));
             $end = $event->getEnd();
             if (!$event->isAllday() && $end->format('YmdHis') > $event->getStart()->format('YmdHis')) {
                 $end = (clone $end)->modify('-1 second');
@@ -482,15 +487,6 @@ class ContentController extends ActionController
     }
 
     /**
-     * Calendar filter of the plugin (FlexForm "Filter": calendarMode / calendarSelection,
-     * TypoScript: view.calendarMode / view.calendar / view.calendarIds):
-     * - 0: all calendars (limited to view.calendarIds if set in TypoScript)
-     * - 1: only the selected calendars
-     * - 2: all calendars except the selected ones
-     *
-     * @return array{0: array<int>, 1: array<int>} [calendars to show, calendars to exclude]
-     */
-    /**
      * Page ids of the storage folders: plugin.tx_cal.settings.pidList (comma separated) and their
      * subpages up to plugin.tx_cal.settings.recursive levels. Empty: records of all pages.
      *
@@ -510,6 +506,15 @@ class ContentController extends ActionController
         return $this->storagePageIds;
     }
 
+    /**
+     * Calendar filter of the plugin (FlexForm "Filter": calendarMode / calendarSelection,
+     * TypoScript: view.calendarMode / view.calendar / view.calendarIds):
+     * - 0: all calendars (limited to view.calendarIds if set in TypoScript)
+     * - 1: only the selected calendars
+     * - 2: all calendars except the selected ones
+     *
+     * @return array{0: array<int>, 1: array<int>} [calendars to show, calendars to exclude]
+     */
     protected function getCalendarFilter(): array
     {
         $mode = (int)($this->settings['view']['calendarMode'] ?? 0);

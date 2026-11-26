@@ -118,14 +118,17 @@ class IcsParser
             }
         }
 
+        // events without start (invalid, but read in forgiving mode) would break expand()
+        foreach ($vcalendar->select('VEVENT') as $vEvent) {
+            if (!isset($vEvent->DTSTART)) {
+                $vcalendar->remove($vEvent);
+            }
+        }
         $expanded = $vcalendar->expand($from, $to, $calendarTimezone);
 
         $events = [];
         foreach ($expanded->VEVENT ?? [] as $vEvent) {
             $dtStart = $vEvent->DTSTART;
-            if ($dtStart === null) {
-                continue;
-            }
             $isAllDay = !$dtStart->hasTime();
 
             // expand() returns timed values in UTC, cal stores the wall clock time of the calendar timezone

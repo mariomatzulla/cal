@@ -65,7 +65,7 @@ class MonthView extends TimeView
         $date = $date->setTime(0, 0, 0, 0);
 
         $this->monthStartWeekdayNum = $date->getDayOfWeek(); // Weekday index
-        $this->monthLength = CalculateDateTime::getDaysInMonth($this->getYear(), $this->getMonth()); // days in month
+        $this->monthLength = CalculateDateTime::getDaysInMonth($this->getMonth(), $this->getYear()); // days in month
 
         $newDate = CalculateDateTime::calculateStartOfWeek(clone $date);
 

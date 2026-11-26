@@ -170,21 +170,6 @@ class EventRecModel
         return $this->parentEvent->getBodyStyle();
     }
 
-    /**
-     * Gets the createUserId of the event.
-     *
-     * @return string create user id.
-     */
-    public function getCreateUserId()
-    {
-        return $this->parentEvent->getCreateUserId();
-    }
-
-    public function getTimezone()
-    {
-        return $this->parentEvent->getTimezone();
-    }
-
     public function getTitle()
     {
         return $this->parentEvent->getTitle();
@@ -210,11 +195,6 @@ class EventRecModel
         return $this->endtime;
     }
 
-    public function getAttendees()
-    {
-        return $this->parentEvent->getAttendees();
-    }
-
     public function getUid()
     {
         return $this->parentEvent->getUid();
@@ -223,16 +203,6 @@ class EventRecModel
     public function isAllday()
     {
         return $this->parentEvent->isAllday();
-    }
-
-    public function getEventOwner()
-    {
-        return $this->parentEvent->getEventOwner();
-    }
-
-    public function getCalendarUid()
-    {
-        return $this->parentEvent->getCalendarUid();
     }
 
     public function getModelType()

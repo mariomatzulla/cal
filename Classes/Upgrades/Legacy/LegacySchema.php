@@ -207,13 +207,6 @@ final class LegacySchema
         return $columns;
     }
 
-    public function countRows(string $table): int
-    {
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
-        $queryBuilder->getRestrictions()->removeAll();
-        return (int)$queryBuilder->count('*')->from($table)->executeQuery()->fetchOne();
-    }
-
     /**
      * Query builder without restrictions: deleted / hidden records are migrated as well, and the
      * old tables have no TCA anymore.
@@ -228,10 +221,5 @@ final class LegacySchema
     public function getConnection(string $table): Connection
     {
         return $this->connectionPool->getConnectionForTable($table);
-    }
-
-    public function resetColumnCache(): void
-    {
-        $this->columns = [];
     }
 }

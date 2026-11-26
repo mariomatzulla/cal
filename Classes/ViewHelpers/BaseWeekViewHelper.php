@@ -18,19 +18,9 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
     protected $rowspan = 0;
 
     /**
-     * @var int
-     */
-    protected $eventCount = 0;
-
-    /**
      * @var array
      */
     protected $settings;
-
-    /**
-     * Start of the time grid in hours (e.g. 7.5 = 07:30)
-     */
-    private ?float $startOffset = null;
 
     /**
      * @param \MarioMatzulla\Cal\Model\WeekView $week
@@ -46,10 +36,8 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
                 foreach ($events as $event) {
                     $timed = $this->isTimedSingleDayEvent($event);
                     if ($includeAlldayEvents && !$timed) {
-                        $this->eventCount++;
                         $lengthArray = $this->addEventIntoTheArray($week, $lengthArray, $event);
                     } elseif ($includeNormalEvents && $timed) {
-                        $this->eventCount++;
                         $lengthArray = $this->addEventIntoTheArray($week, $lengthArray, $event);
                     }
                 }
@@ -62,7 +50,8 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         $lengthArrayKeys = array_keys($lengthArray);
         $this->rowspan = 1;
         foreach ($lengthArrayKeys as $lengthArrayKey) {
-            $values = explode('_', (string)$lengthArrayKey);
+            // length and start column of the events
+            $values = array_map('intval', explode('_', (string)$lengthArrayKey));
 
             $eventArrayKeys = array_keys($lengthArray [$lengthArrayKey]);
             foreach ($eventArrayKeys as $eventArrayKey) {
@@ -138,14 +127,6 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         }
         $lengthArray [$length . '_' . $start] [] = $event;
         return $lengthArray;
-    }
-
-    protected function getHourCells(): array
-    {
-        [$startHour, $startMinute] = $this->getDayTime('dayStart', '070000');
-        [$endHour, $endMinute] = $this->getDayTime('dayEnd', '230000');
-        $count = (int)ceil((($endHour * 60 + $endMinute) - ($startHour * 60 + $startMinute)) / 60);
-        return $count > 0 ? range(0, $count - 1) : [];
     }
 
     protected function getTimeCells(string $view): array
@@ -252,7 +233,6 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         }
         $this->settings ['view'] ['day'] ['dayStart'] = sprintf('%02d%02d00', intdiv($gridStart, 60), $gridStart % 60);
         $this->settings ['view'] ['day'] ['dayEnd'] = sprintf('%02d%02d00', intdiv($gridEnd, 60), $gridEnd % 60);
-        $this->startOffset = null;
     }
 
     protected function getEventsColumn($day): array
@@ -385,12 +365,7 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
             $i->addSeconds($gridLength * 60);
         }
         $daydisplay = [];
-        $cal_time_obj = clone $day->getTime();
-        foreach ($t_array as $cal_time => $val) {
-
-            $dTimeStart = [];
-            preg_match('/([0-9]{2})([0-9]{2})/', sprintf('%04d', (int)$cal_time), $dTimeStart);
-            $cal_time_obj->setTime((int)$dTimeStart [1], (int)$dTimeStart [2], 0);
+        foreach ($t_array as $val) {
 
             if ($val != '' && count($val) > 0) {
                 for ($i = 0, $iMax = count($val); $i < $iMax; $i++) {
@@ -399,38 +374,12 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
                         if ($keys [0] === 'begin') {
                             $event = $eventArray [$val [$i] [$keys [0]]];
 
+                            // number of side by side columns of the event and its column
                             $colSpan = $positionArray [$val [$i] [$keys [0]]];
-                            // left
-                            // 1 = 0
-                            // 2 = 50
-                            // 3 = 33.333
-                            // 4 = 25
-
-                            $left = 0;
-                            if ($colSpan > 1) {
-                                $left = 100 / $colSpan * $i;
-                            }
-
-                            // width
-                            // 1 = 100
-                            // 2 = 85,50
-                            // 3 = 56.666, 56.666, 33.333
-                            // 4 = 42.5, 42.5, 42.5, 25
-                            // 5 = 34,34,34,34,20
-
-                            $width = 100;
-                            if ($colSpan > 1) {
-                                //TODO make this magic number 145 a constant
-                                $width = 145 / ($colSpan + 1);
-                            }
+                            $left = $colSpan > 1 ? 100 / $colSpan * $i : 0;
                             [$offset, $duration] = $this->getGridPosition($event, $day);
                             $daydisplay[] = [
-                                'left' => $left,
-                                'width' => $width,
-                                'colspan' => $colSpan,
-                                'top' => $this->getTop($event),
-                                'length' => $this->getLength($event),
-                                // position in the time grid of cal >= 4.1: minutes since the start of the grid, side by side columns
+                                // minutes since the start of the grid
                                 'offset' => $offset,
                                 'duration' => $duration,
                                 'columnWidth' => round(100 / max(1, $colSpan), 4),
@@ -447,12 +396,6 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         return $daydisplay;
     }
 
-    protected function getTop($event)
-    {
-        $x = $event->getStart()->getHour() + $event->getStart()->getMinute() / 60 - $this->getStartOffset();
-        return ($x * 42) - 3;
-    }
-
     /**
      * Start (minutes since the start of the grid) and duration (minutes) of a timed event in the grid of a day,
      * limited to the grid (dayStart - dayEnd)
@@ -461,7 +404,8 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
      */
     protected function getGridPosition($event, $day): array
     {
-        $gridStart = (int)round($this->getStartOffset() * 60);
+        [$startHour, $startMinute] = $this->getDayTime('dayStart', '070000');
+        $gridStart = $startHour * 60 + $startMinute;
         [$endHour, $endMinute] = $this->getDayTime('dayEnd', '230000');
         $gridEnd = $endHour * 60 + $endMinute;
         $midnight = clone $day->getTime();
@@ -474,18 +418,4 @@ abstract class BaseWeekViewHelper extends AbstractViewHelper
         return [$start - $gridStart, $end - $start];
     }
 
-    protected function getStartOffset()
-    {
-        if ($this->startOffset === null) {
-            [$startHour, $startMinute] = $this->getDayTime('dayStart', '070000');
-            $this->startOffset = (float)($startHour + $startMinute / 60);
-        }
-        return $this->startOffset;
-    }
-
-    protected function getLength($event)
-    {
-        $x = $event->getEnd()->format('U') - $event->getStart()->format('U');
-        return ($x / 3600 * 42) - 3;
-    }
 }

@@ -1,0 +1,6 @@
+"tx_cal_domain_model_calendar"
+,"uid","pid","title","type","ext_url","refresh","hidden","schedulerId"
+,1,5,"Holidays",1,"https://example.org/a.ics",60,0,0
+,2,5,"Hidden feed",1,"https://example.org/b.ics",30,1,0
+,3,5,"Club",0,"",60,0,99
+,4,5,"Without url",1,"",60,0,0

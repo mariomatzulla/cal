@@ -46,7 +46,7 @@ class ItemsProcFunc
         // Entry for the end of the day
         $params['items'][] = [
             'label' => gmdate($format, $dayLength - 1),
-            'value' => '2400',
+            'value' => '240000',
         ];
     }
 

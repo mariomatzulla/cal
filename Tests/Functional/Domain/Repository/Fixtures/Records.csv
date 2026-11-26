@@ -1,0 +1,23 @@
+"tx_cal_domain_model_location"
+,"uid","pid","name"
+,1,5,"Town hall"
+,2,6,"Church"
+"tx_cal_domain_model_organizer"
+,"uid","pid","name"
+,1,5,"Club"
+,2,6,"Choir"
+"tx_cal_domain_model_eventdeviation"
+,"uid","pid","parentid","title","orig_start_date","orig_start_time"
+,1,5,2,"Moved",1794268800,36000
+,2,5,2,"Cancelled",1794873600,36000
+,3,5,3,"Other",1794268800,0
+"tx_cal_calendar_user_group_mm"
+,"uid_local","uid_foreign","tablenames","fieldname","sorting"
+,1,9,"fe_users","owner",1
+,2,9,"fe_users","owner",2
+,3,4,"fe_groups","owner",1
+,4,10,"fe_users","owner",1
+"fe_users"
+,"uid","pid","username","deleted","disable"
+,9,7,"anna",0,0
+,10,7,"bob",1,0

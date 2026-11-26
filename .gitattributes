@@ -3,5 +3,6 @@
 /.gitignore export-ignore
 /.php-cs-fixer.dist.php export-ignore
 /Build export-ignore
+/Tests export-ignore
 /crowdin.yml export-ignore
 /phpstan.neon.dist export-ignore

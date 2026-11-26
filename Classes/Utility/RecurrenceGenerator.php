@@ -176,8 +176,9 @@ class RecurrenceGenerator
         $count = (int)($event->getCnt());
         $until = new CalendarDateTime();
         if ($event->getUntil() != null) {
-            $until->setTimestamp($event->getUntil()->getTimestamp());
-            $until->addSeconds(1);
+            // the until date is included (wall clock time like the start of the event)
+            $until = CalendarDateTime::generateFromDateTime($event->getUntil());
+            $until->setTime(23, 59, 59);
             if ($this->endtime->before($until)) {
                 $until->copy($this->endtime);
             }
@@ -198,7 +199,8 @@ class RecurrenceGenerator
         for (; $i < (int)($until->getYear()) + 1; $i += $yearStep) {
             $byyear [] = $i;
         }
-        $occurrenceInterval = $event->getFreq() == 'year' ? 1 : null;
+        // weekly, monthly and yearly rules: the interval counts weeks, months or years, not single dates
+        $occurrenceInterval = $event->getFreq() == 'day' ? null : 1;
 
         $maxRecurringEvents = $count;
 
@@ -212,7 +214,7 @@ class RecurrenceGenerator
         $nextOccuranceTime->modify('+1 day');
 
         if ($event->getRdateType() && $event->getRdateType() != 'none') {
-            $this->addRecurringInstances($event, $added);
+            $this->addRecurringInstances($event);
         }
         switch ($event->getFreq()) {
             case 'day':
@@ -239,7 +241,7 @@ class RecurrenceGenerator
                             $this->persistenceManager->persistAll();
                             return;
                         }
-                        if ($eventStart->before($nextOccuranceTime) || $eventStart->equals($nextOccuranceTime)) {
+                        if (($eventStart->before($nextOccuranceTime) || $eventStart->equals($nextOccuranceTime)) && self::isInInterval($event, $eventStart, $nextOccuranceTime)) {
                             $currentUntil = new CalendarDateTime();
                             $currentUntil->copy($nextOccuranceTime);
                             $currentUntil->addSeconds(86399);
@@ -250,6 +252,29 @@ class RecurrenceGenerator
                 break; // switch-case break
         }
         $this->persistenceManager->persistAll();
+    }
+
+    /**
+     * Weekly and monthly rules with an interval: only every n-th week (starting on Monday, RFC 5545
+     * WKST=MO) or month counted from the start of the event has dates
+     */
+    private static function isInInterval(Event $event, CalendarDateTime $eventStart, CalendarDateTime $date): bool
+    {
+        $interval = max(1, (int)$event->getIntrval());
+        if ($interval === 1) {
+            return true;
+        }
+        if ($event->getFreq() === 'week') {
+            $startMonday = \DateTimeImmutable::createFromFormat('!Ymd', $eventStart->format('Ymd'))->modify('monday this week');
+            $dateMonday = \DateTimeImmutable::createFromFormat('!Ymd', $date->format('Ymd'))->modify('monday this week');
+            $weeks = intdiv((int)$startMonday->diff($dateMonday)->days, 7);
+            return $weeks % $interval === 0;
+        }
+        if ($event->getFreq() === 'month') {
+            $months = ($date->getYear() * 12 + $date->getMonth()) - ($eventStart->getYear() * 12 + $eventStart->getMonth());
+            return $months % $interval === 0;
+        }
+        return true;
     }
 
     /**
@@ -342,116 +367,60 @@ class RecurrenceGenerator
         }
     }
 
-    private function addRecurringInstances($event, $addedCount)
+    /**
+     * Additional dates (RDATE) as written by the backend form:
+     * date "20261110", date with time "20261110T140000Z" or period "20261110T140000Z/P1DT2H"
+     */
+    private function addRecurringInstances(Event $event): void
     {
-
-        switch ($event->getRdateType()) {
-            case 'date':
-                $rdateValues = explode(',', (string)$event->getRdate());
-                foreach ($rdateValues as $rdateValue) {
-                    $dateArray = [];
-                    preg_match('/(^[0-9]{4})([0-9]{2})([0-9]{2})/', $rdateValue, $dateArray);
-                    $start = new CalendarDateTime();
-                    $start->copy($event->getStart());
-                    $end = new CalendarDateTime();
-                    $diff = $event->getEnd()->getTimestamp() - $event->getStart()->getTimestamp();
-                    $start->setDay((int)$dateArray [3]);
-                    $start->setMonth((int)$dateArray [2]);
-                    $start->setYear((int)$dateArray [1]);
-                    $end->copy($start);
-                    $end->addSeconds($diff);
-                    if ($end->after($this->starttime) && $start->before($this->endtime)) {
-                        $this->createIndexEntry($start, $end, $event);
-                        $addedCount++;
+        $type = (string)$event->getRdateType();
+        $duration = $event->getEnd()->getTimestamp() - $event->getStart()->getTimestamp();
+        foreach (explode(',', (string)$event->getRdate()) as $value) {
+            [$date, $period] = array_pad(explode('/', trim($value), 2), 2, '');
+            $start = self::parseRdate($date, $event->getStart(), $type !== 'date');
+            if ($start === null) {
+                continue;
+            }
+            $end = new CalendarDateTime();
+            $end->copy($start);
+            if ($type === 'period') {
+                $periodEnd = self::parseRdate($period, $start, true);
+                if ($periodEnd !== null) {
+                    $end = $periodEnd;
+                } else {
+                    $period = rtrim($period, 'T');
+                    if ($period !== 'P' && $period !== '') {
+                        try {
+                            $end->add(new \DateInterval($period));
+                        } catch (\Exception) {
+                            $end->addSeconds($duration);
+                        }
                     }
                 }
-                break;
-            case 'period':
-                $rdateValues = explode(',', (string)$event->getRdate());
-                foreach ($rdateValues as $rdateValue) {
-                    $dateArray = [];
-                    $durationArray = [];
-                    preg_match('/([0-9]{4})(-?([0-9]{2})((-?[0-9]{2})(T([0-9]{2}):?([0-9]{2})(:?([0-9]{2})(\.([0-9]+))?)?(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?/', $rdateValue, $dateArray);
-                    preg_match('/\/P((\d+)Y)?((\d+)M)?((\d+)W)?((\d+)D)?T((\d+)H)?((\d+)M)?((\d+)S)?/', $rdateValue, $durationArray);
-                    $start = new CalendarDateTime();
-                    $start->copy($event->getStart());
-                    while (count($dateArray) > 11) {
-                        array_push($dateArray, 0);
-                    }
-                    $start->setDay((int)$dateArray [5]);
-                    $start->setMonth((int)$dateArray [3]);
-                    $start->setYear((int)$dateArray [1]);
-                    $start->setHour((int)$dateArray [7]);
-                    $start->setMinute((int)$dateArray [8]);
-                    $start->setSecond((int)$dateArray [10]);
-
-                    $end = new CalendarDateTime();
-                    $end->copy($start);
-
-                    $diff = 0;
-                    while (count($durationArray) < 15) {
-                        array_push($durationArray, 0);
-                    }
-                    if ($durationArray [2]) {
-                        // Year
-                        $end->setYear($end->getYear() + (int)($durationArray [2]));
-                    }
-                    if ($durationArray [4]) {
-                        // Month
-                        $end->setMonth($end->getMonth() + (int)($durationArray [4]));
-                    }
-                    if ($durationArray [6]) {
-                        // Week
-                        $diff += (int)($durationArray [6]) * 60 * 60 * 24 * 7;
-                    }
-                    if ($durationArray [8]) {
-                        // Day
-                        $diff += (int)($durationArray [8]) * 60 * 60 * 24;
-                    }
-                    if ($durationArray [10]) {
-                        // Hour
-                        $diff += (int)($durationArray [10]) * 60 * 60;
-                    }
-                    if ($durationArray [12]) {
-                        // Minute
-                        $diff += (int)($durationArray [12]) * 60;
-                    }
-                    if ($durationArray [14]) {
-                        // Second
-                        $diff += (int)($durationArray [14]);
-                    }
-
-                    $end->addSeconds($diff);
-
-                    if ($end->after($this->starttime) && $start->before($this->endtime)) {
-                        $this->createIndexEntry($start, $end, $event);
-                        $addedCount++;
-                    }
-                }
-                break;
-            default:
-                $rdateValues = explode(',', (string)$event->getRdate());
-                foreach ($rdateValues as $rdateValue) {
-                    preg_match('/([0-9]{4})(-?([0-9]{2})((-?[0-9]{2})(T([0-9]{2}):?([0-9]{2})(:?([0-9]{2})(\.([0-9]+))?)?(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?/', $rdateValue, $dateArray);
-                    $start = new CalendarDateTime();
-                    $start->copy($event->getStart());
-                    $end = new CalendarDateTime();
-                    $diff = $event->getEnd()->getTimestamp() - $event->getStart()->getTimestamp();
-                    $start->setDay((int)$dateArray [5]);
-                    $start->setMonth((int)$dateArray [3]);
-                    $start->setYear((int)$dateArray [1]);
-                    $start->setHour((int)$dateArray [7]);
-                    $start->setMinute((int)$dateArray [8]);
-                    $start->setSecond((int)$dateArray [10]);
-                    $end->copy($start);
-                    $end->addSeconds($diff);
-                    if ($end->after($this->starttime) && $start->before($this->endtime)) {
-                        $this->createIndexEntry($start, $end, $event);
-                        $addedCount++;
-                    }
-                }
-                break;
+            } else {
+                $end->addSeconds($duration);
+            }
+            if ($end->after($this->starttime) && $start->before($this->endtime)) {
+                $this->createIndexEntry($start, $end, $event);
+            }
         }
+    }
+
+    /**
+     * Date (and time) of an RDATE value, the time of $default if the value has no time or $withTime is false
+     */
+    private static function parseRdate(string $value, CalendarDateTime $default, bool $withTime): ?CalendarDateTime
+    {
+        if (! preg_match('/^(\d{4})-?(\d{2})-?(\d{2})(?:T(\d{2}):?(\d{2})(?::?(\d{2}))?)?/', trim($value), $match)) {
+            return null;
+        }
+        $date = new CalendarDateTime();
+        $date->copy($default);
+        $date->setDate((int)$match[1], (int)$match[2], (int)$match[3]);
+        if ($withTime) {
+            $date->setTime((int)($match[4] ?? 0), (int)($match[5] ?? 0), (int)($match[6] ?? 0));
+        }
+        return $date;
     }
 
     /**
@@ -470,10 +439,8 @@ class RecurrenceGenerator
         }
         $days = [];
         foreach ($bymonth as $month) {
+            // the months are validated by RecurrenceValidator::checkByMonth()
             $month = (int)$month;
-            if ($month < 1 || $month > 12) {
-                continue;
-            }
             foreach ($this->getMonthDaysForMonth($event, $month, $year) as $day) {
                 $days[] = [$month, (int)$day];
             }
@@ -491,10 +458,8 @@ class RecurrenceGenerator
     {
         $dates = [];
         foreach (explode(',', strtoupper((string)$event->getByday())) as $entry) {
-            $match = [];
-            if (!preg_match('/^([-+]?)(\d{1,2})?([A-Z]{2})$/', trim($entry), $match)) {
-                continue;
-            }
+            // the weekdays are validated by RecurrenceValidator::checkByDay()
+            preg_match('/^([-+]?)(\d{0,2})([A-Z]{2})$/', trim($entry), $match);
             $weekday = (int)self::two2threeCharDays($match[3], false);
             $ordinal = (int)$match[2];
             $first = new \DateTimeImmutable(sprintf('%04d-01-01', $year));

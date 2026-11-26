@@ -16,6 +16,7 @@ use Sabre\DAV\Auth;
 use Sabre\DAV\Browser\Plugin as BrowserPlugin;
 use Sabre\DAV\Server;
 use Sabre\DAVACL;
+use Sabre\HTTP\Request as SabreRequest;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Http\Response;
@@ -60,7 +61,8 @@ final class CalDavMiddleware implements MiddlewareInterface
         $server = new Server([
             new CalDAV\Principal\Collection($principalBackend),
             new CalDAV\CalendarRoot($principalBackend, $calendarBackend),
-        ]);
+        ], new BufferedSapi());
+        $server->httpRequest = $this->createSabreRequest($request);
         $server->setBaseUri($baseUri);
 
         $server->addPlugin(new Auth\Plugin($authBackend));
@@ -72,14 +74,11 @@ final class CalDavMiddleware implements MiddlewareInterface
             $server->addPlugin(new BrowserPlugin());
         }
 
-        // SabreDAV writes directly to the output buffer, capture it
-        ob_start();
         $server->start();
-        $content = (string)ob_get_clean();
 
         $sabreResponse = $server->httpResponse;
         $response = new Response();
-        $response->getBody()->write($content);
+        $response->getBody()->write($sabreResponse->getBodyAsString());
         foreach ($sabreResponse->getHeaders() as $name => $values) {
             foreach ($values as $value) {
                 $response = $response->withAddedHeader($name, (string)$value);
@@ -87,6 +86,29 @@ final class CalDavMiddleware implements MiddlewareInterface
         }
 
         return $response->withStatus($sabreResponse->getStatus());
+    }
+
+    /**
+     * The PSR-7 request as request of SabreDAV. Basic authentication handled by the web server
+     * (PHP_AUTH_USER, e.g. Apache with mod_php) is passed as Authorization header.
+     */
+    private function createSabreRequest(ServerRequestInterface $request): SabreRequest
+    {
+        $uri = $request->getUri();
+        $headers = $request->getHeaders();
+        $serverParams = $request->getServerParams();
+        if (!$request->hasHeader('Authorization') && isset($serverParams['PHP_AUTH_USER'])) {
+            $headers['Authorization'] = ['Basic ' . base64_encode($serverParams['PHP_AUTH_USER'] . ':' . ($serverParams['PHP_AUTH_PW'] ?? ''))];
+        }
+        $sabreRequest = new SabreRequest(
+            $request->getMethod(),
+            $uri->getPath() . ($uri->getQuery() !== '' ? '?' . $uri->getQuery() : ''),
+            $headers,
+            (string)$request->getBody(),
+        );
+        $sabreRequest->setAbsoluteUrl((string)$uri);
+        $sabreRequest->setHTTPVersion($request->getProtocolVersion());
+        return $sabreRequest;
     }
 
     /**

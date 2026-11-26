@@ -47,6 +47,16 @@ Breaking changes
     organizer. Other record types can still be added with own listeners of
     `GetLocationEvent` / `GetOrganizerEvent`.
     Remove the column with "Analyze Database Structure".
+*   Removed unused PHP code: the class `BaseService`, the file
+    `ext_tables.php`, the getters and setters of the RRULE parts without
+    function in `Event` (`byweekno`, `byyearday`, `byhour`, `byminute`,
+    `bysecond`, `bysetpos`, `wkst`) and the repository methods
+    `EventRepository::countEventsWithoutIcs()`,
+    `IndexRepository::deleteAllByEventUid()`, `findEventUids()`,
+    `findByEventUidStartAndEnd()`, `FrontendUserRepository::findByCalendarId()`
+    and `setSettings()`. `CalendarOwnerRelationRepository` is a plain class now,
+    `findCalendarListForFeUser()` takes the user groups and returns a list of
+    calendar uids.
 
 Features
 ========
@@ -76,6 +86,10 @@ Features
 *   CalDAV server at :samp:`<site base>/caldav`, :samp:`<site base>/.well-known/caldav`
     redirects to it (service discovery).
 *   PSR-14 events instead of the service registry of cal 1.x.
+*   Unit and functional tests with 100 % code coverage, scripts
+    `composer test:unit`, `test:functional`, `test:coverage`, and a release
+    script for the TER (with or without the bundled Sabre libraries), see
+    :ref:`developer`.
 
 Bugfixes
 ========
@@ -90,3 +104,27 @@ Bugfixes
 *   Calendars, events, locations and organizers are found independent of the
     storage page of the plugin (the repositories did not apply the query
     settings of the base repository), use `pidList` to limit them.
+*   Weekly and monthly rules with `INTERVAL`, events with `RDATE` only (were not
+    indexed, endless loop with some dates), `UNTIL` includes the last day, date
+    only `RDATE` values can be saved, the default values of the form use the
+    time zone of the server.
+*   The recurrence index no longer mixes events and exception events. Hidden
+    events lose their index entries when they are saved.
+*   Private calendars: all calendars of a frontend user and of his groups are
+    found (was: only the first one, error for users without calendar).
+*   Correct `VTIMEZONE` components in the iCalendar data, the event URL of
+    records outside of a site uses the first site.
+*   URL segments are unique (`eval = unique`), the upgrade wizard `cal_slugs`
+    repairs duplicates.
+*   Saving events on the command line (scheduler, console commands) no longer
+    fails while generating the iCalendar data.
+*   The CalDAV endpoint uses the request of TYPO3 (body, headers, basic
+    authentication of the web server) instead of the PHP globals.
+*   `dontListenToFlexForm.<section>.<field> = 1` ignores single fields of the
+    plugin as documented (was: the whole plugin form was ignored). Plugins with
+    an incomplete or invalid form no longer cause PHP warnings.
+*   The iCalendar page type uses the plugin settings of the calendar plugins
+    on the page (was: the first calendar plugin found in the database).
+*   The upgrade wizard for the records of cal 1.x no longer copies the events
+    of imported calendars again on every run.
+*   SQL injection in `CalendarRepository::findByUids()`.

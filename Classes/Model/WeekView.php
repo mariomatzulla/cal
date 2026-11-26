@@ -159,83 +159,65 @@ class WeekView extends TimeView
      */
     public function addEvent($event)
     {
-
+        $thisWeek = sprintf('%04d%02d', $this->getYear(), $this->week);
         $eventStart = new CalendarDateTime();
         $eventStart->copy($event->getStart());
-        $eventStartFormatted = $eventStart->format('Ymd');
-        $eventStartYear = $eventStart->getYear();
         $eventEndFormatted = $event->getEnd()->format('Ymd');
-        $eventEndYear = $event->getEnd()->getYear();
-        $eventStartWeek = $event->getStart()->getWeekOfYear();
-        $eventEndWeek = $event->getEnd()->getWeekOfYear();
-        if (($eventStartWeek === 52 || $eventStartWeek === 53) && $event->getStart()->getMonth() === 1) {
-            $eventStartYear--;
-        }
-        if (($eventEndWeek === 52 || $eventEndWeek === 53) && $event->getEnd()->getMonth() === 1) {
-            $eventEndYear--;
-        }
-        if ($eventStartWeek === 1 && $event->getStart()->getMonth() === 12) {
-            $eventStartYear++;
-        }
-        if ($eventEndWeek === 1 && $event->getEnd()->getMonth() === 12) {
-            $eventEndYear++;
-        }
-        if ($event->isAllday() || $eventStartFormatted != $eventEndFormatted) {
-            $eventYearEnd = $event->getEnd()->getYear();
-            if ($event->getEnd()->getMonth() === 12 && $event->getEnd()->getWeekOfYear() === 1) {
-                $eventYearEnd++;
-            }
 
-            if (! ($eventStartYear === $this->getYear() && $eventStart->getWeekOfYear() === $this->week) && $eventStart->getYear() . sprintf('%02d', $eventStart->getWeekOfYear()) < $this->getYear() . sprintf('%02d', $this->week) && $eventYearEnd . sprintf('%02d', $event->getEnd()->getWeekOfYear()) >= $this->getYear() . sprintf('%02d', $this->week)) {
-                do {
-                    $eventStart->addSeconds(86400);
-                    $eventStartYear = $eventStart->getYear();
-                    $eventWeek = $eventStart->getWeekOfYear();
-                    if ($eventStart->getMonth() == 1 && $eventWeek > 50) {
-                        $eventStartYear--;
-                    }
-                } while ($eventStartYear . sprintf('%02d', $eventWeek) < $this->getYear() . sprintf('%02d', $this->week));
-                $eventStartFormatted = $eventStart->format('Ymd');
-            }
-            if ($eventStartYear == $this->getYear() && $eventStart->getWeekOfYear() == $this->week) {
-                $this->alldays [$eventStartFormatted] [] = $event;
+        if (! $event->isAllday() && $eventStart->format('Ymd') === $eventEndFormatted) {
+            if (self::getWeekKey($eventStart) === $thisWeek) {
+                $this->dayHasEvent [$eventStart->getDayOfWeek()] = true;
+                if (is_object($this->days [$eventStart->format('Ymd')] ?? null)) {
+                    $this->days [$eventStart->format('Ymd')]->addEvent($event);
+                }
                 $this->weekHasEvent = true;
-                $first = true;
-                do {
-                    $this->dayHasEvent [$eventStart->getDayOfWeek()] = true;
-                    if (is_object($this->days [$eventStart->format('Ymd')] ?? null)) {
-                        $this->days [$eventStart->format('Ymd')]->setHasAlldayEvents(true);
-                        if ($first) {
-                            $this->days [$eventStart->format('Ymd')]->addEvent($event);
-                            $first = false;
-                        }
-                    }
-                    $eventStart->addSeconds(86400);
-                    $eventStartYear = $eventStart->getYear();
-                    $eventWeek = $eventStart->getWeekOfYear();
-                    if ($eventStart->getMonth() === 1 && $eventWeek > 50) {
-                        $eventStartYear--;
-                    }
-                } while ($eventStart->format('Ymd') <= $eventEndFormatted && $eventStartYear . sprintf('%02d', $eventStart->getWeekOfYear()) <= $this->getYear() . sprintf('%02d', $this->week));
             }
-        } else {
-            do {
-                if ($eventStartYear == $this->getYear() && $eventStartWeek == $this->week) {
-                    $this->dayHasEvent [$eventStart->getDayOfWeek()] = true;
-                    if (is_object($this->days [$eventStart->format('Ymd')] ?? null)) {
-                        $this->days [$eventStart->format('Ymd')]->addEvent($event);
-                    }
-                    $this->weekHasEvent = true;
-                }
-                $eventStart->addSeconds(86400);
-                $eventStartYear = $eventStart->getYear();
-                $eventWeek = $eventStart->getWeekOfYear();
-                if ($eventStart->getMonth() === 1 && $eventWeek > 50) {
-                    $eventStartYear--;
-                }
-                $eventStartWeek = $eventStart->getWeekOfYear();
-            } while ($eventStart->format('Ymd') <= $eventEndFormatted && $eventStartWeek <= $this->week);
+            return;
         }
+
+        // An event starting before this week is shown from the first day of the week
+        if (self::getWeekKey($eventStart) < $thisWeek) {
+            if (self::getWeekKey($event->getEnd()) < $thisWeek) {
+                return;
+            }
+            do {
+                $eventStart->addSeconds(86400);
+            } while (self::getWeekKey($eventStart) < $thisWeek);
+        }
+        if (self::getWeekKey($eventStart) !== $thisWeek) {
+            return;
+        }
+
+        $this->alldays [$eventStart->format('Ymd')] [] = $event;
+        $this->weekHasEvent = true;
+        $first = true;
+        do {
+            $this->dayHasEvent [$eventStart->getDayOfWeek()] = true;
+            if (is_object($this->days [$eventStart->format('Ymd')] ?? null)) {
+                $this->days [$eventStart->format('Ymd')]->setHasAlldayEvents(true);
+                if ($first) {
+                    $this->days [$eventStart->format('Ymd')]->addEvent($event);
+                    $first = false;
+                }
+            }
+            $eventStart->addSeconds(86400);
+        } while ($eventStart->format('Ymd') <= $eventEndFormatted && self::getWeekKey($eventStart) === $thisWeek);
+    }
+
+    /**
+     * Year and number of the week of a date (YYYYWW), e.g. 202653 for 2027-01-01
+     * and 202601 for 2025-12-31.
+     */
+    private static function getWeekKey(CalendarDateTime $date): string
+    {
+        $week = $date->getWeekOfYear();
+        $year = $date->getYear();
+        if ($date->getMonth() === 1 && $week > 50) {
+            $year--;
+        } elseif ($date->getMonth() === 12 && $week === 1) {
+            $year++;
+        }
+        return sprintf('%04d%02d', $year, $week);
     }
 
     public function getDays()

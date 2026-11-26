@@ -1,5 +1,6 @@
 # Composer / local test instance
 /.Build/
+/var/
 /composer.lock
 
 # Tools

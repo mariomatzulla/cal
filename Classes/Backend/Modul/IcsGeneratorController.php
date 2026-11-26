@@ -50,7 +50,7 @@ class IcsGeneratorController extends ActionController
 
     public function generateAction(): ResponseInterface
     {
-        $result = $this->icsGenerator->generate($this->request);
+        $this->icsGenerator->generate($this->request);
         $this->addFlashMessage(
             $this->translate('backend_module_ics_generator_successMessage'),
             $this->translate('backend_module_ics_generator_successTitle'),
@@ -58,10 +58,6 @@ class IcsGeneratorController extends ActionController
         );
         // Erstellt das TYPO3 Backend-Rahmentemplate
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-
-        $moduleTemplate->assignMultiple([
-            'result' => $result,
-        ]);
 
         // Titel im DocHeader setzen
         $moduleTemplate->setTitle($this->translate('backend_module_ics_generator_header'));

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1)
-;
+declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Utility;
 
@@ -107,6 +106,7 @@ class CalculateDateTime
                 break;
             case '':
             case 'now':
+                break;
             default:
                 $dateTime->modify($tcaString);
         }
@@ -131,7 +131,7 @@ class CalculateDateTime
     public static function calculateEndOfMonth(CalendarDateTime $dateTime): CalendarDateTime
     {
         $dateTime = self::calculateEndOfDay($dateTime);
-        $dateTime->setDay(CalculateDateTime::getDaysInMonth($dateTime->getYear(), $dateTime->getMonth()));
+        $dateTime->setDay(self::getDaysInMonth($dateTime->getMonth(), $dateTime->getYear()));
         return $dateTime;
     }
 
@@ -308,45 +308,6 @@ class CalculateDateTime
         }
 
         return $date;
-    }
-
-    /**
-     * Returns true for valid date, false for invalid date
-     *
-     * @param int $day
-     *          the day of the month
-     * @param int $month
-     *          the month
-     * @param int $year
-     *          the year. Use the complete year instead of the
-     *          abbreviated version. E.g. use 2005, not 05.
-     *          Do not add leading 0's for years prior to 1000.
-     *
-     * @return bool
-     *
-     * @static
-     */
-    public static function isValidDate($day, $month, $year)
-    {
-        if ($year < 0 || $year > 9999) {
-            return false;
-        }
-        if (! self::verifyDate($month, $day, $year)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static function verifyDate($month, $day, $year, $strict = true)
-    {
-        $dateTime = CalendarDateTime::createFromFormat('m/d/Y', $month . '/' . $day . '/' . $year);
-        if ($strict) {
-            $errors = CalendarDateTime::getLastErrors();
-            if (! empty($errors ['warning_count'])) {
-                return false;
-            }
-        }
-        return $dateTime !== false;
     }
 
     /**

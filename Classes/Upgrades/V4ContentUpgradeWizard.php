@@ -149,9 +149,6 @@ final class V4ContentUpgradeWizard implements UpgradeWizardInterface, ChattyInte
      */
     private function findShortcuts(): array
     {
-        if ($this->legacySchema->findColumn('tt_content', 'records') === null) {
-            return [];
-        }
         $queryBuilder = $this->legacySchema->createQueryBuilder('tt_content');
         $rows = $queryBuilder->select('uid', 'records')
             ->from('tt_content')
@@ -198,25 +195,17 @@ final class V4ContentUpgradeWizard implements UpgradeWizardInterface, ChattyInte
      */
     private function findBackendGroups(): array
     {
-        $columns = array_filter(
-            ['tables_select', 'tables_modify', 'non_exclude_fields', 'explicit_allowdeny'],
-            fn(string $column): bool => $this->legacySchema->findColumn('be_groups', $column) === $column,
-        );
-        if ($columns === []) {
-            return [];
-        }
+        $columns = ['tables_select', 'tables_modify', 'non_exclude_fields', 'explicit_allowdeny'];
         $queryBuilder = $this->legacySchema->createQueryBuilder('be_groups');
         $queryBuilder->select('uid', ...$columns)->from('be_groups');
         $constraints = [];
         foreach ($columns as $column) {
             $constraints[] = $queryBuilder->expr()->like($column, $queryBuilder->createNamedParameter('%tx_cal_%'));
         }
-        if (in_array('explicit_allowdeny', $columns, true)) {
-            $constraints[] = $queryBuilder->expr()->like(
-                'explicit_allowdeny',
-                $queryBuilder->createNamedParameter('%list_type:' . self::PLUGIN . '%'),
-            );
-        }
+        $constraints[] = $queryBuilder->expr()->like(
+            'explicit_allowdeny',
+            $queryBuilder->createNamedParameter('%list_type:' . self::PLUGIN . '%'),
+        );
         $rows = $queryBuilder->where($queryBuilder->expr()->or(...$constraints))->executeQuery()->fetchAllAssociative();
 
         $result = [];
@@ -286,9 +275,6 @@ final class V4ContentUpgradeWizard implements UpgradeWizardInterface, ChattyInte
      */
     private function findTemplates(): array
     {
-        if ($this->legacySchema->findColumn('sys_template', 'include_static_file') === null) {
-            return [];
-        }
         $queryBuilder = $this->legacySchema->createQueryBuilder('sys_template');
         $rows = $queryBuilder->select('uid', 'include_static_file')
             ->from('sys_template')

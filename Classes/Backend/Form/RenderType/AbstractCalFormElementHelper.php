@@ -9,65 +9,41 @@ use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class ElementHelper
+ * Helpers of the form elements of the recurrence rule (BYDAY, BYMONTH, BYMONTHDAY, RDATE)
  */
 abstract class AbstractCalFormElementHelper extends AbstractFormElement
 {
-    public function __construct(private IconFactory $iconFactory) {}
-    /**
-     * @return string
-     */
-    public function getGarbageIcon(): string
-    {
+    protected const LLL = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
 
-        return $this->iconFactory
-        ->getIcon('actions-delete', IconSize::SMALL)
-        ->render();
+    public function __construct(
+        private readonly IconFactory $iconFactory,
+        private readonly SiteFinder $siteFinder,
+    ) {}
+
+    protected function getGarbageIcon(): string
+    {
+        return $this->iconFactory->getIcon('actions-delete', IconSize::SMALL)->render();
+    }
+
+    protected function getNewIcon(): string
+    {
+        return $this->iconFactory->getIcon('actions-add', IconSize::SMALL)->render();
+    }
+
+    protected function translate(string $key): string
+    {
+        return (string)$this->getLanguageService()->sL(self::LLL . $key);
     }
 
     /**
-     * @return string
+     * First day of the week of the site of the page (site setting plugin.tx_cal.settings.view.weekStartDay): SU or MO
      */
-    public function getNewIcon(): string
-    {
-        return $this->iconFactory
-        ->getIcon('actions-add', IconSize::SMALL)
-        ->render();
-    }
-
-    /**
-     * @return string
-     */
-    public function getEveryMonthText(): string
-    {
-
-        return $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurs_every_month');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSelectedMonthText(): string
-    {
-
-        return $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.recurs_selected_months');
-    }
-
-    /**
-     * First weekday of the weekday lists: the site setting plugin.tx_cal.settings.view.weekStartDay
-     * of the site of the page (default Monday)
-     *
-     * @param mixed $pageID
-     * @return string "MO" or "SU"
-     */
-    public function getWeekStartDay($pageID): string
+    protected function getWeekStartDay(int $pageId): string
     {
         try {
-            $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId((int)$pageID);
-            $value = (string)$site->getSettings()->get('plugin.tx_cal.settings.view.weekStartDay', 'monday');
+            $value = (string)$this->siteFinder->getSiteByPageId($pageId)->getSettings()->get('plugin.tx_cal.settings.view.weekStartDay', 'monday');
         } catch (SiteNotFoundException) {
             $value = 'monday';
         }
@@ -75,84 +51,85 @@ abstract class AbstractCalFormElementHelper extends AbstractFormElement
     }
 
     /**
-     * @return array
+     * @return array<int, string> ordinal number => label
      */
-    public function getCountsArray(): array
+    protected function getCountsArray(): array
     {
-
-        return [
-            1 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_first'),
-            2 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_second'),
-            3 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_third'),
-            4 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_fourth'),
-            5 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_fifth'),
-            - 3 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_thirdtolast'),
-            - 2 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_secondtolast'),
-            - 1 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_count_last'),
-        ];
+        $counts = [];
+        foreach ([1 => 'first', 2 => 'second', 3 => 'third', 4 => 'fourth', 5 => 'fifth', -3 => 'thirdtolast', -2 => 'secondtolast', -1 => 'last'] as $count => $key) {
+            $counts[$count] = $this->translate('tx_cal_event.byday_count_' . $key);
+        }
+        return $counts;
     }
 
     /**
-     * @param mixed $startDay
-     * @return array
+     * @return array<string, string> weekday (MO, TU, ...) => label, starting with the first day of the week
      */
-    public function getWeekdaysArray($startDay): array
+    protected function getWeekdaysArray(string $startDay): array
     {
-
-        $weekdays = [ ];
-
+        $weekdays = [];
+        foreach (['MO' => 'monday', 'TU' => 'tuesday', 'WE' => 'wednesday', 'TH' => 'thursday', 'FR' => 'friday', 'SA' => 'saturday', 'SU' => 'sunday'] as $day => $key) {
+            $weekdays[$day] = $this->translate('tx_cal_event.byday_' . $key);
+        }
         if ($startDay === 'SU') {
-            $weekdays ['SU'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_sunday');
+            $weekdays = ['SU' => $weekdays['SU']] + $weekdays;
         }
-
-        $weekdays ['MO'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_monday');
-        $weekdays ['TU'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_tuesday');
-        $weekdays ['WE'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_wednesday');
-        $weekdays ['TH'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_thursday');
-        $weekdays ['FR'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_friday');
-        $weekdays ['SA'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_saturday');
-
-        if ($startDay !== 'SU') {
-            $weekdays ['SU'] = $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.byday_sunday');
-        }
-
         return $weekdays;
     }
 
     /**
-     * @return array
+     * @return array<int, string> month => label
      */
-    public function getMonthsArray(): array
+    protected function getMonthsArray(): array
     {
-
-        return [
-            1 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_january'),
-            2 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_february'),
-            3 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_march'),
-            4 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_april'),
-            5 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_may'),
-            6 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_june'),
-            7 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_july'),
-            8 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_august'),
-            9 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_september'),
-            10 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_october'),
-            11 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_november'),
-            12 => $this->getLanguageService()->sL('LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.bymonth_december'),
-        ];
+        $months = [];
+        foreach (['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'] as $index => $key) {
+            $months[$index + 1] = $this->translate('tx_cal_event.bymonth_' . $key);
+        }
+        return $months;
     }
 
     /**
-     * @param mixed $input
-     * @return mixed
+     * Start date of the record: a date object of FormEngine, a timestamp or an ISO date; today for new records
      */
-    public static function removeNewlines($input)
+    protected static function getStartDate(array $row): \DateTimeImmutable
     {
+        $value = $row['start_date'] ?? null;
+        if ($value instanceof \DateTimeInterface) {
+            return \DateTimeImmutable::createFromInterface($value);
+        }
+        if (is_numeric($value) && (int)$value !== 0) {
+            return (new \DateTimeImmutable('@' . (int)$value))->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        }
+        if (is_string($value) && $value !== '' && !is_numeric($value)) {
+            try {
+                return new \DateTimeImmutable($value);
+            } catch (\Exception) {
+            }
+        }
+        return new \DateTimeImmutable('today');
+    }
 
-        return str_replace([
-            "\r\n",
-            "\n",
-            "\r",
-            "\t",
-        ], '', (string)$input);
+    /**
+     * Value of a multi value field without the "null" entries of the JavaScript
+     */
+    protected static function getListValue(array $row, string $field): string
+    {
+        return implode(',', array_filter(explode(',', (string)($row[$field] ?? '')), static fn(string $value): bool => $value !== 'null' && $value !== ''));
+    }
+
+    /**
+     * First value of a select field (FormEngine passes arrays)
+     */
+    protected static function getSelectValue(array $row, string $field): string
+    {
+        $value = $row[$field] ?? '';
+        return (string)(is_array($value) ? ($value[0] ?? '') : $value);
+    }
+
+    protected function renderHiddenField(string $field, string $value): string
+    {
+        $name = 'data[' . $this->data['tableName'] . '][' . $this->data['databaseRow']['uid'] . '][' . $field . ']';
+        return '<input type="hidden" name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />';
     }
 }

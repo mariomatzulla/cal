@@ -1,0 +1,20 @@
+"pages"
+,"uid","pid","title","doktype","perms_userid","perms_groupid","perms_user","perms_group","perms_everybody"
+,5,0,"Calendar records",254,1,0,31,31,1
+,6,5,"Subfolder",254,1,0,31,31,1
+"be_users"
+,"uid","pid","username","admin","db_mountpoints","options"
+,1,0,"admin",1,"",0
+,2,0,"editor",0,"6",3
+,3,0,"nomount",0,"",3
+"tx_cal_domain_model_location"
+,"uid","pid","name"
+,1,5,"Town hall"
+,2,6,"Church"
+,3,5,"Arena"
+"tx_cal_domain_model_event"
+,"uid","pid","title","start_date","start_time","allday","tstamp"
+,1,5,"Meeting",1794268800,36000,0,1
+"tx_cal_domain_model_eventdeviation"
+,"uid","pid","orig_start_date","orig_start_time"
+,1,5,1794268800,36000

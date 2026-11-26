@@ -8,33 +8,25 @@ use MarioMatzulla\Cal\Domain\Repository\LocationRepository;
 use MarioMatzulla\Cal\Events\GetLocationEvent;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
 
+/**
+ * Finds the location record of the location view
+ */
 #[AsEventListener(identifier: 'cal/location-service')]
-final class LocationService extends BaseService
+final class LocationService
 {
-    /**
-     * @var \MarioMatzulla\Cal\Domain\Repository\LocationRepository
-     */
-    protected $locationRepository;
-
-    public function __construct(LocationRepository $locationRepository)
-    {
-        $this->locationRepository = $locationRepository;
-    }
+    public function __construct(
+        private readonly LocationRepository $locationRepository,
+    ) {}
 
     public function __invoke(GetLocationEvent $event): void
     {
-        $this->getLocation($event);
-    }
-
-    private function getLocation(GetLocationEvent $event): void
-    {
-        if ($event->getType() == 'tx_cal_location') {
-            $foundLocation = $this->locationRepository->findLocation($event->getUid(), $event->getStoragePageIds())->toArray();
-            if (!empty($foundLocation)) {
-                $event->setLocation($foundLocation[0]);
-                $event->stopPropagation();
-            }
+        if ($event->getType() !== 'tx_cal_location') {
+            return;
+        }
+        $found = $this->locationRepository->findLocation($event->getUid(), $event->getStoragePageIds())->toArray();
+        if ($found !== []) {
+            $event->setLocation($found[0]);
+            $event->stopPropagation();
         }
     }
-
 }

@@ -60,7 +60,7 @@ final class SlugService
         $queryBuilder = $this->createQueryBuilder($table);
         return (int)$queryBuilder->count('uid')
             ->from($table)
-            ->where(...$this->getMissingConditions($queryBuilder))
+            ->where(...$this->getMissingConditions($queryBuilder, $table))
             ->executeQuery()
             ->fetchOne();
     }
@@ -80,7 +80,7 @@ final class SlugService
         $evaluations = GeneralUtility::trimExplode(',', (string)($fieldConfiguration['eval'] ?? ''), true);
 
         $queryBuilder = $this->createQueryBuilder($table);
-        $conditions = $this->getMissingConditions($queryBuilder);
+        $conditions = $this->getMissingConditions($queryBuilder, $table);
         if ($calendarId !== null) {
             $conditions[] = $queryBuilder->expr()->eq('calendar_id', $queryBuilder->createNamedParameter($calendarId, Connection::PARAM_INT));
         }
@@ -90,21 +90,14 @@ final class SlugService
         $updated = 0;
         foreach ($rows as $row) {
             $pid = (int)$row['pid'];
+            // records without title get "default-<hash>" from the SlugHelper
             $slug = $slugHelper->generate($row, $pid);
-            if ($slug === '') {
-                continue;
-            }
             $state = RecordStateFactory::forName($table)->fromArray($row, $pid, (int)$row['uid']);
-            try {
-                if (in_array('uniqueInSite', $evaluations, true)) {
-                    $slug = $slugHelper->buildSlugForUniqueInSite($slug, $state);
-                } elseif (in_array('uniqueInPid', $evaluations, true)) {
-                    $slug = $slugHelper->buildSlugForUniqueInPid($slug, $state);
-                } elseif (in_array('unique', $evaluations, true)) {
-                    $slug = $slugHelper->buildSlugForUniqueInTable($slug, $state);
-                }
-            } catch (\Throwable) {
-                // e.g. the record is stored outside of a site
+            if (in_array('uniqueInSite', $evaluations, true)) {
+                $slug = $slugHelper->buildSlugForUniqueInSite($slug, $state);
+            } elseif (in_array('uniqueInPid', $evaluations, true)) {
+                $slug = $slugHelper->buildSlugForUniqueInPid($slug, $state);
+            } elseif (in_array('unique', $evaluations, true)) {
                 $slug = $slugHelper->buildSlugForUniqueInTable($slug, $state);
             }
             $connection->update($table, [self::SLUG_FIELD => $slug], ['uid' => (int)$row['uid']]);
@@ -122,13 +115,29 @@ final class SlugService
     /**
      * @return list<string>
      */
-    private function getMissingConditions(\TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder): array
+    /**
+     * Records without slug or with the slug of an older record of the same language
+     */
+    private function getMissingConditions(\TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder, string $table): array
     {
+        $duplicate = $this->connectionPool->getQueryBuilderForTable($table);
+        $duplicate->getRestrictions()->removeAll();
+        $duplicateConditions = [
+            $duplicate->expr()->eq('duplicate.' . self::SLUG_FIELD, $queryBuilder->quoteIdentifier($table . '.' . self::SLUG_FIELD)),
+            $duplicate->expr()->lt('duplicate.uid', $queryBuilder->quoteIdentifier($table . '.uid')),
+            $duplicate->expr()->eq('duplicate.deleted', 0),
+        ];
+        $languageField = (string)($GLOBALS['TCA'][$table]['ctrl']['languageField'] ?? '');
+        if ($languageField !== '') {
+            $duplicateConditions[] = $duplicate->expr()->eq('duplicate.' . $languageField, $queryBuilder->quoteIdentifier($table . '.' . $languageField));
+        }
+        $duplicate->select('duplicate.uid')->from($table, 'duplicate')->where(...$duplicateConditions);
         return [
-            $queryBuilder->expr()->eq('deleted', 0),
+            $queryBuilder->expr()->eq($table . '.deleted', 0),
             (string)$queryBuilder->expr()->or(
-                $queryBuilder->expr()->eq(self::SLUG_FIELD, $queryBuilder->createNamedParameter('')),
-                $queryBuilder->expr()->isNull(self::SLUG_FIELD),
+                $queryBuilder->expr()->eq($table . '.' . self::SLUG_FIELD, $queryBuilder->createNamedParameter('')),
+                $queryBuilder->expr()->isNull($table . '.' . self::SLUG_FIELD),
+                'EXISTS (' . $duplicate->getSQL() . ')',
             ),
         ];
     }

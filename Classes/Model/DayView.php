@@ -48,6 +48,7 @@ class DayView extends \MarioMatzulla\Cal\Model\TimeView
         $this->setYear((int)$year);
         $date = new CalendarDateTime();
         $date = $date->setDate($this->getYear(), $this->getMonth(), (int)$this->getDay());
+        $date->setTime(0, 0);
         $this->setWeekdayNumber(WeekStart::indexOf($date->getDayOfWeek()));
         $this->setYmd($date->format('Ymd'));
         $this->time = $date;

@@ -15,8 +15,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Http\ServerRequestFactory;
-use TYPO3\CMS\Core\Http\Uri;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Exception\SiteNotFoundException;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
@@ -130,7 +131,7 @@ class CalendarDataHandlerHook
             return;
         }
 
-        $this->updateRecurrenceIndex($uid);
+        $this->updateRecurrenceIndex($uid, $this->isVisible($uid));
 
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($targetTable);
         $query = $queryBuilder->select('*')
@@ -158,9 +159,13 @@ class CalendarDataHandlerHook
      * i.e. every time the record was opened). Hidden / deleted events only lose their index entries.
      * Workspace versions are not indexed, the index is built when they are published.
      */
-    private function updateRecurrenceIndex(int $uid): void
+    private function updateRecurrenceIndex(int $uid, bool $visible): void
     {
         if ((int)$this->context->getPropertyFromAspect('workspace', 'id', 0) > 0) {
+            return;
+        }
+        if (!$visible) {
+            $this->recurrenceGenerator->cleanIndexTableOfUid($uid, self::INDEX_MODEL_TYPE);
             return;
         }
         try {
@@ -168,6 +173,22 @@ class CalendarDataHandlerHook
         } catch (\Throwable $e) {
             $this->addFlashMessage('tx_cal_event.index.error', ContextualFeedbackSeverity::ERROR, [$e->getMessage()]);
         }
+    }
+
+    /**
+     * Hidden and deleted events have no index entries. Start and end time (publishing) are ignored: the
+     * frontend checks them when the events are read, the index must exist when they become visible.
+     */
+    private function isVisible(int $uid): bool
+    {
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::EVENT_TABLE);
+        $queryBuilder->getRestrictions()->removeAll();
+        $row = $queryBuilder->select('hidden', 'deleted')
+            ->from(self::EVENT_TABLE)
+            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
+            ->executeQuery()
+            ->fetchAssociative();
+        return $row !== false && (int)$row['hidden'] === 0 && (int)$row['deleted'] === 0;
     }
 
     /**
@@ -237,43 +258,38 @@ class CalendarDataHandlerHook
     }
 
     /**
-     * Ermittelt den existierenden Request oder baut einen passenden Site-Request zusammen
+     * The current request, if it belongs to a site (e.g. frontend editing). Otherwise a request for the site
+     * of the record is created. ServerRequestFactory::fromGlobals() is not used: it fails on CLI (scheduler,
+     * console commands using the DataHandler).
      */
     private function resolveRequest(int $uid, array $fieldArray, string $targetTable): ServerRequestInterface
     {
-        // Wenn bereits ein Request da ist (z. B. bei Frontend-Aktionen), nutzen wir diesen
-        if (isset($GLOBALS['TYPO3_REQUEST']) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
-            // Prüfen, ob es ein Frontend-Request ist (hat meist das 'site'-Attribut)
-            if ($GLOBALS['TYPO3_REQUEST']->getAttribute('site') !== null) {
-                return $GLOBALS['TYPO3_REQUEST'];
-            }
+        $current = ($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface ? $GLOBALS['TYPO3_REQUEST'] : null;
+        if ($current?->getAttribute('site') !== null) {
+            return $current;
+        }
+        $request = $current ?? new ServerRequest('https://localhost/', 'GET');
+        if ($request->getAttribute('applicationType') === null) {
+            $request = $request->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE);
         }
 
-        // Da wir im Backend sind, brauchen wir die Page-ID (pid) des Datensatzes,
-        // um herauszufinden, zu welcher Site/Domain der Eintrag gehört.
+        // The site of the record is determined by its page
         $pid = (int)($fieldArray['pid'] ?? 0);
         if ($pid <= 0) {
             $queryBuilder = $this->connectionPool->getQueryBuilderForTable($targetTable);
+            $queryBuilder->getRestrictions()->removeAll();
             $pid = (int)$queryBuilder
-            ->select('pid')
-            ->from($targetTable)
-            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
-            ->executeQuery()
-            ->fetchOne();
+                ->select('pid')
+                ->from($targetTable)
+                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
+                ->executeQuery()
+                ->fetchOne();
         }
-
         try {
-            // Site über den SiteFinder anhand der PID ermitteln
-            $site = $this->siteFinder->getSiteByPageId($pid > 0 ? $pid : 1);
-
-            // Einen valides PSR-7 Request-Objekt für diese Site erzeugen
-            $baseUrl = (string)$site->getBase();
-            return ServerRequestFactory::fromGlobals()
-            ->withUri(GeneralUtility::makeInstance(Uri::class, $baseUrl))
-            ->withAttribute('site', $site);
-        } catch (\Throwable) {
-            // Fallback, falls absolut keine Site ermittelt werden kann
-            return ServerRequestFactory::fromGlobals();
+            $site = $this->siteFinder->getSiteByPageId($pid);
+        } catch (SiteNotFoundException) {
+            return $request;
         }
+        return $request->withUri($site->getBase())->withAttribute('site', $site);
     }
 }

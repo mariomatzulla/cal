@@ -1,0 +1,6 @@
+"tx_cal_domain_model_calendar"
+,"uid","pid","title","owner","type","deleted","hidden","tstamp","md5","timezone"
+,1,5,"Club",0,0,0,0,100,"","Europe/Berlin"
+,2,5,"Holidays",0,1,0,0,200,"abc",""
+,3,5,"Private",1,0,0,0,300,"",""
+,4,5,"Deleted",0,0,1,0,400,"",""

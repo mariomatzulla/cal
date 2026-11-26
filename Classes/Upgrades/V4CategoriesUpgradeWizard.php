@@ -227,9 +227,6 @@ final class V4CategoriesUpgradeWizard implements UpgradeWizardInterface, ChattyI
      */
     private function updateCategoryCounters(array $eventUids): void
     {
-        if ($this->legacySchema->findColumn(self::EVENT_TABLE, 'categories') === null) {
-            return;
-        }
         $eventConnection = $this->legacySchema->getConnection(self::EVENT_TABLE);
         foreach ($eventUids as $eventUid) {
             $count = $this->legacySchema->count('sys_category_record_mm', [

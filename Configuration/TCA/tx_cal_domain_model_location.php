@@ -48,7 +48,8 @@ $tx_cal_domain_model_location =  [
                     ],
                 ],
                 'fallbackCharacter' => '-',
-                'eval' => 'uniqueInSite',
+                // unique in the table: the route enhancer resolves the slug in the whole table, records outside of a site would get duplicates with uniqueInSite
+                'eval' => 'unique',
                 'default' => '',
             ],
         ],

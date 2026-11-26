@@ -4,198 +4,152 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal;
 
+/**
+ * This file is part of the TYPO3 extension Calendar Base (cal).
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ */
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\TypoScript\TypoScriptStringFactory;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+
+/**
+ * Settings of the calendar plugin: TypoScript merged with the FlexForm of the rendered content element.
+ */
 trait General
 {
     /**
-     * @var array
+     * FlexForm field => [section in dontListenToFlexForm, path in the settings]
      */
-    protected $plugins = [
-        'cal_controller',
+    private const FLEXFORM_FIELDS = [
+        'allowedViews' => ['general', 'view.allowedViews'],
+        'weekStartDay' => ['general', 'view.weekStartDay'],
+        'dayStart' => ['day', 'view.day.dayStart'],
+        'dayEnd' => ['day', 'view.day.dayEnd'],
+        'gridLength' => ['day', 'view.day.gridLength'],
+        'eventViewPid' => ['event', 'view.event.eventViewPid'],
+        'starttime' => ['list', 'view.list.starttime'],
+        'endtime' => ['list', 'view.list.endtime'],
+        'showAllImages' => ['list', 'view.list.event.card.showAllImages'],
+        'maxEvents' => ['list', 'view.list.maxEvents'],
+        'showIcsLinks' => ['ics', 'view.ics.showIcsLinks'],
+        'categorySelection' => ['filters', 'view.category'],
+        'categoryMode' => ['filters', 'view.categoryMode'],
+        'calendarSelection' => ['filters', 'view.calendar'],
+        'calendarMode' => ['filters', 'view.calendarMode'],
+        'myTS' => ['general', ''],
     ];
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     */
-    protected $configManager;
-
-    /**
-     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
-     */
-    protected $typoScriptService;
-
-    /**
-     * @var array
-     */
     protected array $settings;
 
-    /* ======================================================================================= */
-    /* P R O P E R T I E S                                                                     */
-    /* ======================================================================================= */
-    /**
-     * Sets the settings
-     *
-     * @param array $settings
-     */
-    public function setSettings($settings)
+    public function setSettings(array $settings): void
     {
         $this->settings = $settings;
     }
 
-    /**
-     * @param array|null $contentElement the tt_content record of the rendered plugin. Its FlexForm
-     *                                   is used, so every plugin has its own configuration.
-     *                                   Without it the plugins of the settings page are read.
-     */
-    public function initSettings(?array $contentElement = null)
-    {
-        $this->setSettings($this->getTyposcriptConfig());
-        if (empty($this->settings['dontListenToFlexForm'])) {
-            // get flexform configuration
-            $flexformSettings = isset($contentElement['pi_flexform'])
-                ? $this->getFlexform2ConfigArray((string)$contentElement['pi_flexform'])
-                : $this->getFlexformSettings(0);
-            $this->mergeSettingsWithFlexformValues($flexformSettings);
-        }
-    }
-    /**
-     * Returns the settings
-     *
-     * @return array	the typoscript settings
-     */
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
 
     /**
-     * Sets the configurationManager
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager
+     * @param array|null $contentElement the tt_content record of the rendered plugin. Its FlexForm
+     *                                   is used, so every plugin has its own configuration.
+     * @param int $pageId without content element (plugin rendered by TypoScript, e.g. the iCalendar page type):
+     *                    the FlexForms of the calendar plugins on this page are used
      */
-    public function setConfigurationManager($configurationManager)
+    public function initSettings(?array $contentElement = null, int $pageId = 0): void
     {
-        $this->configManager = $configurationManager;
+        $this->setSettings($this->getTyposcriptConfig());
+        $flexForms = $contentElement !== null ? [(string)($contentElement['pi_flexform'] ?? '')] : $this->getFlexFormsOfPage($pageId);
+        $flexFormValues = [];
+        foreach ($flexForms as $flexForm) {
+            $values = array_filter($this->getFlexform2ConfigArray($flexForm), static fn($value): bool => $value !== '' && $value !== null);
+            $flexFormValues = array_replace_recursive($flexFormValues, $values);
+        }
+        $this->mergeSettingsWithFlexformValues($flexFormValues);
     }
 
-    /* ======================================================================================= */
-    /* P U B L I C   M E T H O D S                                                             */
-    /* ======================================================================================= */
     /**
-     * Read plugins on current page and add's the given flexform configuration
+     * FlexForms of the visible calendar plugins of a page (in the order of the page)
      *
-     * @param	int					$uid				a specific plugin uid
-     * @return	array
+     * @return list<string>
      */
-    public function getFlexformSettings(int $uid): array
+    protected function getFlexFormsOfPage(int $pageId): array
     {
-        // get flexform configuration
-        $def = $this->getPi_Flexforms($uid);
-        $flexformSettings = [];
-        foreach ($def as $data) {
-            // settings
-            $flexformArray = $this->getFlexform2ConfigArray($data['pi_flexform']);
-            if (!empty($flexformArray)) {
-                $flexformSettings = array_replace_recursive($flexformSettings, $flexformArray);
+        if ($pageId <= 0) {
+            return [];
+        }
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+        return array_map('strval', $queryBuilder->select('pi_flexform')
+            ->from('tt_content')
+            ->where(
+                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pageId, Connection::PARAM_INT)),
+                $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter('cal_controller')),
+            )
+            ->orderBy('sorting')
+            ->executeQuery()
+            ->fetchFirstColumn());
+    }
 
+    /**
+     * Non-empty FlexForm values override the TypoScript settings, unless
+     * - plugin.tx_cal.settings.dontListenToFlexForm = 1 (all fields) or
+     * - plugin.tx_cal.settings.dontListenToFlexForm.<section>.<field> = 1 (single fields)
+     */
+    protected function mergeSettingsWithFlexformValues(array $flexForm): void
+    {
+        $ignore = $this->settings['dontListenToFlexForm'] ?? 0;
+        if (!is_array($ignore) && (int)$ignore === 1) {
+            return;
+        }
+        foreach (self::FLEXFORM_FIELDS as $field => [$section, $path]) {
+            $value = $flexForm[$field] ?? null;
+            if ($value === null || $value === '' || (is_array($ignore) && (int)($ignore[$section][$field] ?? 0) === 1)) {
+                continue;
             }
-        }
-        return $flexformSettings;
-    }
-
-    protected function mergeSettingsWithFlexformValues($piFlexForm)
-    {
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['allowedViews']) || $this->settings ['dontListenToFlexForm'] ['general'] ['allowedViews'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['allowedViews'], $piFlexForm ['allowedViews']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['general'] ['weekStartDay']) || $this->settings ['dontListenToFlexForm'] ['general'] ['weekStartDay'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['weekStartDay'], $piFlexForm ['weekStartDay'] ?? null);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['dayStart']) || $this->settings ['dontListenToFlexForm'] ['day'] ['dayStart'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['day'] ['dayStart'], $piFlexForm ['dayStart']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['dayEnd']) || $this->settings ['dontListenToFlexForm'] ['day'] ['dayEnd'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['day'] ['dayEnd'], $piFlexForm ['dayEnd']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['day'] ['gridLength']) || $this->settings ['dontListenToFlexForm'] ['day'] ['gridLength'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['day'] ['gridLength'], $piFlexForm ['gridLength']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['event'] ['eventViewPid']) || $this->settings ['dontListenToFlexForm'] ['event'] ['eventViewPid'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['event'] ['eventViewPid'], $piFlexForm ['eventViewPid']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['starttime']) || $this->settings ['dontListenToFlexForm'] ['list'] ['starttime'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['starttime'], $piFlexForm ['starttime']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['endtime']) || $this->settings ['dontListenToFlexForm'] ['list'] ['endtime'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['endtime'], $piFlexForm ['endtime']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['showAllImages']) || $this->settings ['dontListenToFlexForm'] ['list'] ['showAllImages'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['event'] ['card'] ['showAllImages'], $piFlexForm ['showAllImages'] ?? null);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['list'] ['maxEvents']) || $this->settings ['dontListenToFlexForm'] ['list'] ['maxEvents'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['list'] ['maxEvents'], $piFlexForm ['maxEvents']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['ics'] ['showIcsLinks']) || $this->settings ['dontListenToFlexForm'] ['ics'] ['showIcsLinks'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['ics'] ['showIcsLinks'], $piFlexForm ['showIcsLinks']);
-        }
-
-        if (! isset($this->settings ['dontListenToFlexForm'] ['filters'] ['categorySelection']) || $this->settings ['dontListenToFlexForm'] ['filters'] ['categorySelection'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['category'], $piFlexForm ['categorySelection']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['filters'] ['categoryMode']) || $this->settings ['dontListenToFlexForm'] ['filters'] ['categoryMode'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['categoryMode'], $piFlexForm ['categoryMode']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['filters'] ['calendarSelection']) || $this->settings ['dontListenToFlexForm'] ['filters'] ['calendarSelection'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['calendar'], $piFlexForm ['calendarSelection']);
-        }
-        if (! isset($this->settings ['dontListenToFlexForm'] ['filters'] ['calendarMode']) || $this->settings ['dontListenToFlexForm'] ['filters'] ['calendarMode'] !== 1) {
-            self::updateIfNotEmpty($this->settings ['view'] ['calendarMode'], $piFlexForm ['calendarMode']);
-        }
-
-        if ($piFlexForm ['myTS']) {
-            $typoScriptStringFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptStringFactory::class);
-            // Parse the new Typoscript
-            $typoScriptTree = $typoScriptStringFactory->parseFromStringWithIncludes('tx_cal_controller_flexform_TS', $piFlexForm ['myTS']);
-            $tsConf = $this->typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptTree->toArray());
-            $this->settings = array_replace_recursive($this->settings, $tsConf);
+            if ($field === 'myTS') {
+                // TypoScript of the plugin, relative to plugin.tx_cal.settings
+                $typoScriptTree = GeneralUtility::makeInstance(TypoScriptStringFactory::class)
+                    ->parseFromStringWithIncludes('tx_cal_controller_flexform_TS', (string)$value);
+                $this->settings = array_replace_recursive(
+                    $this->settings,
+                    GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($typoScriptTree->toArray()),
+                );
+                continue;
+            }
+            $this->settings = ArrayUtility::setValueByPath($this->settings, $path, $value, '.');
         }
     }
 
-    /**
-     * @param mixed $confVar
-     * @param mixed $newConfVar
-     */
-    protected static function updateIfNotEmpty(&$confVar, $newConfVar)
-    {
-
-        // Values missing in the FlexForm (null) or left empty must not override TypoScript
-        if ($newConfVar !== null && $newConfVar !== '') {
-            $confVar = $newConfVar;
-        }
-    }
-
-    /* ======================================================================================= */
-    /* P R O T E C T E D   M E T H O D S                                                       */
-    /* ======================================================================================= */
     /**
      * Settings of the plugin:
      * 1. plugin.tx_cal.settings (all cal plugins, provided by the site set / static template)
      * 2. plugin.tx_cal_controller.settings (only the plugin "Controller")
      * 3. legacy: settings directly below plugin.tx_cal_controller (cal < 4), still read but deprecated
      */
-    protected function getTyposcriptConfig()
+    protected function getTyposcriptConfig(): array
     {
-        // get object- and configration manager / instantiate services
-        $this->configManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class);
-        $this->typoScriptService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
+        return self::buildSettings(GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray(
+            GeneralUtility::makeInstance(ConfigurationManagerInterface::class)
+                ->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT)
+        ));
+    }
 
-        $tsConf = $this->typoScriptService->convertTypoScriptArrayToPlainArray(
-            $this->configManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT)
-        );
+    /**
+     * @param array $tsConf the full TypoScript as plain array
+     */
+    protected static function buildSettings(array $tsConf): array
+    {
         $settings = (array)($tsConf['plugin']['tx_cal']['settings'] ?? []);
         $pluginConfiguration = (array)($tsConf['plugin']['tx_cal_controller'] ?? []);
 
@@ -229,159 +183,18 @@ trait General
     }
 
     /**
-     * Select tt_content's pi_flexforms of "tx_cal" and "maagitproduct_checkout" elements on current page
-     *
-     * @param	int							$uid				a specific plugin uid
-     * @return	array											the flexform values
+     * FlexForm XML => [field => value] of all sheets. Field names with dots (e.g. "settings.view.x")
+     * become nested arrays.
      */
-    protected function getPi_Flexforms(int $uid)
+    private function getFlexform2ConfigArray(string $xml): array
     {
-        // get relevant pid
-        $pid = $this->getSettingsPid('', $uid);
-
-        // get flexform settings from the maagitproduct plugins of given page
-        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tt_content');
-        $queryBuilder
-            ->select('tt_content.*')
-            ->from('tt_content')
-            ->where(
-                $queryBuilder->expr()->eq(
-                    'tt_content.pid',
-                    $queryBuilder->createNamedParameter($pid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT),
-                ),
-                $queryBuilder->expr()->in(
-                    'tt_content.CType',
-                    $queryBuilder->createNamedParameter($this->plugins, \TYPO3\CMS\Core\Database\Connection::PARAM_STR_ARRAY),
-                ),
-            );
-        if (!empty($uid)) {
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq(
-                    'tt_content.uid',
-                    $queryBuilder->createNamedParameter($uid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT),
-                ),
-            );
-        }
-        return $queryBuilder
-            ->executeQuery()
-            ->fetchAllAssociative();
-    }
-
-    /* ======================================================================================= */
-    /* P R I V A T E   M E T H O D S                                                           */
-    /* ======================================================================================= */
-    /**
-     * Convert given flexform value to array
-     *
-     * @param	$xml						string				the pi_flexform as xml string
-     * @return								array				the flexform data as config array
-     */
-    private function getFlexform2ConfigArray($xml)
-    {
-        $flexformData = [];
-        try {
-            if (!empty($xml)) {
-                $xmlArray = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($xml);
-                foreach ($xmlArray as $sheets) {
-                    foreach ($sheets as $elements) {
-                        foreach ($elements as $fields) {
-                            foreach ($fields as $key => $value) {
-                                $temp = $this->getFFValue($key, $value['vDEF'], []);
-                                $flexformData = array_merge_recursive($flexformData, $temp);
-                            }
-                        }
-                    }
-                }
+        $data = trim($xml) !== '' ? GeneralUtility::xml2array($xml) : [];
+        $result = [];
+        foreach ((is_array($data) ? (array)($data['data'] ?? []) : []) as $sheet) {
+            foreach ((array)($sheet['lDEF'] ?? []) as $field => $value) {
+                $result = ArrayUtility::setValueByPath($result, (string)$field, is_array($value) ? ($value['vDEF'] ?? '') : '', '.');
             }
-        } catch (\Exception $ex) {
         }
-        return $flexformData;
-    }
-
-    /**
-     * Get the flexform value as key => value pair.
-     * Recursive function, for exploding keys with subkeys in a array structure
-     *
-     * @param	$key						string				the key from pi_flexform (can be key with subkey, e.g. settings.delivery.method)
-     * @param	$value						string				the value from pi_flexform
-     * @param	$array						array				the parent array for creating recursively array structure
-     * @param	$delimiter					string				the delimiter of "keys with subkeys", default '.'
-     * @param	$key						string				the key from pi_flexform (can be key with subkey, e.g. settings.delivery.method)
-     * @return								array				the flexform data as config array
-     */
-    private function getFFValue($key, $value, $array, $delimiter = '.')
-    {
-        $key = (string)$key;
-        if (!str_contains($key, $delimiter)) {
-            $array = [$key => $value];
-            return $array;
-        }
-
-        $segment = substr($key, 0, (int)strpos($key, $delimiter));
-        $newKey = substr($key, (int)strpos($key, $delimiter) + 1);
-        $array = [$segment => $this->getFFValue($newKey, $value, $array)];
-        return $array;
-
-    }
-
-    /**
-     * Get pid with the plugin settings
-     * (e.g., if plugin is not on the current page)
-     *
-     * @param	string				$plugin			the plugin name to search
-     * @param	int					$uid			a specific plugin uid
-     * @return						int				the pid with the plugin settings
-     */
-    private function getSettingsPid($plugin, int $uid)
-    {
-        // initialization
-        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tt_content');
-        $plugin = ($plugin != null) ? $plugin : $this->getCurrentPlugin();
-        $pid = null;
-
-        // second attention, get pid from current plugin
-        if ($plugin != null) {
-            $queryBuilder
-            ->select('tt_content.pid')
-            ->from('tt_content')
-            ->where(
-                $queryBuilder->expr()->eq(
-                    'tt_content.CType',
-                    $queryBuilder->createNamedParameter($plugin, \TYPO3\CMS\Core\Database\Connection::PARAM_STR),
-                ),
-            );
-            $records = $queryBuilder->executeQuery()->fetchAllAssociative();
-            $pid = (!empty($records)) ? $records[0]['pid'] : $pid;
-        }
-        // third attention, get pid from given plugin uid
-        if ($uid > 0) {
-            $queryBuilder
-                ->select('tt_content.pid')
-                ->from('tt_content')
-                ->where(
-                    $queryBuilder->expr()->eq(
-                        'tt_content.uid',
-                        $queryBuilder->createNamedParameter($uid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT),
-                    ),
-                );
-            $records = $queryBuilder->executeQuery()->fetchAllAssociative();
-            $pid = (!empty($records)) ? $records[0]['pid'] : $pid;
-        }
-
-        // fourth attention, get pid from typoscript settings
-        $pid = (isset($this->settings['pageid']) && !empty($this->settings['pageid'])) ? $this->settings['pageid'] : $pid;
-
-        // return pid
-        return $pid;
-    }
-
-    /**
-     * Get url parameter "controller" and return current plugin name
-     *
-     * @return						string				the current plugin name
-     */
-    private function getCurrentPlugin()
-    {
-        return 'cal_controller';
+        return $result;
     }
 }

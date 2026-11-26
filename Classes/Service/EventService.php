@@ -12,14 +12,14 @@ use MarioMatzulla\Cal\Domain\Repository\CalendarOwnerRelationRepository;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventDeviationRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
-use MarioMatzulla\Cal\Domain\Repository\FrontendUserRepository;
 use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use MarioMatzulla\Cal\Events\GetEventEvent;
 use MarioMatzulla\Cal\Events\SearchEventsEvent;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
+use TYPO3\CMS\Core\Context\Context;
 
 #[AsEventListener(identifier: 'cal/event-service')]
-final class EventService extends BaseService
+final class EventService
 {
     /**
      * @var \MarioMatzulla\Cal\Domain\Repository\EventRepository
@@ -47,14 +47,13 @@ final class EventService extends BaseService
     protected $eventDeviationRepository;
 
     public function __construct(
-        FrontendUserRepository $frontendUserRepository,
+        private readonly Context $context,
         EventRepository $eventRepository,
         CalendarRepository $calendarRepository,
         CalendarOwnerRelationRepository $calendarOwnerRelationRepository,
         IndexRepository $indexRepository,
         EventDeviationRepository $eventDeviationRepository,
     ) {
-        parent::__construct($frontendUserRepository);
         $this->eventRepository = $eventRepository;
         $this->calendarRepository = $calendarRepository;
         $this->calendarOwnerRelationRepository = $calendarOwnerRelationRepository;
@@ -100,13 +99,17 @@ final class EventService extends BaseService
     /**
      * @return array<int>
      */
+    /**
+     * Calendars owned by the logged in frontend user or one of the groups
+     */
     protected function getPrivateCalendarList(): array
     {
-        $loggedInUser = $this->getLoggedInUser();
-        if ($loggedInUser != null) {
-            return $this->calendarOwnerRelationRepository->findCalendarListForFeUser((int)$loggedInUser ['uid']);
+        $userId = (int)$this->context->getPropertyFromAspect('frontend.user', 'id', 0);
+        if ($userId <= 0) {
+            return [];
         }
-        return [];
+        $groupIds = array_values(array_filter(array_map('intval', (array)$this->context->getPropertyFromAspect('frontend.user', 'groupIds', [])), static fn(int $uid): bool => $uid > 0));
+        return $this->calendarOwnerRelationRepository->findCalendarListForFeUser($userId, $groupIds);
     }
 
     /**

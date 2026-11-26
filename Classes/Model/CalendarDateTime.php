@@ -16,17 +16,6 @@ namespace MarioMatzulla\Cal\Model;
  *
  * The TYPO3 extension Calendar Base (cal) project - inspiring people to share!
  */
-if (! defined('DATE_CALC_FORMAT')) {
-    /**
-     * The default value for each method's $format parameter
-     *
-     * The default is '%Y%m%d'. To override this default, define
-     * this constant before including Calc.php.
-     *
-     * @since Constant available since Release 1.4.4
-     */
-    define('DATE_CALC_FORMAT', 'Ymd');
-}
 
 /**
  * This is supposed to be a wrapper class to imitate old PEAR::Date
@@ -35,21 +24,6 @@ if (! defined('DATE_CALC_FORMAT')) {
  */
 class CalendarDateTime extends \DateTime
 {
-    /**
-     * define the default weekday abbreviation length
-     * used by ::format()
-     *
-     * @var int
-     */
-    public $getWeekdayAbbrnameLength = 3;
-
-    /**
-     * define the default monthname abbreviation length
-     * used by ::format()
-     *
-     * @var int
-     */
-    private $getMonthAbbrnameLength = 3;
 
     public function __construct()
     {
@@ -63,12 +37,8 @@ class CalendarDateTime extends \DateTime
     public static function generateFromDateTime(\DateTime $object): CalendarDateTime
     {
         $dateTime = new CalendarDateTime();
-        $dateTime->setYear((int)($object->format('Y')));
-        $dateTime->setMonth((int)($object->format('m')));
-        $dateTime->setDay((int)($object->format('d')));
-        $dateTime->setHour((int)($object->format('H')));
-        $dateTime->setMinute((int)($object->format('i')));
-        $dateTime->setSecond((int)($object->format('s')));
+        $dateTime->setDate((int)$object->format('Y'), (int)$object->format('m'), (int)$object->format('d'));
+        $dateTime->setTime((int)$object->format('H'), (int)$object->format('i'), (int)$object->format('s'));
         return $dateTime;
     }
 
@@ -150,143 +120,27 @@ class CalendarDateTime extends \DateTime
     }
 
     /**
-     * @param CalendarDateTime $compareDateA
-     * @param CalendarDateTime $compareDateB
-     * @return int
+     * Subtracts seconds, a negative value adds them.
      */
-    public function compare(CalendarDateTime $compareDateA, CalendarDateTime $compareDateB): int
+    public function subtractSeconds(int $sec = 0): static
     {
-        $a = (float)($compareDateA->format('YmdHis'));
-        $b = (float)($compareDateB->format('YmdHis'));
-        if ($a === $b) {
-            return 0;
-        }
-        if ($a < $b) {
-            return - 1;
-        }
-        return 1;
-    }
-
-    /**
-     * @param int $sec
-     * @throws \Exception
-     */
-    public function subtractSeconds($sec = 0)
-    {
-        settype($sec, 'int');
-
-        // Negative value given.
         if ($sec < 0) {
-            $this->addSeconds(abs($sec));
-            return;
+            return $this->addSeconds(-$sec);
         }
         $this->sub(new \DateInterval('PT' . $sec . 'S'));
+        return $this;
     }
 
     /**
-     * @param int $sec
-     * @throws \Exception
+     * Adds seconds, a negative value subtracts them.
      */
-    public function addSeconds($sec = 0)
+    public function addSeconds(int $sec = 0): static
     {
-        settype($sec, 'int');
-
-        // Negative value given.
         if ($sec < 0) {
-            $this->subtractSeconds(abs($sec));
-            return;
+            return $this->subtractSeconds(-$sec);
         }
-
         $this->add(new \DateInterval('PT' . $sec . 'S'));
-    }
-
-    /**
-     * @param bool $abbr
-     * @param bool $length
-     * @return string
-     */
-    public function getDayName($abbr = false, $length = false): string
-    {
-        $dayName = $this->format('F');
-        if ($abbr) {
-            if ($length === false) {
-                $length = $this->getWeekdayAbbreviationLength();
-            }
-            $dayName = $this->crop($dayName, $length);
-        }
-        return $this->applyStdWrap($dayName);
-    }
-
-    /**
-     * @param bool $abbr
-     * @param bool $length
-     * @return string
-     */
-    public function getMonthName($abbr = false, $length = false): string
-    {
-        $monthName = $this->format('l');
-        if ($abbr) {
-            if ($length === false) {
-                $length = $this->getMonthAbbreviationLength();
-            }
-            $monthName = $this->crop($monthName, $length);
-        }
-        return $this->applyStdWrap($monthName);
-    }
-
-    /**
-     * Returns the length that should be used for month name abbreviation
-     *
-     * @return int
-     */
-    public function getMonthAbbreviationLength(): int
-    {
-        return (int)($this->getMonthAbbrnameLength);
-    }
-
-    /**
-     * Returns the length that should be used for month name abbreviation
-     *
-     * @return int
-     */
-    public function getWeekdayAbbreviationLength(): int
-    {
-        return (int)($this->getWeekdayAbbrnameLength);
-    }
-
-    /**
-     * Applys the default date_stdWrap to the given string.
-     *
-     * @param string $value
-     * @return string
-     */
-    public function applyStdWrap($value = ''): string
-    {
-        return $value;
-    }
-
-    /**
-     * uses a bytesafe cropping function if possible in order to not destroy multibyte chars from strings (e.g.
-     * names in UTF-8)
-     *
-     * @param string $value
-     * @param bool $length
-     * @return string the cropped string
-     */
-    public function crop($value = '', $length = false): string
-    {
-        if ($length === false) {
-            return $value;
-        }
-        return mb_substr($value, 0, (int)$length);
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setTZbyID($id)
-    {
-        $this->setTimezone(new \DateTimeZone((string)$id));
+        return $this;
     }
 
     /**
@@ -310,13 +164,9 @@ class CalendarDateTime extends \DateTime
      */
     public function copy(CalendarDateTime $date)
     {
-        $this->setYear($date->getYear());
-        $this->setMonth($date->getMonth());
-        $this->setDay($date->getDay());
-        $this->setHour($date->getHour());
-        $this->setMinute($date->getMinute());
-        $this->setSecond($date->getSecond());
         $this->setTimezone($date->getTimezone());
+        $this->setDate($date->getYear(), $date->getMonth(), $date->getDay());
+        $this->setTime($date->getHour(), $date->getMinute(), $date->getSecond());
     }
 
     /**

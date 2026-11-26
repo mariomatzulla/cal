@@ -41,12 +41,13 @@ final class SlugUpgradeWizard implements UpgradeWizardInterface, ChattyInterface
 
     public function getTitle(): string
     {
-        return 'Calendar Base (cal): create the URL segments of events, locations and organizers';
+        return 'Calendar Base (cal): create the URL segments of events, locations and organizers, make them unique';
     }
 
     public function getDescription(): string
     {
-        return 'Fills the empty field "URL segment" (slug) of events, locations and organizers. The speaking URLs '
+        return 'Fills the empty field "URL segment" (slug) of events, locations and organizers and replaces URL segments '
+            . 'used by an older record of the same language (e.g. in a folder outside of a site). The speaking URLs '
             . 'of the detail views use it. Run the wizard "migrate calendars, events, locations and organizers" first '
             . 'when updating from cal 1.x.';
     }
@@ -70,7 +71,7 @@ final class SlugUpgradeWizard implements UpgradeWizardInterface, ChattyInterface
     {
         foreach (SlugService::TABLES as $table) {
             $count = $this->slugService->fillMissing($table);
-            $this->output?->writeln(sprintf('%s: %d URL segments created', $table, $count));
+            $this->output?->writeln(sprintf('%s: %d URL segments created or made unique', $table, $count));
         }
         return true;
     }

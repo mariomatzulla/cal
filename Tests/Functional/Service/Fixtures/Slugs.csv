@@ -1,0 +1,10 @@
+"tx_cal_domain_model_event"
+,"uid","pid","calendar_id","title","slug","deleted","sys_language_uid"
+,1,5,1,"Meeting","",0,0
+,2,5,1,"Meeting","",0,0
+,3,5,2,"Other / Event","",0,0
+,4,5,1,"Existing","existing",0,0
+,5,5,1,"Deleted","",1,0
+,6,5,1,"","",0,0
+,7,5,1,"Existing","existing",0,0
+,8,5,1,"Existing","existing",0,1

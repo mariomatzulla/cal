@@ -114,9 +114,6 @@ final class V4SchedulerUpgradeWizard implements UpgradeWizardInterface, ChattyIn
             ['tasktype', 'serialized_task_object'],
             fn(string $column): bool => $this->legacySchema->findColumn(self::TASK_TABLE, $column) === $column,
         );
-        if ($columns === []) {
-            return [];
-        }
         $queryBuilder = $this->legacySchema->createQueryBuilder(self::TASK_TABLE);
         $queryBuilder->select('uid', ...$columns)->from(self::TASK_TABLE);
         if ($this->legacySchema->findColumn(self::TASK_TABLE, 'deleted') === 'deleted') {

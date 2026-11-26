@@ -1,0 +1,13 @@
+"tx_cal_domain_model_calendar"
+,"uid","pid","title","owner","type","deleted","hidden"
+,1,5,"Club",0,0,0,0
+,2,6,"Second",0,0,0,0
+,3,5,"Imported",0,1,0,0
+"tx_cal_domain_model_event"
+,"uid","pid","calendar_id","title","type","start_date","end_date","freq","rdate","rdate_type","deleted","hidden","isTemp","ics_uid","caldav_data"
+,1,5,1,"Single",0,1794268800,1794268800,"none","","none",0,0,0,"a",""
+,2,5,1,"Weekly",0,1767571200,1767571200,"week","","none",0,0,0,"b","BEGIN:VCALENDAR"
+,3,6,2,"Additional dates only",0,1795132800,1795132800,"none","20261201","date",0,0,0,"c","BEGIN:VCALENDAR"
+,4,5,1,"Deleted",0,1794268800,1794268800,"none","","none",1,0,0,"d","BEGIN:VCALENDAR"
+,5,5,3,"Imported",0,1794268800,1794268800,"none","","none",0,0,1,"e","BEGIN:VCALENDAR"
+,6,5,1,"Long",0,1790812800,1798675200,"none","","none",0,0,0,"f","BEGIN:VCALENDAR"
