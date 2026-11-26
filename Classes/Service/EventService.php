@@ -141,10 +141,16 @@ final class EventService
         $event->setEvents(array_merge_recursive($event->getEvents(), $returnList));
     }
 
+    /**
+     * The event and its occurrences in the range. A recurring event is completely described by the index
+     * (the first date is left out if an exception event removes it or a deviation changes it).
+     */
     private function findRecurringEventsForEvent(\DateTime $start, \DateTime $end, Event $eventResult)
     {
         $returnList = [];
-        $returnList[] = $eventResult;
+        if (!$eventResult->isRecurring()) {
+            $returnList[] = $eventResult;
+        }
         $indexList = $this->indexRepository->findByEventUidStartAndEnd($eventResult->getUid(), $start, $end);
         foreach ($indexList as $index) {
             $deviation = $index->getEventDeviationUid() > 0

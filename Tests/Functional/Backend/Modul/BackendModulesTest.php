@@ -46,7 +46,7 @@ final class BackendModulesTest extends FunctionalTestCase
                 'showTimes' => '1',
                 'useTeaser' => '0',
                 'hideDeviationRecords' => '1',
-                'recurrenceStart' => 'cal:yearstart',
+                'recurrenceStart' => '2026-01-01 00:00:00',
                 'recurrenceEnd' => '+3 years',
             ],
         ],
@@ -136,6 +136,12 @@ final class BackendModulesTest extends FunctionalTestCase
     public function icsGeneratorModule(): void
     {
         self::assertSame(200, $this->dispatch('cal_ics_generator_module', 'index')->getStatusCode());
+        // events without iCalendar data, with the reason if none can be created
+        $this->get(ConnectionPool::class)->getConnectionForTable('tx_cal_domain_model_event')->update('tx_cal_domain_model_event', ['start_date' => 0], ['uid' => 8]);
+        $body = (string)$this->dispatch('cal_ics_generator_module', 'check')->getBody();
+        self::assertStringContainsString('[UID: 1; PID: 5] Meeting', $body);
+        self::assertStringContainsString('Is created with &quot;Generate&quot;', $body);
+        self::assertStringContainsString('Not possible: the event has no start date', $body);
 
         $response = $this->dispatch('cal_ics_generator_module', 'generate');
         self::assertSame(200, $response->getStatusCode());

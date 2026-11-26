@@ -19,6 +19,7 @@ use MarioMatzulla\Cal\Domain\Model\EventDeviation;
 use MarioMatzulla\Cal\Domain\Model\Index;
 use MarioMatzulla\Cal\Domain\Repository\EventDeviationRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
+use MarioMatzulla\Cal\Domain\Repository\ExceptionEventRepository;
 use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use MarioMatzulla\Cal\Utility\RecurrenceGenerator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -41,6 +42,11 @@ final class RecurrenceGeneratorTest extends UnitTestCase
      */
     private array $deviations = [];
 
+    /**
+     * @var list<array<string, mixed>> exception events (records) of the event
+     */
+    private array $exceptions = [];
+
     private function createGenerator(?EventRepository $eventRepository = null, ?IndexRepository $indexRepository = null, array $configuration = []): RecurrenceGenerator
     {
         if ($indexRepository === null) {
@@ -51,6 +57,8 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         }
         $deviationRepository = $this->createStub(EventDeviationRepository::class);
         $deviationRepository->method('findByEventUid')->willReturnCallback(fn(): array => $this->deviations);
+        $exceptionRepository = $this->createStub(ExceptionEventRepository::class);
+        $exceptionRepository->method('findByEvent')->willReturnCallback(fn(): array => $this->exceptions);
         $extensionConfiguration = $this->createStub(ExtensionConfiguration::class);
         $extensionConfiguration->method('get')->willReturn($configuration + ['recurrenceStart' => '2026-01-01 00:00:00', 'recurrenceEnd' => '2028-01-01 00:00:00']);
         return new RecurrenceGenerator(
@@ -59,6 +67,7 @@ final class RecurrenceGeneratorTest extends UnitTestCase
             $indexRepository,
             $this->createStub(PersistenceManagerInterface::class),
             $extensionConfiguration,
+            $exceptionRepository,
         );
     }
 
@@ -79,6 +88,14 @@ final class RecurrenceGeneratorTest extends UnitTestCase
             $event->{'set' . ucfirst($property)}($value);
         }
         return $event;
+    }
+
+    /**
+     * The index entry of the first date of the event
+     */
+    private static function first(Event $event): string
+    {
+        return substr($event->getStart()->format('YmdHis'), 0, 12) . '-' . substr($event->getEnd()->format('YmdHis'), 0, 12);
     }
 
     /**
@@ -175,7 +192,8 @@ final class RecurrenceGeneratorTest extends UnitTestCase
     #[DataProvider('ruleDataProvider')]
     public function createRecurringInstances(array $event, array $expected): void
     {
-        self::assertSame($expected, $this->generate(self::createEvent(...$event)));
+        $event = self::createEvent(...$event);
+        self::assertSame([self::first($event), ...$expected], $this->generate($event));
     }
 
     #[Test]
@@ -196,23 +214,26 @@ final class RecurrenceGeneratorTest extends UnitTestCase
     public function untilAfterTheRangeEndsAtTheRange(): void
     {
         $event = self::createEvent('2027-12-30 10:00', '2027-12-30 11:00', ['freq' => 'day', 'until' => new \DateTime('2030-01-01')]);
-        self::assertSame(['202712311000-202712311100'], $this->generate($event));
+        self::assertSame(['202712301000-202712301100', '202712311000-202712311100'], $this->generate($event));
     }
 
     #[Test]
     public function additionalDates(): void
     {
         $dates = self::createEvent('2026-11-02 10:00', '2026-11-02 11:30', ['rdateType' => 'date', 'rdate' => '20261110,20251110,20300101']);
-        self::assertSame(['202611101000-202611101130'], $this->generate($dates));
+        // the first date (2026-11-02) is not added twice
+        $dates = self::createEvent('2026-11-02 10:00', '2026-11-02 11:30', ['rdateType' => 'date', 'rdate' => '20261102,20261110,20251110,20300101']);
+        self::assertSame(['202611021000-202611021130', '202611101000-202611101130'], $this->generate($dates));
 
         $dateTimes = self::createEvent('2026-11-02 10:00', '2026-11-02 11:30', ['rdateType' => 'date_time', 'rdate' => '20261110T140000Z,20261111T150000Z']);
-        self::assertSame(['202611101400-202611101530', '202611111500-202611111630'], $this->generate($dateTimes));
+        self::assertSame(['202611021000-202611021130', '202611101400-202611101530', '202611111500-202611111630'], $this->generate($dateTimes));
 
         $periods = self::createEvent('2026-11-02 10:00', '2026-11-02 11:30', [
             'rdateType' => 'period',
             'rdate' => '20261110T140000Z/PT2H30M,20261112T080000Z/P1DT2H,20261113T080000Z/P1WT0H,20261114T080000Z/P1MT10S,20261115T080000Z/P1YT0H,20300101T080000Z/PT1H',
         ]);
         self::assertSame([
+            '202611021000-202611021130',
             '202611101400-202611101630',
             '202611120800-202611131000',
             '202611130800-202611200800',
@@ -225,6 +246,7 @@ final class RecurrenceGeneratorTest extends UnitTestCase
             'rdate' => ',x,20261110T140000Z/20261110T180000Z,20261111T140000Z/P1X,20261112T140000Z/PT,20261113T140000Z/P1DT',
         ]);
         self::assertSame([
+            '202611021000-202611021130',
             '202611101400-202611101800',
             '202611111400-202611111530',
             '202611121400-202611121400',
@@ -232,7 +254,7 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         ], $this->generate($invalid));
 
         $none = self::createEvent('2026-11-02 10:00', '2026-11-02 11:30', ['rdateType' => 'none', 'rdate' => '20261110']);
-        self::assertSame([], $this->generate($none));
+        self::assertSame(['202611021000-202611021130'], $this->generate($none));
     }
 
     #[Test]
@@ -263,12 +285,70 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         $this->deviations = [$moved, $otherDay, $titleOnly];
         $event = self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'day', 'cnt' => 5]);
         self::assertSame([
+            '202611021000-202611021100',
             '202611031400-202611031600',
             '202611200000-202611210000',
             '202611051000-202611051100',
             '202611061000-202611061100',
         ], $this->generate($event));
-        self::assertSame([11, 12, 13, null], array_map(static fn(Index $entry): ?int => $entry->getEventDeviationUid(), $this->entries));
+        self::assertSame([null, 11, 12, 13, null], array_map(static fn(Index $entry): ?int => $entry->getEventDeviationUid(), $this->entries));
+
+        // a deviation of the first date
+        $first = new EventDeviation();
+        $first->_setProperty('uid', 14);
+        $first->setOrigStartDate((int)gmmktime(0, 0, 0, 11, 2, 2026));
+        $first->setOrigStartTime(36000);
+        $first->setStartTime(new \DateTime('08:00'));
+        $first->setEndTime(new \DateTime('09:00'));
+        $this->deviations = [$first];
+        self::assertSame(['202611020800-202611020900', '202611031000-202611031100'], $this->generate(self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'day', 'cnt' => 2])));
+    }
+
+    #[Test]
+    public function exceptionEventsRemoveDates(): void
+    {
+        $this->exceptions = [
+            // two days, including the first date of the event
+            ['uid' => 1, 'start_date' => mktime(0, 0, 0, 11, 1, 2026), 'end_date' => mktime(0, 0, 0, 11, 2, 2026)],
+            ['uid' => 2, 'start_date' => mktime(0, 0, 0, 11, 9, 2026), 'end_date' => 0],
+            // recurring exception event: two Mondays
+            ['uid' => 3, 'start_date' => mktime(0, 0, 0, 11, 23, 2026), 'freq' => 'week', 'byday' => 'MO', 'cnt' => 2],
+        ];
+        $event = self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'week', 'byday' => 'MO', 'cnt' => 6]);
+        // COUNT includes the removed dates (RFC 5545)
+        self::assertSame(['202611161000-202611161100', '202612071000-202612071100'], $this->generate($event));
+
+        $this->entries = [];
+        $generator = $this->createGenerator();
+        $generator->setRange('2026-12-01', '2027-01-01');
+        $excluded = $generator->findExcludedOccurrences(self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'week', 'byday' => 'MO', 'cnt' => 6]));
+        self::assertSame(['20261102100000', '20261109100000', '20261123100000', '20261130100000'], array_map(static fn($start): string => $start->format('YmdHis'), $excluded));
+        // the range of the index is not changed
+        self::assertSame(['20261201', '20270101'], [$generator->starttime->format('Ymd'), $generator->endtime->format('Ymd')]);
+        self::assertSame([], $this->entries);
+
+        // the exception dates after the range of the index, until the end of the recurrence
+        $this->exceptions = [['uid' => 4, 'start_date' => mktime(0, 0, 0, 6, 5, 2028)]];
+        $excluded = $generator->findExcludedOccurrences(self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'week', 'byday' => 'MO', 'until' => new \DateTime('2029-01-01')]));
+        self::assertSame(['20280605100000'], array_map(static fn($start): string => $start->format('YmdHis'), $excluded));
+    }
+
+    #[Test]
+    public function createExceptionEvent(): void
+    {
+        $exception = RecurrenceGenerator::createExceptionEvent(['uid' => 3, 'start_date' => mktime(0, 0, 0, 11, 23, 2026)]);
+        self::assertSame([3, true, true, 'none', 'none', null], [$exception->getUid(), $exception->isException(), $exception->isAllday(), $exception->getFreq(), $exception->getRdateType(), $exception->getUntil()]);
+        self::assertSame('20261123', $exception->getEndDate()->format('Ymd'));
+
+        $exception = RecurrenceGenerator::createExceptionEvent([
+            'uid' => 4, 'start_date' => mktime(0, 0, 0, 11, 23, 2026), 'end_date' => mktime(0, 0, 0, 11, 24, 2026),
+            'freq' => 'month', 'byday' => 'MO', 'bymonthday' => '1', 'bymonth' => '2', 'rdate_type' => 'date', 'rdate' => '20261201',
+            'until' => mktime(0, 0, 0, 12, 31, 2027), 'cnt' => 3, 'intrval' => 2,
+        ]);
+        self::assertSame(
+            ['20261124', 'month', 'MO', '1', '2', 'date', '20261201', '20271231', 3, 2],
+            [$exception->getEndDate()->format('Ymd'), $exception->getFreq(), $exception->getByday(), $exception->getBymonthday(), $exception->getBymonth(), $exception->getRdateType(), $exception->getRdate(), $exception->getUntil()->format('Ymd'), $exception->getCnt(), $exception->getIntrval()],
+        );
     }
 
     #[Test]
@@ -339,21 +419,24 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         $eventRepository = $this->createMock(EventRepository::class);
         $eventRepository->expects(self::once())->method('findRecurringEvents')->with(5)->willReturn([$first, $second]);
         self::assertSame(['First', 'Second'], $this->createGenerator($eventRepository)->generateIndex(5));
-        self::assertCount(3, $this->entries);
+        self::assertCount(5, $this->entries);
     }
 
     #[Test]
     public function generateIndexForEventUid(): void
     {
         $eventRepository = $this->createMock(EventRepository::class);
-        $eventRepository->expects(self::exactly(2))->method('findByUid')->willReturnOnConsecutiveCalls(
+        $eventRepository->expects(self::exactly(3))->method('findByUid')->willReturnOnConsecutiveCalls(
             self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'day', 'cnt' => 2]),
             null,
+            // events without recurrence have no index
+            self::createEvent('2026-11-02 10:00', '2026-11-02 11:00'),
         );
         $indexRepository = $this->createMock(IndexRepository::class);
-        $indexRepository->expects(self::exactly(2))->method('deleteByEventUidsAndTablename')->with([7], 'tx_cal_event');
-        $indexRepository->expects(self::once())->method('add');
+        $indexRepository->expects(self::exactly(3))->method('deleteByEventUidsAndTablename')->with([7], 'tx_cal_event');
+        $indexRepository->expects(self::exactly(2))->method('add');
         $generator = $this->createGenerator($eventRepository, $indexRepository);
+        $generator->generateIndexForEventUid(7);
         $generator->generateIndexForEventUid(7);
         $generator->generateIndexForEventUid(7);
     }
@@ -365,9 +448,10 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         $eventRepository->expects(self::once())->method('findUidsForCalendar')->with(3)->willReturn([7]);
         $eventRepository->expects(self::once())->method('findAllForCalendar')->with(3)->willReturn([
             self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'day', 'cnt' => 3]),
+            self::createEvent('2026-11-02 10:00', '2026-11-02 11:00'),
         ]);
         $this->createGenerator($eventRepository)->generateIndexForCalendarUid(3);
-        self::assertCount(2, $this->entries);
+        self::assertCount(3, $this->entries);
     }
 
     #[Test]

@@ -231,6 +231,21 @@
 			<trans-unit id="l_week_short" resname="l_week_short">
 				<source>Wk</source>
 			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_none" resname="backend_module_ics_generator_reason_none">
+				<source>Is created with "Generate"</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_calendar" resname="backend_module_ics_generator_reason_calendar">
+				<source>Not possible: the event has no (visible) calendar</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_startDate" resname="backend_module_ics_generator_reason_startDate">
+				<source>Not possible: the event has no start date</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_endDate" resname="backend_module_ics_generator_reason_endDate">
+				<source>Not possible: the event has no end date</source>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_page" resname="backend_module_ics_generator_reason_page">
+				<source>Not possible: the event is stored on the root page</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

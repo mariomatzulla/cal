@@ -198,6 +198,11 @@ An :guilabel:`Exception Event` is a date (optionally recurring, e.g. every
 holidays of a year. Both are assigned to events in the field
 :guilabel:`Exceptions`.
 
+The dates of the exception events are removed from the recurring event in all
+views, the iCalendar download and CalDAV (`EXDATE`). An exception event covers
+whole days: every date of the event starting on such a day is removed, also the
+first date of the event.
+
 ..  _editors-location:
 
 Locations and organizers

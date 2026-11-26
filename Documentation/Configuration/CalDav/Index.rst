@@ -167,3 +167,31 @@ in the backend get it when they are saved. Events without iCalendar data (e.g.
 after the upgrade from cal 1.x) are not visible in CalDAV clients: create the
 data with the backend module :guilabel:`Cal ICS Generator`
 (see :ref:`backend-modules`).
+
+..  _caldav-recurrence:
+
+Recurring events
+================
+
+The iCalendar data of a recurring event contains the complete series, so the
+clients show the same dates as the website:
+
+*   the recurrence rule as `RRULE`,
+*   the additional dates (:guilabel:`Recurrence by`) as `RDATE`,
+*   the dates of the exception events and exception groups as `EXDATE`,
+*   every deviation as own `VEVENT` with `RECURRENCE-ID` (the original start).
+
+Changes of a series in the client are taken over:
+
+*   A date removed in the client (`EXDATE`, or a cancelled occurrence) becomes
+    an exception event of the event. If the date is removed from the series
+    again, the exception event of that day is deleted. Recurring exception
+    events and exception groups are not changed, their dates are removed in the
+    client again with the next synchronization.
+*   A changed single date (`RECURRENCE-ID`) becomes a deviation, deviations
+    without a changed date in the client are deleted.
+
+..  note::
+    cal stores the end of a recurrence as day (:guilabel:`Until`) or as number
+    of dates (:guilabel:`Count`). A rule with both is exported with `UNTIL`.
+

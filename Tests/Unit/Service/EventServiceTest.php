@@ -142,6 +142,21 @@ final class EventServiceTest extends UnitTestCase
     }
 
     #[Test]
+    public function recurringEventsAreDescribedByTheIndex(): void
+    {
+        $event = self::event(1, '2026-11-02 10:00');
+        $event->setFreq('week');
+        // e.g. the first date is removed by an exception event
+        $service = $this->createService([1], [], null, [$event], [1 => [self::index('20261109100000', '20261109110000')]]);
+        $search = self::search();
+        $service($search);
+        $found = $search->getEvents();
+        self::assertCount(1, $found);
+        self::assertInstanceOf(EventRecModel::class, $found[0]);
+        self::assertSame('20261109100000', $found[0]->getStart()->format('YmdHis'));
+    }
+
+    #[Test]
     public function calendarsAreLimitedByTheSelectionAndTheLoggedInUser(): void
     {
         $service = $this->createService([1, 2, 3], [5, 6], 9);

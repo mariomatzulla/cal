@@ -161,6 +161,22 @@ final class ContentControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function exceptionEventsRemoveDatesOfASeries(): void
+    {
+        $today = new \DateTimeImmutable('today');
+        $pool = $this->get(ConnectionPool::class);
+        $pool->getConnectionForTable('tx_cal_domain_model_exception_event')->insert('tx_cal_domain_model_exception_event', ['uid' => 1, 'pid' => 5, 'title' => 'Holiday', 'start_date' => $today->modify('+8 days')->getTimestamp()]);
+        $pool->getConnectionForTable('tx_cal_domain_model_exception_event_mm')->insert('tx_cal_domain_model_exception_event_mm', ['uid_local' => 3, 'uid_foreign' => 1, 'tablenames' => 'tx_cal_domain_model_exception_event']);
+        $this->get(RecurrenceGenerator::class)->setRange()->generateIndexForEventUid(3);
+        $this->setFlexForm(['allowedViews' => 'day,list']);
+        $day = static fn(\DateTimeImmutable $date): array => ['action' => 'day', 'year' => $date->format('Y'), 'month' => $date->format('n'), 'day' => $date->format('j')];
+        // the first date (from the index), the removed date, the next date
+        self::assertStringContainsString('Weekly meeting', $this->render($day($today->modify('+1 day'))));
+        self::assertStringNotContainsString('Weekly meeting', $this->render($day($today->modify('+8 days'))));
+        self::assertStringContainsString('Weekly meeting', $this->render($day($today->modify('+15 days'))));
+    }
+
+    #[Test]
     public function defaultViewOfThePlugin(): void
     {
         foreach (['year', 'week', 'day', 'event', 'ics', 'unknown'] as $view) {

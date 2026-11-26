@@ -127,6 +127,26 @@
 				<source>Wk</source>
 				<target>KW</target>
 			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_none" resname="backend_module_ics_generator_reason_none" approved="yes">
+				<source>Is created with "Generate"</source>
+				<target>Wird mit „Erzeugen“ erstellt</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_calendar" resname="backend_module_ics_generator_reason_calendar" approved="yes">
+				<source>Not possible: the event has no (visible) calendar</source>
+				<target>Nicht möglich: Der Termin hat keinen (sichtbaren) Kalender</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_startDate" resname="backend_module_ics_generator_reason_startDate" approved="yes">
+				<source>Not possible: the event has no start date</source>
+				<target>Nicht möglich: Der Termin hat kein Startdatum</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_endDate" resname="backend_module_ics_generator_reason_endDate" approved="yes">
+				<source>Not possible: the event has no end date</source>
+				<target>Nicht möglich: Der Termin hat kein Enddatum</target>
+			</trans-unit>
+			<trans-unit id="backend_module_ics_generator_reason_page" resname="backend_module_ics_generator_reason_page" approved="yes">
+				<source>Not possible: the event is stored on the root page</source>
+				<target>Nicht möglich: Der Termin liegt auf der Wurzelseite</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

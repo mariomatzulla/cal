@@ -18,9 +18,11 @@ declare(strict_types=1);
 namespace MarioMatzulla\Cal\Utility;
 
 use MarioMatzulla\Cal\Domain\Model\Event;
+use MarioMatzulla\Cal\Domain\Model\EventDeviation;
 use MarioMatzulla\Cal\Domain\Model\Index;
 use MarioMatzulla\Cal\Domain\Repository\EventDeviationRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
+use MarioMatzulla\Cal\Domain\Repository\ExceptionEventRepository;
 use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use MarioMatzulla\Cal\Model\CalendarDateTime;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
@@ -51,12 +53,46 @@ class RecurrenceGenerator
      */
     public $configuration;
 
+    /**
+     * Occurrences ([start, end]) of an exception event while its days are determined, null: index mode
+     *
+     * @var list<array{0: CalendarDateTime, 1: CalendarDateTime}>|null
+     */
+    private ?array $collected = null;
+
+    /**
+     * Days (Ymd => true) of the exception events of the current event
+     *
+     * @var array<string, true>
+     */
+    private array $excludedDays = [];
+
+    /**
+     * Starts of the occurrences of the current event removed by exception events
+     *
+     * @var list<CalendarDateTime>
+     */
+    private array $excludedStarts = [];
+
+    /**
+     * Deviations of the current event by original start (YmdHis)
+     *
+     * @var array<string, EventDeviation>
+     */
+    private array $deviations = [];
+
+    /**
+     * true: the occurrences are determined, but not written to the index
+     */
+    private bool $dryRun = false;
+
     public function __construct(
         private readonly EventRepository $eventRepository,
         private readonly EventDeviationRepository $eventDeviationRepository,
         private readonly IndexRepository $indexRepository,
         private readonly PersistenceManagerInterface $persistenceManager,
         ExtensionConfiguration $extensionConfiguration,
+        private readonly ExceptionEventRepository $exceptionEventRepository,
     ) {
         $this->configuration = (array)$extensionConfiguration->get('cal');
         $this->setRange();
@@ -148,7 +184,7 @@ class RecurrenceGenerator
     {
         $this->cleanIndexTableOfUid($uid, 'tx_cal_event');
         $event = $this->eventRepository->findByUid($uid);
-        if ($event instanceof Event) {
+        if ($event instanceof Event && $event->isRecurring()) {
             $this->createRecurringInstances($event);
         }
     }
@@ -165,12 +201,26 @@ class RecurrenceGenerator
         $events = $this->eventRepository->findAllForCalendar($uid);
 
         foreach ($events as $event) {
-            $this->createRecurringInstances($event);
+            if ($event->isRecurring()) {
+                $this->createRecurringInstances($event);
+            }
         }
     }
 
+    /**
+     * Writes all occurrences of the event to the index, including its first date. Occurrences on days of
+     * the exception events are left out, deviations change the date and time of an occurrence.
+     */
     public function createRecurringInstances(Event $event)
     {
+        // the validation completes the rule (e.g. BYDAY of a weekly rule), the event itself is not changed
+        $event = clone $event;
+        if ($this->collected === null) {
+            // the days of the exception events are determined with this method as well
+            $this->excludedDays = $event->isException() ? [] : $this->getExceptionDays($event);
+            $this->excludedStarts = [];
+            $this->deviations = $event->isException() ? [] : $this->getDeviationDates($event);
+        }
         RecurrenceValidator::validateEvent($event);
 
         $count = (int)($event->getCnt());
@@ -213,6 +263,12 @@ class RecurrenceGenerator
         $nextOccuranceTime->copy($event->getStart());
         $nextOccuranceTime->modify('+1 day');
 
+        // the first date of the event
+        $firstEnd = CalendarDateTime::generateFromDateTime($event->getEnd());
+        if (!$firstEnd->before($this->starttime) && !$this->endtime->before($eventStart)) {
+            $this->createIndexEntry(CalendarDateTime::generateFromDateTime($event->getStart()), $firstEnd, $event);
+        }
+
         if ($event->getRdateType() && $event->getRdateType() != 'none') {
             $this->addRecurringInstances($event);
         }
@@ -252,6 +308,123 @@ class RecurrenceGenerator
                 break; // switch-case break
         }
         $this->persistenceManager->persistAll();
+    }
+
+    /**
+     * Days (Ymd => true) of the exception events of an event, recurring exception events included
+     *
+     * @return array<string, true>
+     */
+    public function getExceptionDays(Event $event): array
+    {
+        $days = [];
+        foreach ($this->exceptionEventRepository->findByEvent((int)$event->getUid()) as $row) {
+            $this->collected = [];
+            try {
+                $this->createRecurringInstances(self::createExceptionEvent($row));
+                $occurrences = $this->getCollectedOccurrences();
+            } finally {
+                $this->collected = null;
+            }
+            foreach ($occurrences as [$start, $end]) {
+                $lastDay = $end->format('Ymd');
+                for ($day = \DateTimeImmutable::createFromFormat('!Ymd', $start->format('Ymd')), $i = 0; $day->format('Ymd') <= $lastDay && $i < 400; $day = $day->modify('+1 day'), $i++) {
+                    $days[$day->format('Ymd')] = true;
+                }
+            }
+        }
+        return $days;
+    }
+
+    /**
+     * @return list<array{0: CalendarDateTime, 1: CalendarDateTime}>
+     */
+    private function getCollectedOccurrences(): array
+    {
+        return $this->collected ?? [];
+    }
+
+    /**
+     * Starts of the occurrences of an event which are removed by its exception events (EXDATE), from the
+     * first date of the event until the end of the index range or the end of the recurrence (UNTIL)
+     *
+     * @return list<CalendarDateTime>
+     */
+    public function findExcludedOccurrences(Event $event): array
+    {
+        $starttime = $this->starttime;
+        $endtime = $this->endtime;
+        $end = $this->endtime->format('YmdHis');
+        if ($event->getUntil() instanceof \DateTimeInterface && $event->getUntil()->format('Ymd') . '235959' > $end) {
+            $end = $event->getUntil()->format('Ymd') . '235959';
+        }
+        $this->setRange(self::toDateTimeString($event->getStart()->format('Ymd') . '000000'), self::toDateTimeString($end));
+        $this->dryRun = true;
+        try {
+            $this->createRecurringInstances($event);
+            return $this->excludedStarts;
+        } finally {
+            $this->dryRun = false;
+            $this->starttime = $starttime;
+            $this->endtime = $endtime;
+        }
+    }
+
+    /**
+     * "20261102103000" => "2026-11-02 10:30:00" (setRange() accepts strings of DateTime::modify())
+     */
+    private static function toDateTimeString(string $ymdHis): string
+    {
+        return substr($ymdHis, 0, 4) . '-' . substr($ymdHis, 4, 2) . '-' . substr($ymdHis, 6, 2) . ' '
+            . substr($ymdHis, 8, 2) . ':' . substr($ymdHis, 10, 2) . ':' . substr($ymdHis, 12, 2);
+    }
+
+    /**
+     * Exception event (all-day) as event, so its dates are determined like the dates of an event
+     *
+     * @param array<string, mixed> $row record of tx_cal_domain_model_exception_event
+     */
+    public static function createExceptionEvent(array $row): Event
+    {
+        $exception = new Event();
+        $exception->_setProperty('uid', (int)$row['uid']);
+        $exception->setException(true);
+        $exception->setAllday(true);
+        $start = (int)($row['start_date'] ?? 0);
+        $end = max($start, (int)($row['end_date'] ?? 0));
+        $exception->setStartDate((new \DateTime())->setTimestamp($start));
+        $exception->setEndDate((new \DateTime())->setTimestamp($end));
+        $exception->setFreq((string)($row['freq'] ?? '') ?: 'none');
+        $exception->setByday((string)($row['byday'] ?? ''));
+        $exception->setBymonthday((string)($row['bymonthday'] ?? ''));
+        $exception->setBymonth((string)($row['bymonth'] ?? ''));
+        $exception->setRdateType((string)($row['rdate_type'] ?? '') ?: 'none');
+        $exception->setRdate((string)($row['rdate'] ?? ''));
+        $exception->setUntil((int)($row['until'] ?? 0) > 0 ? (new \DateTime())->setTimestamp((int)$row['until']) : null);
+        $exception->setCnt((int)($row['cnt'] ?? 0));
+        $exception->setIntrval((int)($row['intrval'] ?? 1));
+        return $exception;
+    }
+
+    /**
+     * Start and end of an occurrence changed by a deviation: date and / or time of the deviation,
+     * the original values if the deviation has none
+     *
+     * @return array{0: CalendarDateTime, 1: CalendarDateTime}
+     */
+    public static function getDeviationPeriod(EventDeviation $deviation, CalendarDateTime $start, CalendarDateTime $end): array
+    {
+        $startDate = $deviation->getStartDate() instanceof \DateTime
+            ? CalendarDateTime::generateFromDateTime($deviation->getStartDate())
+            : CalendarDateTime::generateFromDateTime($start);
+        $endDate = $deviation->getEndDate() instanceof \DateTime
+            ? CalendarDateTime::generateFromDateTime($deviation->getEndDate())
+            : CalendarDateTime::generateFromDateTime($end);
+        if (! $deviation->isAllday() && $deviation->getStartTime() instanceof \DateTime && $deviation->getEndTime() instanceof \DateTime) {
+            $startDate->setTime((int)$deviation->getStartTime()->format('H'), (int)$deviation->getStartTime()->format('i'));
+            $endDate->setTime((int)$deviation->getEndTime()->format('H'), (int)$deviation->getEndTime()->format('i'));
+        }
+        return [$startDate, $endDate];
     }
 
     /**
@@ -306,6 +479,17 @@ class RecurrenceGenerator
 
     private function createIndexEntry(CalendarDateTime $nextOccuranceTime, CalendarDateTime $nextOccuranceEndTime, Event $event)
     {
+        if ($this->collected !== null) {
+            $this->collected[] = [clone $nextOccuranceTime, clone $nextOccuranceEndTime];
+            return;
+        }
+        if (isset($this->excludedDays[$nextOccuranceTime->format('Ymd')])) {
+            $this->excludedStarts[] = clone $nextOccuranceTime;
+            return;
+        }
+        if ($this->dryRun) {
+            return;
+        }
         $indexEntry = new Index();
         $indexEntry->setStartDatetime((float)$nextOccuranceTime->format('YmdHis'));
         $indexEntry->setEndDatetime((float)$nextOccuranceEndTime->format('YmdHis'));
@@ -320,8 +504,16 @@ class RecurrenceGenerator
         return $event->getModelType() == 'tx_cal_event' ? ($event->isException() ? 'tx_cal_exception_event' : 'tx_cal_event') : $event->getModelType();
     }
 
-    private function getDeviationDates(Event $event)
+    /**
+     * Deviations of an event by the original start of the occurrence (YmdHis, wall clock time)
+     *
+     * @return array<string, EventDeviation>
+     */
+    public function getDeviationDates(Event $event): array
     {
+        // Extbase returns the objects mapped before in the same request (identity map). A deviation saved
+        // after its event in the same DataHandler run would keep its old values.
+        $this->persistenceManager->clearState();
         $deviationResult = $this->eventDeviationRepository->findByEventUid($event->getuid());
         $deviations = [];
         if ($deviationResult) {
@@ -339,28 +531,10 @@ class RecurrenceGenerator
     private function updateEventDataWithDeviations(Event $event, Index $eventData, $nextOccuranceTime, $nextOccuranceEndTime)
     {
 
-        $deviationDates = $this->getDeviationDates($event);
         $startDateTime = sprintf('%.0f', (float)$eventData->getStartDatetime());
-        if (array_key_exists($startDateTime, $deviationDates)) {
-            $deviation = $deviationDates[$startDateTime];
-            if ($deviation->getStartDate() instanceof \DateTime) {
-                $startDate = CalendarDateTime::generateFromDateTime($deviation->getStartDate());
-            } else {
-                $startDate = new CalendarDateTime();
-                $startDate->copy($nextOccuranceTime);
-            }
-            if ($deviation->getEndDate() instanceof \DateTime) {
-                $endDate = CalendarDateTime::generateFromDateTime($deviation->getEndDate());
-            } else {
-                $endDate = new CalendarDateTime();
-                $endDate->copy($nextOccuranceEndTime);
-            }
-
-            if (! $deviation->isAllday() && $deviation->getStartTime() instanceof \DateTime && $deviation->getEndTime() instanceof \DateTime) {
-                $startDate->setTime((int)$deviation->getStartTime()->format('H'), (int)$deviation->getStartTime()->format('i'));
-                $endDate->setTime((int)$deviation->getEndTime()->format('H'), (int)$deviation->getEndTime()->format('i'));
-            }
-
+        if (array_key_exists($startDateTime, $this->deviations)) {
+            $deviation = $this->deviations[$startDateTime];
+            [$startDate, $endDate] = self::getDeviationPeriod($deviation, $nextOccuranceTime, $nextOccuranceEndTime);
             $eventData->setEventDeviationUid((int)$deviation->getUid());
             $eventData->setStartDatetime((float)$startDate->format('YmdHis'));
             $eventData->setEndDatetime((float)$endDate->format('YmdHis'));
@@ -400,7 +574,7 @@ class RecurrenceGenerator
             } else {
                 $end->addSeconds($duration);
             }
-            if ($end->after($this->starttime) && $start->before($this->endtime)) {
+            if ($end->after($this->starttime) && $start->before($this->endtime) && !$start->equals($event->getStart())) {
                 $this->createIndexEntry($start, $end, $event);
             }
         }
@@ -409,7 +583,7 @@ class RecurrenceGenerator
     /**
      * Date (and time) of an RDATE value, the time of $default if the value has no time or $withTime is false
      */
-    private static function parseRdate(string $value, CalendarDateTime $default, bool $withTime): ?CalendarDateTime
+    public static function parseRdate(string $value, CalendarDateTime $default, bool $withTime): ?CalendarDateTime
     {
         if (! preg_match('/^(\d{4})-?(\d{2})-?(\d{2})(?:T(\d{2}):?(\d{2})(?::?(\d{2}))?)?/', trim($value), $match)) {
             return null;

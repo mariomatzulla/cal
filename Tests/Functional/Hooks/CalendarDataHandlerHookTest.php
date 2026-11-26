@@ -16,6 +16,7 @@ namespace MarioMatzulla\Cal\Tests\Functional\Hooks;
  */
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
+use MarioMatzulla\Cal\Domain\Repository\ExceptionEventRepository;
 use MarioMatzulla\Cal\Hooks\CalendarDataHandlerHook;
 use MarioMatzulla\Cal\Service\CalendarSchedulerService;
 use MarioMatzulla\Cal\Service\ExternalCalendarImporter;
@@ -61,7 +62,7 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
                 'showTimes' => '1',
                 'useTeaser' => '0',
                 'hideDeviationRecords' => '1',
-                'recurrenceStart' => 'cal:yearstart',
+                'recurrenceStart' => '2026-01-01 00:00:00',
                 'recurrenceEnd' => '+3 years',
             ],
         ],
@@ -135,6 +136,7 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
             $this->get(FlashMessageService::class),
             $this->get(SiteFinder::class),
             $this->get(Context::class),
+            $this->get(ExceptionEventRepository::class),
         );
     }
 
@@ -210,6 +212,52 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
         $this->process([self::EVENT_TABLE => [9 => ['title' => 'Still without calendar']]]);
         self::assertSame('Still without calendar', $this->row(self::EVENT_TABLE, 9)['title']);
         self::assertSame('', (string)$this->row(self::EVENT_TABLE, 9)['caldav_data']);
+        self::assertSame([], $this->messages());
+    }
+
+    #[Test]
+    public function exceptionEventsAndDeviationsUpdateTheirEvent(): void
+    {
+        // event 1: weekly, three dates
+        $this->process([self::EVENT_TABLE => [1 => ['title' => 'Meeting']]]);
+        self::assertSame(3, $this->indexCount(1));
+        $start = (int)$this->row(self::EVENT_TABLE, 1)['start_date'];
+        $secondWeek = date('Ymd', $start + 7 * 86400);
+        $thirdWeek = date('Ymd', $start + 14 * 86400);
+        $data = (string)$this->row(self::EVENT_TABLE, 1)['caldav_data'];
+        self::assertStringContainsString("RRULE:FREQ=WEEKLY;UNTIL=", $data);
+        self::assertStringNotContainsString('EXDATE', $data);
+
+        // an exception event of the second week
+        $pool = $this->get(ConnectionPool::class);
+        $pool->getConnectionForTable(ExceptionEventRepository::TABLE)->insert(ExceptionEventRepository::TABLE, ['uid' => 1, 'pid' => 5, 'title' => 'Holiday', 'start_date' => $start + 7 * 86400]);
+        $pool->getConnectionForTable(ExceptionEventRepository::MM_TABLE)->insert(ExceptionEventRepository::MM_TABLE, ['uid_local' => 1, 'uid_foreign' => 1, 'tablenames' => ExceptionEventRepository::TABLE]);
+        $this->process([ExceptionEventRepository::TABLE => [1 => ['title' => 'Holidays']]]);
+        self::assertSame(2, $this->indexCount(1));
+        self::assertStringContainsString('EXDATE;TZID=Europe/Berlin:' . $secondWeek . 'T100000', (string)$this->row(self::EVENT_TABLE, 1)['caldav_data']);
+
+        // a deviation of the third week
+        $this->process(['tx_cal_domain_model_eventdeviation' => ['NEW1' => [
+            'pid' => 5, 'parentid' => 1, 'title' => 'Moved', 'orig_start_date' => $start + 14 * 86400, 'orig_start_time' => 36000,
+            'start_time' => 50400, 'end_time' => 57600,
+        ]]]);
+        $data = (string)$this->row(self::EVENT_TABLE, 1)['caldav_data'];
+        self::assertStringContainsString('RECURRENCE-ID;TZID=Europe/Berlin:' . $thirdWeek . 'T100000', $data);
+        self::assertStringContainsString('DTSTART;TZID=Europe/Berlin:' . $thirdWeek . 'T140000', $data);
+        self::assertStringContainsString("SUMMARY:Moved\r\n", $data);
+
+        // changed without its event (the parent is read from the database), deleted
+        $queryBuilder = $pool->getQueryBuilderForTable('tx_cal_domain_model_eventdeviation');
+        $deviationUid = (int)$queryBuilder->select('uid')->from('tx_cal_domain_model_eventdeviation')->executeQuery()->fetchOne();
+        $this->process(['tx_cal_domain_model_eventdeviation' => [$deviationUid => ['title' => 'Moved again']]]);
+        self::assertStringContainsString("SUMMARY:Moved again\r\n", (string)$this->row(self::EVENT_TABLE, 1)['caldav_data']);
+        $this->process([], ['tx_cal_domain_model_eventdeviation' => [$deviationUid => ['delete' => 1]]]);
+        self::assertStringNotContainsString('RECURRENCE-ID', (string)$this->row(self::EVENT_TABLE, 1)['caldav_data']);
+
+        // the exception event is deleted
+        $this->process([], [ExceptionEventRepository::TABLE => [1 => ['delete' => 1]]]);
+        self::assertSame(3, $this->indexCount(1));
+        self::assertStringNotContainsString('EXDATE', (string)$this->row(self::EVENT_TABLE, 1)['caldav_data']);
         self::assertSame([], $this->messages());
     }
 

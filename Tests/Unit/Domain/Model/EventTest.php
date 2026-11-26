@@ -78,6 +78,22 @@ final class EventTest extends UnitTestCase
     }
 
     #[Test]
+    public function recurringEvents(): void
+    {
+        $event = new Event();
+        self::assertFalse($event->isRecurring());
+        $event->setFreq('none');
+        $event->setRdateType('date');
+        self::assertFalse($event->isRecurring());
+        $event->setRdate('20261110');
+        self::assertTrue($event->isRecurring());
+        $event->setRdateType('none');
+        self::assertFalse($event->isRecurring());
+        $event->setFreq('month');
+        self::assertTrue($event->isRecurring());
+    }
+
+    #[Test]
     public function colorWithoutCategories(): void
     {
         $event = new Event();

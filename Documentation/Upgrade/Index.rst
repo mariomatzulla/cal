@@ -74,6 +74,14 @@ Further upgrade wizards
     create it again with the backend module :guilabel:`Cal ICS Generator`.
     Data of CalDAV clients and imported events are kept.
 
+`cal_recurrence`
+    The recurrence index contains the first date of a recurring event and
+    leaves out the dates of exception events now, the iCalendar data contains
+    the complete series (`RRULE`, `RDATE`, `EXDATE` and the deviations). The
+    wizard rebuilds the index of the recurring events and removes their
+    iCalendar data created by cal, create it again with the backend module
+    :guilabel:`Cal ICS Generator`.
+
 `cal_categoryColorDefault`
     Removes the old default color of categories, so the default color of the
     styles is used.

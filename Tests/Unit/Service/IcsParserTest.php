@@ -48,7 +48,7 @@ final class IcsParserTest extends UnitTestCase
         // 09:00 UTC is 10:00 in Berlin
         self::assertSame([self::date('2026-11-25'), 36000, self::date('2026-11-25'), 41400], [$values['start_date'], $values['start_time'], $values['end_date'], $values['end_time']]);
         self::assertSame(['week', 2, 5, 'MO,WE', '', ''], [$values['freq'], $values['intrval'], $values['cnt'], $values['byday'], $values['bymonth'], $values['bymonthday']]);
-        self::assertArrayNotHasKey('until', $values);
+        self::assertSame([0, 'none', ''], [$values['until'], $values['rdate_type'], $values['rdate']]);
         self::assertEqualsWithDelta(time(), $values['tstamp'], 5);
     }
 
@@ -66,7 +66,8 @@ final class IcsParserTest extends UnitTestCase
 
         $values = IcsParser::parseIcsContent(self::calendar("DTSTART:20261124T100000\r\nRRULE:FREQ=SECONDLY;UNTIL=20301124T100000Z\r\n"));
         self::assertSame('none', $values['freq']);
-        self::assertSame(gmmktime(10, 0, 0, 11, 24, 2030), $values['until']);
+        // the last day of the recurrence
+        self::assertSame(self::date('2030-11-24'), $values['until']);
     }
 
     #[Test]
@@ -80,6 +81,78 @@ final class IcsParserTest extends UnitTestCase
         self::assertSame([self::date('2026-11-24'), self::date('2026-11-24')], [$values['start_date'], $values['end_date']]);
         self::assertSame('month', $values['freq']);
         self::assertSame(0, $values['until']);
+    }
+
+    #[Test]
+    public function parseIcsContentWithoutRecurrenceResetsTheFields(): void
+    {
+        $values = IcsParser::parseIcsContent(self::calendar("DTSTART:20261124T100000Z\r\n"));
+        self::assertSame(
+            ['freq' => 'none', 'intrval' => 1, 'cnt' => 0, 'byday' => '', 'bymonth' => '', 'bymonthday' => '', 'until' => 0, 'rdate_type' => 'none', 'rdate' => ''],
+            array_intersect_key($values, array_flip(['freq', 'intrval', 'cnt', 'byday', 'bymonth', 'bymonthday', 'until', 'rdate_type', 'rdate'])),
+        );
+    }
+
+    #[Test]
+    public function parseIcsContentReadsTheEventNotTheChangedOccurrences(): void
+    {
+        $values = IcsParser::parseIcsContent(self::calendar(
+            "UID:a\r\nRECURRENCE-ID:20261126T090000Z\r\nSUMMARY:Moved\r\nDTSTART:20261126T140000Z\r\n",
+            "UID:a\r\nSUMMARY:Series\r\nDTSTART:20261125T090000Z\r\nRRULE:FREQ=DAILY\r\n",
+        ));
+        self::assertSame(['Series', 'day'], [$values['title'], $values['freq']]);
+    }
+
+    #[Test]
+    public function parseIcsContentWithAdditionalDates(): void
+    {
+        $values = IcsParser::parseIcsContent(self::calendar("DTSTART;VALUE=DATE:20261124\r\nRDATE;VALUE=DATE:20261201,20261208\r\n"), 'Europe/Berlin');
+        self::assertSame(['date', '20261201,20261208'], [$values['rdate_type'], $values['rdate']]);
+
+        // wall clock time of the calendar time zone
+        $values = IcsParser::parseIcsContent(self::calendar(
+            "DTSTART:20261124T090000Z\r\nRDATE:20261201T090000Z\r\nRDATE;TZID=America/New_York:20261202T080000\r\nRDATE:invalid\r\n",
+        ), 'Europe/Berlin');
+        self::assertSame(['date_time', '20261201T100000Z,20261202T140000Z'], [$values['rdate_type'], $values['rdate']]);
+
+        $values = IcsParser::parseIcsContent(self::calendar(
+            "DTSTART:20261124T090000Z\r\nRDATE;VALUE=PERIOD:20261201T090000Z/PT2H,20261202T090000Z/20261202T120000Z,20261203T090000Z/x\r\nRDATE;VALUE=DATE:20261210\r\n",
+        ), 'Europe/Berlin');
+        self::assertSame(['period', '20261201T100000Z/PT2H,20261202T100000Z/20261202T130000Z,20261203T100000Z,20261210'], [$values['rdate_type'], $values['rdate']]);
+    }
+
+    #[Test]
+    public function parseRecurrenceDetails(): void
+    {
+        $details = IcsParser::parseRecurrenceDetails(self::calendar(
+            "UID:a\r\nSUMMARY:Series\r\nDTSTART;TZID=Europe/Berlin:20261125T100000\r\nRRULE:FREQ=DAILY\r\n"
+            . "EXDATE;TZID=Europe/Berlin:20261127T100000,20261126T100000\r\nEXDATE:20261128T090000Z\r\n",
+            "UID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261129T100000\r\nSUMMARY:Moved\r\nDESCRIPTION:Other room\r\nLOCATION:Room 2\r\n"
+            . "DTSTART;TZID=Europe/Berlin:20261129T140000\r\nDTEND;TZID=Europe/Berlin:20261129T160000\r\n",
+            "UID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261130T100000\r\nSTATUS:CANCELLED\r\nDTSTART;TZID=Europe/Berlin:20261130T100000\r\n",
+            "UID:a\r\nRECURRENCE-ID;VALUE=DATE:20261201\r\nDTSTART;VALUE=DATE:20261202\r\n",
+            "UID:a\r\nRECURRENCE-ID:20261203T090000Z\r\n",
+        ), 'Europe/Berlin');
+        self::assertSame(['20261126', '20261127', '20261128', '20261130'], $details['exdates']);
+        self::assertCount(2, $details['overrides']);
+        self::assertSame([
+            'orig_start_date' => self::date('2026-11-29'),
+            'orig_start_time' => 36000,
+            'title' => 'Moved',
+            'description' => 'Other room',
+            'location' => 'Room 2',
+            'allday' => 0,
+            'start_date' => self::date('2026-11-29'),
+            'start_time' => 50400,
+            'end_date' => self::date('2026-11-29'),
+            'end_time' => 57600,
+        ], $details['overrides'][0]);
+        self::assertSame([self::date('2026-12-01'), 0, 1, self::date('2026-12-02')], [
+            $details['overrides'][1]['orig_start_date'], $details['overrides'][1]['orig_start_time'], $details['overrides'][1]['allday'], $details['overrides'][1]['start_date'],
+        ]);
+
+        self::assertSame(['exdates' => [], 'overrides' => []], IcsParser::parseRecurrenceDetails(self::calendar("SUMMARY:No start\r\n")));
+        self::assertSame(['exdates' => [], 'overrides' => []], IcsParser::parseRecurrenceDetails("BEGIN:VCARD\r\nVERSION:3.0\r\nFN:Test\r\nEND:VCARD\r\n"));
     }
 
     #[Test]

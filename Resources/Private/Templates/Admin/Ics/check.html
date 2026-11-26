@@ -11,7 +11,11 @@
     <f:then>
     <p>
       <f:for each="{result}" as="row">
-      [UID: {row.uid}; PID: {row.pid}] {row.title} -> {row.caldav_data}<br />
+      [UID: {row.event.uid}; PID: {row.event.pid}] {row.event.title} &rarr;
+      <f:if condition="{row.reason}">
+        <f:then><f:translate key="backend_module_ics_generator_reason_{row.reason}" /></f:then>
+        <f:else><f:translate key="backend_module_ics_generator_reason_none" /></f:else>
+      </f:if><br />
       </f:for>
       </p>
     </f:then>

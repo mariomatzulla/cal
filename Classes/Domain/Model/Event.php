@@ -287,6 +287,16 @@ class Event extends AbstractEntity
     }
 
     /**
+     * Recurring event: a recurrence rule or additional dates (RDATE). These events are completely described
+     * by the recurrence index, including their first date.
+     */
+    public function isRecurring(): bool
+    {
+        return in_array((string)$this->freq, ['day', 'week', 'month', 'year'], true)
+            || (trim((string)$this->rdate) !== '' && in_array((string)$this->rdateType, ['date_time', 'date', 'period'], true));
+    }
+
+    /**
      * @return bool
      */
     public function isException()

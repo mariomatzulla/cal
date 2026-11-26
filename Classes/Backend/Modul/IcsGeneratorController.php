@@ -76,7 +76,7 @@ class IcsGeneratorController extends ActionController
 
         // Daten an die Fluid-View übergeben
         $moduleTemplate->assignMultiple([
-            'result' => $this->icsGenerator->check(),
+            'result' => $this->icsGenerator->checkWithReasons(),
         ]);
 
         // Rendering des Views Resources/Private/Templates/Admin/Ics/Check.html

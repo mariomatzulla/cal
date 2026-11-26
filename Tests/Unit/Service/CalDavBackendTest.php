@@ -18,6 +18,7 @@ use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Domain\Repository\FrontendUserRepository;
 use MarioMatzulla\Cal\Service\CalDavBackend;
+use MarioMatzulla\Cal\Service\CalDavRecurrenceWriter;
 use MarioMatzulla\Cal\Service\SlugService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -66,8 +67,13 @@ final class CalDavBackendTest extends UnitTestCase
         $userRepository = $this->createStub(FrontendUserRepository::class);
         $userRepository->method('findByName')->willReturnCallback(static fn(string $name): ?array => $name === 'anna' ? ['tx_cal_calendar' => '1,2'] : null);
 
+        $recurrenceWriter = $this->createStub(CalDavRecurrenceWriter::class);
+        $recurrenceWriter->method('write')->willReturnCallback(function (int $uid, array $details): void {
+            $this->calls[] = 'recurrence ' . $uid . ' ' . json_encode($details);
+        });
+
         // without TCA the slug service does nothing
-        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService($this->createStub(ConnectionPool::class)));
+        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService($this->createStub(ConnectionPool::class)), $recurrenceWriter);
     }
 
     private const CALENDARS = [
@@ -167,7 +173,8 @@ final class CalDavBackendTest extends UnitTestCase
         $backend = $this->createBackend(self::CALENDARS, ['abc' => self::record('abc')]);
         self::assertSame('"' . md5(rtrim(self::ICS)) . '"', $backend->updateCalendarObject(1, 'abc.ics', self::ICS));
         self::assertStringStartsWith('update 1 abc ', $this->calls[0]);
-        self::assertSame('touch 1', $this->calls[1]);
+        self::assertSame('recurrence 9 {"exdates":[],"overrides":[]}', $this->calls[1]);
+        self::assertSame('touch 1', $this->calls[2]);
 
         $this->expectException(NotFound::class);
         $backend->updateCalendarObject(1, 'missing.ics', self::ICS);

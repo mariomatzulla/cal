@@ -28,6 +28,7 @@ namespace MarioMatzulla\Cal\Service;
  * This copyright notice MUST APPEAR in all copies of the script!
  * *************************************************************
  */
+use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use Psr\Http\Message\ServerRequestInterface;
@@ -49,6 +50,7 @@ class IcsGenerator
         private readonly CalendarRepository $calendarRepository,
         private readonly SiteFinder $siteFinder,
         private readonly PackageManager $packageManager,
+        private readonly IcsRecurrence $icsRecurrence,
     ) {}
 
     /**
@@ -57,6 +59,35 @@ class IcsGenerator
     public function check()
     {
         return $this->eventRepository->check();
+    }
+
+    /**
+     * Events without iCalendar data with the reason why none can be created (see getSkipReason())
+     *
+     * @return list<array{event: Event, reason: string}>
+     */
+    public function checkWithReasons(): array
+    {
+        $result = [];
+        foreach ($this->eventRepository->check() ?: [] as $event) {
+            $result[] = ['event' => $event, 'reason' => self::getSkipReason($event)];
+        }
+        return $result;
+    }
+
+    /**
+     * Why no iCalendar data can be created for an event: "calendar" (none or not visible), "startDate",
+     * "endDate", "page" (stored on page 0), empty if it can be created
+     */
+    public static function getSkipReason(Event $event): string
+    {
+        return match (true) {
+            $event->getCalendarObject() === null => 'calendar',
+            $event->getStartDate() === null => 'startDate',
+            $event->getEndDate() === null => 'endDate',
+            $event->getPid() <= 0 => 'page',
+            default => '',
+        };
     }
 
     /**
@@ -72,7 +103,7 @@ class IcsGenerator
     public function updateIcs($event, $request): void
     {
         $calendar = $event->getCalendarObject();
-        if ($calendar === null || $event->getStartDate() === null || $event->getEndDate() === null || $event->getPid() <= 0) {
+        if ($calendar === null || self::getSkipReason($event) !== '') {
             return;
         }
         if ((string)$event->getIcsUid() === '') {
@@ -85,11 +116,15 @@ class IcsGenerator
                 request: $request,
             ),
         );
+        $timezone = (string)$calendar->getTimezone();
         $view->assignMultiple([
             'event' => $event,
             'calVersion' => $this->getVersion(),
             'eventUrl' => $this->generateEventUrl($event),
-            'vTimeZone' => self::generateVTimeZone((string)$calendar->getTimezone()),
+            'vTimeZone' => self::generateVTimeZone($timezone),
+            // RRULE, RDATE, EXDATE and the deviations as VEVENTs with RECURRENCE-ID
+            'recurrence' => $this->icsRecurrence->getRecurrenceLines($event, $timezone),
+            'overrides' => $this->icsRecurrence->getOverrides($event, $timezone),
         ]);
         // without empty lines (of the conditions of the template), lines end with CRLF (RFC 5545)
         $lines = explode("\n", str_replace("\r\n", "\n", rtrim($view->render())));

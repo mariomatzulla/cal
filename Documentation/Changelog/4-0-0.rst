@@ -86,6 +86,11 @@ Features
 *   CalDAV server at :samp:`<site base>/caldav`, :samp:`<site base>/.well-known/caldav`
     redirects to it (service discovery).
 *   PSR-14 events instead of the service registry of cal 1.x.
+*   The iCalendar data (download and CalDAV) contains the complete series of a
+    recurring event: `RRULE`, `RDATE`, `EXDATE` (exception events) and the
+    deviations as `VEVENT` with `RECURRENCE-ID`. Changes of a series in a CalDAV
+    client are stored as exception events and deviations, see
+    :ref:`caldav-recurrence`. Upgrade wizard `cal_recurrence`.
 *   Unit and functional tests with 100 % code coverage, scripts
     `composer test:unit`, `test:functional`, `test:coverage`, and a release
     script for the TER (with or without the bundled Sabre libraries), see
@@ -128,3 +133,8 @@ Bugfixes
 *   The upgrade wizard for the records of cal 1.x no longer copies the events
     of imported calendars again on every run.
 *   SQL injection in `CalendarRepository::findByUids()`.
+*   Exception events and exception groups remove their dates from the recurring
+    events (they were ignored). A deviation of the first date of a series is
+    shown.
+*   Recurring events written by a CalDAV client are added to the recurrence
+    index, removing the recurrence in the client resets the rule of the event.

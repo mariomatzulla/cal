@@ -7,6 +7,7 @@ namespace MarioMatzulla\Cal\Hooks;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
+use MarioMatzulla\Cal\Domain\Repository\ExceptionEventRepository;
 use MarioMatzulla\Cal\Service\CalendarSchedulerService;
 use MarioMatzulla\Cal\Service\ExternalCalendarImporter;
 use MarioMatzulla\Cal\Service\IcsGenerator;
@@ -33,11 +34,17 @@ class CalendarDataHandlerHook
     private const CALENDAR_TABLE = 'tx_cal_domain_model_calendar';
     private const LLL = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
     private const INDEX_MODEL_TYPE = 'tx_cal_event';
+    private const DEVIATION_TABLE = 'tx_cal_domain_model_eventdeviation';
 
     /**
      * @var array<int, int> calendars saved in the current DataHandler run
      */
     private array $savedCalendars = [];
+
+    /**
+     * @var array<int, int> events whose exception events or deviations were saved in the current DataHandler run
+     */
+    private array $changedEvents = [];
 
     public function __construct(
         private readonly EventRepository $eventRepository,
@@ -51,6 +58,7 @@ class CalendarDataHandlerHook
         private readonly FlashMessageService $flashMessageService,
         private readonly SiteFinder $siteFinder,
         private readonly Context $context,
+        private readonly ExceptionEventRepository $exceptionEventRepository,
     ) {}
 
     /**
@@ -98,6 +106,11 @@ class CalendarDataHandlerHook
             $this->schedulerService->removeForCalendar((int)$id);
         } elseif ($table === self::EVENT_TABLE) {
             $this->recurrenceGenerator->cleanIndexTableOfUid((int)$id, self::INDEX_MODEL_TYPE);
+        } else {
+            // a deleted exception event or deviation: the index and the iCalendar data of its events change
+            foreach ($this->findEventsOfRelatedRecord($table, (int)$id, []) as $eventUid) {
+                $this->processEvent($eventUid, []);
+            }
         }
     }
 
@@ -118,19 +131,50 @@ class CalendarDataHandlerHook
             return;
         }
 
-        $targetTable = self::EVENT_TABLE;
-
-        if ($table !== $targetTable) {
-            return;
-        }
-
         // New records have a temporary id (NEW...), the real uid is in DataHandler::substNEWwithIDs
         $uid = (int)($status === 'new' ? ($dataHandler->substNEWwithIDs[$id] ?? 0) : $id);
-
         if ($uid <= 0) {
             return;
         }
+        if ($table !== self::EVENT_TABLE) {
+            // exception events and deviations: their events are updated after all records are saved
+            foreach ($this->findEventsOfRelatedRecord($table, $uid, $fieldArray) as $eventUid) {
+                $this->changedEvents[$eventUid] = $eventUid;
+            }
+            return;
+        }
+        $this->processEvent($uid, $fieldArray);
+    }
 
+    /**
+     * Events of an exception event, an exception group or a deviation
+     *
+     * @return list<int>
+     */
+    private function findEventsOfRelatedRecord(string $table, int $uid, array $fieldArray): array
+    {
+        if ($table === self::DEVIATION_TABLE) {
+            $parent = (int)($fieldArray['parentid'] ?? 0);
+            if ($parent <= 0) {
+                $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::DEVIATION_TABLE);
+                $queryBuilder->getRestrictions()->removeAll();
+                $parent = (int)$queryBuilder->select('parentid')
+                    ->from(self::DEVIATION_TABLE)
+                    ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
+                    ->executeQuery()
+                    ->fetchOne();
+            }
+            return $parent > 0 ? [$parent] : [];
+        }
+        return $this->exceptionEventRepository->findEventUids($table, $uid);
+    }
+
+    /**
+     * Recurrence index and iCalendar data of a saved event
+     */
+    private function processEvent(int $uid, array $fieldArray): void
+    {
+        $targetTable = self::EVENT_TABLE;
         $this->updateRecurrenceIndex($uid, $this->isVisible($uid));
 
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($targetTable);
@@ -201,6 +245,11 @@ class CalendarDataHandlerHook
         foreach ($calendars as $calendarUid) {
             $this->importExternalCalendar($calendarUid);
             $this->synchronizeSchedulerTask($calendarUid);
+        }
+        $events = $this->changedEvents;
+        $this->changedEvents = [];
+        foreach ($events as $eventUid) {
+            $this->processEvent($eventUid, []);
         }
     }
 

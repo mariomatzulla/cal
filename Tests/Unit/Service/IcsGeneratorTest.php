@@ -19,6 +19,7 @@ use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Service\IcsGenerator;
+use MarioMatzulla\Cal\Service\IcsRecurrence;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -104,7 +105,10 @@ final class IcsGeneratorTest extends UnitTestCase
         $packageManager->method('isPackageActive')->willReturn($version !== 'inactive');
         $packageManager->method('getPackage')->willReturn($package);
 
-        return new IcsGenerator($viewFactory, $eventRepository, $calendarRepository, $siteFinder, $packageManager);
+        $icsRecurrence = $this->createStub(IcsRecurrence::class);
+        $icsRecurrence->method('getRecurrenceLines')->willReturnCallback(static fn(Event $event, string $timezone): string => 'RRULE:FREQ=DAILY ' . $timezone);
+        $icsRecurrence->method('getOverrides')->willReturn([['title' => 'Moved']]);
+        return new IcsGenerator($viewFactory, $eventRepository, $calendarRepository, $siteFinder, $packageManager, $icsRecurrence);
     }
 
     private static function event(string $timezone = 'Europe/Berlin', string $icsUid = ''): Event
@@ -140,6 +144,8 @@ final class IcsGeneratorTest extends UnitTestCase
         self::assertStringStartsWith('https://example.org/1?tx_cal_controller', $this->assigned['eventUrl']);
         self::assertStringContainsString('uid%5D=7', $this->assigned['eventUrl']);
         self::assertStringContainsString("TZID:Europe/Berlin\r\n", $this->assigned['vTimeZone']);
+        self::assertSame('RRULE:FREQ=DAILY Europe/Berlin', $this->assigned['recurrence']);
+        self::assertSame([['title' => 'Moved']], $this->assigned['overrides']);
     }
 
     #[Test]
@@ -191,6 +197,27 @@ final class IcsGeneratorTest extends UnitTestCase
         $generator->generate($this->createStub(ServerRequestInterface::class));
         self::assertSame([], $generator->check());
         self::assertCount(1, $generator->check());
+    }
+
+    #[Test]
+    public function checkShowsWhyNoDataCanBeCreated(): void
+    {
+        $withoutCalendar = self::event();
+        $withoutCalendar->setCalendarId(new ObjectStorage());
+        $withoutStart = self::event();
+        $withoutStart->setStartDate(null);
+        $withoutEnd = self::event();
+        $withoutEnd->setEndDate(null);
+        $rootPage = self::event();
+        $rootPage->setPid(0);
+        $events = [self::event(), $withoutCalendar, $withoutStart, $withoutEnd, $rootPage];
+        $eventRepository = $this->createStub(EventRepository::class);
+        $eventRepository->method('check')->willReturnOnConsecutiveCalls($events, []);
+        $generator = $this->createGenerator($eventRepository);
+        $result = $generator->checkWithReasons();
+        self::assertSame(['', 'calendar', 'startDate', 'endDate', 'page'], array_column($result, 'reason'));
+        self::assertSame($events, array_column($result, 'event'));
+        self::assertSame([], $generator->checkWithReasons());
     }
 
     public static function vTimeZoneDataProvider(): array

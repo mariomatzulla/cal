@@ -20,6 +20,7 @@ class CalDavBackend extends AbstractBackend
         private readonly CalendarRepository $calendarRepository,
         private readonly FrontendUserRepository $feuserRepository,
         private readonly SlugService $slugService,
+        private readonly CalDavRecurrenceWriter $recurrenceWriter,
     ) {}
 
     public function getCalendarsForUser($principalUri)
@@ -93,6 +94,7 @@ class CalDavBackend extends AbstractBackend
             $this->eventRepository->persistEvent($values);
         }
         $this->slugService->fillMissing('tx_cal_domain_model_event', $calendarId);
+        $this->writeRecurrence($calendarId, (string)$objectUri, $calendarData, $calendar);
 
         $this->calendarRepository->touch($calendarId);
         return self::etag($calendarData);
@@ -109,6 +111,7 @@ class CalDavBackend extends AbstractBackend
         }
 
         $this->eventRepository->updateEvent($calendarId, (string)$record['ics_uid'], $this->buildValues($calendarData, $calendar));
+        $this->writeRecurrence($calendarId, (string)$objectUri, $calendarData, $calendar);
         $this->calendarRepository->touch($calendarId);
         return self::etag($calendarData);
     }
@@ -173,6 +176,18 @@ class CalDavBackend extends AbstractBackend
         $values['caldav_data'] = rtrim($calendarData);
         $values['tstamp'] = time();
         return $values;
+    }
+
+    /**
+     * Removed dates and changed occurrences of the series as exception events and deviations,
+     * then the recurrence index of the event is rebuilt
+     */
+    private function writeRecurrence(int $calendarId, string $objectUri, string $calendarData, array $calendar): void
+    {
+        $record = $this->findRecord($calendarId, $objectUri);
+        if ($record) {
+            $this->recurrenceWriter->write((int)$record['uid'], IcsParser::parseRecurrenceDetails($calendarData, (string)($calendar['timezone'] ?? '')));
+        }
     }
 
     private static function etag(string $calendarData): string

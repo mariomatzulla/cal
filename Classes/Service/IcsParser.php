@@ -4,92 +4,232 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Service;
 
+use Sabre\VObject\Component;
 use Sabre\VObject\Component\VCalendar;
+use Sabre\VObject\Component\VEvent;
 use Sabre\VObject\DateTimeParser;
 use Sabre\VObject\Reader;
 
 /**
- * Converts the first VEVENT of an iCalendar string into a field array
- * for tx_cal_domain_model_event.
+ * Converts iCalendar data into field arrays for tx_cal_domain_model_event.
  */
 class IcsParser
 {
+    /**
+     * Recurrence fields of an event without recurrence. A CalDAV client removing the recurrence of a series
+     * sends no RRULE / RDATE, the stored values must be reset.
+     */
+    private const NO_RECURRENCE = [
+        'freq' => 'none',
+        'intrval' => 1,
+        'cnt' => 0,
+        'byday' => '',
+        'bymonth' => '',
+        'bymonthday' => '',
+        'until' => 0,
+        'rdate_type' => 'none',
+        'rdate' => '',
+    ];
+
+    /**
+     * The event (the VEVENT without RECURRENCE-ID) as field array, including its recurrence (RRULE, RDATE).
+     * Removed dates (EXDATE) and changed occurrences (RECURRENCE-ID) are returned by parseRecurrenceDetails().
+     */
     public static function parseIcsContent(string $icsContent, ?string $timezone = null): array
     {
-        $vcalendar = Reader::read($icsContent);
-        if (!$vcalendar instanceof VCalendar || !isset($vcalendar->VEVENT)) {
+        $vcalendar = self::read($icsContent);
+        $vEvent = $vcalendar !== null ? self::findMasterEvent($vcalendar) : null;
+        if ($vEvent === null) {
             return [];
         }
+        $localTimezone = self::getTimezone($timezone);
+        $values = ['ics_uid' => isset($vEvent->UID) ? (string)$vEvent->UID : '']
+            + self::parseEventValues($vEvent, $localTimezone)
+            + ['tstamp' => time()]
+            + self::NO_RECURRENCE;
 
-        $calendarTimezone = null;
-        if ($timezone !== null && $timezone !== '') {
-            try {
-                $calendarTimezone = new \DateTimeZone($timezone);
-            } catch (\Exception) {
-                $calendarTimezone = null;
+        if (isset($vEvent->RRULE)) {
+            $rrule = $vEvent->RRULE->getParts();
+            // cal stores the frequency as none|day|week|month|year
+            $values['freq'] = match (strtoupper((string)($rrule['FREQ'] ?? ''))) {
+                'DAILY' => 'day',
+                'WEEKLY' => 'week',
+                'MONTHLY' => 'month',
+                'YEARLY' => 'year',
+                default => 'none',
+            };
+            $values['intrval'] = (int)($rrule['INTERVAL'] ?? 1);
+            $values['cnt'] = (int)($rrule['COUNT'] ?? 0);
+            $values['byday'] = implode(',', (array)($rrule['BYDAY'] ?? []));
+            $values['bymonth'] = implode(',', (array)($rrule['BYMONTH'] ?? []));
+            $values['bymonthday'] = implode(',', (array)($rrule['BYMONTHDAY'] ?? []));
+
+            if (isset($rrule['UNTIL'])) {
+                // cal stores the last day (midnight, server time) of the recurrence
+                $until = \DateTimeImmutable::createFromFormat('Ymd\THis\Z', (string)$rrule['UNTIL'], new \DateTimeZone('UTC'))
+                    ?: \DateTimeImmutable::createFromFormat('!Ymd', (string)$rrule['UNTIL'], $localTimezone);
+                $values['until'] = $until ? self::midnight($until->setTimezone($localTimezone)) : 0;
             }
         }
+        return array_merge($values, self::parseAdditionalDates($vEvent, $localTimezone));
+    }
 
-        foreach ($vcalendar->VEVENT as $vEvent) {
-            $dtStart = $vEvent->DTSTART;
-            if ($dtStart === null) {
+    /**
+     * Removed dates (EXDATE, days "Ymd" in the time zone of the calendar) and the changed occurrences
+     * (VEVENTs with RECURRENCE-ID, cancelled occurrences are removed dates) of the event.
+     *
+     * @return array{exdates: list<string>, overrides: list<array<string, int|string>>}
+     */
+    public static function parseRecurrenceDetails(string $icsContent, ?string $timezone = null): array
+    {
+        $result = ['exdates' => [], 'overrides' => []];
+        $vcalendar = self::read($icsContent);
+        $master = $vcalendar !== null ? self::findMasterEvent($vcalendar) : null;
+        if ($vcalendar === null || $master === null) {
+            return $result;
+        }
+        $localTimezone = self::getTimezone($timezone);
+        $exdates = [];
+        foreach ($master->select('EXDATE') as $exdate) {
+            foreach ($exdate->getDateTimes($localTimezone) as $dateTime) {
+                $exdates[] = $dateTime->setTimezone($localTimezone)->format('Ymd');
+            }
+        }
+        foreach ($vcalendar->select('VEVENT') as $vEvent) {
+            if (!isset($vEvent->{'RECURRENCE-ID'}) || !isset($vEvent->DTSTART)) {
                 continue;
             }
-
-            // All-day detection: DTSTART is a pure date without time
-            $isAllDay = !$dtStart->hasTime();
-
-            $values = [
-                'ics_uid' => isset($vEvent->UID) ? (string)$vEvent->UID : '',
-                'title' => isset($vEvent->SUMMARY) ? (string)$vEvent->SUMMARY : '',
-                'description' => isset($vEvent->DESCRIPTION) ? (string)$vEvent->DESCRIPTION : '',
-                'location' => isset($vEvent->LOCATION) ? (string)$vEvent->LOCATION : '',
-                'allday' => $isAllDay ? 1 : 0,
-                'tstamp' => time(),
-            ];
-
-            $localTimezone = $calendarTimezone ?? new \DateTimeZone(date_default_timezone_get());
-            $startDate = $dtStart->getDateTime($localTimezone)->setTimezone($localTimezone);
-            if (isset($vEvent->DTEND)) {
-                $endDate = $vEvent->DTEND->getDateTime($localTimezone)->setTimezone($localTimezone);
-            } elseif (isset($vEvent->DURATION)) {
-                $endDate = $startDate->add(DateTimeParser::parse((string)$vEvent->DURATION->getValue()));
-            } else {
-                // RFC 5545: an event without DTEND/DURATION ends on its start day / at DTSTART
-                $endDate = $startDate;
+            $recurrenceId = $vEvent->{'RECURRENCE-ID'}->getDateTime($localTimezone)->setTimezone($localTimezone);
+            if (strtoupper((string)($vEvent->STATUS ?? '')) === 'CANCELLED') {
+                $exdates[] = $recurrenceId->format('Ymd');
+                continue;
             }
-            $endDate = self::inclusiveAllDayEnd($startDate, $endDate, $isAllDay, isset($vEvent->DTEND) || isset($vEvent->DURATION));
-
-            $values = array_merge($values, self::splitDateAndTime($startDate, $isAllDay, 'start'));
-            $values = array_merge($values, self::splitDateAndTime($endDate, $isAllDay, 'end'));
-
-            if (isset($vEvent->RRULE)) {
-                $rrule = $vEvent->RRULE->getParts();
-                // cal stores the frequency as none|day|week|month|year
-                $values['freq'] = match (strtoupper((string)($rrule['FREQ'] ?? ''))) {
-                    'DAILY' => 'day',
-                    'WEEKLY' => 'week',
-                    'MONTHLY' => 'month',
-                    'YEARLY' => 'year',
-                    default => 'none',
-                };
-                $values['intrval'] = (int)($rrule['INTERVAL'] ?? 1);
-                $values['cnt'] = (int)($rrule['COUNT'] ?? 0);
-                $values['byday'] = implode(',', (array)($rrule['BYDAY'] ?? []));
-                $values['bymonth'] = implode(',', (array)($rrule['BYMONTH'] ?? []));
-                $values['bymonthday'] = implode(',', (array)($rrule['BYMONTHDAY'] ?? []));
-
-                if (isset($rrule['UNTIL'])) {
-                    $until = \DateTime::createFromFormat('Ymd\THis\Z', (string)$rrule['UNTIL'], new \DateTimeZone('UTC'))
-                        ?: \DateTime::createFromFormat('!Ymd', (string)$rrule['UNTIL']);
-                    $values['until'] = $until ? $until->getTimestamp() : 0;
-                }
-            }
-
-            return $values;
+            $orig = self::splitDateAndTime($recurrenceId, !$vEvent->{'RECURRENCE-ID'}->hasTime(), 'orig_start');
+            $result['overrides'][] = $orig + self::parseEventValues($vEvent, $localTimezone);
         }
+        $exdates = array_values(array_unique($exdates));
+        sort($exdates);
+        $result['exdates'] = $exdates;
+        return $result;
+    }
 
-        return [];
+    private static function read(string $icsContent): ?VCalendar
+    {
+        $vcalendar = Reader::read($icsContent);
+        return $vcalendar instanceof VCalendar ? $vcalendar : null;
+    }
+
+    /**
+     * The VEVENT of the event: the first one without RECURRENCE-ID and with start
+     */
+    private static function findMasterEvent(VCalendar $vcalendar): ?VEvent
+    {
+        foreach ($vcalendar->select('VEVENT') as $vEvent) {
+            if ($vEvent instanceof VEvent && isset($vEvent->DTSTART) && !isset($vEvent->{'RECURRENCE-ID'})) {
+                return $vEvent;
+            }
+        }
+        return null;
+    }
+
+    private static function getTimezone(?string $timezone): \DateTimeZone
+    {
+        if ($timezone !== null && $timezone !== '') {
+            try {
+                return new \DateTimeZone($timezone);
+            } catch (\Exception) {
+                // the default time zone of the server
+            }
+        }
+        return new \DateTimeZone(date_default_timezone_get());
+    }
+
+    /**
+     * Title, texts, all-day flag, start and end (wall clock time of the calendar time zone) of a VEVENT
+     *
+     * @return array<string, int|string>
+     */
+    private static function parseEventValues(Component $vEvent, \DateTimeZone $localTimezone): array
+    {
+        /** @var \Sabre\VObject\Property\ICalendar\DateTime $dtStart */
+        $dtStart = $vEvent->select('DTSTART')[0];
+        // All-day detection: DTSTART is a pure date without time
+        $isAllDay = !$dtStart->hasTime();
+        $startDate = $dtStart->getDateTime($localTimezone)->setTimezone($localTimezone);
+        if (isset($vEvent->DTEND)) {
+            $endDate = $vEvent->DTEND->getDateTime($localTimezone)->setTimezone($localTimezone);
+        } elseif (isset($vEvent->DURATION)) {
+            $endDate = $startDate->add(DateTimeParser::parse((string)$vEvent->DURATION->getValue()));
+        } else {
+            // RFC 5545: an event without DTEND/DURATION ends on its start day / at DTSTART
+            $endDate = $startDate;
+        }
+        $endDate = self::inclusiveAllDayEnd($startDate, $endDate, $isAllDay, isset($vEvent->DTEND) || isset($vEvent->DURATION));
+
+        return [
+            'title' => isset($vEvent->SUMMARY) ? (string)$vEvent->SUMMARY : '',
+            'description' => isset($vEvent->DESCRIPTION) ? (string)$vEvent->DESCRIPTION : '',
+            'location' => isset($vEvent->LOCATION) ? (string)$vEvent->LOCATION : '',
+            'allday' => $isAllDay ? 1 : 0,
+        ] + self::splitDateAndTime($startDate, $isAllDay, 'start') + self::splitDateAndTime($endDate, $isAllDay, 'end');
+    }
+
+    /**
+     * RDATE in the format of the backend form (see RecurrenceGenerator::addRecurringInstances()):
+     * dates "20261110", wall clock times "20261110T140000Z", periods "20261110T140000Z/PT2H"
+     *
+     * @return array{rdate_type?: string, rdate?: string}
+     */
+    private static function parseAdditionalDates(Component $vEvent, \DateTimeZone $localTimezone): array
+    {
+        $types = [];
+        $values = [];
+        foreach ($vEvent->select('RDATE') as $rdate) {
+            $valueType = strtoupper((string)($rdate['VALUE'] ?? 'DATE-TIME'));
+            $propertyTimezone = isset($rdate['TZID']) ? self::getTimezone((string)$rdate['TZID']) : $localTimezone;
+            foreach ($rdate->getParts() as $part) {
+                [$start, $end] = array_pad(explode('/', (string)$part, 2), 2, '');
+                try {
+                    $startDate = DateTimeParser::parse($start, $propertyTimezone)->setTimezone($localTimezone);
+                } catch (\Exception) {
+                    continue;
+                }
+                if ($valueType === 'DATE') {
+                    $types['date'] = true;
+                    $values[] = $startDate->format('Ymd');
+                    continue;
+                }
+                $value = $startDate->format('Ymd\THis') . 'Z';
+                if ($valueType === 'PERIOD' && $end !== '') {
+                    $types['period'] = true;
+                    if (preg_match('/^[+-]?P/', $end)) {
+                        $value .= '/' . ltrim($end, '+');
+                    } else {
+                        try {
+                            $value .= '/' . DateTimeParser::parse($end, $propertyTimezone)->setTimezone($localTimezone)->format('Ymd\THis') . 'Z';
+                        } catch (\Exception) {
+                            // the start only
+                        }
+                    }
+                } else {
+                    $types['date_time'] = true;
+                }
+                $values[] = $value;
+            }
+        }
+        if ($values === []) {
+            return [];
+        }
+        $type = isset($types['period']) ? 'period' : (isset($types['date_time']) ? 'date_time' : 'date');
+        return ['rdate_type' => $type, 'rdate' => implode(',', $values)];
+    }
+
+    /**
+     * Timestamp of midnight (server time) of the day of a date
+     */
+    private static function midnight(\DateTimeInterface $date): int
+    {
+        return (new \DateTimeImmutable($date->format('Y-m-d') . ' 00:00:00'))->getTimestamp();
     }
 
     /**
