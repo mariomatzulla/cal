@@ -195,6 +195,10 @@
 				<source>Confidential</source>
 				<target>Vertraulich</target>
 			</trans-unit>
+			<trans-unit id="tx_cal_eventdeviation.inherit" resname="tx_cal_eventdeviation.inherit" approved="yes">
+				<source>Like the event</source>
+				<target>Wie der Termin</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

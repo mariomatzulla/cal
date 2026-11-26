@@ -51,6 +51,36 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'status' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_eventdeviation.inherit', 'value' => ''],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status.confirmed', 'value' => 'CONFIRMED'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status.tentative', 'value' => 'TENTATIVE'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status.cancelled', 'value' => 'CANCELLED'],
+                ],
+                'default' => '',
+            ],
+        ],
+        'classification' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.classification',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_eventdeviation.inherit', 'value' => ''],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.classification.public', 'value' => 'PUBLIC'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.classification.private', 'value' => 'PRIVATE'],
+                    ['label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.classification.confidential', 'value' => 'CONFIDENTIAL'],
+                ],
+                'default' => '',
+            ],
+        ],
         'title' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.title',
@@ -363,7 +393,7 @@ return [
     ],
     'types' => [
         '0' => [
-            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.orig_start;3, title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,' . ($configuration ['useTeaser'] ? 'teaser,' : '') . 'description, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration ['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration ['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.files_sheet,image, --palette--;;4,imagecaption,attachment,attachmentcaption',
+            'showitem' => '--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.general_sheet,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.orig_start;3, title, --palette--;;1,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.status_palette;7,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.start;5,--palette--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.end;6,' . ($configuration ['useTeaser'] ? 'teaser,' : '') . 'description, --div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.location_sheet,' . ($configuration ['hideLocationTextfield'] ? 'location_id,location_pid,location_link' : 'location,location_id,location_pid,location_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.organizer_sheet,' . ($configuration ['hideOrganizerTextfield'] ? 'organizer_id,organizer_pid,organizer_link' : 'organizer,organizer_id,organizer_pid,organizer_link') . ',--div--;LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_event.files_sheet,image, --palette--;;4,imagecaption,attachment,attachmentcaption',
         ],
     ],
     'palettes' => [
@@ -381,6 +411,9 @@ return [
         '6' => [
             'showitem' => 'end_date,end_time',
             'canNotCollapse' => 1,
+        ],
+        '7' => [
+            'showitem' => 'status, classification',
         ],
     ],
 ];

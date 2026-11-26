@@ -27,6 +27,10 @@ with :php:`\MarioMatzulla\Cal\Service\PageCacheService::flush()`.
 
 ..  note::
     Views showing the upcoming events (e.g. the list view with a relative
-    start like "today") change with the date as well. Limit the cache lifetime
-    of these pages (page property :guilabel:`Cache Lifetime` or
-    `config.cache_period`) if they must change at midnight.
+    start like "today") change with the date as well. The site set clears the
+    page cache at midnight (`config.cache_clearAtMidnight = 1`). Pages with an
+    own cache lifetime (page property :guilabel:`Cache Lifetime` or
+    `config.cache_period`) keep their content until it expires.
+
+Pages showing private events to the owners of the calendar are not cached
+(see :ref:`typoscript-private-events`).

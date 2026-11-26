@@ -162,8 +162,9 @@ The recurrence follows the rules of RFC 5545 (`RRULE`):
 
 :guilabel:`Deviation`
     Changes of single dates of a recurring event (another time, title,
-    location, description etc.). A deviation refers to the original start of
-    the date.
+    location, description, status, visibility etc.). A deviation refers to the
+    original start of the date. Status and visibility "Like the event" use the
+    values of the event.
 
 :guilabel:`Exceptions`
     Exception events and exception groups (see below). The event does not take

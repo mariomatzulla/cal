@@ -156,6 +156,8 @@ final class IcsRecurrenceTest extends UnitTestCase
         $moved->setLocation('Room 2');
         $moved->setStartTime(new \DateTime('14:00'));
         $moved->setEndTime(new \DateTime('16:00'));
+        $moved->setStatus('tentative');
+        $moved->setClassification('PRIVATE');
 
         $otherDay = new EventDeviation();
         $otherDay->setAllday(true);
@@ -173,6 +175,8 @@ final class IcsRecurrenceTest extends UnitTestCase
                 'title' => 'Moved',
                 'description' => 'Weekly meeting',
                 'location' => 'Room 2',
+                'status' => 'TENTATIVE',
+                'classification' => 'PRIVATE',
             ],
             [
                 'recurrenceId' => ';TZID=Europe/Berlin:20261104T100000',
@@ -181,6 +185,8 @@ final class IcsRecurrenceTest extends UnitTestCase
                 'title' => 'Meeting',
                 'description' => 'Line 1\nLine 2\; a\,b \\\\ c',
                 'location' => 'Hall',
+                'status' => '',
+                'classification' => '',
             ],
         ], $this->subject()->getOverrides($event, 'Europe/Berlin'));
 

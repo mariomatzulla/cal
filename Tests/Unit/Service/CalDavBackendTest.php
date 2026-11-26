@@ -19,6 +19,7 @@ use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Domain\Repository\FrontendUserRepository;
 use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use MarioMatzulla\Cal\Service\CalDavBackend;
+use MarioMatzulla\Cal\Service\CalDavPropertyWriter;
 use MarioMatzulla\Cal\Service\CalDavRecurrenceWriter;
 use MarioMatzulla\Cal\Service\PageCacheService;
 use MarioMatzulla\Cal\Service\SlugService;
@@ -80,12 +81,16 @@ final class CalDavBackendTest extends UnitTestCase
         });
 
         // without TCA the slug service does nothing
+        $propertyWriter = self::createStub(CalDavPropertyWriter::class);
+        $propertyWriter->method('write')->willReturnCallback(function (int $uid, int $pid, string $data, string $previous): void {
+            $this->calls[] = 'properties ' . $uid . ' pid=' . $pid . ' ' . ($previous === '' ? 'new' : 'previous');
+        });
         $indexRepository = self::createStub(IndexRepository::class);
         $indexRepository->method('deleteByEventUidsAndTablename')->willReturnCallback(function (array $uids, string $table): void {
             $this->calls[] = 'index ' . implode(',', $uids) . ' ' . $table;
         });
 
-        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService(self::createStub(ConnectionPool::class)), $recurrenceWriter, $pageCacheService, $indexRepository);
+        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService(self::createStub(ConnectionPool::class)), $recurrenceWriter, $pageCacheService, $indexRepository, $propertyWriter);
     }
 
     private const CALENDARS = [
@@ -95,7 +100,7 @@ final class CalDavBackendTest extends UnitTestCase
 
     private static function record(string $icsUid, string $data = self::ICS): array
     {
-        return ['uid' => 9, 'ics_uid' => $icsUid, 'tstamp' => 300, 'caldav_data' => $data];
+        return ['uid' => 9, 'pid' => 5, 'ics_uid' => $icsUid, 'tstamp' => 300, 'caldav_data' => $data];
     }
 
     #[Test]
@@ -186,8 +191,10 @@ final class CalDavBackendTest extends UnitTestCase
         $backend = $this->createBackend(self::CALENDARS, ['abc' => self::record('abc')]);
         self::assertSame('"' . md5(rtrim(self::ICS)) . '"', $backend->updateCalendarObject(1, 'abc.ics', self::ICS));
         self::assertStringStartsWith('update 1 abc ', $this->calls[0]);
-        self::assertSame('recurrence 9 {"exdates":[],"overrides":[]}', $this->calls[1]);
-        self::assertSame(['touch 1', 'flush'], array_slice($this->calls, 2));
+        // categories, URL and organizer changed in the client (compared with the data stored before)
+        self::assertSame('properties 9 pid=5 previous', $this->calls[1]);
+        self::assertSame('recurrence 9 {"exdates":[],"overrides":[]}', $this->calls[2]);
+        self::assertSame(['touch 1', 'flush'], array_slice($this->calls, 3));
 
         $this->expectException(NotFound::class);
         $backend->updateCalendarObject(1, 'missing.ics', self::ICS);

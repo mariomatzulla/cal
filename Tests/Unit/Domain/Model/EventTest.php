@@ -342,4 +342,30 @@ final class EventTest extends UnitTestCase
         self::assertSame('Changed', $instance->getTitle());
         self::assertSame(['other'], $instance->getImage());
     }
+
+    #[Test]
+    public function deviationOverridesStatusAndVisibility(): void
+    {
+        $event = self::fullEvent();
+        $event->setStatus('TENTATIVE');
+        $event->setClassification('PRIVATE');
+        $deviation = new EventDeviation();
+        $instance = new EventRecDeviationModel($event, $deviation, 20261202140000, 20261202153000);
+        // without own values: those of the event
+        self::assertSame('TENTATIVE', $instance->getStatus());
+        self::assertTrue($instance->isTentative());
+        self::assertFalse($instance->isCancelled());
+        self::assertTrue($instance->isPrivate());
+
+        $deviation->setStatus('cancelled');
+        $deviation->setClassification('PUBLIC');
+        self::assertSame('cancelled', $instance->getStatus());
+        self::assertTrue($instance->isCancelled());
+        self::assertFalse($instance->isTentative());
+        // a public occurrence of a private event
+        self::assertFalse($instance->isPrivate());
+        $deviation->setClassification('CONFIDENTIAL');
+        $event->setClassification('');
+        self::assertTrue($instance->isPrivate());
+    }
 }

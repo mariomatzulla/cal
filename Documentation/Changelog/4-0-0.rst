@@ -64,8 +64,8 @@ Breaking changes
     `ics_sequence` of events: run "Analyze Database Structure".
 *   New field `rrule` of events (recurrence rules of CalDAV clients the
     recurrence fields cannot store): run "Analyze Database Structure".
-*   New fields `status` and `classification` of events (iCalendar `STATUS`
-    and `CLASS`): run "Analyze Database Structure". The partial
+*   New fields `status` and `classification` of events and deviations
+    (iCalendar `STATUS` and `CLASS`): run "Analyze Database Structure". The partial
     `Event/Link.html` renders the note of the new partial `Event/Status.html`
     and no link for private events: update own copies of the partial.
 
@@ -135,6 +135,11 @@ Bugfixes
 *   Pages with calendar plugins show changes at once: they get the cal tables
     as cache tags (flushed by the backend), changes of CalDAV clients and
     imports flush them as well, see :ref:`caching`.
+*   CalDAV clients: categories, URL and organizer changed in the client are
+    taken over (categories by title, organizer by e-mail address, searched and
+    created in the storage folder of the calendar), status and
+    visibility of single changed dates of a series as well, see
+    :ref:`caldav-recurrence`.
 *   Saving an event in the backend keeps the data of CalDAV clients cal does not
     manage (alarms, attendees, `TRANSP`, `X-` properties).
 *   Events deleted by a CalDAV client lose their recurrence index entries,

@@ -107,6 +107,7 @@ final class IcsBuilderTest extends UnitTestCase
             [[
                 'recurrenceId' => ';TZID=Europe/Berlin:20261116T100000', 'start' => ';TZID=Europe/Berlin:20261116T140000',
                 'end' => ';TZID=Europe/Berlin:20261116T150000', 'title' => 'Moved\, later', 'description' => 'Other room', 'location' => 'Room 2',
+                'status' => 'CANCELLED', 'classification' => 'PUBLIC',
             ]],
         )->build(
             $event,
@@ -154,9 +155,9 @@ final class IcsBuilderTest extends UnitTestCase
 
         $override = $parsed->select('VEVENT')[1];
         self::assertSame('20261116T100000', (string)$override->{'RECURRENCE-ID'});
-        self::assertSame(['abc@example.org', '20261120T000000Z', '3', '20261116T140000', '20261116T150000', 'Moved, later', 'Other room', 'Room 2'], [
+        self::assertSame(['abc@example.org', '20261120T000000Z', '3', '20261116T140000', '20261116T150000', 'Moved, later', 'Other room', 'Room 2', 'CANCELLED', 'PUBLIC'], [
             (string)$override->UID, (string)$override->DTSTAMP, (string)$override->SEQUENCE, (string)$override->DTSTART, (string)$override->DTEND,
-            (string)$override->SUMMARY, (string)$override->DESCRIPTION, (string)$override->LOCATION,
+            (string)$override->SUMMARY, (string)$override->DESCRIPTION, (string)$override->LOCATION, (string)$override->STATUS, (string)$override->CLASS,
         ]);
     }
 
@@ -172,7 +173,7 @@ final class IcsBuilderTest extends UnitTestCase
         $organizer->setName('Without e-mail');
         $event->setOrganizerId(self::storage($organizer));
         $before = time();
-        $vEvent = $this->subject('', [['recurrenceId' => ';VALUE=DATE:20261109', 'start' => ';VALUE=DATE:20261110', 'end' => ';VALUE=DATE:20261111', 'title' => 'Moved', 'description' => '', 'location' => '']])
+        $vEvent = $this->subject('', [['recurrenceId' => ';VALUE=DATE:20261109', 'start' => ';VALUE=DATE:20261110', 'end' => ';VALUE=DATE:20261111', 'title' => 'Moved', 'description' => '', 'location' => '', 'status' => '', 'classification' => '']])
             ->build($event, '4.0.0', 'https://example.org/event', ['crdate' => 0, 'tstamp' => 0, 'sequence' => 0], self::RESOURCES)
             ->select('VEVENT')[0];
         self::assertSame(['20261102', '20261104', 'https://example.com/event', 'Hall'], [(string)$vEvent->DTSTART, (string)$vEvent->DTEND, (string)$vEvent->URL, (string)$vEvent->LOCATION]);
@@ -223,14 +224,16 @@ final class IcsBuilderTest extends UnitTestCase
         IcsBuilder::keepClientData($vcalendar, "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:client\r\nBEGIN:VEVENT\r\nUID:a\r\nDTSTAMP:20261120T100000Z\r\nDTSTART:20261201T100000Z\r\nSUMMARY:Old\r\n"
             . "CLASS:PRIVATE\r\nATTENDEE;CN=Anna:mailto:anna@example.org\r\nX-MOZ-GENERATION:3\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER:-PT15M\r\nEND:VALARM\r\nEND:VEVENT\r\n"
             // the same occurrence with another time zone
-            . "BEGIN:VEVENT\r\nUID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261208T110000\r\nDTSTART:20261208T120000Z\r\nSTATUS:TENTATIVE\r\nEND:VEVENT\r\n"
+            . "BEGIN:VEVENT\r\nUID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261208T110000\r\nDTSTART:20261208T120000Z\r\nSTATUS:TENTATIVE\r\nX-MOZ-FAVORITE:1\r\nEND:VEVENT\r\n"
             // an occurrence cal does not have any more
             . "BEGIN:VEVENT\r\nUID:a\r\nRECURRENCE-ID:20261215T100000Z\r\nDTSTART:20261215T120000Z\r\nSTATUS:CANCELLED\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n");
         $data = $vcalendar->serialize();
         // STATUS and CLASS of the event are fields of cal
         self::assertStringContainsString("SUMMARY:New\r\nATTENDEE;CN=Anna:mailto:anna@example.org\r\nX-MOZ-GENERATION:3\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER:-PT15M\r\nEND:VALARM\r\nEND:VEVENT", $data);
         self::assertStringNotContainsString('CLASS:PRIVATE', $data);
-        self::assertStringContainsString("SUMMARY:Moved\r\nSTATUS:TENTATIVE\r\nEND:VEVENT", $data);
+        // the status of the occurrence is a field of the deviation, other data of the client is kept
+        self::assertStringContainsString("SUMMARY:Moved\r\nX-MOZ-FAVORITE:1\r\nEND:VEVENT", $data);
+        self::assertStringNotContainsString('TENTATIVE', $data);
         self::assertStringNotContainsString('SUMMARY:Old', $data);
         self::assertStringNotContainsString('CANCELLED', $data);
         self::assertSame(2, count($vcalendar->select('VEVENT')));

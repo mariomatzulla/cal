@@ -128,7 +128,7 @@ final class IcsParserTest extends UnitTestCase
         $details = IcsParser::parseRecurrenceDetails(self::calendar(
             "UID:a\r\nSUMMARY:Series\r\nDTSTART;TZID=Europe/Berlin:20261125T100000\r\nRRULE:FREQ=DAILY\r\n"
             . "EXDATE;TZID=Europe/Berlin:20261127T100000,20261126T100000\r\nEXDATE:20261128T090000Z\r\n",
-            "UID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261129T100000\r\nSUMMARY:Moved\r\nDESCRIPTION:Other room\r\nLOCATION:Room 2\r\n"
+            "UID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261129T100000\r\nSUMMARY:Moved\r\nDESCRIPTION:Other room\r\nLOCATION:Room 2\r\nSTATUS:TENTATIVE\r\nCLASS:PUBLIC\r\n"
             . "DTSTART;TZID=Europe/Berlin:20261129T140000\r\nDTEND;TZID=Europe/Berlin:20261129T160000\r\n",
             "UID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261130T100000\r\nSTATUS:CANCELLED\r\nDTSTART;TZID=Europe/Berlin:20261130T100000\r\n",
             "UID:a\r\nRECURRENCE-ID;VALUE=DATE:20261201\r\nDTSTART;VALUE=DATE:20261202\r\n",
@@ -147,7 +147,11 @@ final class IcsParserTest extends UnitTestCase
             'start_time' => 50400,
             'end_date' => self::date('2026-11-29'),
             'end_time' => 57600,
+            // status and class of the occurrence, PUBLIC is kept (public occurrence of a private event)
+            'status' => 'TENTATIVE',
+            'classification' => 'PUBLIC',
         ], $details['overrides'][0]);
+        self::assertSame(['', ''], [$details['overrides'][1]['status'], $details['overrides'][1]['classification']]);
         self::assertSame([self::date('2026-12-01'), 0, 1, self::date('2026-12-02')], [
             $details['overrides'][1]['orig_start_date'], $details['overrides'][1]['orig_start_time'], $details['overrides'][1]['allday'], $details['overrides'][1]['start_date'],
         ]);

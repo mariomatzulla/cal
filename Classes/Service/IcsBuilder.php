@@ -68,7 +68,7 @@ class IcsBuilder
     private const MANAGED_PROPERTIES = [
         'UID', 'DTSTAMP', 'CREATED', 'LAST-MODIFIED', 'SEQUENCE', 'DTSTART', 'DTEND', 'DURATION', 'RRULE', 'RDATE',
         'EXDATE', 'RECURRENCE-ID', 'SUMMARY', 'DESCRIPTION', 'X-ALT-DESC', 'URL', 'LOCATION', 'GEO', 'ORGANIZER',
-        'CATEGORIES', 'COLOR', 'ATTACH', 'IMAGE',
+        'CATEGORIES', 'COLOR', 'ATTACH', 'IMAGE', 'STATUS', 'CLASS',
     ];
 
     public function __construct(
@@ -168,6 +168,13 @@ class IcsBuilder
             if ($override['location'] !== '') {
                 $lines[] = 'LOCATION:' . $override['location'];
             }
+            // status and class of the occurrence, without: those of the event
+            if ($override['status'] !== '') {
+                $lines[] = 'STATUS:' . $override['status'];
+            }
+            if ($override['classification'] !== '') {
+                $lines[] = 'CLASS:' . $override['classification'];
+            }
             $vOverride = $this->addEvent($vcalendar, (string)$event->getIcsUid(), $stamp);
             $vOverride->add('SEQUENCE', $meta['sequence']);
             foreach (self::parseLines($lines) as $property) {
@@ -204,10 +211,8 @@ class IcsBuilder
             if ($target === null) {
                 continue;
             }
-            // the status and class of the event are fields of cal, the occurrences keep those of the client
-            $managed = $target === ($targets[''] ?? null) ? [...self::MANAGED_PROPERTIES, 'STATUS', 'CLASS'] : self::MANAGED_PROPERTIES;
             foreach ($vEvent->children() as $child) {
-                if (!in_array(strtoupper($child->name), $managed, true)) {
+                if (!in_array(strtoupper($child->name), self::MANAGED_PROPERTIES, true)) {
                     $target->add(clone $child);
                 }
             }

@@ -24,6 +24,7 @@ class CalDavBackend extends AbstractBackend
         private readonly CalDavRecurrenceWriter $recurrenceWriter,
         private readonly PageCacheService $pageCacheService,
         private readonly IndexRepository $indexRepository,
+        private readonly CalDavPropertyWriter $propertyWriter,
     ) {}
 
     public function getCalendarsForUser($principalUri)
@@ -84,6 +85,7 @@ class CalDavBackend extends AbstractBackend
         }
 
         $existing = $this->findRecord($calendarId, (string)$objectUri, true);
+        $previous = $existing ? (string)($existing['caldav_data'] ?? '') : '';
         if ($existing) {
             $values = $this->buildValues($calendarData, $calendar);
             $values['deleted'] = 0;
@@ -97,7 +99,7 @@ class CalDavBackend extends AbstractBackend
             $this->eventRepository->persistEvent($values);
         }
         $this->slugService->fillMissing('tx_cal_domain_model_event', $calendarId);
-        $this->writeRecurrence($calendarId, (string)$objectUri, $calendarData, $calendar);
+        $this->writeDetails($calendarId, (string)$objectUri, $calendarData, $calendar, $previous);
 
         $this->calendarChanged($calendarId);
         return self::etag($calendarData);
@@ -114,7 +116,7 @@ class CalDavBackend extends AbstractBackend
         }
 
         $this->eventRepository->updateEvent($calendarId, (string)$record['ics_uid'], $this->buildValues($calendarData, $calendar));
-        $this->writeRecurrence($calendarId, (string)$objectUri, $calendarData, $calendar);
+        $this->writeDetails($calendarId, (string)$objectUri, $calendarData, $calendar, (string)($record['caldav_data'] ?? ''));
         $this->calendarChanged($calendarId);
         return self::etag($calendarData);
     }
@@ -184,13 +186,18 @@ class CalDavBackend extends AbstractBackend
     }
 
     /**
-     * Removed dates and changed occurrences of the series as exception events and deviations,
-     * then the recurrence index of the event is rebuilt
+     * Categories, URL and organizer changed in the client (see CalDavPropertyWriter, storage folder of the
+     * event), the removed dates and
+     * changed occurrences of the series as exception events and deviations, then the recurrence index of
+     * the event is rebuilt
+     *
+     * @param string $previous the iCalendar data stored before
      */
-    private function writeRecurrence(int $calendarId, string $objectUri, string $calendarData, array $calendar): void
+    private function writeDetails(int $calendarId, string $objectUri, string $calendarData, array $calendar, string $previous): void
     {
         $record = $this->findRecord($calendarId, $objectUri);
         if ($record) {
+            $this->propertyWriter->write((int)$record['uid'], (int)($record['pid'] ?? 0), $calendarData, $previous);
             $this->recurrenceWriter->write((int)$record['uid'], IcsParser::parseRecurrenceDetails($calendarData, (string)($calendar['timezone'] ?? '')));
         }
     }

@@ -135,6 +135,8 @@ CREATE TABLE tx_cal_domain_model_index (
 #
 CREATE TABLE tx_cal_domain_model_eventdeviation (
     parentid int(11) DEFAULT '0' NOT NULL,
+	status varchar(20) DEFAULT '' NOT NULL,
+	classification varchar(20) DEFAULT '' NOT NULL,
 	orig_start_date int(11) DEFAULT '0' NOT NULL,
 	orig_start_time int(11) DEFAULT '0' NOT NULL,
 	start_date int(11) DEFAULT '0' NOT NULL,

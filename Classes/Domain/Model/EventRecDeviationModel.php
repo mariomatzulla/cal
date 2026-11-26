@@ -45,6 +45,32 @@ class EventRecDeviationModel extends EventRecModel
         return $this->parentEvent->getTitle();
     }
 
+    /**
+     * Status of the occurrence (iCalendar STATUS of the RECURRENCE-ID), empty: the status of the event
+     */
+    public function getStatus(): string
+    {
+        return $this->deviation->getStatus() !== '' ? $this->deviation->getStatus() : $this->parentEvent->getStatus();
+    }
+
+    public function isCancelled(): bool
+    {
+        return strtoupper($this->getStatus()) === 'CANCELLED';
+    }
+
+    public function isTentative(): bool
+    {
+        return strtoupper($this->getStatus()) === 'TENTATIVE';
+    }
+
+    /**
+     * Visibility of the occurrence (iCalendar CLASS of the RECURRENCE-ID), empty: the visibility of the event
+     */
+    public function isPrivate(): bool
+    {
+        return $this->deviation->getClassification() !== '' ? $this->deviation->isPrivate() : $this->parentEvent->isPrivate();
+    }
+
     public function getImage()
     {
         if (count($this->deviation->getImage()) > 0) {

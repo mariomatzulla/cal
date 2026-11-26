@@ -601,6 +601,9 @@
 			<trans-unit id="tx_cal_event.classification.confidential" resname="tx_cal_event.classification.confidential" >
 				<source>Confidential</source>
 			</trans-unit>
+			<trans-unit id="tx_cal_eventdeviation.inherit" resname="tx_cal_eventdeviation.inherit" >
+				<source>Like the event</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

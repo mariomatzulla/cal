@@ -131,7 +131,8 @@ class IcsParser
                 continue;
             }
             $orig = self::splitDateAndTime($recurrenceId, !$vEvent->{'RECURRENCE-ID'}->hasTime(), 'orig_start');
-            $result['overrides'][] = $orig + self::parseEventValues($vEvent, $localTimezone);
+            // status and class of the occurrence, empty: those of the event
+            $result['overrides'][] = $orig + self::parseEventValues($vEvent, $localTimezone) + self::parseStatus($vEvent, true);
         }
         $exdates = array_values(array_unique($exdates));
         sort($exdates);
@@ -201,19 +202,19 @@ class IcsParser
     }
 
     /**
-     * STATUS (TENTATIVE, CONFIRMED, CANCELLED) and CLASS (PRIVATE, CONFIDENTIAL) of the event,
-     * empty for PUBLIC and other values (e.g. extensions like X-...)
+     * STATUS (TENTATIVE, CONFIRMED, CANCELLED) and CLASS (PRIVATE, CONFIDENTIAL, PUBLIC with $keepPublic)
+     * of the event, empty for other values (e.g. extensions like X-...)
      *
      * @return array{status: string, classification: string}
      */
-    private static function parseStatus(Component $vEvent): array
+    private static function parseStatus(Component $vEvent, bool $keepPublic = false): array
     {
         $status = strtoupper(trim((string)($vEvent->STATUS ?? '')));
         $classification = strtoupper(trim((string)($vEvent->CLASS ?? '')));
         return [
             'status' => in_array($status, ['TENTATIVE', 'CONFIRMED', 'CANCELLED'], true) ? $status : '',
-            // PUBLIC is the default (empty)
-            'classification' => in_array($classification, ['PRIVATE', 'CONFIDENTIAL'], true) ? $classification : '',
+            // PUBLIC is the default (empty) of an event, a changed occurrence keeps it (public occurrence of a private event)
+            'classification' => in_array($classification, $keepPublic ? ['PUBLIC', 'PRIVATE', 'CONFIDENTIAL'] : ['PRIVATE', 'CONFIDENTIAL'], true) ? $classification : '',
         ];
     }
 

@@ -61,7 +61,7 @@ class IcsRecurrence
      * Occurrences changed by a deviation, for VEVENTs with RECURRENCE-ID. The date values contain the
      * parameters, e.g. ";TZID=Europe/Berlin:20261110T140000", the texts are escaped (RFC 5545).
      *
-     * @return list<array{recurrenceId: string, start: string, end: string, title: string, description: string, location: string}>
+     * @return list<array{recurrenceId: string, start: string, end: string, title: string, description: string, location: string, status: string, classification: string}>
      */
     public function getOverrides(Event $event, string $timezone): array
     {
@@ -92,6 +92,8 @@ class IcsRecurrence
                 'title' => self::escapeText((string)($deviation->getTitle() ?: $event->getTitle())),
                 'description' => self::escapeText(trim(strip_tags((string)($deviation->getDescription() ?: $event->getDescription())))),
                 'location' => self::escapeText((string)$location),
+                'status' => strtoupper((string)$deviation->getStatus()),
+                'classification' => strtoupper((string)$deviation->getClassification()),
             ];
         }
         return $overrides;

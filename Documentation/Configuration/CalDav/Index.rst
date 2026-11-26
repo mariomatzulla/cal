@@ -206,10 +206,24 @@ Changes of a series in the client are taken over:
 Data of the clients
 -------------------
 
-cal takes over the title, description, location, date, time, recurrence,
-status (`STATUS`) and visibility (`CLASS`) of an event written by a client. The other data of the client (e.g. alarms,
-attendees, transparency) is kept in the iCalendar data of the event,
-also when the event is saved in the backend later.
+cal takes over from an event written by a client:
+
+*   title, description, location, date, time and recurrence,
+*   status (`STATUS`) and visibility (`CLASS`), also of single changed dates
+    of a series (fields of the deviation, empty: those of the event),
+*   categories (`CATEGORIES`): the categories with these titles (case
+    insensitive, default language) in the storage folder of the calendar.
+    Missing categories are created there.
+*   URL (`URL`): field :guilabel:`External URL`, exported again as `URL`,
+*   organizer (`ORGANIZER`): the organizer record with this e-mail address in
+    the storage folder of the calendar, created there if missing. An organizer
+    without e-mail address is stored as text.
+
+Categories, URL and organizer are only taken over when they were changed in
+the client, values exported by cal (e.g. the link to the event view) do not
+overwrite the fields. The other data of the client (e.g. alarms, attendees,
+transparency) is kept in the iCalendar data of the event, also when the event
+is saved in the backend later.
 
 Rules the recurrence fields cannot store
 ----------------------------------------
