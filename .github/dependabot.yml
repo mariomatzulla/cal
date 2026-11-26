@@ -1,0 +1,32 @@
+# Weekly updates of the dependencies, every update is a pull request checked by the workflow "Tests".
+version: 2
+updates:
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels: [dependencies]
+    commit-message:
+      prefix: '[TASK]'
+    groups:
+      # TYPO3 core packages together
+      typo3:
+        patterns: ['typo3/*']
+      # tools of the development (tests, code style, static analysis)
+      dev-tools:
+        dependency-type: development
+        exclude-patterns: ['typo3/*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels: [dependencies]
+    commit-message:
+      prefix: '[TASK]'
+    groups:
+      actions:
+        patterns: ['*']
