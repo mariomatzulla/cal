@@ -91,6 +91,9 @@ final class EventTest extends UnitTestCase
         self::assertFalse($event->isRecurring());
         $event->setFreq('month');
         self::assertTrue($event->isRecurring());
+        self::assertSame('', $event->getRrule());
+        $event->setRrule('FREQ=MONTHLY;BYSETPOS=-1;BYDAY=FR');
+        self::assertSame('FREQ=MONTHLY;BYSETPOS=-1;BYDAY=FR', $event->getRrule());
     }
 
     #[Test]

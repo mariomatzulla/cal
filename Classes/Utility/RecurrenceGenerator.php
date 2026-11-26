@@ -39,6 +39,11 @@ class RecurrenceGenerator
     public const INDEX_TABLE = 'tx_cal_domain_model_index';
 
     /**
+     * Maximum number of dates of a recurrence rule stored in the field "rrule" (e.g. FREQ=MINUTELY)
+     */
+    public const MAX_RULE_OCCURRENCES = 10000;
+
+    /**
      * @var CalendarDateTime|null
      */
     public $starttime;
@@ -271,6 +276,10 @@ class RecurrenceGenerator
 
         if ($event->getRdateType() && $event->getRdateType() != 'none') {
             $this->addRecurringInstances($event);
+        }
+        if ($event->getRrule() !== '' && $this->addRuleOccurrences($event)) {
+            $this->persistenceManager->persistAll();
+            return;
         }
         switch ($event->getFreq()) {
             case 'day':
@@ -539,6 +548,39 @@ class RecurrenceGenerator
             $eventData->setStartDatetime((float)$startDate->format('YmdHis'));
             $eventData->setEndDatetime((float)$endDate->format('YmdHis'));
         }
+    }
+
+    /**
+     * Occurrences of a recurrence rule the fields cannot store (see Event::$rrule), calculated with all
+     * parts of RFC 5545. At most MAX_RULE_OCCURRENCES dates are written (e.g. a rule FREQ=MINUTELY).
+     *
+     * @return bool false: invalid rule, the recurrence fields are used
+     */
+    private function addRuleOccurrences(Event $event): bool
+    {
+        try {
+            $rule = new RecurrenceRule($event->getRrule());
+        } catch (\InvalidArgumentException) {
+            return false;
+        }
+        $duration = $event->getEnd()->getTimestamp() - $event->getStart()->getTimestamp();
+        foreach ($rule->getOccurrences($event->getStart(), $this->endtime) as $index => $occurrence) {
+            // the first date of the event is already written
+            if ($index === 0) {
+                continue;
+            }
+            if ($index > self::MAX_RULE_OCCURRENCES) {
+                break;
+            }
+            $start = CalendarDateTime::generateByYmdHis($occurrence->format('YmdHis'));
+            $end = new CalendarDateTime();
+            $end->copy($start);
+            $end->addSeconds($duration);
+            if ($end->after($this->starttime)) {
+                $this->createIndexEntry($start, $end, $event);
+            }
+        }
+        return true;
     }
 
     /**

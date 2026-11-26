@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Service;
 
+use MarioMatzulla\Cal\Utility\RecurrenceRule;
 use Sabre\VObject\Component;
 use Sabre\VObject\Component\VCalendar;
 use Sabre\VObject\Component\VEvent;
@@ -29,7 +30,24 @@ class IcsParser
         'until' => 0,
         'rdate_type' => 'none',
         'rdate' => '',
+        'rrule' => '',
     ];
+
+    /**
+     * Parts of a rule the recurrence fields of cal can store, by frequency. Rules with other parts are
+     * stored in the field "rrule" as well (see RecurrenceGenerator).
+     */
+    private const FIELD_RULE_PARTS = [
+        'DAILY' => ['FREQ', 'INTERVAL', 'COUNT', 'UNTIL', 'WKST'],
+        'WEEKLY' => ['FREQ', 'INTERVAL', 'COUNT', 'UNTIL', 'WKST', 'BYDAY'],
+        'MONTHLY' => ['FREQ', 'INTERVAL', 'COUNT', 'UNTIL', 'WKST', 'BYDAY', 'BYMONTHDAY'],
+        'YEARLY' => ['FREQ', 'INTERVAL', 'COUNT', 'UNTIL', 'WKST', 'BYDAY', 'BYMONTHDAY', 'BYMONTH'],
+    ];
+
+    /**
+     * Largest value of the fields "cnt" and "intrval" (tinyint unsigned)
+     */
+    private const MAX_FIELD_NUMBER = 255;
 
     /**
      * The event (the VEVENT without RECURRENCE-ID) as field array, including its recurrence (RRULE, RDATE).
@@ -49,26 +67,33 @@ class IcsParser
             + self::NO_RECURRENCE;
 
         if (isset($vEvent->RRULE)) {
-            $rrule = $vEvent->RRULE->getParts();
-            // cal stores the frequency as none|day|week|month|year
-            $values['freq'] = match (strtoupper((string)($rrule['FREQ'] ?? ''))) {
-                'DAILY' => 'day',
+            $rrule = array_change_key_case($vEvent->RRULE->getParts(), CASE_UPPER);
+            $frequency = strtoupper((string)($rrule['FREQ'] ?? ''));
+            // cal stores the frequency as none|day|week|month|year, rules with a shorter frequency (HOURLY ...)
+            // are calculated with the field "rrule"
+            $values['freq'] = match ($frequency) {
+                'SECONDLY', 'MINUTELY', 'HOURLY', 'DAILY' => 'day',
                 'WEEKLY' => 'week',
                 'MONTHLY' => 'month',
                 'YEARLY' => 'year',
                 default => 'none',
             };
-            $values['intrval'] = (int)($rrule['INTERVAL'] ?? 1);
-            $values['cnt'] = (int)($rrule['COUNT'] ?? 0);
+            $values['intrval'] = min(self::MAX_FIELD_NUMBER, (int)($rrule['INTERVAL'] ?? 1));
+            $values['cnt'] = min(self::MAX_FIELD_NUMBER, (int)($rrule['COUNT'] ?? 0));
             $values['byday'] = implode(',', (array)($rrule['BYDAY'] ?? []));
             $values['bymonth'] = implode(',', (array)($rrule['BYMONTH'] ?? []));
             $values['bymonthday'] = implode(',', (array)($rrule['BYMONTHDAY'] ?? []));
 
+            $until = null;
             if (isset($rrule['UNTIL'])) {
                 // cal stores the last day (midnight, server time) of the recurrence
                 $until = \DateTimeImmutable::createFromFormat('Ymd\THis\Z', (string)$rrule['UNTIL'], new \DateTimeZone('UTC'))
+                    ?: \DateTimeImmutable::createFromFormat('Ymd\THis', (string)$rrule['UNTIL'], $localTimezone)
                     ?: \DateTimeImmutable::createFromFormat('!Ymd', (string)$rrule['UNTIL'], $localTimezone);
                 $values['until'] = $until ? self::midnight($until->setTimezone($localTimezone)) : 0;
+            }
+            if ($values['freq'] !== 'none' && self::needsRule($frequency, $rrule)) {
+                $values['rrule'] = self::buildRule((string)$vEvent->RRULE->getValue(), $until ?: null, $localTimezone, (int)$values['allday'] === 1);
             }
         }
         return array_merge($values, self::parseAdditionalDates($vEvent, $localTimezone));
@@ -225,6 +250,40 @@ class IcsParser
     }
 
     /**
+     * The rule has parts the recurrence fields cannot store
+     *
+     * @param array<string, mixed> $rrule
+     */
+    private static function needsRule(string $frequency, array $rrule): bool
+    {
+        $allowed = self::FIELD_RULE_PARTS[$frequency] ?? [];
+        if (array_diff(array_keys($rrule), $allowed) !== []) {
+            return true;
+        }
+        return strtoupper((string)($rrule['WKST'] ?? 'MO')) !== 'MO'
+            || (int)($rrule['COUNT'] ?? 0) > self::MAX_FIELD_NUMBER
+            || (int)($rrule['INTERVAL'] ?? 1) > self::MAX_FIELD_NUMBER;
+    }
+
+    /**
+     * The rule for the field "rrule": UNTIL as wall clock time of the calendar (like the dates of cal),
+     * see IcsRecurrence for the export. An invalid rule is not stored (the fields are used).
+     */
+    private static function buildRule(string $value, ?\DateTimeImmutable $until, \DateTimeZone $localTimezone, bool $allDay): string
+    {
+        try {
+            $rule = new RecurrenceRule($value);
+        } catch (\InvalidArgumentException) {
+            return '';
+        }
+        if ($until !== null) {
+            $local = $until->setTimezone($localTimezone);
+            $rule = $rule->withUntil($allDay || strlen((string)$rule->getUntil()) === 8 ? $local->format('Ymd') : $local->format('Ymd\THis'));
+        }
+        return (string)$rule;
+    }
+
+    /**
      * Timestamp of midnight (server time) of the day of a date
      */
     private static function midnight(\DateTimeInterface $date): int
@@ -262,6 +321,8 @@ class IcsParser
         foreach ($vcalendar->select('VEVENT') as $vEvent) {
             if (!isset($vEvent->DTSTART)) {
                 $vcalendar->remove($vEvent);
+            } elseif ($vEvent instanceof VEvent && isset($vEvent->RRULE) && !isset($vEvent->{'RECURRENCE-ID'})) {
+                self::replaceRuleByDates($vcalendar, $vEvent, $from, $to, $calendarTimezone);
             }
         }
         $expanded = $vcalendar->expand($from, $to, $calendarTimezone);
@@ -306,6 +367,53 @@ class IcsParser
         }
 
         return $events;
+    }
+
+    /**
+     * sabre/vobject does not support all parts of a rule (e.g. MINUTELY, BYSETPOS of a yearly rule, the
+     * 20th Monday of a year). The occurrences of the rule in the range are calculated by RecurrenceRule
+     * and replace the rule as additional dates (RDATE), so EXDATE and RECURRENCE-ID still work.
+     * An invalid rule is kept.
+     */
+    private static function replaceRuleByDates(VCalendar $vcalendar, VEvent $vEvent, \DateTimeInterface $from, \DateTimeInterface $to, \DateTimeZone $calendarTimezone): void
+    {
+        try {
+            $rule = new RecurrenceRule((string)$vEvent->select('RRULE')[0]->getValue());
+        } catch (\InvalidArgumentException) {
+            return;
+        }
+        /** @var \Sabre\VObject\Property\ICalendar\DateTime $dtStart */
+        $dtStart = $vEvent->select('DTSTART')[0];
+        $allDay = !$dtStart->hasTime();
+        // the rule is calculated in the time zone of the start (floating times: time zone of the calendar)
+        $start = $dtStart->getDateTime($calendarTimezone);
+        $timezone = $start->getTimezone();
+        if (isset($vEvent->DTEND)) {
+            $duration = max(0, $vEvent->DTEND->getDateTime($calendarTimezone)->getTimestamp() - $start->getTimestamp());
+        } elseif (isset($vEvent->DURATION)) {
+            $duration = max(0, $start->add(DateTimeParser::parse((string)$vEvent->DURATION->getValue()))->getTimestamp() - $start->getTimestamp());
+        } else {
+            $duration = 0;
+        }
+        // occurrences ending in the range are needed as well
+        $first = RecurrenceRule::wallClock(\DateTimeImmutable::createFromInterface($from)->setTimezone($timezone))
+            ->modify('-' . ($duration + 86400) . ' seconds');
+        $last = RecurrenceRule::wallClock(\DateTimeImmutable::createFromInterface($to)->setTimezone($timezone));
+        $dates = [];
+        foreach ($rule->getOccurrences($start, $last, $timezone) as $index => $occurrence) {
+            // the first occurrence is DTSTART
+            if ($index > 0 && $occurrence >= $first) {
+                $dates[] = new \DateTimeImmutable($occurrence->format('Y-m-d H:i:s'), $timezone);
+            }
+        }
+        $vEvent->remove('RRULE');
+        if ($dates === []) {
+            return;
+        }
+        /** @var \Sabre\VObject\Property\ICalendar\DateTime $rdate */
+        $rdate = $vcalendar->createProperty('RDATE', null, $allDay ? ['VALUE' => 'DATE'] : []);
+        $rdate->setDateTimes($dates, $dtStart->isFloating());
+        $vEvent->add($rdate);
     }
 
     /**

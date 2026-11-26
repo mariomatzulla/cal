@@ -195,3 +195,25 @@ Changes of a series in the client are taken over:
     cal stores the end of a recurrence as day (:guilabel:`Until`) or as number
     of dates (:guilabel:`Count`). A rule with both is exported with `UNTIL`.
 
+Rules the recurrence fields cannot store
+----------------------------------------
+
+The fields of the tab :guilabel:`Recurrence` store the common rules (daily,
+weekly, monthly and yearly with `BYDAY`, `BYMONTHDAY`, `BYMONTH`, `INTERVAL`,
+`COUNT` up to 255 and `UNTIL`). A client can write every rule of RFC 5545,
+e.g. "the last workday of the month"
+(`FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1`), "the Monday of week 20"
+(`BYWEEKNO`), "the last day of the year" (`BYYEARDAY`), a week starting on
+Sunday (`WKST=SU`) or "every 4 hours" (`HOURLY`).
+
+Such a rule is stored in the read-only field
+:guilabel:`Recurrence rule (iCalendar)` (`rrule`), the recurrence fields get
+an approximation (`HOURLY`, `MINUTELY` and `SECONDLY` are shown as daily). The
+dates of the website and the iCalendar data use the stored rule. When one of
+the recurrence fields is changed in the backend, the stored rule is removed and
+the fields are used again.
+
+..  note::
+    A rule with very many dates (e.g. every minute) writes at most 10,000 dates
+    into the recurrence index.
+

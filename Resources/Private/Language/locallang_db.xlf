@@ -85,6 +85,12 @@
 			<trans-unit id="tx_cal_event.freq" resname="tx_cal_event.freq" >
 				<source>Regular Frequency Rule</source>
 			</trans-unit>
+			<trans-unit id="tx_cal_event.rrule" resname="tx_cal_event.rrule" >
+				<source>Recurrence rule (iCalendar)</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.rrule.description" resname="tx_cal_event.rrule.description" >
+				<source>Rule of a CalDAV client with parts the recurrence fields cannot show (e.g. BYSETPOS, BYWEEKNO, BYYEARDAY, WKST, HOURLY). The dates are calculated with this rule. Changing the recurrence fields replaces it.</source>
+			</trans-unit>
 			<trans-unit id="tx_cal_event.add_recurrence" resname="tx_cal_event.add_recurrence" >
 				<source>Add Recurrence</source>
 			</trans-unit>

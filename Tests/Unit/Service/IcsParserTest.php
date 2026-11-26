@@ -65,7 +65,8 @@ final class IcsParserTest extends UnitTestCase
         self::assertSame((new \DateTime('2030-11-24 00:00:00'))->getTimestamp(), $values['until']);
 
         $values = IcsParser::parseIcsContent(self::calendar("DTSTART:20261124T100000\r\nRRULE:FREQ=SECONDLY;UNTIL=20301124T100000Z\r\n"));
-        self::assertSame('none', $values['freq']);
+        // the fields contain an approximation, the dates are calculated with the rule (UNTIL as wall clock time)
+        self::assertSame(['day', 'FREQ=SECONDLY;UNTIL=20301124T100000'], [$values['freq'], $values['rrule']]);
         // the last day of the recurrence
         self::assertSame(self::date('2030-11-24'), $values['until']);
     }
@@ -206,5 +207,72 @@ final class IcsParserTest extends UnitTestCase
         $events = IcsParser::parseEvents(self::calendar("DTSTART:20261110T090000Z\r\n"), new \DateTime('2026-11-01'), new \DateTime('2026-12-01'), 'Invalid/Zone');
         self::assertSame(32400, $events[0]['start_time']);
         self::assertSame([], IcsParser::parseEvents("BEGIN:VCARD\r\nVERSION:3.0\r\nFN:Test\r\nEND:VCARD\r\n", new \DateTime('2026-11-01'), new \DateTime('2026-12-01')));
+    }
+
+    #[Test]
+    public function parseIcsContentStoresRulesTheFieldsCannotStore(): void
+    {
+        $rule = static fn(string $event): array => array_intersect_key(
+            IcsParser::parseIcsContent(self::calendar($event), 'Europe/Berlin'),
+            array_flip(['freq', 'cnt', 'intrval', 'rrule']),
+        );
+        // UNTIL as wall clock time of the calendar (09:00 UTC is 10:00 in Berlin)
+        self::assertSame(
+            ['freq' => 'month', 'intrval' => 1, 'cnt' => 0, 'rrule' => 'FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1;UNTIL=20261231T100000'],
+            $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1;UNTIL=20261231T090000Z\r\n"),
+        );
+        self::assertSame('FREQ=WEEKLY;INTERVAL=2;WKST=SU', $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=SU\r\n")['rrule']);
+        self::assertSame('', $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=MO\r\n")['rrule']);
+        // the fields store at most 255
+        self::assertSame(['freq' => 'day', 'intrval' => 255, 'cnt' => 255, 'rrule' => 'FREQ=DAILY;INTERVAL=300;COUNT=300'], $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=DAILY;INTERVAL=300;COUNT=300\r\n"));
+        self::assertSame('FREQ=HOURLY;INTERVAL=4', $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=HOURLY;INTERVAL=4\r\n")['rrule']);
+        self::assertSame('FREQ=DAILY;BYMONTH=1', $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=DAILY;BYMONTH=1\r\n")['rrule']);
+        // all-day events: UNTIL as date
+        self::assertSame('FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO;UNTIL=20301231', $rule("DTSTART;VALUE=DATE:20270517\r\nRRULE:FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO;UNTIL=20301231\r\n")['rrule']);
+        self::assertSame('FREQ=YEARLY;BYYEARDAY=-1;UNTIL=20301231', $rule("DTSTART;VALUE=DATE:20271231\r\nRRULE:FREQ=YEARLY;BYYEARDAY=-1;UNTIL=20301231T120000Z\r\n")['rrule']);
+        // UNTIL without time zone is a wall clock time
+        self::assertSame('FREQ=MONTHLY;BYSETPOS=1;BYDAY=MO;UNTIL=20301124T100000', $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=MONTHLY;BYSETPOS=1;BYDAY=MO;UNTIL=20301124T100000\r\n")['rrule']);
+        // an invalid rule is not stored, the fields are used
+        self::assertSame(['freq' => 'day', 'intrval' => 1, 'cnt' => 2, 'rrule' => ''], $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=DAILY;COUNT=2;BYHOUR=24\r\n"));
+        self::assertSame(['freq' => 'none', 'intrval' => 1, 'cnt' => 0, 'rrule' => ''], $rule("DTSTART:20261130T090000Z\r\nRRULE:FREQ=WEEKDAYS;BYSETPOS=1\r\n"));
+    }
+
+    #[Test]
+    public function parseEventsCalculatesAllPartsOfARule(): void
+    {
+        $dates = static fn(array $events): array => array_map(
+            static fn(array $event): string => date('Y-m-d', $event['start_date']) . ' ' . gmdate('H:i', $event['start_time']) . '-' . gmdate('H:i', $event['end_time']),
+            $events,
+        );
+        // the last workday of the month (sabre/vobject supports BYSETPOS for monthly rules only)
+        $events = IcsParser::parseEvents(self::calendar(
+            "UID:last\r\nSUMMARY:Last workday\r\nDTSTART;TZID=Europe/Berlin:20260130T100000\r\nDTEND;TZID=Europe/Berlin:20260130T110000\r\n"
+            . "RRULE:FREQ=YEARLY;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1,-2\r\nEXDATE;TZID=Europe/Berlin:20261130T100000\r\n",
+            "UID:last\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261127T100000\r\nSUMMARY:Moved\r\nDTSTART;TZID=Europe/Berlin:20261127T140000\r\nDTEND;TZID=Europe/Berlin:20261127T150000\r\n",
+        ), new \DateTime('2026-11-01'), new \DateTime('2027-01-01'), 'Europe/Berlin');
+        // the year has 24 dates, November 30 is removed, November 27 is moved
+        self::assertSame(['2026-11-27 14:00-15:00', '2026-12-30 10:00-11:00', '2026-12-31 10:00-11:00'], $dates($events));
+        self::assertSame(['last-20261127T090000Z', 'Moved'], [$events[0]['ics_uid'], $events[0]['title']]);
+        self::assertSame('last-20261230T090000Z', $events[1]['ics_uid']);
+
+        // every 12 hours on weekends (MINUTELY), occurrences overlapping the start of the range are included
+        $events = IcsParser::parseEvents(self::calendar(
+            "UID:weekend\r\nDTSTART:20261121T000000\r\nDURATION:PT13H\r\nRRULE:FREQ=MINUTELY;INTERVAL=720;BYDAY=SA,SU\r\n",
+        ), new \DateTime('2026-11-29 12:30:00', new \DateTimeZone('Europe/Berlin')), new \DateTime('2026-12-05 23:00:00', new \DateTimeZone('Europe/Berlin')), 'Europe/Berlin');
+        self::assertSame(['2026-11-29 00:00-13:00', '2026-11-29 12:00-01:00', '2026-12-05 00:00-13:00', '2026-12-05 12:00-01:00'], $dates($events));
+
+        // all-day events
+        $events = IcsParser::parseEvents(self::calendar(
+            "UID:week20\r\nDTSTART;VALUE=DATE:20250512\r\nDTEND;VALUE=DATE:20250513\r\nRRULE:FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO\r\n",
+        ), new \DateTime('2026-01-01'), new \DateTime('2027-01-01'), 'Europe/Berlin');
+        self::assertSame(['2026-05-11 00:00-00:00'], $dates($events));
+        self::assertSame(1, $events[0]['allday']);
+
+        // a rule without dates in the range, an event without end
+        self::assertSame([], IcsParser::parseEvents(self::calendar("UID:past\r\nDTSTART:20200101T100000Z\r\nRRULE:FREQ=DAILY;COUNT=3\r\n"), new \DateTime('2026-01-01'), new \DateTime('2027-01-01'), 'Europe/Berlin'));
+
+        // an invalid rule is passed to sabre/vobject
+        $events = IcsParser::parseEvents(self::calendar("UID:invalid\r\nDTSTART:20261110T090000Z\r\nRRULE:FREQ=DAILY;COUNT=2;BYSETPOS=x\r\n"), new \DateTime('2026-11-01'), new \DateTime('2026-12-01'), 'Europe/Berlin');
+        self::assertCount(2, $events);
     }
 }

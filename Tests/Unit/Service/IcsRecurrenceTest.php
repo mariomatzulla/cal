@@ -199,4 +199,22 @@ final class IcsRecurrenceTest extends UnitTestCase
         self::assertSame(':20261110T143000Z', IcsRecurrence::formatDateTime($date, false, ''));
         self::assertSame('a\\\\b\;c\,d\ne\nf\ng', IcsRecurrence::escapeText("a\\b;c,d\r\ne\nf\rg"));
     }
+
+    #[Test]
+    public function theStoredRuleOfACalDavClientIsExported(): void
+    {
+        $lines = fn(array $properties, string $timezone = 'Europe/Berlin'): string => $this->subject()->getRecurrenceLines(self::event(['freq' => 'month'] + $properties), $timezone);
+        // UNTIL is stored as wall clock time and exported in UTC
+        self::assertSame(
+            'RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1;UNTIL=20261231T090000Z',
+            $lines(['rrule' => 'FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1;UNTIL=20261231T100000']),
+        );
+        self::assertSame('RRULE:FREQ=HOURLY;INTERVAL=4;UNTIL=20261231T225959Z', $lines(['rrule' => 'FREQ=HOURLY;INTERVAL=4;UNTIL=20261231']));
+        self::assertSame('RRULE:FREQ=WEEKLY;WKST=SU;COUNT=300', $lines(['rrule' => 'FREQ=WEEKLY;WKST=SU;COUNT=300']));
+        // all-day events: UNTIL as date
+        self::assertSame('RRULE:FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO;UNTIL=20301231', $lines(['allday' => true, 'rrule' => 'FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO;UNTIL=20301231T100000']));
+        self::assertSame('RRULE:FREQ=YEARLY;BYYEARDAY=-1;UNTIL=20301231', $lines(['allday' => true, 'rrule' => 'FREQ=YEARLY;BYYEARDAY=-1;UNTIL=20301231']));
+        // an invalid rule: the fields are exported
+        self::assertSame('RRULE:FREQ=MONTHLY', $lines(['rrule' => 'FREQ=EVERY']));
+    }
 }

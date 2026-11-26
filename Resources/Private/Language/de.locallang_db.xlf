@@ -143,6 +143,14 @@
 				<source>Refresh Interval (Minutes) (scheduler needed)</source>
 				<target>Aktualisierungsintervall (Minuten, benötigt Scheduler)</target>
 			</trans-unit>
+			<trans-unit id="tx_cal_event.rrule" resname="tx_cal_event.rrule" approved="yes">
+				<source>Recurrence rule (iCalendar)</source>
+				<target>Wiederholungsregel (iCalendar)</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.rrule.description" resname="tx_cal_event.rrule.description" approved="yes">
+				<source>Rule of a CalDAV client with parts the recurrence fields cannot show (e.g. BYSETPOS, BYWEEKNO, BYYEARDAY, WKST, HOURLY). The dates are calculated with this rule. Changing the recurrence fields replaces it.</source>
+				<target>Regel eines CalDAV-Clients mit Teilen, die die Wiederholungsfelder nicht darstellen können (z. B. BYSETPOS, BYWEEKNO, BYYEARDAY, WKST, HOURLY). Die Termine werden mit dieser Regel berechnet. Eine Änderung der Wiederholungsfelder ersetzt sie.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

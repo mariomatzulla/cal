@@ -24,6 +24,7 @@ CREATE TABLE tx_cal_domain_model_event (
 	bymonthday varchar(128) DEFAULT '',
 	bymonth varchar(128) DEFAULT '',
 	intrval tinyint(4) unsigned DEFAULT '1',
+	rrule text,
 	rdate text,
 	rdate_type varchar(10) DEFAULT 'none' NOT NULL,
 	deviation varchar(255) DEFAULT '',

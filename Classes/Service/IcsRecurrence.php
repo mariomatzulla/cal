@@ -17,6 +17,7 @@ namespace MarioMatzulla\Cal\Service;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Model\CalendarDateTime;
 use MarioMatzulla\Cal\Utility\RecurrenceGenerator;
+use MarioMatzulla\Cal\Utility\RecurrenceRule;
 
 /**
  * Recurrence of an event in iCalendar (RFC 5545): RRULE, RDATE, EXDATE (exception events) and the
@@ -124,6 +125,10 @@ class IcsRecurrence
 
     private function buildRule(Event $event, string $timezone): string
     {
+        $rule = self::buildStoredRule($event, $timezone);
+        if ($rule !== null) {
+            return $rule;
+        }
         $frequency = self::FREQUENCIES[(string)$event->getFreq()] ?? null;
         if ($frequency === null) {
             return '';
@@ -165,6 +170,28 @@ class IcsRecurrence
             }
         }
         return implode(';', $parts);
+    }
+
+    /**
+     * The rule of a CalDAV client stored in the field "rrule" (see Event::$rrule), null: none or invalid.
+     * UNTIL is stored as wall clock time and exported in UTC (RFC 5545: like DTSTART with TZID).
+     */
+    private static function buildStoredRule(Event $event, string $timezone): ?string
+    {
+        try {
+            $rule = new RecurrenceRule($event->getRrule());
+        } catch (\InvalidArgumentException) {
+            return null;
+        }
+        $until = (string)$rule->getUntil();
+        if ($event->isAllday() && strlen($until) > 8) {
+            $rule = $rule->withUntil(substr($until, 0, 8));
+        } elseif (!$event->isAllday() && strlen($until) === 15) {
+            $rule = $rule->withUntil(self::toUtc(str_replace('T', '', $until), $timezone));
+        } elseif (!$event->isAllday() && strlen($until) === 8) {
+            $rule = $rule->withUntil(self::toUtc($until . '235959', $timezone));
+        }
+        return (string)$rule;
     }
 
     /**

@@ -398,4 +398,37 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
         $this->hook($recurrenceGenerator)->processDatamap_afterDatabaseOperations('update', self::EVENT_TABLE, 1, [], GeneralUtility::makeInstance(DataHandler::class));
         self::assertSame(['ERROR: The recurrence index of the event could not be generated: index broken'], $this->messages());
     }
+
+    #[Test]
+    public function theRuleOfACalDavClientIsReplacedWhenTheRecurrenceFieldsAreChanged(): void
+    {
+        $this->get(ConnectionPool::class)->getConnectionForTable(self::EVENT_TABLE)
+            ->update(self::EVENT_TABLE, ['rrule' => 'FREQ=DAILY;COUNT=5'], ['uid' => 1]);
+        // other fields: the rule is kept and used for the index
+        $this->process([self::EVENT_TABLE => [1 => ['title' => 'Daily meeting', 'freq' => 'week']]]);
+        self::assertSame('FREQ=DAILY;COUNT=5', $this->row(self::EVENT_TABLE, 1)['rrule']);
+        self::assertSame(5, $this->indexCount(1));
+        // the defaults of the form (weekday of the start) do not change the rule
+        $this->process([self::EVENT_TABLE => [1 => ['byday' => 'TH', 'intrval' => 1]]]);
+        self::assertSame('FREQ=DAILY;COUNT=5', $this->row(self::EVENT_TABLE, 1)['rrule']);
+
+        // a recurrence field: the fields are used
+        $this->process([self::EVENT_TABLE => [1 => ['cnt' => 2]]]);
+        self::assertSame('', $this->row(self::EVENT_TABLE, 1)['rrule']);
+        self::assertSame(2, $this->indexCount(1));
+
+        // new records and other tables are not changed
+        $fieldArray = ['freq' => 'day'];
+        $this->hook()->processDatamap_postProcessFieldArray('new', self::EVENT_TABLE, 'NEW1', $fieldArray, GeneralUtility::makeInstance(DataHandler::class));
+        $this->hook()->processDatamap_postProcessFieldArray('update', 'tx_cal_domain_model_exception_event', 1, $fieldArray, GeneralUtility::makeInstance(DataHandler::class));
+        self::assertSame(['freq' => 'day'], $fieldArray);
+        // events without rule or unknown events
+        $this->hook()->processDatamap_postProcessFieldArray('update', self::EVENT_TABLE, 1, $fieldArray, GeneralUtility::makeInstance(DataHandler::class));
+        $this->hook()->processDatamap_postProcessFieldArray('update', self::EVENT_TABLE, 999, $fieldArray, GeneralUtility::makeInstance(DataHandler::class));
+        self::assertSame(['freq' => 'day'], $fieldArray);
+        // the rule written together with the fields is kept
+        $fieldArray = ['freq' => 'day', 'rrule' => 'FREQ=HOURLY'];
+        $this->hook()->processDatamap_postProcessFieldArray('update', self::EVENT_TABLE, 1, $fieldArray, GeneralUtility::makeInstance(DataHandler::class));
+        self::assertSame('FREQ=HOURLY', $fieldArray['rrule']);
+    }
 }

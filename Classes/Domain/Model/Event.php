@@ -179,6 +179,13 @@ class Event extends AbstractEntity
     protected $freq;
 
     /**
+     * Recurrence rule (RFC 5545 RRULE) of an event written by a CalDAV client, if the rule has parts the
+     * fields of cal cannot store (e.g. BYSETPOS, BYWEEKNO, BYYEARDAY, WKST, HOURLY). It is used instead of
+     * the recurrence fields, which contain an approximation.
+     */
+    protected string $rrule = '';
+
+    /**
      * @var \DateTime|null
      */
     protected $until;
@@ -374,6 +381,16 @@ class Event extends AbstractEntity
     public function getIntrval()
     {
         return $this->intrval;
+    }
+
+    public function getRrule(): string
+    {
+        return $this->rrule;
+    }
+
+    public function setRrule(string $rrule): void
+    {
+        $this->rrule = $rrule;
     }
 
     /**

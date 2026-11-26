@@ -12,6 +12,7 @@ use MarioMatzulla\Cal\Service\CalendarSchedulerService;
 use MarioMatzulla\Cal\Service\ExternalCalendarImporter;
 use MarioMatzulla\Cal\Service\IcsGenerator;
 use MarioMatzulla\Cal\Utility\RecurrenceGenerator;
+use MarioMatzulla\Cal\Utility\RecurrenceValidator;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -35,6 +36,11 @@ class CalendarDataHandlerHook
     private const LLL = 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:';
     private const INDEX_MODEL_TYPE = 'tx_cal_event';
     private const DEVIATION_TABLE = 'tx_cal_domain_model_eventdeviation';
+
+    /**
+     * Fields of the backend form describing the recurrence rule
+     */
+    private const RECURRENCE_FIELDS = ['freq', 'intrval', 'cnt', 'until', 'byday', 'bymonthday', 'bymonth'];
 
     /**
      * @var array<int, int> calendars saved in the current DataHandler run
@@ -79,6 +85,70 @@ class CalendarDataHandlerHook
             $incomingFieldArray = null;
             $this->addFlashMessage('tx_cal_event.isTemp.locked', ContextualFeedbackSeverity::WARNING);
         }
+    }
+
+    /**
+     * The recurrence rule of a CalDAV client (field "rrule") is replaced by the recurrence fields as soon as
+     * the rule of the fields is changed in the backend. The field array only contains the changed values, but
+     * the form fills empty fields with their defaults (e.g. all weekdays), therefore the rules are compared
+     * after the validation.
+     */
+    public function processDatamap_postProcessFieldArray(string $status, string $table, $id, array &$fieldArray, DataHandler $dataHandler): void
+    {
+        if ($status !== 'update' || $table !== self::EVENT_TABLE || array_key_exists('rrule', $fieldArray)
+            || array_intersect_key($fieldArray, array_flip(self::RECURRENCE_FIELDS)) === []) {
+            return;
+        }
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::EVENT_TABLE);
+        $queryBuilder->getRestrictions()->removeAll();
+        $record = $queryBuilder->select('*')->from(self::EVENT_TABLE)
+            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$id, Connection::PARAM_INT)))
+            ->executeQuery()->fetchAssociative();
+        if ($record === false || trim((string)$record['rrule']) === '') {
+            return;
+        }
+        if (self::getRecurrence($record) !== self::getRecurrence(array_replace($record, $fieldArray))) {
+            $fieldArray['rrule'] = '';
+        }
+    }
+
+    /**
+     * The validated recurrence fields of an event record
+     *
+     * @param array<string, mixed> $record
+     * @return list<mixed>
+     */
+    private static function getRecurrence(array $record): array
+    {
+        $event = new Event();
+        $event->setStartDate((new \DateTime())->setTimestamp((int)$record['start_date']));
+        $event->setFreq((string)$record['freq']);
+        $event->setIntrval((int)$record['intrval']);
+        $event->setCnt((int)$record['cnt']);
+        $event->setUntil((int)$record['until'] > 0 ? (new \DateTime())->setTimestamp((int)$record['until']) : null);
+        $event->setByday((string)$record['byday']);
+        $event->setBymonthday((string)$record['bymonthday']);
+        $event->setBymonth((string)$record['bymonth']);
+        RecurrenceValidator::validateEvent($event);
+        return [
+            $event->getFreq(),
+            (int)$event->getIntrval(),
+            (int)$event->getCnt(),
+            $event->getUntil()?->format('Ymd'),
+            self::sortList((string)$event->getByday()),
+            self::sortList((string)$event->getBymonthday()),
+            self::sortList((string)$event->getBymonth()),
+        ];
+    }
+
+    /**
+     * "TU,MO" => "MO,TU": the order of the values has no meaning
+     */
+    private static function sortList(string $list): string
+    {
+        $values = array_map('trim', explode(',', $list));
+        sort($values);
+        return implode(',', $values);
     }
 
     /**

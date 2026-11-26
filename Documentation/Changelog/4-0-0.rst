@@ -62,6 +62,8 @@ Breaking changes
     template `Resources/Private/Templates/Admin/Ics.html` and the view helper
     `mm:zuluDateTime` are removed. New field
     `ics_sequence` of events: run "Analyze Database Structure".
+*   New field `rrule` of events (recurrence rules of CalDAV clients the
+    recurrence fields cannot store): run "Analyze Database Structure".
 
 Features
 ========
@@ -100,6 +102,15 @@ Features
     (increased with every change), the coordinates of the location (`GEO`), the
     color of the categories (`COLOR`, nearest CSS3 color name) and the images
     (`IMAGE`, RFC 7986).
+*   All parts of a recurrence rule (RFC 5545) are supported in CalDAV
+    clients and imported calendars: `BYSETPOS` (e.g. "the last workday of the
+    month"), `BYWEEKNO`, `BYYEARDAY`, `BYHOUR`, `BYMINUTE`, `BYSECOND`, `WKST`
+    and the frequencies `HOURLY`, `MINUTELY` and `SECONDLY`. A rule of a CalDAV
+    client the recurrence fields cannot store is kept in the new field
+    :guilabel:`Recurrence rule (iCalendar)` and used for the dates and the
+    export, see :ref:`caldav-recurrence`. External calendars no longer depend
+    on the rules supported by `sabre/vobject` (e.g. `BYSETPOS` of a yearly
+    rule, "the 20th Monday of the year").
 *   Unit and functional tests with 100 % code coverage, scripts
     `composer test:unit`, `test:functional`, `test:coverage`, and a release
     script for the TER (with or without the bundled Sabre libraries), see

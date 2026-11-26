@@ -143,6 +143,12 @@ The recurrence follows the rules of RFC 5545 (`RRULE`):
 :guilabel:`Recurrence by` (`RDATE`)
     Additional single dates, dates with time or periods.
 
+:guilabel:`Recurrence rule (iCalendar)`
+    Only shown for rules of a CalDAV client the fields above cannot store
+    (e.g. "the last workday of the month"). The dates are calculated with
+    this rule, changing a recurrence field replaces it, see
+    :ref:`caldav-recurrence`.
+
 :guilabel:`Deviation`
     Changes of single dates of a recurring event (another time, title,
     location, description etc.). A deviation refers to the original start of

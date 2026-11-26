@@ -467,4 +467,33 @@ final class RecurrenceGeneratorTest extends UnitTestCase
         self::assertSame(range(1, 28), RecurrenceGenerator::resolveMonthDays('', 2, 2026));
         self::assertSame([1, 15, 29], RecurrenceGenerator::resolveMonthDays('15,-1,1,1,31', 2, 2028));
     }
+
+    #[Test]
+    public function aRuleTheFieldsCannotStoreIsUsed(): void
+    {
+        // the last workday of the month, the fields contain an approximation (monthly)
+        $event = self::createEvent('2026-01-30 10:00', '2026-01-30 11:00', ['freq' => 'month', 'rrule' => 'FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1;COUNT=4']);
+        self::assertSame(
+            [self::first($event), '202602271000-202602271100', '202603311000-202603311100', '202604301000-202604301100'],
+            $this->generate($event),
+        );
+        // occurrences ending before the range are not written
+        self::assertSame(['202603311000-202603311100', '202604301000-202604301100'], $this->generate($event, '2026-03-01 00:00:00'));
+    }
+
+    #[Test]
+    public function anInvalidRuleUsesTheFields(): void
+    {
+        $event = self::createEvent('2026-11-02 10:00', '2026-11-02 11:00', ['freq' => 'day', 'cnt' => 2, 'rrule' => 'FREQ=EVERY']);
+        self::assertSame([self::first($event), '202611031000-202611031100'], $this->generate($event));
+    }
+
+    #[Test]
+    public function theNumberOfOccurrencesOfARuleIsLimited(): void
+    {
+        $event = self::createEvent('2026-11-02 10:00', '2026-11-02 10:01', ['freq' => 'day', 'rrule' => 'FREQ=MINUTELY']);
+        $entries = $this->generate($event);
+        self::assertCount(RecurrenceGenerator::MAX_RULE_OCCURRENCES + 1, $entries);
+        self::assertSame('202611090840-202611090841', end($entries));
+    }
 }
