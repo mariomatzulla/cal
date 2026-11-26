@@ -18,13 +18,13 @@ use MarioMatzulla\Cal\Domain\Model\Calendar;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
-use MarioMatzulla\Cal\Service\IcsGenerator;
 use MarioMatzulla\Cal\Service\IcsBuilder;
-use Sabre\VObject\Component\VCalendar;
+use MarioMatzulla\Cal\Service\IcsGenerator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ServerRequestInterface;
+use Sabre\VObject\Component\VCalendar;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Package\MetaData;
@@ -64,16 +64,16 @@ final class IcsGeneratorTest extends UnitTestCase
      */
     private function createGenerator(?EventRepository $eventRepository = null, string $version = '4.1.0', string $site = 'page'): IcsGenerator
     {
-        $view = $this->createStub(ViewInterface::class);
+        $view = self::createStub(ViewInterface::class);
         $view->method('render')->willReturn("\n<!--cal:description--><p>Text</p>\n<!--cal:attachments-->\nhttps://example.org/a.pdf?x=1&amp;y=2\n\n<!--cal:images-->\nhttps://example.org/i.jpg\n");
-        $viewFactory = $this->createStub(ViewFactoryInterface::class);
+        $viewFactory = self::createStub(ViewFactoryInterface::class);
         $viewFactory->method('create')->willReturnCallback(function (ViewFactoryData $data) use ($view): ViewInterface {
             self::assertSame('EXT:cal/Resources/Private/Templates/Admin/IcsResources.html', $data->templatePathAndFilename);
             return $view;
         });
 
         if ($eventRepository === null) {
-            $eventRepository = $this->createStub(EventRepository::class);
+            $eventRepository = self::createStub(EventRepository::class);
             $eventRepository->method('updateWithIcsUid')->willReturnCallback(function (int $uid, string $icsUid): void {
                 $this->calls[] = 'ics_uid ' . $uid . ' ' . $icsUid;
             });
@@ -82,17 +82,17 @@ final class IcsGeneratorTest extends UnitTestCase
             });
             $eventRepository->method('findIcsMetaData')->willReturnCallback(fn(): array => $this->meta);
         }
-        $calendarRepository = $this->createStub(CalendarRepository::class);
+        $calendarRepository = self::createStub(CalendarRepository::class);
         $calendarRepository->method('touch')->willReturnCallback(function (int $uid): void {
             $this->calls[] = 'touch ' . $uid;
         });
 
-        $router = $this->createStub(RouterInterface::class);
+        $router = self::createStub(RouterInterface::class);
         $router->method('generateUri')->willReturnCallback(static fn(int $page, array $arguments): Uri => new Uri('https://example.org/' . $page . '?' . http_build_query($arguments)));
-        $siteObject = $this->createStub(Site::class);
+        $siteObject = self::createStub(Site::class);
         $siteObject->method('getRouter')->willReturn($router);
         $siteObject->method('getRootPageId')->willReturn($site === 'first' ? 2 : 1);
-        $siteFinder = $this->createStub(SiteFinder::class);
+        $siteFinder = self::createStub(SiteFinder::class);
         if ($site === 'page') {
             $siteFinder->method('getSiteByPageId')->willReturn($siteObject);
         } elseif ($site === 'error') {
@@ -102,15 +102,15 @@ final class IcsGeneratorTest extends UnitTestCase
             $siteFinder->method('getAllSites')->willReturn($site === 'first' ? ['main' => $siteObject] : []);
         }
 
-        $metaData = $this->createStub(MetaData::class);
+        $metaData = self::createStub(MetaData::class);
         $metaData->method('getVersion')->willReturn($version);
-        $package = $this->createStub(PackageInterface::class);
+        $package = self::createStub(PackageInterface::class);
         $package->method('getPackageMetaData')->willReturn($metaData);
-        $packageManager = $this->createStub(PackageManager::class);
+        $packageManager = self::createStub(PackageManager::class);
         $packageManager->method('isPackageActive')->willReturn($version !== 'inactive');
         $packageManager->method('getPackage')->willReturn($package);
 
-        $icsBuilder = $this->createStub(IcsBuilder::class);
+        $icsBuilder = self::createStub(IcsBuilder::class);
         $icsBuilder->method('build')->willReturnCallback(function (Event $event, string $version, string $eventUrl, array $meta, array $resources, string $vTimeZone): VCalendar {
             $this->assigned = ['event' => $event, 'calVersion' => $version, 'eventUrl' => $eventUrl, 'meta' => $meta, 'resources' => $resources, 'vTimeZone' => $vTimeZone];
             $vcalendar = new VCalendar(['PRODID' => '-//test//EN']);
@@ -147,7 +147,7 @@ final class IcsGeneratorTest extends UnitTestCase
     public function updateIcsCreatesTheIcalendarData(): void
     {
         $event = self::event();
-        $this->createGenerator()->updateIcs($event, $this->createStub(ServerRequestInterface::class));
+        $this->createGenerator()->updateIcs($event, self::createStub(ServerRequestInterface::class));
         $icsUid = md5('Calendar_3_7');
         self::assertSame($icsUid, $event->getIcsUid());
         self::assertStringStartsWith("BEGIN:VCALENDAR\r\n", $event->getCaldavData());
@@ -181,6 +181,20 @@ final class IcsGeneratorTest extends UnitTestCase
         $generator->updateIcs($event, null);
         self::assertStringStartsWith('caldav_data 7 4 ', $this->calls[0]);
         self::assertStringContainsString("SEQUENCE:4\r\n", (string)$event->getCaldavData());
+    }
+
+    #[Test]
+    public function alarmsAndAttendeesOfACalDavClientAreKept(): void
+    {
+        $generator = $this->createGenerator();
+        $event = self::event();
+        $generator->updateIcs($event, null);
+        $this->meta['data'] = str_replace("SUMMARY:Test\r\n", "SUMMARY:Test\r\nATTENDEE:mailto:anna@example.org\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER:-PT15M\r\nEND:VALARM\r\n", (string)$event->getCaldavData());
+        $this->calls = [];
+        $generator->updateIcs($event, null);
+        self::assertStringContainsString("ATTENDEE:mailto:anna@example.org\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER:-PT15M\r\nEND:VALARM\r\n", (string)$event->getCaldavData());
+        // nothing else changed: the same sequence
+        self::assertStringStartsWith('caldav_data 7 3 ', $this->calls[0]);
     }
 
     #[Test]
@@ -237,7 +251,7 @@ final class IcsGeneratorTest extends UnitTestCase
         $eventRepository->expects(self::exactly(2))->method('updateWithCaldavData');
         $eventRepository->expects(self::exactly(2))->method('findIcsMetaData')->willReturn($this->meta);
         $generator = $this->createGenerator($eventRepository);
-        $generator->generate($this->createStub(ServerRequestInterface::class));
+        $generator->generate(self::createStub(ServerRequestInterface::class));
         self::assertSame([], $generator->check());
         self::assertCount(1, $generator->check());
     }
@@ -254,7 +268,7 @@ final class IcsGeneratorTest extends UnitTestCase
         $rootPage = self::event();
         $rootPage->setPid(0);
         $events = [self::event(), $withoutCalendar, $withoutStart, $withoutEnd, $rootPage];
-        $eventRepository = $this->createStub(EventRepository::class);
+        $eventRepository = self::createStub(EventRepository::class);
         $eventRepository->method('check')->willReturnOnConsecutiveCalls($events, []);
         $generator = $this->createGenerator($eventRepository);
         $result = $generator->checkWithReasons();

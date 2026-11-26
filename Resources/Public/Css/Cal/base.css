@@ -134,3 +134,45 @@
 		}
 	}
 }
+
+/* --- Status of the events (iCalendar STATUS / CLASS, partial Event/Status) */
+.tx-cal-controller {
+	.cal-event__status {
+		/* inline-block: not struck through with a cancelled event */
+		display: inline-block;
+		padding: 0 0.35em;
+		border-radius: 0.25em;
+		background: var(--cal-color-status-tentative);
+		color: #fff;
+		font-size: 0.75em;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.5;
+		text-transform: uppercase;
+		vertical-align: 0.1em;
+	}
+
+	.cal-event__status--cancelled {
+		background: var(--cal-color-status-cancelled);
+	}
+
+	.cal-event--cancelled {
+		text-decoration: line-through;
+	}
+
+	.cal-event--tentative {
+		font-style: italic;
+	}
+
+	/* private event shown to the owner of the calendar */
+	.cal-event__private {
+		display: inline-block;
+		opacity: 0.85;
+	}
+
+	/* private events: only the time is shown */
+	.cal-event--busy {
+		cursor: default;
+		opacity: 0.8;
+	}
+}

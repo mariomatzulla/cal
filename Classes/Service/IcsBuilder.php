@@ -61,6 +61,16 @@ class IcsBuilder
         'white' => 'ffffff', 'whitesmoke' => 'f5f5f5', 'yellow' => 'ffff00', 'yellowgreen' => '9acd32',
     ];
 
+    /**
+     * Properties of a VEVENT written by cal. The other properties and components of a CalDAV client
+     * (e.g. VALARM, ATTENDEE, TRANSP, X- properties) are kept, see keepClientData().
+     */
+    private const MANAGED_PROPERTIES = [
+        'UID', 'DTSTAMP', 'CREATED', 'LAST-MODIFIED', 'SEQUENCE', 'DTSTART', 'DTEND', 'DURATION', 'RRULE', 'RDATE',
+        'EXDATE', 'RECURRENCE-ID', 'SUMMARY', 'DESCRIPTION', 'X-ALT-DESC', 'URL', 'LOCATION', 'GEO', 'ORGANIZER',
+        'CATEGORIES', 'COLOR', 'ATTACH', 'IMAGE',
+    ];
+
     public function __construct(
         private readonly IcsRecurrence $icsRecurrence,
     ) {}
@@ -128,6 +138,12 @@ class IcsBuilder
         if ($categories !== []) {
             $vEvent->add('CATEGORIES', $categories);
         }
+        if ($event->getStatus() !== '') {
+            $vEvent->add('STATUS', strtoupper($event->getStatus()));
+        }
+        if ($event->getClassification() !== '') {
+            $vEvent->add('CLASS', strtoupper($event->getClassification()));
+        }
         $color = self::colorName($event->getColor());
         if ($color !== '') {
             $vEvent->add('COLOR', $color);
@@ -159,6 +175,55 @@ class IcsBuilder
             }
         }
         return $vcalendar;
+    }
+
+    /**
+     * Takes over the properties and components cal does not write (e.g. alarms and attendees of a CalDAV
+     * client) from the previous iCalendar data of the event, so saving the event in the backend does not
+     * remove them. The VEVENTs are assigned by their RECURRENCE-ID.
+     */
+    public static function keepClientData(VCalendar $vcalendar, string $previous): void
+    {
+        if (trim($previous) === '') {
+            return;
+        }
+        try {
+            $old = Reader::read($previous, Reader::OPTION_FORGIVING);
+        } catch (\Throwable) {
+            return;
+        }
+        if (!$old instanceof VCalendar) {
+            return;
+        }
+        $targets = [];
+        foreach ($vcalendar->select('VEVENT') as $vEvent) {
+            $targets[self::getRecurrenceKey($vEvent)] = $vEvent;
+        }
+        foreach ($old->select('VEVENT') as $vEvent) {
+            $target = $targets[self::getRecurrenceKey($vEvent)] ?? null;
+            if ($target === null) {
+                continue;
+            }
+            // the status and class of the event are fields of cal, the occurrences keep those of the client
+            $managed = $target === ($targets[''] ?? null) ? [...self::MANAGED_PROPERTIES, 'STATUS', 'CLASS'] : self::MANAGED_PROPERTIES;
+            foreach ($vEvent->children() as $child) {
+                if (!in_array(strtoupper($child->name), $managed, true)) {
+                    $target->add(clone $child);
+                }
+            }
+        }
+    }
+
+    /**
+     * RECURRENCE-ID of a VEVENT in UTC, empty for the event itself
+     */
+    private static function getRecurrenceKey(Component $vEvent): string
+    {
+        $recurrenceId = $vEvent->select('RECURRENCE-ID')[0] ?? null;
+        if (!$recurrenceId instanceof \Sabre\VObject\Property\ICalendar\DateTime) {
+            return '';
+        }
+        return $recurrenceId->getDateTime(new \DateTimeZone('UTC'))->setTimezone(new \DateTimeZone('UTC'))->format('Ymd\THis');
     }
 
     private function addEvent(VCalendar $vcalendar, string $uid, \DateTimeImmutable $stamp): Component

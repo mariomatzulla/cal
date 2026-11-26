@@ -48,7 +48,7 @@ final class IcsBuilderTest extends UnitTestCase
 
     private function subject(string $recurrence = '', array $overrides = []): IcsBuilder
     {
-        $icsRecurrence = $this->createStub(IcsRecurrence::class);
+        $icsRecurrence = self::createStub(IcsRecurrence::class);
         $icsRecurrence->method('getRecurrenceLines')->willReturn($recurrence);
         $icsRecurrence->method('getOverrides')->willReturn($overrides);
         return new IcsBuilder($icsRecurrence);
@@ -99,6 +99,8 @@ final class IcsBuilderTest extends UnitTestCase
         $organizer->setName('Club; e.V.');
         $organizer->setEmail(' club@example.org ');
         $event->setOrganizerId(self::storage($organizer));
+        $event->setStatus('tentative');
+        $event->setClassification('PRIVATE');
 
         $vcalendar = $this->subject(
             "RRULE:FREQ=WEEKLY\nEXDATE;TZID=Europe/Berlin:20261109T100000",
@@ -142,6 +144,8 @@ final class IcsBuilderTest extends UnitTestCase
             "GEO:52.5;13.4\r\n",
             "ORGANIZER;CN=\"Club; e.V.\":mailto:club@example.org\r\n",
             "CATEGORIES:A\\,b,C\r\n",
+            "STATUS:TENTATIVE\r\n",
+            "CLASS:PRIVATE\r\n",
             "COLOR:crimson\r\n",
             "ATTACH:https://example.org/a.pdf\r\n",
             "ATTACH:https://example.org/i.jpg\r\n",
@@ -209,5 +213,33 @@ final class IcsBuilderTest extends UnitTestCase
         // wall clock time of the server (UTC in this test) without time zone
         self::assertSame('20261102T100000 UTC', IcsBuilder::toDateTime(new \DateTimeImmutable('2026-11-02 10:00'), null)->format('Ymd\THis e'));
         self::assertSame('20261102T100000 Europe/Berlin', IcsBuilder::toDateTime(new \DateTimeImmutable('2026-11-02 10:00'), new \DateTimeZone('Europe/Berlin'))->format('Ymd\THis e'));
+    }
+
+    #[Test]
+    public function keepClientDataTakesOverThePropertiesCalDoesNotWrite(): void
+    {
+        $vcalendar = Reader::read("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:cal\r\nBEGIN:VEVENT\r\nUID:a\r\nDTSTAMP:20261126T100000Z\r\nDTSTART:20261201T100000Z\r\nSUMMARY:New\r\nEND:VEVENT\r\n"
+            . "BEGIN:VEVENT\r\nUID:a\r\nRECURRENCE-ID:20261208T100000Z\r\nDTSTAMP:20261126T100000Z\r\nDTSTART:20261208T120000Z\r\nSUMMARY:Moved\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n");
+        IcsBuilder::keepClientData($vcalendar, "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:client\r\nBEGIN:VEVENT\r\nUID:a\r\nDTSTAMP:20261120T100000Z\r\nDTSTART:20261201T100000Z\r\nSUMMARY:Old\r\n"
+            . "CLASS:PRIVATE\r\nATTENDEE;CN=Anna:mailto:anna@example.org\r\nX-MOZ-GENERATION:3\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER:-PT15M\r\nEND:VALARM\r\nEND:VEVENT\r\n"
+            // the same occurrence with another time zone
+            . "BEGIN:VEVENT\r\nUID:a\r\nRECURRENCE-ID;TZID=Europe/Berlin:20261208T110000\r\nDTSTART:20261208T120000Z\r\nSTATUS:TENTATIVE\r\nEND:VEVENT\r\n"
+            // an occurrence cal does not have any more
+            . "BEGIN:VEVENT\r\nUID:a\r\nRECURRENCE-ID:20261215T100000Z\r\nDTSTART:20261215T120000Z\r\nSTATUS:CANCELLED\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n");
+        $data = $vcalendar->serialize();
+        // STATUS and CLASS of the event are fields of cal
+        self::assertStringContainsString("SUMMARY:New\r\nATTENDEE;CN=Anna:mailto:anna@example.org\r\nX-MOZ-GENERATION:3\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nTRIGGER:-PT15M\r\nEND:VALARM\r\nEND:VEVENT", $data);
+        self::assertStringNotContainsString('CLASS:PRIVATE', $data);
+        self::assertStringContainsString("SUMMARY:Moved\r\nSTATUS:TENTATIVE\r\nEND:VEVENT", $data);
+        self::assertStringNotContainsString('SUMMARY:Old', $data);
+        self::assertStringNotContainsString('CANCELLED', $data);
+        self::assertSame(2, count($vcalendar->select('VEVENT')));
+
+        // without usable previous data nothing changes
+        $before = $vcalendar->serialize();
+        IcsBuilder::keepClientData($vcalendar, '');
+        IcsBuilder::keepClientData($vcalendar, 'no calendar data');
+        IcsBuilder::keepClientData($vcalendar, "BEGIN:VCARD\r\nVERSION:3.0\r\nFN:Test\r\nEND:VCARD\r\n");
+        self::assertSame($before, $vcalendar->serialize());
     }
 }

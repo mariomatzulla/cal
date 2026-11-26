@@ -64,6 +64,10 @@ Breaking changes
     `ics_sequence` of events: run "Analyze Database Structure".
 *   New field `rrule` of events (recurrence rules of CalDAV clients the
     recurrence fields cannot store): run "Analyze Database Structure".
+*   New fields `status` and `classification` of events (iCalendar `STATUS`
+    and `CLASS`): run "Analyze Database Structure". The partial
+    `Event/Link.html` renders the note of the new partial `Event/Status.html`
+    and no link for private events: update own copies of the partial.
 
 Features
 ========
@@ -102,6 +106,11 @@ Features
     (increased with every change), the coordinates of the location (`GEO`), the
     color of the categories (`COLOR`, nearest CSS3 color name) and the images
     (`IMAGE`, RFC 7986).
+*   Status and visibility of events (iCalendar `STATUS` and `CLASS`, also set
+    by CalDAV clients and imported calendars): cancelled and tentative events
+    are marked, private and confidential events are shown to visitors as
+    "Busy" (time only, text `view.privateEvents.busyTitle`) and completely to
+    the owners of the calendar, see :ref:`typoscript-private-events`.
 *   All parts of a recurrence rule (RFC 5545) are supported in CalDAV
     clients and imported calendars: `BYSETPOS` (e.g. "the last workday of the
     month"), `BYWEEKNO`, `BYYEARDAY`, `BYHOUR`, `BYMINUTE`, `BYSECOND`, `WKST`
@@ -126,6 +135,10 @@ Bugfixes
 *   Pages with calendar plugins show changes at once: they get the cal tables
     as cache tags (flushed by the backend), changes of CalDAV clients and
     imports flush them as well, see :ref:`caching`.
+*   Saving an event in the backend keeps the data of CalDAV clients cal does not
+    manage (alarms, attendees, `TRANSP`, `X-` properties).
+*   Events deleted by a CalDAV client lose their recurrence index entries,
+    events restored with the recycler get them again.
 *   All-day events of several days are exported with the correct `DTEND`, so
     CalDAV clients show them on all days (upgrade wizard `cal_icsData`).
 *   The iCalendar download is only available if the view "ICS" is allowed.

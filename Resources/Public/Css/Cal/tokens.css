@@ -24,6 +24,8 @@
 	--cal-color-text-muted: #666;
 	--cal-color-list-row-even: #f4f8fb;     /* every second entry of the list view */
 	--cal-color-text-on-event: #fff;
+	--cal-color-status-cancelled: #b3261e;   /* note "Cancelled" (iCalendar STATUS) */
+	--cal-color-status-tentative: #8a5a00;   /* note "Tentative" */
 
 	/* --- Colors: borders and lines ---------------------------------------- */
 	--cal-color-border: #aaa;

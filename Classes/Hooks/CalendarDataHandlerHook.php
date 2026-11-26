@@ -14,10 +14,11 @@ use MarioMatzulla\Cal\Service\IcsGenerator;
 use MarioMatzulla\Cal\Utility\RecurrenceGenerator;
 use MarioMatzulla\Cal\Utility\RecurrenceValidator;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -26,7 +27,6 @@ use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 class CalendarDataHandlerHook
@@ -167,6 +167,11 @@ class CalendarDataHandlerHook
      */
     public function processCmdmap_postProcess(string $command, string $table, $id, $value, DataHandler $dataHandler, $pasteUpdate, $pasteDatamap): void
     {
+        if ($command === 'undelete' && $table === self::EVENT_TABLE && is_numeric($id)) {
+            // restored (recycler): recurrence index and iCalendar data are created again
+            $this->processEvent((int)$id, []);
+            return;
+        }
         if ($command !== 'delete' || !is_numeric($id)) {
             return;
         }

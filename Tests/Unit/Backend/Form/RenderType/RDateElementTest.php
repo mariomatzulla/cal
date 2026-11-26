@@ -34,7 +34,7 @@ final class RDateElementTest extends UnitTestCase
     private function render(array $row): string
     {
         $element = $this->createElement(RDateElement::class, $row);
-        $nodeFactory = $this->createStub(NodeFactory::class);
+        $nodeFactory = self::createStub(NodeFactory::class);
         $nodeFactory->method('create')->willReturnCallback(function (array $data): NodeInterface {
             $this->fields[] = $data;
             $node = $this->createStub(NodeInterface::class);

@@ -1,18 +1,23 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:comment>
   Link of an event, used with contentAs="content":
+  - private events (shown as "busy"): no link
   - type 1 (shortcut to page): link to the page
   - type 2 (link to external url): link to the URL (typolink parameter, e.g. "https://example.org _blank")
   - otherwise: link to the event view, if it is allowed (eventLink.enabled, see ContentController::getViewLinkConfiguration())
   Without link the content is wrapped in a span or div (tag).
+  Cancelled, tentative, busy and private events get the classes cal-event--cancelled / --tentative / --busy / --private
+  and a note (Event/Status).
   Arguments: event, eventLink ({enabled, pageUid}), class, style, title, tag (span|div)
 </f:comment>
+<f:variable name="linkClass">{class}{f:if(condition: event.busy, then: ' cal-event--busy')}{f:if(condition: '{event.private} && !{event.busy}', then: ' cal-event--private')}{f:if(condition: event.cancelled, then: ' cal-event--cancelled')}{f:if(condition: event.tentative, then: ' cal-event--tentative')}</f:variable>
+<f:variable name="linkContent"><f:render partial="Event/Status" arguments="{event: event}" />{content -> f:format.raw()}</f:variable>
 <f:variable name="attributes" value="{style: style, title: title}" />
-<f:if condition="{event.type} == 1 && {event.page}">
-  <f:then><f:link.page pageUid="{event.page}" class="{class}" additionalAttributes="{attributes}">{content -> f:format.raw()}</f:link.page></f:then>
-  <f:else if="{event.type} == 2 && {event.extUrl}"><f:link.typolink parameter="{event.extUrl}" class="{class}" additionalAttributes="{attributes}">{content -> f:format.raw()}</f:link.typolink></f:else>
-  <f:else if="{eventLink.enabled}"><f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{class}" additionalAttributes="{attributes}">{content -> f:format.raw()}</f:link.action></f:else>
-  <f:else if="{tag} == 'div'"><div class="{class}" style="{style}" title="{title}">{content -> f:format.raw()}</div></f:else>
-  <f:else><span class="{class}" style="{style}" title="{title}">{content -> f:format.raw()}</span></f:else>
+<f:if condition="!{event.busy} && {event.type} == 1 && {event.page}">
+  <f:then><f:link.page pageUid="{event.page}" class="{linkClass}" additionalAttributes="{attributes}">{linkContent -> f:format.raw()}</f:link.page></f:then>
+  <f:else if="!{event.busy} && {event.type} == 2 && {event.extUrl}"><f:link.typolink parameter="{event.extUrl}" class="{linkClass}" additionalAttributes="{attributes}">{linkContent -> f:format.raw()}</f:link.typolink></f:else>
+  <f:else if="!{event.busy} && {eventLink.enabled}"><f:link.action action="event" pageUid="{eventLink.pageUid}" arguments="{type: event.modelType, uid: event.uid, year: event.start.year, month: event.start.month, day: event.start.day}" class="{linkClass}" additionalAttributes="{attributes}">{linkContent -> f:format.raw()}</f:link.action></f:else>
+  <f:else if="{tag} == 'div'"><div class="{linkClass}" style="{style}" title="{title}">{linkContent -> f:format.raw()}</div></f:else>
+  <f:else><span class="{linkClass}" style="{style}" title="{title}">{linkContent -> f:format.raw()}</span></f:else>
 </f:if>
 </html>

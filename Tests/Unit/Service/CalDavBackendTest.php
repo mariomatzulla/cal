@@ -17,6 +17,7 @@ namespace MarioMatzulla\Cal\Tests\Unit\Service;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Domain\Repository\FrontendUserRepository;
+use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use MarioMatzulla\Cal\Service\CalDavBackend;
 use MarioMatzulla\Cal\Service\CalDavRecurrenceWriter;
 use MarioMatzulla\Cal\Service\PageCacheService;
@@ -46,14 +47,14 @@ final class CalDavBackendTest extends UnitTestCase
      */
     private function createBackend(array $calendars = [], array $records = []): CalDavBackend
     {
-        $calendarRepository = $this->createStub(CalendarRepository::class);
+        $calendarRepository = self::createStub(CalendarRepository::class);
         $calendarRepository->method('findRawByUid')->willReturnCallback(static fn(int $uid): ?array => $calendars[$uid] ?? null);
         $calendarRepository->method('findByUids')->willReturnCallback(static fn(string $uids): array => array_values(array_intersect_key($calendars, array_flip(array_map('intval', explode(',', $uids))))));
         $calendarRepository->method('touch')->willReturnCallback(function (int $uid): void {
             $this->calls[] = 'touch ' . $uid;
         });
 
-        $eventRepository = $this->createStub(EventRepository::class);
+        $eventRepository = self::createStub(EventRepository::class);
         $eventRepository->method('findAllForCalendarNative')->willReturn(array_values($records));
         $eventRepository->method('findAllForCalendarAndUri')->willReturnCallback(static function (int $calendarId, string $icsUid, bool $includeDeleted) use ($records): array|false {
             return $records[$icsUid] ?? ($includeDeleted ? ($records['deleted:' . $icsUid] ?? false) : false);
@@ -65,21 +66,26 @@ final class CalDavBackendTest extends UnitTestCase
             $this->calls[] = 'persist pid=' . $values['pid'] . ' calendar=' . $values['calendar_id'] . ' uid=' . $values['ics_uid'] . ' title=' . $values['title'] . ' crdate=' . ($values['crdate'] === $values['tstamp'] ? 'tstamp' : 'other');
         });
 
-        $userRepository = $this->createStub(FrontendUserRepository::class);
+        $userRepository = self::createStub(FrontendUserRepository::class);
         $userRepository->method('findByName')->willReturnCallback(static fn(string $name): ?array => $name === 'anna' ? ['tx_cal_calendar' => '1,2'] : null);
 
-        $recurrenceWriter = $this->createStub(CalDavRecurrenceWriter::class);
+        $recurrenceWriter = self::createStub(CalDavRecurrenceWriter::class);
         $recurrenceWriter->method('write')->willReturnCallback(function (int $uid, array $details): void {
             $this->calls[] = 'recurrence ' . $uid . ' ' . json_encode($details);
         });
 
-        $pageCacheService = $this->createStub(PageCacheService::class);
+        $pageCacheService = self::createStub(PageCacheService::class);
         $pageCacheService->method('flush')->willReturnCallback(function (): void {
             $this->calls[] = 'flush';
         });
 
         // without TCA the slug service does nothing
-        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService($this->createStub(ConnectionPool::class)), $recurrenceWriter, $pageCacheService);
+        $indexRepository = self::createStub(IndexRepository::class);
+        $indexRepository->method('deleteByEventUidsAndTablename')->willReturnCallback(function (array $uids, string $table): void {
+            $this->calls[] = 'index ' . implode(',', $uids) . ' ' . $table;
+        });
+
+        return new CalDavBackend($eventRepository, $calendarRepository, $userRepository, new SlugService(self::createStub(ConnectionPool::class)), $recurrenceWriter, $pageCacheService, $indexRepository);
     }
 
     private const CALENDARS = [
@@ -194,7 +200,7 @@ final class CalDavBackendTest extends UnitTestCase
         $backend->deleteCalendarObject(1, 'missing.ics');
         self::assertSame([], $this->calls);
         $backend->deleteCalendarObject(1, 'abc.ics');
-        self::assertSame(['update 1 abc deleted,tstamp deleted=1', 'touch 1', 'flush'], $this->calls);
+        self::assertSame(['update 1 abc deleted,tstamp deleted=1', 'index 9 tx_cal_event', 'touch 1', 'flush'], $this->calls);
     }
 
     #[Test]

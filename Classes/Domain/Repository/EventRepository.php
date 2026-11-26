@@ -13,7 +13,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 class EventRepository extends \MarioMatzulla\Cal\Domain\Repository\BaseRepository
 {
-
     public function __construct(
         private readonly DataMapper $dataMapper,
     ) {

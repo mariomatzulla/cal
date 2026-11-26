@@ -40,8 +40,25 @@ Setting                                   Type        Default          Descripti
 `plugin.tx_cal.settings.singleMaxW`       int         1400             Width of the images of the event view
 `plugin.tx_cal.settings.listMaxW`         int         400              Width of the further images
 `plugin.tx_cal.settings.view.timeFormat`  string      `HH:mm`          Time format of all views
+`…view.privateEvents.busyTitle`          string      (empty)          Text of private events for visitors
 `…view.ics.showIcsLinks`                  bool        true             Show the iCalendar download link
-`…view.ics.typeNum`                       int         150              Page type of the iCalendar download
+`…view.ics.typeNum`                       int         150              Page type of the ..  _typoscript-private-events:
+
+Private events
+==============
+
+`view.privateEvents.busyTitle`
+    Events marked as private or confidential (field :guilabel:`Visibility`,
+    iCalendar `CLASS`, e.g. set in Thunderbird) are shown to visitors with this
+    text instead of the title, only with their time: no texts, location, images,
+    link and iCalendar download. Empty (default): "Busy", translated ("Belegt").
+
+    The owners of the calendar see the complete event after the login, marked
+    with an icon (struck through eye): frontend users and groups of the field
+    :guilabel:`Owner` of the calendar and frontend users with the calendar in
+    their field :guilabel:`Calendars` (CalDAV). These pages are not cached.
+
+iCalendar download
 ========================================  ==========  ===============  =====================================
 
 ..  _typoscript-general:

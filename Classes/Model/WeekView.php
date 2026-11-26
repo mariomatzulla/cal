@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Model;
 
-use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Utility\CalculateDateTime;
+use MarioMatzulla\Cal\Utility\WeekStart;
 
 /**
  * This file is part of the TYPO3 extension Calendar Base (cal).

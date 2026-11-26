@@ -203,6 +203,14 @@ Changes of a series in the client are taken over:
     on December 1st has the dates December 1st, 31st and the last days of
     January to April.
 
+Data of the clients
+-------------------
+
+cal takes over the title, description, location, date, time, recurrence,
+status (`STATUS`) and visibility (`CLASS`) of an event written by a client. The other data of the client (e.g. alarms,
+attendees, transparency) is kept in the iCalendar data of the event,
+also when the event is saved in the backend later.
+
 Rules the recurrence fields cannot store
 ----------------------------------------
 

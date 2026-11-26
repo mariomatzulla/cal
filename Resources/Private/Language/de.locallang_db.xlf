@@ -151,6 +151,50 @@
 				<source>Rule of a CalDAV client with parts the recurrence fields cannot show (e.g. BYSETPOS, BYWEEKNO, BYYEARDAY, WKST, HOURLY). The dates are calculated with this rule. Changing the recurrence fields replaces it.</source>
 				<target>Regel eines CalDAV-Clients mit Teilen, die die Wiederholungsfelder nicht darstellen können (z. B. BYSETPOS, BYWEEKNO, BYYEARDAY, WKST, HOURLY). Die Termine werden mit dieser Regel berechnet. Eine Änderung der Wiederholungsfelder ersetzt sie.</target>
 			</trans-unit>
+			<trans-unit id="tx_cal_event.status_palette" resname="tx_cal_event.status_palette" approved="yes">
+				<source>Status and visibility</source>
+				<target>Status und Sichtbarkeit</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status" resname="tx_cal_event.status" approved="yes">
+				<source>Status</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.none" resname="tx_cal_event.status.none" approved="yes">
+				<source>Not set</source>
+				<target>Nicht gesetzt</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.confirmed" resname="tx_cal_event.status.confirmed" approved="yes">
+				<source>Confirmed</source>
+				<target>Bestätigt</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.tentative" resname="tx_cal_event.status.tentative" approved="yes">
+				<source>Tentative</source>
+				<target>Vorläufig</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.cancelled" resname="tx_cal_event.status.cancelled" approved="yes">
+				<source>Cancelled</source>
+				<target>Abgesagt</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification" resname="tx_cal_event.classification" approved="yes">
+				<source>Visibility</source>
+				<target>Sichtbarkeit</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.description" resname="tx_cal_event.classification.description" approved="yes">
+				<source>Private and confidential events are shown on the website as &quot;Busy&quot; (TypoScript view.privateEvents.busyTitle), without title, texts, location and link. The owners of the calendar see them completely when they are logged in.</source>
+				<target>Private und vertrauliche Termine werden auf der Webseite als „Belegt“ angezeigt (TypoScript view.privateEvents.busyTitle), ohne Titel, Texte, Ort und Link. Die Besitzer des Kalenders sehen sie nach der Anmeldung vollständig.</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.public" resname="tx_cal_event.classification.public" approved="yes">
+				<source>Public</source>
+				<target>Öffentlich</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.private" resname="tx_cal_event.classification.private" approved="yes">
+				<source>Private</source>
+				<target>Privat</target>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.confidential" resname="tx_cal_event.classification.confidential" approved="yes">
+				<source>Confidential</source>
+				<target>Vertraulich</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

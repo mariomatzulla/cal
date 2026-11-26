@@ -15,6 +15,7 @@ namespace MarioMatzulla\Cal\Tests\Functional\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 use MarioMatzulla\Cal\Controller\ContentController;
+use MarioMatzulla\Cal\Service\PrivateEventService;
 use MarioMatzulla\Cal\Utility\RecurrenceGenerator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -24,6 +25,7 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 #[CoversClass(ContentController::class)]
+#[CoversClass(PrivateEventService::class)]
 final class ContentControllerTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = ['mariomatzulla/cal'];
@@ -235,5 +237,39 @@ final class ContentControllerTest extends FunctionalTestCase
 
         $this->setFlexForm(['myTS' => 'pidList = 2']);
         self::assertStringNotContainsString('Concert', $this->render());
+    }
+
+    #[Test]
+    public function privateEventsAreBusyAndCancelledEventsAreMarked(): void
+    {
+        $events = $this->get(ConnectionPool::class)->getConnectionForTable('tx_cal_domain_model_event');
+        $events->update('tx_cal_domain_model_event', ['classification' => 'PRIVATE', 'caldav_data' => "BEGIN:VCALENDAR\r\nEND:VCALENDAR"], ['uid' => 1]);
+        $events->update('tx_cal_domain_model_event', ['status' => 'CANCELLED'], ['uid' => 2]);
+        $events->update('tx_cal_domain_model_event', ['status' => 'TENTATIVE'], ['uid' => 3]);
+        $this->setFlexForm(['allowedViews' => 'list,event,ics']);
+
+        $body = $this->render();
+        // only the time of the private event, without title, location and link
+        self::assertStringNotContainsString('Concert', $body);
+        self::assertStringNotContainsString('Town hall', $body);
+        self::assertStringContainsString('Busy', $body);
+        self::assertStringContainsString('cal-event--busy', $body);
+        self::assertStringNotContainsString('uid%5D=1&', $body);
+        // cancelled and tentative events are shown with a note
+        self::assertStringContainsString('Festival', $body);
+        self::assertStringContainsString('cal-event--cancelled', $body);
+        self::assertStringContainsString('Cancelled', $body);
+        self::assertStringContainsString('cal-event--tentative', $body);
+        self::assertStringContainsString('Tentative', $body);
+
+        // the detail view shows the time only, the iCalendar data is not downloaded
+        $detail = $this->render(['action' => 'event', 'uid' => 1]);
+        self::assertStringNotContainsString('Concert', $detail);
+        self::assertStringContainsString('Busy', $detail);
+        self::assertStringContainsString('Could not find the event', $this->render(['action' => 'ics', 'uid' => 1], ['type' => '150']));
+
+        // own text instead of "Busy"
+        $this->setFlexForm(['allowedViews' => 'list,event,ics', 'myTS' => 'view.privateEvents.busyTitle = Occupied']);
+        self::assertStringContainsString('Occupied', $this->render());
     }
 }

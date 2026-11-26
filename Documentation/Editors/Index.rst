@@ -105,6 +105,17 @@ Tab "General"
 :guilabel:`Description`
     Text of the event view.
 
+:guilabel:`Status` (`STATUS`)
+    Confirmed, tentative or cancelled. Tentative and cancelled events are shown
+    with a note ("Tentative", "Cancelled"), cancelled events struck through.
+
+:guilabel:`Visibility` (`CLASS`)
+    Private and confidential events are shown on the website as "Busy": only
+    their time, without title, texts, location, images and link. The iCalendar
+    download of the website is not available for them, CalDAV clients get the
+    complete event. The owners of the calendar see the complete event after the
+    login, marked with an icon. See :ref:`typoscript-private-events`.
+
 Tab "Recurrence"
 ----------------
 

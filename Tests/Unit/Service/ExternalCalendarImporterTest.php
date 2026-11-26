@@ -61,7 +61,7 @@ final class ExternalCalendarImporterTest extends UnitTestCase
      */
     private function createImporter(?array $calendar, array $responses = [], array $files = [], array $tempEvents = []): ExternalCalendarImporter
     {
-        $requestFactory = $this->createStub(RequestFactory::class);
+        $requestFactory = self::createStub(RequestFactory::class);
         $requestFactory->method('request')->willReturnCallback(function (string $url) use ($responses): ResponseInterface {
             $this->requests[] = $url;
             $response = $responses[$url] ?? new \RuntimeException('connection refused');
@@ -70,15 +70,15 @@ final class ExternalCalendarImporterTest extends UnitTestCase
             }
             return $response;
         });
-        $extensionConfiguration = $this->createStub(ExtensionConfiguration::class);
+        $extensionConfiguration = self::createStub(ExtensionConfiguration::class);
         $extensionConfiguration->method('get')->willReturn(['recurrenceStart' => '2026-11-01 00:00:00', 'recurrenceEnd' => '2026-12-01 00:00:00']);
 
-        $calendarRepository = $this->createStub(CalendarRepository::class);
+        $calendarRepository = self::createStub(CalendarRepository::class);
         $calendarRepository->method('findRawByUid')->willReturn($calendar);
         $calendarRepository->method('updateMd5')->willReturnCallback(function (int $uid, string $md5): void {
             $this->calls[] = 'md5 ' . $uid . ' ' . ($md5 === '' ? 'empty' : 'set');
         });
-        $eventRepository = $this->createStub(EventRepository::class);
+        $eventRepository = self::createStub(EventRepository::class);
         $eventRepository->method('removeTempEventsOfCalendar')->willReturnCallback(function (int $uid) use ($tempEvents): array {
             $this->calls[] = 'remove ' . $uid;
             return $tempEvents;
@@ -86,19 +86,19 @@ final class ExternalCalendarImporterTest extends UnitTestCase
         $eventRepository->method('insertRows')->willReturnCallback(function (array $rows): void {
             $this->inserted = $rows;
         });
-        $indexRepository = $this->createStub(IndexRepository::class);
+        $indexRepository = self::createStub(IndexRepository::class);
         $indexRepository->method('deleteByEventUidsAndTablename')->willReturnCallback(function (array $uids, string $table): void {
             $this->calls[] = 'index ' . implode(',', $uids) . ' ' . $table;
         });
-        $fileRepository = $this->createStub(FileRepository::class);
+        $fileRepository = self::createStub(FileRepository::class);
         $fileRepository->method('findByRelation')->willReturn($files);
 
-        $pageCacheService = $this->createStub(PageCacheService::class);
+        $pageCacheService = self::createStub(PageCacheService::class);
         $pageCacheService->method('flush')->willReturnCallback(function (): void {
             $this->calls[] = 'flush';
         });
 
-        return new ExternalCalendarImporter($requestFactory, $extensionConfiguration, $calendarRepository, $eventRepository, $indexRepository, $fileRepository, new SlugService($this->createStub(ConnectionPool::class)), $pageCacheService);
+        return new ExternalCalendarImporter($requestFactory, $extensionConfiguration, $calendarRepository, $eventRepository, $indexRepository, $fileRepository, new SlugService(self::createStub(ConnectionPool::class)), $pageCacheService);
     }
 
     private static function response(string $body, int $status = 200): ResponseInterface
@@ -111,13 +111,13 @@ final class ExternalCalendarImporterTest extends UnitTestCase
 
     private function file(string $content, bool $readable = true): FileReference
     {
-        $file = $this->createStub(File::class);
+        $file = self::createStub(File::class);
         if ($readable) {
             $file->method('getContents')->willReturn($content);
         } else {
             $file->method('getContents')->willThrowException(new \RuntimeException('missing'));
         }
-        $reference = $this->createStub(FileReference::class);
+        $reference = self::createStub(FileReference::class);
         $reference->method('getOriginalFile')->willReturn($file);
         $reference->method('getName')->willReturn('calendar.ics');
         return $reference;
@@ -205,16 +205,16 @@ final class ExternalCalendarImporterTest extends UnitTestCase
     private function hashOf(string $ics): string
     {
         $hash = '';
-        $calendarRepository = $this->createStub(CalendarRepository::class);
+        $calendarRepository = self::createStub(CalendarRepository::class);
         $calendarRepository->method('findRawByUid')->willReturn(self::calendar());
         $calendarRepository->method('updateMd5')->willReturnCallback(function (int $uid, string $md5) use (&$hash): void {
             $hash = $md5;
         });
-        $requestFactory = $this->createStub(RequestFactory::class);
+        $requestFactory = self::createStub(RequestFactory::class);
         $requestFactory->method('request')->willReturn(self::response($ics));
-        $eventRepository = $this->createStub(EventRepository::class);
+        $eventRepository = self::createStub(EventRepository::class);
         $eventRepository->method('removeTempEventsOfCalendar')->willReturn([]);
-        (new ExternalCalendarImporter($requestFactory, $this->createStub(ExtensionConfiguration::class), $calendarRepository, $eventRepository, $this->createStub(IndexRepository::class), $this->createStub(FileRepository::class), new SlugService($this->createStub(ConnectionPool::class)), $this->createStub(PageCacheService::class)))->importCalendar(3);
+        (new ExternalCalendarImporter($requestFactory, self::createStub(ExtensionConfiguration::class), $calendarRepository, $eventRepository, self::createStub(IndexRepository::class), self::createStub(FileRepository::class), new SlugService(self::createStub(ConnectionPool::class)), self::createStub(PageCacheService::class)))->importCalendar(3);
         return $hash;
     }
 

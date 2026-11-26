@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Domain\Model;
 
-use DateTime;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -184,6 +183,16 @@ class Event extends AbstractEntity
      * the recurrence fields, which contain an approximation.
      */
     protected string $rrule = '';
+
+    /**
+     * iCalendar STATUS (RFC 5545 3.8.1.11): '' (none), TENTATIVE, CONFIRMED or CANCELLED
+     */
+    protected string $status = '';
+
+    /**
+     * iCalendar CLASS (RFC 5545 3.8.1.3): '' (public), PUBLIC, PRIVATE or CONFIDENTIAL
+     */
+    protected string $classification = '';
 
     /**
      * @var \DateTime|null
@@ -391,6 +400,52 @@ class Event extends AbstractEntity
     public function setRrule(string $rrule): void
     {
         $this->rrule = $rrule;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function getClassification(): string
+    {
+        return $this->classification;
+    }
+
+    public function setClassification(string $classification): void
+    {
+        $this->classification = $classification;
+    }
+
+    public function isCancelled(): bool
+    {
+        return strtoupper($this->status) === 'CANCELLED';
+    }
+
+    public function isTentative(): bool
+    {
+        return strtoupper($this->status) === 'TENTATIVE';
+    }
+
+    /**
+     * Private and confidential events are shown as "busy" on the website (see PrivateEventService)
+     */
+    public function isPrivate(): bool
+    {
+        return in_array(strtoupper($this->classification), ['PRIVATE', 'CONFIDENTIAL'], true);
+    }
+
+    /**
+     * Only the time of the event is shown (EventBusyModel)
+     */
+    public function isBusy(): bool
+    {
+        return false;
     }
 
     /**

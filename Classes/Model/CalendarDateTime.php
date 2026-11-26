@@ -24,7 +24,6 @@ namespace MarioMatzulla\Cal\Model;
  */
 class CalendarDateTime extends \DateTime
 {
-
     public function __construct()
     {
         parent::__construct('', new \DateTimeZone('UTC'));

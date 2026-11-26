@@ -53,7 +53,7 @@ final class IcsRecurrenceTest extends UnitTestCase
 
     private function subject(): IcsRecurrence
     {
-        $generator = $this->createStub(RecurrenceGenerator::class);
+        $generator = self::createStub(RecurrenceGenerator::class);
         $generator->method('findExcludedOccurrences')->willReturnCallback(fn(): array => array_map(
             static fn(string $start): CalendarDateTime => CalendarDateTime::generateFromDateTime(new \DateTime($start)),
             $this->excluded,

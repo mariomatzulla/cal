@@ -275,4 +275,19 @@ final class IcsParserTest extends UnitTestCase
         $events = IcsParser::parseEvents(self::calendar("UID:invalid\r\nDTSTART:20261110T090000Z\r\nRRULE:FREQ=DAILY;COUNT=2;BYSETPOS=x\r\n"), new \DateTime('2026-11-01'), new \DateTime('2026-12-01'), 'Europe/Berlin');
         self::assertCount(2, $events);
     }
+
+    #[Test]
+    public function statusAndClassification(): void
+    {
+        $values = IcsParser::parseIcsContent(self::calendar("DTSTART:20261124T100000Z\r\nSTATUS:cancelled\r\nCLASS:CONFIDENTIAL\r\n"));
+        self::assertSame(['CANCELLED', 'CONFIDENTIAL'], [$values['status'], $values['classification']]);
+        // PUBLIC is the default, unknown values are ignored
+        $values = IcsParser::parseIcsContent(self::calendar("DTSTART:20261124T100000Z\r\nSTATUS:X-DONE\r\nCLASS:PUBLIC\r\n"));
+        self::assertSame(['', ''], [$values['status'], $values['classification']]);
+        $values = IcsParser::parseIcsContent(self::calendar("DTSTART:20261124T100000Z\r\n"));
+        self::assertSame(['', ''], [$values['status'], $values['classification']]);
+
+        $events = IcsParser::parseEvents(self::calendar("UID:a\r\nDTSTART:20261110T090000Z\r\nSTATUS:TENTATIVE\r\nCLASS:PRIVATE\r\n"), new \DateTime('2026-11-01'), new \DateTime('2026-12-01'), 'Europe/Berlin');
+        self::assertSame(['TENTATIVE', 'PRIVATE'], [$events[0]['status'], $events[0]['classification']]);
+    }
 }

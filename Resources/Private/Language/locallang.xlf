@@ -246,6 +246,18 @@
 			<trans-unit id="backend_module_ics_generator_reason_page" resname="backend_module_ics_generator_reason_page">
 				<source>Not possible: the event is stored on the root page</source>
 			</trans-unit>
+			<trans-unit id="l_busy" resname="l_busy" >
+				<source>Busy</source>
+			</trans-unit>
+			<trans-unit id="l_status_cancelled" resname="l_status_cancelled" >
+				<source>Cancelled</source>
+			</trans-unit>
+			<trans-unit id="l_status_tentative" resname="l_status_tentative" >
+				<source>Tentative</source>
+			</trans-unit>
+			<trans-unit id="l_private" resname="l_private" >
+				<source>Private event (only visible to you)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

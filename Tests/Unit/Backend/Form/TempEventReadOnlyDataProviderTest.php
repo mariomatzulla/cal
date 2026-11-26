@@ -67,7 +67,7 @@ final class TempEventReadOnlyDataProviderTest extends UnitTestCase
     #[Test]
     public function importedEventsAreReadOnly(): void
     {
-        $languageService = $this->createStub(LanguageService::class);
+        $languageService = self::createStub(LanguageService::class);
         $languageService->method('sL')->willReturn('Importiert');
         $GLOBALS['LANG'] = $languageService;
         $result = (new TempEventReadOnlyDataProvider())->addData(self::formResult());

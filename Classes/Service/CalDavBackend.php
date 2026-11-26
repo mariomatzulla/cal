@@ -7,6 +7,7 @@ namespace MarioMatzulla\Cal\Service;
 use MarioMatzulla\Cal\Domain\Repository\CalendarRepository;
 use MarioMatzulla\Cal\Domain\Repository\EventRepository;
 use MarioMatzulla\Cal\Domain\Repository\FrontendUserRepository;
+use MarioMatzulla\Cal\Domain\Repository\IndexRepository;
 use Sabre\CalDAV\Backend\AbstractBackend;
 use Sabre\CalDAV\Xml\Property\SupportedCalendarComponentSet;
 use Sabre\DAV\Exception\Forbidden;
@@ -22,6 +23,7 @@ class CalDavBackend extends AbstractBackend
         private readonly SlugService $slugService,
         private readonly CalDavRecurrenceWriter $recurrenceWriter,
         private readonly PageCacheService $pageCacheService,
+        private readonly IndexRepository $indexRepository,
     ) {}
 
     public function getCalendarsForUser($principalUri)
@@ -127,6 +129,8 @@ class CalDavBackend extends AbstractBackend
         }
         // Soft delete (deleted = 1), so the record can still be restored in the backend recycler
         $this->eventRepository->updateEvent($calendarId, (string)$record['ics_uid'], ['deleted' => 1, 'tstamp' => time()]);
+        // the dates of the recurrence index are created again when the event is restored
+        $this->indexRepository->deleteByEventUidsAndTablename([(int)$record['uid']], 'tx_cal_event');
         $this->calendarChanged($calendarId);
     }
 

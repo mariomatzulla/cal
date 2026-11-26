@@ -50,22 +50,22 @@ final class RecurrenceGeneratorTest extends UnitTestCase
     private function createGenerator(?EventRepository $eventRepository = null, ?IndexRepository $indexRepository = null, array $configuration = []): RecurrenceGenerator
     {
         if ($indexRepository === null) {
-            $indexRepository = $this->createStub(IndexRepository::class);
+            $indexRepository = self::createStub(IndexRepository::class);
             $indexRepository->method('add')->willReturnCallback(function (Index $entry): void {
                 $this->entries[] = $entry;
             });
         }
-        $deviationRepository = $this->createStub(EventDeviationRepository::class);
+        $deviationRepository = self::createStub(EventDeviationRepository::class);
         $deviationRepository->method('findByEventUid')->willReturnCallback(fn(): array => $this->deviations);
-        $exceptionRepository = $this->createStub(ExceptionEventRepository::class);
+        $exceptionRepository = self::createStub(ExceptionEventRepository::class);
         $exceptionRepository->method('findByEvent')->willReturnCallback(fn(): array => $this->exceptions);
-        $extensionConfiguration = $this->createStub(ExtensionConfiguration::class);
+        $extensionConfiguration = self::createStub(ExtensionConfiguration::class);
         $extensionConfiguration->method('get')->willReturn($configuration + ['recurrenceStart' => '2026-01-01 00:00:00', 'recurrenceEnd' => '2028-01-01 00:00:00']);
         return new RecurrenceGenerator(
-            $eventRepository ?? $this->createStub(EventRepository::class),
+            $eventRepository ?? self::createStub(EventRepository::class),
             $deviationRepository,
             $indexRepository,
-            $this->createStub(PersistenceManagerInterface::class),
+            self::createStub(PersistenceManagerInterface::class),
             $extensionConfiguration,
             $exceptionRepository,
         );

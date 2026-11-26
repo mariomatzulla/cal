@@ -54,6 +54,13 @@ settings:
     type: string
     default: 'HH:mm'
 
+  plugin.tx_cal.settings.view.privateEvents.busyTitle:
+    label: 'Text of private events'
+    description: 'Shown to visitors instead of the title of private and confidential events, empty: "Busy" (translated)'
+    category: cal.display
+    type: string
+    default: ''
+
   plugin.tx_cal.settings.view.ics.showIcsLinks:
     label: 'Show iCalendar links'
     category: cal.ics

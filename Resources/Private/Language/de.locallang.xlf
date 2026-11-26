@@ -147,6 +147,22 @@
 				<source>Not possible: the event is stored on the root page</source>
 				<target>Nicht möglich: Der Termin liegt auf der Wurzelseite</target>
 			</trans-unit>
+			<trans-unit id="l_busy" resname="l_busy" approved="yes">
+				<source>Busy</source>
+				<target>Belegt</target>
+			</trans-unit>
+			<trans-unit id="l_status_cancelled" resname="l_status_cancelled" approved="yes">
+				<source>Cancelled</source>
+				<target>Abgesagt</target>
+			</trans-unit>
+			<trans-unit id="l_status_tentative" resname="l_status_tentative" approved="yes">
+				<source>Tentative</source>
+				<target>Vorläufig</target>
+			</trans-unit>
+			<trans-unit id="l_private" resname="l_private" approved="yes">
+				<source>Private event (only visible to you)</source>
+				<target>Privater Termin (nur für dich sichtbar)</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

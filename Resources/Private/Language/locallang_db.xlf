@@ -568,6 +568,39 @@
 			<trans-unit id="tx_cal_calendar.ics_file.add" resname="tx_cal_calendar.ics_file.add">
 				<source>Add ICS file</source>
 			</trans-unit>
+			<trans-unit id="tx_cal_event.status_palette" resname="tx_cal_event.status_palette" >
+				<source>Status and visibility</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status" resname="tx_cal_event.status" >
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.none" resname="tx_cal_event.status.none" >
+				<source>Not set</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.confirmed" resname="tx_cal_event.status.confirmed" >
+				<source>Confirmed</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.tentative" resname="tx_cal_event.status.tentative" >
+				<source>Tentative</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.status.cancelled" resname="tx_cal_event.status.cancelled" >
+				<source>Cancelled</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification" resname="tx_cal_event.classification" >
+				<source>Visibility</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.description" resname="tx_cal_event.classification.description" >
+				<source>Private and confidential events are shown on the website as &quot;Busy&quot; (TypoScript view.privateEvents.busyTitle), without title, texts, location and link. The owners of the calendar see them completely when they are logged in.</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.public" resname="tx_cal_event.classification.public" >
+				<source>Public</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.private" resname="tx_cal_event.classification.private" >
+				<source>Private</source>
+			</trans-unit>
+			<trans-unit id="tx_cal_event.classification.confidential" resname="tx_cal_event.classification.confidential" >
+				<source>Confidential</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

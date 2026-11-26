@@ -120,7 +120,7 @@ class IcsRecurrence
      */
     public static function escapeText(string $text): string
     {
-        return str_replace(["\\", ';', ',', "\r\n", "\n", "\r"], ["\\\\", '\;', '\,', '\n', '\n', '\n'], $text);
+        return str_replace(['\\', ';', ',', "\r\n", "\n", "\r"], ['\\\\', '\;', '\,', '\n', '\n', '\n'], $text);
     }
 
     private function buildRule(Event $event, string $timezone): string

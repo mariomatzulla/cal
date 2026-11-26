@@ -129,6 +129,8 @@ class IcsGenerator
             $resources,
             self::generateVTimeZone((string)$calendar->getTimezone()),
         );
+        // alarms, attendees etc. of a CalDAV client are kept
+        IcsBuilder::keepClientData($vcalendar, $meta['data']);
         // SEQUENCE (RFC 5545 3.8.7.4) is incremented when the data changes
         $sequence = $meta['sequence'];
         if ($meta['data'] !== '' && self::withoutRevision($meta['data']) !== self::withoutRevision($vcalendar->serialize())) {

@@ -289,4 +289,34 @@ class EventRecModel
     {
         return $this->parentEvent->getFreq();
     }
+
+    public function getParentEvent(): Event
+    {
+        return $this->parentEvent;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->parentEvent->getStatus();
+    }
+
+    public function isCancelled(): bool
+    {
+        return $this->parentEvent->isCancelled();
+    }
+
+    public function isTentative(): bool
+    {
+        return $this->parentEvent->isTentative();
+    }
+
+    public function isPrivate(): bool
+    {
+        return $this->parentEvent->isPrivate();
+    }
+
+    public function isBusy(): bool
+    {
+        return false;
+    }
 }

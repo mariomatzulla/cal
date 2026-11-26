@@ -63,6 +63,7 @@ class IcsParser
         $localTimezone = self::getTimezone($timezone);
         $values = ['ics_uid' => isset($vEvent->UID) ? (string)$vEvent->UID : '']
             + self::parseEventValues($vEvent, $localTimezone)
+            + self::parseStatus($vEvent)
             + ['tstamp' => time()]
             + self::NO_RECURRENCE;
 
@@ -197,6 +198,23 @@ class IcsParser
             'location' => isset($vEvent->LOCATION) ? (string)$vEvent->LOCATION : '',
             'allday' => $isAllDay ? 1 : 0,
         ] + self::splitDateAndTime($startDate, $isAllDay, 'start') + self::splitDateAndTime($endDate, $isAllDay, 'end');
+    }
+
+    /**
+     * STATUS (TENTATIVE, CONFIRMED, CANCELLED) and CLASS (PRIVATE, CONFIDENTIAL) of the event,
+     * empty for PUBLIC and other values (e.g. extensions like X-...)
+     *
+     * @return array{status: string, classification: string}
+     */
+    private static function parseStatus(Component $vEvent): array
+    {
+        $status = strtoupper(trim((string)($vEvent->STATUS ?? '')));
+        $classification = strtoupper(trim((string)($vEvent->CLASS ?? '')));
+        return [
+            'status' => in_array($status, ['TENTATIVE', 'CONFIRMED', 'CANCELLED'], true) ? $status : '',
+            // PUBLIC is the default (empty)
+            'classification' => in_array($classification, ['PRIVATE', 'CONFIDENTIAL'], true) ? $classification : '',
+        ];
     }
 
     /**
@@ -360,7 +378,7 @@ class IcsParser
                 'allday' => $isAllDay ? 1 : 0,
                 'freq' => 'none',
                 'caldav_data' => $single->serialize(),
-            ];
+            ] + self::parseStatus($vEvent);
             $values = array_merge($values, self::splitDateAndTime($startDate, $isAllDay, 'start'));
             $values = array_merge($values, self::splitDateAndTime($endDate, $isAllDay, 'end'));
             $events[] = $values;

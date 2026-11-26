@@ -174,6 +174,12 @@ plugin.tx_cal.settings {
 			maxHeight = 1200
 		}
 
+		# Private and confidential events (iCalendar CLASS): visitors see them as "busy" with this text instead of
+		# the title (empty: label "Busy" of the language file), the owners of the calendar see the complete event
+		privateEvents {
+			busyTitle = {$plugin.tx_cal.settings.view.privateEvents.busyTitle}
+		}
+
 		ics {
 			showIcsLinks = {$plugin.tx_cal.settings.view.ics.showIcsLinks}
 			typeNum = {$plugin.tx_cal.settings.view.ics.typeNum}

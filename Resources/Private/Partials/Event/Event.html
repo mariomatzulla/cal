@@ -29,7 +29,7 @@
     </div>
 
     <div class="event-entry__body">
-      <h1 class="event-entry__title p-name">{event.title}</h1>
+      <h1 class="event-entry__title p-name{f:if(condition: event.busy, then: ' cal-event--busy')}{f:if(condition: '{event.private} && !{event.busy}', then: ' cal-event--private')}{f:if(condition: event.cancelled, then: ' cal-event--cancelled')}{f:if(condition: event.tentative, then: ' cal-event--tentative')}"><f:render partial="Event/Status" arguments="{event: event}" />{event.title}</h1>
 
       <ul class="event-entry__meta">
         <li>
@@ -133,7 +133,7 @@
         </f:if>
       </div>
       <div class="event-entry__ics">
-        <f:if condition="{viewLinks.ics}">
+        <f:if condition="{viewLinks.ics} && !{event.busy}">
           <f:variable name="icsArguments" value="{uid: event.uid}" />
           <f:if condition="{event.modelType} != 'tx_cal_event'"><f:variable name="icsArguments" value="{uid: event.uid, type: event.modelType}" /></f:if>
           <f:link.action action="ics" pageType="{settings.view.ics.typeNum}" arguments="{icsArguments}" class="event-button event-button--outline" title="{f:translate(key: 'l_event_icslink')}">

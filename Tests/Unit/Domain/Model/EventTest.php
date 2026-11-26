@@ -18,6 +18,7 @@ use MarioMatzulla\Cal\Domain\Model\Calendar;
 use MarioMatzulla\Cal\Domain\Model\Category;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Domain\Model\EventDeviation;
+use MarioMatzulla\Cal\Domain\Model\EventBusyModel;
 use MarioMatzulla\Cal\Domain\Model\EventRecDeviationModel;
 use MarioMatzulla\Cal\Domain\Model\EventRecModel;
 use MarioMatzulla\Cal\Domain\Model\Location;
@@ -32,6 +33,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Event::class)]
 #[CoversClass(EventRecModel::class)]
 #[CoversClass(EventRecDeviationModel::class)]
+#[CoversClass(EventBusyModel::class)]
 final class EventTest extends UnitTestCase
 {
     use AccessorAssertionsTrait;
@@ -239,6 +241,52 @@ final class EventTest extends UnitTestCase
             self::assertSame($event->{'get' . $name}(), $instance->{'get' . $name}(), $name);
         }
         self::assertSame($event->isAllday(), $instance->isAllday());
+        self::assertSame($event, $instance->getParentEvent());
+    }
+
+    #[Test]
+    public function statusAndClassification(): void
+    {
+        $event = new Event();
+        self::assertSame(['', ''], [$event->getStatus(), $event->getClassification()]);
+        self::assertFalse($event->isCancelled() || $event->isTentative() || $event->isPrivate() || $event->isBusy());
+        $event->setStatus('cancelled');
+        $event->setClassification('Confidential');
+        self::assertSame(['cancelled', 'Confidential'], [$event->getStatus(), $event->getClassification()]);
+        self::assertTrue($event->isCancelled());
+        self::assertTrue($event->isPrivate());
+        $event->setStatus('TENTATIVE');
+        $event->setClassification('PRIVATE');
+        self::assertTrue($event->isTentative());
+        self::assertFalse($event->isCancelled());
+        self::assertTrue($event->isPrivate());
+
+        $instance = new EventRecModel($event, 20261202140000, 20261202153000);
+        self::assertSame('TENTATIVE', $instance->getStatus());
+        self::assertTrue($instance->isTentative());
+        self::assertFalse($instance->isCancelled());
+        self::assertTrue($instance->isPrivate());
+        self::assertFalse($instance->isBusy());
+    }
+
+    #[Test]
+    public function busyEventsShowTheTimeOnly(): void
+    {
+        $event = self::fullEvent();
+        $busy = new EventBusyModel($event, 20261202140000, 20261202153000, 'Busy');
+        self::assertTrue($busy->isBusy());
+        self::assertSame('Busy', $busy->getTitle());
+        self::assertSame(['20261202140000', '20261202153000'], [$busy->getStart()->format('YmdHis'), $busy->getEnd()->format('YmdHis')]);
+        self::assertSame(
+            ['', '', '', '', '', 0, 0, null, null, 0, '', 0, '', 0, 0, '', [], []],
+            [$busy->getDescription(), $busy->getTeaser(), $busy->getCaldavData(), $busy->getLocation(), $busy->getOrganizer(),
+                $busy->getLocationId(), $busy->getOrganizerId(), $busy->getLocationObject(), $busy->getOrganizerObject(),
+                $busy->getLocationPid(), $busy->getLocationLink(), $busy->getOrganizerPid(), $busy->getOrganizerLink(),
+                $busy->getType(), $busy->getPage(), $busy->getExtUrl(), $busy->getCategories(), $busy->getImage()],
+        );
+        // the uid (keys of the views) and the color stay
+        self::assertSame($event->getUid(), $busy->getUid());
+        self::assertSame($event->getColor(), $busy->getColor());
     }
 
     #[Test]

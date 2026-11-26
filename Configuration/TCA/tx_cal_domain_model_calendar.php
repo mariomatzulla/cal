@@ -145,7 +145,6 @@ return [
             ],
         ],
 
-
         'ics_file' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:cal/Resources/Private/Language/locallang_db.xlf:tx_cal_calendar.ics_file',

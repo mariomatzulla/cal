@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\Controller;
 
-use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Events\FilterEventsEvent;
 use MarioMatzulla\Cal\Events\GetEventEvent;
 use MarioMatzulla\Cal\Events\GetLocationEvent;
@@ -14,6 +13,7 @@ use MarioMatzulla\Cal\Model\CalendarDateTime;
 use MarioMatzulla\Cal\Service\PageCacheService;
 use MarioMatzulla\Cal\Utility\CalculateDateTime;
 use MarioMatzulla\Cal\Utility\HelperFunctions;
+use MarioMatzulla\Cal\Utility\WeekStart;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -24,6 +24,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class ContentController extends ActionController
 {
+    use \MarioMatzulla\Cal\General;
     /**
      * Record type of the detail views, if the request has no argument "type"
      */
@@ -33,8 +34,6 @@ class ContentController extends ActionController
         'location' => 'tx_cal_location',
         'organizer' => 'tx_cal_organizer',
     ];
-
-    use \MarioMatzulla\Cal\General;
 
     /**
      * Storage folders of the records (settings pidList / recursive), null: not resolved yet
@@ -640,7 +639,8 @@ class ContentController extends ActionController
         }
         $params = $this->getUrlParameters();
         $event = $this->fetchEvent((string)$params ['type'], (int)$params ['uid'], $this->getGetdate());
-        if (!$event) {
+        // private events are shown as "busy" only, their data is not downloaded
+        if (!$event || $event->isBusy()) {
             return $this->responseFactory->createResponse(404)
               ->withHeader('Content-Type', 'text/plain; charset=utf-8')
               ->withBody($this->streamFactory->createStream('Could not find the event'));

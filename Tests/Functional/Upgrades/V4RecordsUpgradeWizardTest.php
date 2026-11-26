@@ -332,7 +332,7 @@ final class V4RecordsUpgradeWizardTest extends FunctionalTestCase
     {
         $this->createLegacyTables();
         $this->connection()->insert('tx_cal_event', ['uid' => 1, 'pid' => 5, 'crdate' => 20, 'title' => 'Event', 'calendar_id' => 1]);
-        $recurrenceGenerator = $this->createStub(RecurrenceGenerator::class);
+        $recurrenceGenerator = self::createStub(RecurrenceGenerator::class);
         $recurrenceGenerator->method('setRange')->willReturnSelf();
         $recurrenceGenerator->method('generateIndex')->willThrowException(new \RuntimeException('index broken'));
         $output = new BufferedOutput();

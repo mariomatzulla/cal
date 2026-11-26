@@ -1,0 +1,7 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+  Notes of an event: private event shown to the owner of the calendar (icon, iCalendar CLASS),
+  cancelled or tentative event (iCalendar STATUS). Arguments: event
+</f:comment>
+<f:if condition="{event.private} && !{event.busy}"><span class="cal-event__private" title="{f:translate(key: 'LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_private')}"><f:render partial="Icon/Icon" arguments="{name: 'private'}" /><span class="visually-hidden"><f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_private" /></span></span> </f:if><f:if condition="{event.cancelled}"><span class="cal-event__status cal-event__status--cancelled"><f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_status_cancelled" /></span> </f:if><f:if condition="{event.tentative}"><span class="cal-event__status cal-event__status--tentative"><f:translate key="LLL:EXT:cal/Resources/Private/Language/locallang.xlf:l_status_tentative" /></span> </f:if>
+</html>

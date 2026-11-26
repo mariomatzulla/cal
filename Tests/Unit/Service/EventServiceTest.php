@@ -60,17 +60,17 @@ final class EventServiceTest extends UnitTestCase
             $calendar->_setProperty('uid', $uid);
             return $calendar;
         }, $publicCalendars);
-        $calendarRepository = $this->createStub(CalendarRepository::class);
+        $calendarRepository = self::createStub(CalendarRepository::class);
         $calendarRepository->method('findPublicCalendarList')->willReturn($calendars);
 
-        $context = $this->createStub(Context::class);
+        $context = self::createStub(Context::class);
         $context->method('getPropertyFromAspect')->willReturnCallback(static fn(string $aspect, string $property): mixed => $property === 'id' ? ($userId ?? 0) : $groupIds);
-        $ownerRepository = $this->createStub(CalendarOwnerRelationRepository::class);
+        $ownerRepository = self::createStub(CalendarOwnerRelationRepository::class);
         $ownerRepository->method('findCalendarListForFeUser')->willReturnCallback(static fn(int $uid, array $groups): array => array_merge($uid === 9 ? $privateCalendars : [], in_array(3, $groups, true) ? [7] : []));
 
-        $result = $this->createStub(QueryResultInterface::class);
+        $result = self::createStub(QueryResultInterface::class);
         $result->method('toArray')->willReturn($events);
-        $this->eventRepository = $this->createStub(EventRepository::class);
+        $this->eventRepository = self::createStub(EventRepository::class);
         $this->eventRepository->method('findAllForEvent')->willReturnCallback(function (SearchEventsEvent $event, array $calendarIds, array $recurringUids) use ($result): QueryResultInterface {
             $this->searchArguments = ['calendarIds' => $calendarIds, 'recurringUids' => $recurringUids];
             return $result;
@@ -80,10 +80,10 @@ final class EventServiceTest extends UnitTestCase
             return $result;
         });
 
-        $this->indexRepository = $this->createStub(IndexRepository::class);
+        $this->indexRepository = self::createStub(IndexRepository::class);
         $this->indexRepository->method('findEventUids')->willReturn(array_keys($index));
         $this->indexRepository->method('findByEventUidStartAndEnd')->willReturnCallback(static fn(int $uid): array => $index[$uid] ?? []);
-        $this->deviationRepository = $this->createStub(EventDeviationRepository::class);
+        $this->deviationRepository = self::createStub(EventDeviationRepository::class);
         $this->deviationRepository->method('findByUid')->willReturnCallback(static fn(int $uid): ?EventDeviation => $deviations[$uid] ?? null);
 
         return new EventService($context, $this->eventRepository, $calendarRepository, $ownerRepository, $this->indexRepository, $this->deviationRepository);

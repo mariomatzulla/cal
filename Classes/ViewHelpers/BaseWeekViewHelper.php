@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MarioMatzulla\Cal\ViewHelpers;
 
-use MarioMatzulla\Cal\Utility\WeekStart;
 use MarioMatzulla\Cal\Domain\Model\Event;
 use MarioMatzulla\Cal\Model\CalendarDateTime;
 use MarioMatzulla\Cal\Model\WeekView;
+use MarioMatzulla\Cal\Utility\WeekStart;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 abstract class BaseWeekViewHelper extends AbstractViewHelper

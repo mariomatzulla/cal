@@ -33,7 +33,7 @@ final class LocationServiceTest extends UnitTestCase
 {
     private function queryResult(array $records): QueryResultInterface
     {
-        $result = $this->createStub(QueryResultInterface::class);
+        $result = self::createStub(QueryResultInterface::class);
         $result->method('toArray')->willReturn($records);
         return $result;
     }

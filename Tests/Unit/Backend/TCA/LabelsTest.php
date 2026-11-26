@@ -40,7 +40,7 @@ final class LabelsTest extends UnitTestCase
 
     private function labels(bool $showTimes): Labels
     {
-        $configuration = $this->createStub(ExtensionConfiguration::class);
+        $configuration = self::createStub(ExtensionConfiguration::class);
         $configuration->method('get')->willReturn($showTimes ? '1' : null);
         GeneralUtility::addInstance(ExtensionConfiguration::class, $configuration);
         return new Labels();
@@ -123,7 +123,7 @@ final class LabelsTest extends UnitTestCase
     #[Test]
     public function deviationLabel(): void
     {
-        $languageService = $this->createStub(LanguageService::class);
+        $languageService = self::createStub(LanguageService::class);
         $languageService->method('sL')->willReturn('Abweichung');
         $GLOBALS['LANG'] = $languageService;
         $params = ['table' => 'tx_cal_domain_model_eventdeviation', 'row' => ['uid' => 5, 'orig_start_date' => gmmktime(0, 0, 0, 11, 25, 2026), 'orig_start_time' => 36000]];

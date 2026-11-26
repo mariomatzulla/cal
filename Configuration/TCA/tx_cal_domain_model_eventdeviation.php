@@ -10,7 +10,6 @@ $configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->ge
 
 $sPid = '###CURRENT_PID###'; // storage pid????
 
-
 return [
     'ctrl' =>  [
 

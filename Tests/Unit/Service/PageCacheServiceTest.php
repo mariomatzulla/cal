@@ -30,7 +30,7 @@ final class PageCacheServiceTest extends UnitTestCase
     public function thePageGetsTheTablesOfCalAsCacheTags(): void
     {
         $collector = new CacheDataCollector();
-        $service = new PageCacheService($this->createStub(CacheManager::class));
+        $service = new PageCacheService(self::createStub(CacheManager::class));
         $service->addCacheTags((new ServerRequest())->withAttribute('frontend.cache.collector', $collector));
         $tags = array_map(static fn(CacheTag $tag): string => $tag->name, $collector->getCacheTags());
         self::assertSame(PageCacheService::TAGS, array_values($tags));

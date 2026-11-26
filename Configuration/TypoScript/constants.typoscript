@@ -13,6 +13,8 @@ plugin.tx_cal.settings {
 	view.weekStartDay = monday
 	# cat=Calendar Base/display/30; type=string; label=Time format (ICU, e.g. HH:mm)
 	view.timeFormat = HH:mm
+	# cat=Calendar Base/display/40; type=string; label=Text of private events: shown to visitors instead of the title (empty: "Busy", translated)
+	view.privateEvents.busyTitle =
 	# cat=Calendar Base/ics/10; type=boolean; label=Show iCalendar links
 	view.ics.showIcsLinks = 1
 	# cat=Calendar Base/ics/20; type=int+; label=Page type of the iCalendar export

@@ -205,7 +205,7 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
     {
         $this->process([self::EVENT_TABLE => [1 => ['title' => 'Meeting (updated)']]]);
         self::assertGreaterThan(0, $this->indexCount(1));
-        $this->process([self::EVENT_TABLE => [1 => ['hidden' => 1, 'title' => 'Meeting (hidden)']], ]);
+        $this->process([self::EVENT_TABLE => [1 => ['hidden' => 1, 'title' => 'Meeting (hidden)']]]);
         self::assertSame(0, $this->indexCount(1));
         self::assertStringNotContainsString('Meeting (hidden)', (string)$this->row(self::EVENT_TABLE, 1)['caldav_data']);
 
@@ -225,7 +225,7 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
         $secondWeek = date('Ymd', $start + 7 * 86400);
         $thirdWeek = date('Ymd', $start + 14 * 86400);
         $data = (string)$this->row(self::EVENT_TABLE, 1)['caldav_data'];
-        self::assertStringContainsString("RRULE:FREQ=WEEKLY;UNTIL=", $data);
+        self::assertStringContainsString('RRULE:FREQ=WEEKLY;UNTIL=', $data);
         self::assertStringNotContainsString('EXDATE', $data);
 
         // an exception event of the second week
@@ -392,7 +392,7 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
     #[Test]
     public function failingIndexIsReported(): void
     {
-        $recurrenceGenerator = $this->createStub(RecurrenceGenerator::class);
+        $recurrenceGenerator = self::createStub(RecurrenceGenerator::class);
         $recurrenceGenerator->method('setRange')->willReturnSelf();
         $recurrenceGenerator->method('generateIndexForEventUid')->willThrowException(new \RuntimeException('index broken'));
         $this->hook($recurrenceGenerator)->processDatamap_afterDatabaseOperations('update', self::EVENT_TABLE, 1, [], GeneralUtility::makeInstance(DataHandler::class));
@@ -430,5 +430,17 @@ final class CalendarDataHandlerHookTest extends FunctionalTestCase
         $fieldArray = ['freq' => 'day', 'rrule' => 'FREQ=HOURLY'];
         $this->hook()->processDatamap_postProcessFieldArray('update', self::EVENT_TABLE, 1, $fieldArray, GeneralUtility::makeInstance(DataHandler::class));
         self::assertSame('FREQ=HOURLY', $fieldArray['rrule']);
+    }
+
+    #[Test]
+    public function aRestoredEventGetsItsIndexAgain(): void
+    {
+        $this->process([self::EVENT_TABLE => [1 => ['title' => 'Weekly meeting']]]);
+        $count = $this->indexCount(1);
+        self::assertGreaterThan(1, $count);
+        $this->process([], [self::EVENT_TABLE => [1 => ['delete' => 1]]]);
+        self::assertSame(0, $this->indexCount(1));
+        $this->process([], [self::EVENT_TABLE => [1 => ['undelete' => 1]]]);
+        self::assertSame($count, $this->indexCount(1));
     }
 }
